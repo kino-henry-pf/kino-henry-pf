@@ -9,7 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const typeorm_1 = require("@nestjs/typeorm");
 const config_types_1 = require("../config/config.types");
+const database_config_1 = require("../config/database.config");
 const environment_config_1 = require("../config/environment.config");
 let AppModule = class AppModule {
 };
@@ -19,10 +21,18 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                load: [environment_config_1.environmentVariables],
+                load: [environment_config_1.environmentVariables, database_config_1.typeOrmConfig],
                 envFilePath: '.env',
                 validationSchema: config_types_1.configSchema,
                 validationOptions: { abortEarly: true },
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (configService) => {
+                    const dbConfig = configService.get('database', { infer: true });
+                    return { ...dbConfig };
+                },
             }),
         ],
     })
