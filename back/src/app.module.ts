@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configSchema, ConfigType } from 'config/config.types';
 import { typeOrmConfig } from 'config/database.config';
 import { environmentVariables } from 'config/environment.config';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { environmentVariables } from 'config/environment.config';
         return { ...dbConfig };
       },
     }),
+    UsersModule,
   ],
 })
 export class AppModule {}
