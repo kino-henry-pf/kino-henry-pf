@@ -7805,7 +7805,7 @@ const routeModule = new __TURBOPACK__imported__module__$5b$project$5d2f$front$2f
     userland: {
         loaderTree: tree
     },
-    distDir: ("TURBOPACK compile-time value", ".next/dev") || '',
+    distDir: ("TURBOPACK compile-time value", ".next\\dev") || '',
     relativeProjectDir: ("TURBOPACK compile-time value", "") || ''
 });
 async function handler(req, res, ctx) {
