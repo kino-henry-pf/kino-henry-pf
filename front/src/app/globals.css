@@ -47,6 +47,15 @@ h1, h2 {
   height: 5px;
 }
 
+.hide-scrollbar {
+  scrollbar-width: 0;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .container-x-padding {
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);
