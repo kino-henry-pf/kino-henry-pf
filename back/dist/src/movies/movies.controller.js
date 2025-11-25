@@ -20,6 +20,8 @@ const common_1 = require("@nestjs/common");
 const movies_service_1 = require("./movies.service");
 const create_movie_dto_1 = __importDefault(require("./DTOs/create-movie.dto"));
 const update_movie_dto_1 = require("./DTOs/update-movie.dto");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
 let MoviesController = class MoviesController {
     moviesService;
     constructor(moviesService) {
@@ -33,11 +35,11 @@ let MoviesController = class MoviesController {
     async findById(id) {
         return await this.moviesService.findById(id);
     }
-    async createMovie(createMovieDto) {
-        return await this.moviesService.createMovie(createMovieDto);
+    async createMovie(createMovieDto, file) {
+        return await this.moviesService.createMovie(createMovieDto, file);
     }
-    async updateMovie(id, updateMovieDto) {
-        return await this.moviesService.updateMovie(id, updateMovieDto);
+    async updateMovie(id, updateMovieDto, file) {
+        return await this.moviesService.updateMovie(id, updateMovieDto, file);
     }
     async deleteMovie(id) {
         return await this.moviesService.deleteMovie(id);
@@ -60,17 +62,21 @@ __decorate([
 ], MoviesController.prototype, "findById", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', { storage: (0, multer_1.memoryStorage)() })),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_movie_dto_1.default]),
+    __metadata("design:paramtypes", [create_movie_dto_1.default, Object]),
     __metadata("design:returntype", Promise)
 ], MoviesController.prototype, "createMovie", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', { storage: (0, multer_1.memoryStorage)() })),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_movie_dto_1.UpdateMovieDto]),
+    __metadata("design:paramtypes", [String, update_movie_dto_1.UpdateMovieDto, Object]),
     __metadata("design:returntype", Promise)
 ], MoviesController.prototype, "updateMovie", null);
 __decorate([

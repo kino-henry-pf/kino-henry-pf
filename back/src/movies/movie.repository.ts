@@ -29,14 +29,7 @@ export class MoviesRepository {
   }
 
   async createMovie(dto: CreateMovieDto): Promise<Movie> {
-    const newMovie = this.moviesRepository.create({
-      title: dto.title,
-      sinopsis: dto.sinopsis,
-      rating: dto.rating,
-      genre: dto.genre,
-      image: dto.image,
-      duration: dto.duration,
-    });
+    const newMovie = this.moviesRepository.create(dto);
     return await this.moviesRepository.save(newMovie);
   }
 
