@@ -4,7 +4,7 @@ import { MoviesController } from './movies.controller';
 import { MoviesRepository } from './movie.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import Movie from './movie.entity';
-import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Movie]), CloudinaryModule],
