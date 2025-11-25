@@ -4,5 +4,8 @@ exports.environmentVariables = void 0;
 const config_1 = require("@nestjs/config");
 exports.environmentVariables = (0, config_1.registerAs)('env', () => ({
     port: parseInt(process.env.PORT ?? '3000', 10),
+    cloudName: process.env.CLOUD_NAME ?? '',
+    cloudKey: process.env.CLOUD_KEY ?? '',
+    cloudSecret: process.env.CLOUD_SECRET ?? '',
 }));
 //# sourceMappingURL=environment.config.js.map
