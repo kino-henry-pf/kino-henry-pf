@@ -11,7 +11,7 @@ exports.typeOrmConfig = (0, config_1.registerAs)('database', () => ({
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT ?? '5432'),
     username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    password: process.env.DB_PASSWORD ?? 'postgres',
     database: process.env.DB_DATABASE,
     entities: [movie_entity_1.default],
     synchronize: Number(process.env.DB_SYNC) === 1,
