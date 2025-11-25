@@ -106,13 +106,6 @@ export class SeederService {
         duration: 169,
       },
     ];
-    for (const movieData of movies) {
-      const exists = await this.movieRepository.findOne({
-        where: { title: movieData.title },
-      });
-      if (!exists) await this.movieRepository.save(movieData);
-    }
-    console.log('Movies seeded.');
 
     const products: Partial<Product>[] = [
       {
@@ -186,13 +179,7 @@ export class SeederService {
         category: Category.COMBO,
       },
     ];
-    for (const productData of products) {
-      const exists = await this.productsRepository.findOne({
-        where: { name: productData.name },
-      });
-      if (!exists) await this.productsRepository.save(productData);
-    }
-    console.log('Products seeded.');
+
     // const users: Partial<User>[] = [
     //   {
     //     id: '1',
@@ -265,6 +252,23 @@ export class SeederService {
     //     address: 'Boulevard del Mar 60, Alicante',
     //   },
     // ];
+
+    for (const movieData of movies) {
+      const exists = await this.movieRepository.findOne({
+        where: { title: movieData.title },
+      });
+      if (!exists) await this.movieRepository.save(movieData);
+    }
+    console.log('Movies seeded.');
+
+    for (const productData of products) {
+      const exists = await this.productsRepository.findOne({
+        where: { name: productData.name },
+      });
+      if (!exists) await this.productsRepository.save(productData);
+    }
+    console.log('Products seeded.');
+
     // for (const userData of users) {
     //   const exists = await this.usersRepository.findOne({
     //     where: { email: userData.email },

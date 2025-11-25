@@ -6,7 +6,7 @@ import { User } from '../users/entity/user.entity';
 import Product from '../products/product.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie, Product, User])],
+  imports: [TypeOrmModule.forFeature([Movie, User, Product])],
   providers: [SeederService],
   exports: [SeederService],
 })

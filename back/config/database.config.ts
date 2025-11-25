@@ -13,7 +13,7 @@ export const typeOrmConfig = registerAs(
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD ?? 'postgres',
     database: process.env.DB_DATABASE,
-    entities: [User, Product, Movie],
+    entities: [Movie, User, Product],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
   }),
