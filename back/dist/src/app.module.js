@@ -13,6 +13,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const config_types_1 = require("../config/config.types");
 const database_config_1 = require("../config/database.config");
 const environment_config_1 = require("../config/environment.config");
+const movies_module_1 = require("./movies/movies.module");
+const seeder_module_1 = require("./seeder/seeder.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,6 +36,8 @@ exports.AppModule = AppModule = __decorate([
                     return { ...dbConfig };
                 },
             }),
+            movies_module_1.MoviesModule,
+            seeder_module_1.SeederModule,
         ],
     })
 ], AppModule);
