@@ -31,14 +31,7 @@ export default function FaqsPage({
     }, [_search, normalizeText])
 
     return (
-        <main className="w-full h-full flex items-center justify-center flex-col bg-background pb-10 gap-20">
-            <header className="w-full h-fit flex items-center justify-center bg-white/2 container-x-padding pt-5 border-b-[#1b1b1b] border-b-1">
-                <Image
-                    alt="Logo de KINO - PNG"
-                    src={Logo}
-                    className="h-10 w-fit"
-                />
-            </header>
+        <main className="w-full h-full flex items-center justify-center flex-col bg-background pb-10 gap-20 mt-20">
             <div className="h-fit flex flex-col gap-5 text-center container-x-padding w-full md:w-fit">
                 <h1 className="text-4xl font-bold">Preguntas frecuentes</h1>
                 <Searcher onInput={_setSearch} value={_search} />
