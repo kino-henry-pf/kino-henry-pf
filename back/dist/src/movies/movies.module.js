@@ -16,12 +16,13 @@ const movies_controller_1 = require("./movies.controller");
 const movie_repository_1 = require("./movie.repository");
 const typeorm_1 = require("@nestjs/typeorm");
 const movie_entity_1 = __importDefault(require("./movie.entity"));
+const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
 let MoviesModule = class MoviesModule {
 };
 exports.MoviesModule = MoviesModule;
 exports.MoviesModule = MoviesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default]), cloudinary_module_1.CloudinaryModule],
         controllers: [movies_controller_1.MoviesController],
         providers: [movies_service_1.MoviesService, movie_repository_1.MoviesRepository],
     })

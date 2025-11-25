@@ -1,10 +1,10 @@
 'use client'
 
 import Image from "next/image";
-import KinoLogo from "../../assets/img/KINO.png";
+import KinoLogo from "@/../public/logo.png";
 import { useState } from "react";
 
-function Login() {
+function LoginForm() {
 const [form, setForm] = useState({
     email: "",
     password: "",
@@ -80,4 +80,4 @@ const [form, setForm] = useState({
     
 };
 
-export default Login;
+export default LoginForm;

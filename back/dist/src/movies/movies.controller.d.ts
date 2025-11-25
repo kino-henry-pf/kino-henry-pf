@@ -7,7 +7,7 @@ export declare class MoviesController {
     constructor(moviesService: MoviesService);
     findAllOrByTitle(title?: string): Promise<Movie[]>;
     findById(id: string): Promise<Movie>;
-    createMovie(createMovieDto: CreateMovieDto): Promise<Movie>;
-    updateMovie(id: string, updateMovieDto: UpdateMovieDto): Promise<Movie>;
+    createMovie(createMovieDto: CreateMovieDto, file?: Express.Multer.File): Promise<Movie>;
+    updateMovie(id: string, updateMovieDto: UpdateMovieDto, file?: Express.Multer.File): Promise<Movie>;
     deleteMovie(id: string): Promise<void>;
 }

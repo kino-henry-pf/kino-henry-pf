@@ -6,6 +6,7 @@ import { typeOrmConfig } from '../config/database.config';
 import { environmentVariables } from '../config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -24,8 +25,10 @@ import { SeederModule } from './seeder/seeder.module';
         return { ...dbConfig };
       },
     }),
+    UsersModule,
     MoviesModule,
     SeederModule,
   ],
+  providers:[SeederModule]
 })
 export class AppModule {}

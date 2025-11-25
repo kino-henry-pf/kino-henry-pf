@@ -4,6 +4,5 @@ export default class CreateMovieDto {
     sinopsis: string;
     rating: number;
     genre: Genre;
-    image: string;
     duration: number;
 }

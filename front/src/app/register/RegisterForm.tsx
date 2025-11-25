@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
-import KinoLogo from "../../assets/img/KINO.png";
+import KinoLogo from "@/../public/logo.png";
 import Image from "next/image";
 
-function Register() {
-   const [form, setForm] = useState({
+function RegisterForm() {
+  const [form, setForm] = useState({
     nombre: "",
     email: "",
     password: "",
@@ -13,8 +13,8 @@ function Register() {
   });
 
   const handleOnClick = () => {
-    window.location.href = "/login"
-  }
+    window.location.href = "/login";
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -36,19 +36,21 @@ function Register() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-[#121212]">
-        <Image
-          src={KinoLogo} 
-          alt="Kino Logo"
-          width={200} 
-          height={100} 
-          priority
-          className="mb-6"
-        />
+      <Image
+        src={KinoLogo}
+        alt="Kino Logo"
+        width={200}
+        height={100}
+        priority
+        className="mb-6"
+      />
       <form
         onSubmit={handleSubmit}
         className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center mb-4 text-white">Registro</h2>
+        <h2 className="text-2xl font-bold text-center mb-4 text-white">
+          Registro
+        </h2>
 
         <input
           type="text"
@@ -97,10 +99,15 @@ function Register() {
         >
           Registrarse
         </button>
-        <p className="p-2">Ya tenes cuenta? <a className="text-blue-300 text-center" href="/login">Iniciar Sesion</a></p>
+        <p className="p-2">
+          Ya tenes cuenta?{" "}
+          <a className="text-blue-300 text-center" href="/login">
+            Iniciar Sesion
+          </a>
+        </p>
       </form>
     </div>
   );
-};
+}
 
-export default Register;
+export default RegisterForm;

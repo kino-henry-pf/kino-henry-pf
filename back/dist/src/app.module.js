@@ -15,6 +15,7 @@ const database_config_1 = require("../config/database.config");
 const environment_config_1 = require("../config/environment.config");
 const movies_module_1 = require("./movies/movies.module");
 const seeder_module_1 = require("./seeder/seeder.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -36,9 +37,11 @@ exports.AppModule = AppModule = __decorate([
                     return { ...dbConfig };
                 },
             }),
+            users_module_1.UsersModule,
             movies_module_1.MoviesModule,
             seeder_module_1.SeederModule,
         ],
+        providers: [seeder_module_1.SeederModule]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
