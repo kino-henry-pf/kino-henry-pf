@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "question": "Question de prueba",
+        "answer": "Answer de prueba"
+    },
+    {
+        "id": 2,
+        "question": "Question de prueba",
+        "answer": "Answer de prueba"
+    }
+]
