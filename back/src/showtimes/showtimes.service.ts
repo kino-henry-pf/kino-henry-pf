@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import ShowtimesRepository from './showtimes.repository';
 import Showtime from './showtimes.entity';
 import { CreateShowtimeDto } from './DTOs/create-showtime.dto';
-import { MoviesService } from 'src/movies/movies.service';
+import { MoviesService } from '../movies/movies.service';
 
 @Injectable()
 export class ShowtimesService {

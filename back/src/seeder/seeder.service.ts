@@ -4,6 +4,7 @@ import Movie, { Genre } from '../movies/movie.entity';
 import { Repository } from 'typeorm';
 import { User } from '../users/entity/user.entity';
 import Product, { Category } from '../products/product.entity';
+import Showtime, { Format, Language } from '../showtimes/showtimes.entity';
 
 @Injectable()
 export class SeederService {
@@ -11,6 +12,8 @@ export class SeederService {
     @InjectRepository(Movie) private movieRepository: Repository<Movie>,
     @InjectRepository(User) private usersRepository: Repository<User>,
     @InjectRepository(Product) private productsRepository: Repository<Product>,
+    @InjectRepository(Showtime)
+    private showtimeRepository: Repository<Showtime>,
   ) {}
 
   async seed() {
@@ -180,6 +183,85 @@ export class SeederService {
       },
     ];
 
+    const showtimes: Partial<Showtime>[] = [
+      {
+        movieId: '307a1f3c-7bd5-447e-a6e5-d9b826239c10', // The Dark Knight
+        branchId: '8b5f1c4d-7c68-4e19-9bb2-f7b6f91c884d',
+        roomId: 'c923c47f-bda2-49e7-ac14-7fc38fd6b912',
+        startTime: new Date('2025-12-01T18:00:00.000Z'),
+        language: Language.DUBBED,
+        format: Format.TWO_D,
+      },
+      {
+        movieId: '307a1f3c-7bd5-447e-a6e5-d9b826239c10', // The Dark Knight
+        branchId: 'bbd7c710-22f9-4d42-963e-49f5e0f82b5e',
+        roomId: '387e4bd8-9cf1-41bb-9a92-9f176df70f33',
+        startTime: new Date('2025-12-01T21:00:00.000Z'),
+        language: Language.SUBTITLED,
+        format: Format.THREE_D,
+      },
+
+      {
+        movieId: '25ad5e3b-280b-4a48-b8ad-66962725fa03', // Inception
+        branchId: '5a739056-7ae2-41b8-8ecb-af54c6ae7a10',
+        roomId: 'b87dc2e3-a90f-4e24-b9e5-296b39af1dc0',
+        startTime: new Date('2025-12-02T17:30:00.000Z'),
+        language: Language.SUBTITLED,
+        format: Format.TWO_D,
+      },
+      {
+        movieId: '25ad5e3b-280b-4a48-b8ad-66962725fa03',
+        branchId: 'e5d63b89-1e37-4c08-b4e5-752fcfe6cc12',
+        roomId: '3d961280-b52c-4e6f-8f7b-5c3ccaa8a9df',
+        startTime: new Date('2025-12-02T20:30:00.000Z'),
+        language: Language.DUBBED,
+        format: Format.THREE_D,
+      },
+
+      {
+        movieId: '2304dd63-a42c-4d9f-8102-1f801ba86f6e', // The Notebook
+        branchId: '1f7c61ab-8e1c-47da-bbe8-7f61b4f0b121',
+        roomId: '52a4eace-1a02-4e8b-bb2f-c48f664753db',
+        startTime: new Date('2025-12-03T19:00:00.000Z'),
+        language: Language.SUBTITLED,
+        format: Format.TWO_D,
+      },
+      {
+        movieId: '2304dd63-a42c-4d9f-8102-1f801ba86f6e',
+        branchId: '138a15a4-a2fb-45d3-a304-b2e6bb8fb4cd',
+        roomId: '680a49e6-e405-4c58-ad85-9b15ace0ed32',
+        startTime: new Date('2025-12-03T22:00:00.000Z'),
+        language: Language.DUBBED,
+        format: Format.TWO_D,
+      },
+
+      {
+        movieId: 'b504a9e4-1170-4dc0-bc63-f6599a07665d', // Parasite
+        branchId: '8391c1f7-2b92-4d30-90b6-01925020cfe3',
+        roomId: '91f20554-a8ef-4ee0-99bb-d80d8a87fe09',
+        startTime: new Date('2025-12-04T18:45:00.000Z'),
+        language: Language.SUBTITLED,
+        format: Format.TWO_D,
+      },
+      {
+        movieId: 'b504a9e4-1170-4dc0-bc63-f6599a07665d',
+        branchId: 'b9ea3cd2-b969-4fe5-a63a-7c19192880f7',
+        roomId: '3c1e25f2-0b85-4cb6-b71e-38616fc4cb0f',
+        startTime: new Date('2025-12-04T21:30:00.000Z'),
+        language: Language.DUBBED,
+        format: Format.THREE_D,
+      },
+
+      {
+        movieId: 'b74288a6-a41a-4043-8194-d11fd79e83b3', // La La Land
+        branchId: 'deff270d-2500-4abd-9c82-b5d52b8f4db0',
+        roomId: '3dc36a67-e4e0-43dd-95ce-e19ccca690a8',
+        startTime: new Date('2025-12-05T19:15:00.000Z'),
+        language: Language.SUBTITLED,
+        format: Format.TWO_D,
+      },
+    ];
+
     // const users: Partial<User>[] = [
     //   {
     //     id: '1',
@@ -268,6 +350,12 @@ export class SeederService {
       if (!exists) await this.productsRepository.save(productData);
     }
     console.log('Products seeded.');
+
+    for (const showtimeData of showtimes) {
+      const exists = await this.showtimeRepository.find();
+      if (exists.length < 10) await this.showtimeRepository.save(showtimeData);
+    }
+    console.log('Showtimes seeded.');
 
     // for (const userData of users) {
     //   const exists = await this.usersRepository.findOne({
