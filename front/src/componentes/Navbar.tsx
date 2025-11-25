@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // componentes/Navbar.tsx
 "use client";
 
@@ -8,7 +9,7 @@ import KinoLogo from "../../assets/img/KINO.png";
 
 export default function Navbar() {
   // Simulacion del estado de autenticacion
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Datos del usuario (mock)
   const user = {
