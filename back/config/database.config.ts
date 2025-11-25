@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import Movie from 'src/movies/movie.entity';
+import Movie from '../src/movies/movie.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
