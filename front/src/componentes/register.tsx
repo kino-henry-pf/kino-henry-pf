@@ -91,7 +91,7 @@ function Register() {
         />
 
         <button
-        onClick={handleOnClick}
+          onClick={handleOnClick}
           type="submit"
           className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
         >
