@@ -1,83 +1,118 @@
-'use client'
+'use client';
 
 import Image from "next/image";
 import KinoLogo from "@/../public/logo.png";
-import { useState } from "react";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+
+interface LoginValues {
+  email: string;
+  password: string;
+}
 
 function LoginForm() {
-const [form, setForm] = useState({
+  const initialValues: LoginValues = {
     email: "",
     password: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
   };
 
-  const handleOnClick = () => {
-    window.location.href = "/"
-  }
+  const validate = (values: LoginValues) => {
+    const errors: Partial<LoginValues> = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    if (!values.email) {
+      errors.email = "El correo electrónico es obligatorio.";
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Formato de correo inválido.";
+    }
 
-    setForm({
-      email: "",
-      password: "",
-    });
+    if (!values.password) {
+      errors.password = "La contraseña es obligatoria.";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = (
+    values: LoginValues,
+    { resetForm }: FormikHelpers<LoginValues>
+  ) => {
+    console.log("Datos enviados:", values);
+
+    alert("Login exitoso!");
+
+    resetForm();  
+    window.location.href = "/";
   };
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-[#121212]">
       <Image
-          src={KinoLogo} 
-          alt="Kino Logo"
-          width={200} 
-          height={100} 
-          priority
-          className="mb-6"
-        />
-      <form
+        src={KinoLogo}
+        alt="Kino Logo"
+        width={200}
+        height={100}
+        priority
+        className="mb-6"
+      />
+
+      <Formik
+        initialValues={initialValues}
+        validate={validate}
         onSubmit={handleSubmit}
-        className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center mb-4 text-white">Login</h2>
+        {({ isSubmitting }) => (
+          <Form className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4">
+            <h2 className="text-2xl font-bold text-center mb-4 text-white">
+              Login
+            </h2>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-[#3d3c3c] text-white"
-          required
-        />
+            <div>
+              <Field
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="email"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={form.password}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-[#3d3c3c] text-white"
-          required
-        />
+            <div>
+              <Field
+                type="password"
+                name="password"
+                placeholder="Contraseña"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="password"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
 
-        <button
-          onClick={handleOnClick}
-          type="submit"
-          className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
-        >
-          Iniciar Sesion
-        </button>
-        <p className="p-2">No tenes cuenta? <a className="text-blue-300 text-center" href="/register">Crear Cuenta</a></p>
-      </form>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
+            >
+              Iniciar Sesión
+            </button>
+
+            <p className="p-2">
+              No tenes cuenta?{" "}
+              <a className="text-blue-300 text-center" href="/register">
+                Crear Cuenta
+              </a>
+            </p>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
-    
-};
+}
 
 export default LoginForm;

@@ -1,37 +1,52 @@
 "use client";
 
-import React, { useState } from "react";
-import KinoLogo from "@/../public/logo.png";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
 import Image from "next/image";
+import KinoLogo from "@/../public/logo.png";
 
-function RegisterForm() {
-  const [form, setForm] = useState({
-    nombre: "",
-    email: "",
-    password: "",
-    direccion: "",
-  });
+export interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+  address: string;
+}
 
-  const handleOnClick = () => {
-    window.location.href = "/login";
+const RegisterForm: React.FC = () => {
+  const initialValues: FormValues = {
+    name: '',
+    email: '',
+    password: '',
+    address: '',
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const validate = (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    if (!values.name) {
+      errors.name = "El nombre es obligatorio.";
+    } else if (values.name.length < 3) {
+      errors.name = "Debe tener al menos 3 caracteres.";
+    }
 
-    setForm({
-      nombre: "",
-      email: "",
-      password: "",
-      direccion: "",
-    });
+    if (!values.email) {
+      errors.email = "El correo electrónico es obligatorio.";
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Formato de correo inválido.";
+    }
+
+    if (!values.password) {
+      errors.password = "La contraseña es obligatoria.";
+    } else if (values.password.length < 6) {
+      errors.password = "Debe tener al menos 6 caracteres.";
+    }
+
+    if (!values.address) {
+      errors.address = "La dirección es obligatoria.";
+    }
+
+    return errors;
   };
 
   return (
@@ -44,70 +59,99 @@ function RegisterForm() {
         priority
         className="mb-6"
       />
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4"
+
+      <Formik
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={(values, { resetForm }) => {
+          console.log("Valores enviados:", values);
+          alert("Usuario registrado con exito!!!");
+
+          resetForm(); 
+          window.location.href = "/login";
+        }}
       >
-        <h2 className="text-2xl font-bold text-center mb-4 text-white">
-          Registro
-        </h2>
+        {({ isSubmitting }: FormikProps<FormValues>) => (
+          <Form className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4">
+            <h2 className="text-2xl font-bold text-center mb-4 text-white">
+              Registro
+            </h2>
 
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          value={form.nombre}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-[#3d3c3c] text-white"
-          required
-        />
+            <div>
+              <Field
+                type="text"
+                name="name"
+                placeholder="Nombre"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="name"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-[#3d3c3c] text-white"
-          required
-        />
+            <div>
+              <Field
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="email"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={form.password}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-[#3d3c3c] text-white"
-          required
-        />
+            <div>
+              <Field
+                type="password"
+                name="password"
+                placeholder="Contraseña"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="password"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
 
-        <input
-          type="text"
-          name="direccion"
-          placeholder="Dirección"
-          value={form.direccion}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-[#3d3c3c] text-white"
-          required
-        />
+            <div>
+              <Field
+                type="text"
+                name="address"
+                placeholder="Dirección"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="address"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
 
-        <button
-          onClick={handleOnClick}
-          type="submit"
-          className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
-        >
-          Registrarse
-        </button>
-        <p className="p-2">
-          Ya tenes cuenta?{" "}
-          <a className="text-blue-300 text-center" href="/login">
-            Iniciar Sesion
-          </a>
-        </p>
-      </form>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
+            >
+              Registrarse
+            </button>
+
+            <p className="p-2 text-center">
+              Ya tenes cuenta?{" "}
+              <a className="text-blue-300" href="/login">
+                Iniciar Sesión
+              </a>
+            </p>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
-}
+};
 
 export default RegisterForm;
