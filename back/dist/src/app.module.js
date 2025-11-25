@@ -13,6 +13,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const config_types_1 = require("../config/config.types");
 const database_config_1 = require("../config/database.config");
 const environment_config_1 = require("../config/environment.config");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -22,7 +23,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [environment_config_1.environmentVariables, database_config_1.typeOrmConfig],
-                envFilePath: '.env',
+                envFilePath: '.env.example',
                 validationSchema: config_types_1.configSchema,
                 validationOptions: { abortEarly: true },
             }),
@@ -34,6 +35,7 @@ exports.AppModule = AppModule = __decorate([
                     return { ...dbConfig };
                 },
             }),
+            users_module_1.UsersModule,
         ],
     })
 ], AppModule);
