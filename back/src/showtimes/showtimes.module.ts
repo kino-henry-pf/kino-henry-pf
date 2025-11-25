@@ -4,7 +4,7 @@ import { ShowtimesController } from './showtimes.controller';
 import ShowtimesRepository from './showtimes.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import Showtime from './showtimes.entity';
-import { MoviesModule } from 'src/movies/movies.module';
+import { MoviesModule } from '../movies/movies.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Showtime]), MoviesModule],
