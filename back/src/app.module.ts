@@ -29,5 +29,6 @@ import { UsersModule } from './users/users.module';
     MoviesModule,
     SeederModule,
   ],
+  providers:[SeederModule]
 })
 export class AppModule {}

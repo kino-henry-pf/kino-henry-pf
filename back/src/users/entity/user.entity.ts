@@ -3,7 +3,6 @@ import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from
 @Entity({
     name: 'USERS'
 })
-
 export class User {
     @PrimaryGeneratedColumn()
     id: string
@@ -14,7 +13,7 @@ export class User {
     @Column()
     password: string
     @Column()
-    adress: string
+    address: string
     // @OneToMany(@OneToMany(() => Orders, (order) => order.user))
     // order: Orders[]
     @Column()

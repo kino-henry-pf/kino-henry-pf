@@ -41,6 +41,7 @@ exports.AppModule = AppModule = __decorate([
             movies_module_1.MoviesModule,
             seeder_module_1.SeederModule,
         ],
+        providers: [seeder_module_1.SeederModule]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
