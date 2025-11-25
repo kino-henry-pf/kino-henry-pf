@@ -10,5 +10,6 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
   imports: [TypeOrmModule.forFeature([Movie]), CloudinaryModule],
   controllers: [MoviesController],
   providers: [MoviesService, MoviesRepository],
+  exports: [MoviesService],
 })
 export class MoviesModule {}
