@@ -5,7 +5,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import KinoLogo from "../../assets/img/KINO.png";
+import KinoLogo from "@/../public/logo.png";
 
 export default function Navbar() {
   // Simulacion del estado de autenticacion

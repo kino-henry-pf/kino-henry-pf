@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "@/componentes/login";
+import Login from "@/app/login/LoginForm";
 
 
 export default function LoginPage() {

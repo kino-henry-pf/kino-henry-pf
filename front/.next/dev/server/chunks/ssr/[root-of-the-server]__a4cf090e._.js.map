@@ -2,5 +2,5 @@
   "version": 3,
   "sources": [],
   "sections": [
-    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/enriquediaz/Desktop/kino-henry-pf/front/src/app/page.tsx"],"sourcesContent":["export default function Home() {\n  return (\n    <>\n    \n    </>\n    \n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE;AAKJ"}}]
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///home/lautaro/Documentos/Henry/kino-henry-pf/front/src/app/page.tsx"],"sourcesContent":["export default function Home() {\n  return (\n    <>\n    \n    </>\n    \n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE;AAKJ"}}]
 }

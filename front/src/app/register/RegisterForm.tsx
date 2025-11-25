@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import KinoLogo from "../../assets/img/KINO.png";
+import KinoLogo from "@/../public/logo.png";
 import Image from "next/image";
 
-function Register() {
+function RegisterForm() {
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -110,4 +110,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterForm;
