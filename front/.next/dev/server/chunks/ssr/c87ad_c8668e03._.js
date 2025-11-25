@@ -5836,7 +5836,7 @@ const routeModule = new __TURBOPACK__imported__module__$5b$project$5d2f$front$2f
         bundlePath: '',
         filename: ''
     },
-    distDir: ("TURBOPACK compile-time value", ".next/dev") || '',
+    distDir: ("TURBOPACK compile-time value", ".next\\dev") || '',
     relativeProjectDir: ("TURBOPACK compile-time value", "") || '',
     components: {
         // default export might not exist when optimized for data only
