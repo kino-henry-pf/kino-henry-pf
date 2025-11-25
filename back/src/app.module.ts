@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { configSchema, ConfigType } from 'config/config.types';
-import { typeOrmConfig } from 'config/database.config';
-import { environmentVariables } from 'config/environment.config';
-import { UsersModule } from './users/users.module';
+import { configSchema, ConfigType } from '../config/config.types';
+import { typeOrmConfig } from '../config/database.config';
+import { environmentVariables } from '../config/environment.config';
+import { MoviesModule } from './movies/movies.module';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
@@ -24,6 +25,8 @@ import { UsersModule } from './users/users.module';
       },
     }),
     UsersModule,
+    MoviesModule,
+    SeederModule,
   ],
 })
 export class AppModule {}
