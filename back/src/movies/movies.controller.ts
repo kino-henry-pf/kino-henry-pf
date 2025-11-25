@@ -8,11 +8,15 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import Movie from './movie.entity';
 import CreateMovieDto from './DTOs/create-movie.dto';
 import { UpdateMovieDto } from './DTOs/update-movie.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 @Controller('movies')
 export class MoviesController {
@@ -30,16 +34,22 @@ export class MoviesController {
   }
 
   @Post()
-  async createMovie(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
-    return await this.moviesService.createMovie(createMovieDto);
+  @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
+  async createMovie(
+    @Body() createMovieDto: CreateMovieDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ): Promise<Movie> {
+    return await this.moviesService.createMovie(createMovieDto, file);
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
   async updateMovie(
     @Param('id') id: string,
     @Body() updateMovieDto: UpdateMovieDto,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<Movie> {
-    return await this.moviesService.updateMovie(id, updateMovieDto);
+    return await this.moviesService.updateMovie(id, updateMovieDto, file);
   }
 
   @Delete(':id')

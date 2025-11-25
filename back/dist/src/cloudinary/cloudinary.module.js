@@ -9,22 +9,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MoviesModule = void 0;
+exports.CloudinaryModule = void 0;
 const common_1 = require("@nestjs/common");
-const movies_service_1 = require("./movies.service");
-const movies_controller_1 = require("./movies.controller");
-const movie_repository_1 = require("./movie.repository");
-const typeorm_1 = require("@nestjs/typeorm");
-const movie_entity_1 = __importDefault(require("./movie.entity"));
-const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
-let MoviesModule = class MoviesModule {
+const cloudinary_config_1 = require("../../config/cloudinary.config");
+const cloudinary_service_1 = __importDefault(require("./cloudinary.service"));
+let CloudinaryModule = class CloudinaryModule {
 };
-exports.MoviesModule = MoviesModule;
-exports.MoviesModule = MoviesModule = __decorate([
+exports.CloudinaryModule = CloudinaryModule;
+exports.CloudinaryModule = CloudinaryModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default]), cloudinary_module_1.CloudinaryModule],
-        controllers: [movies_controller_1.MoviesController],
-        providers: [movies_service_1.MoviesService, movie_repository_1.MoviesRepository],
+        providers: [cloudinary_config_1.CloudinaryProvider, cloudinary_service_1.default],
+        exports: [cloudinary_service_1.default],
     })
-], MoviesModule);
-//# sourceMappingURL=movies.module.js.map
+], CloudinaryModule);
+//# sourceMappingURL=cloudinary.module.js.map
