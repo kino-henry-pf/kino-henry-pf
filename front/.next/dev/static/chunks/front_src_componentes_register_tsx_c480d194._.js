@@ -9,27 +9,23 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/front/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/front/node_modules/next/dist/compiled/react/compiler-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/front/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-(()=>{
-    const e = new Error("Cannot find module '../../../assets/img/KINO.png'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
+var __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$assets$2f$img$2f$KINO$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$front$2f$assets$2f$img$2f$KINO$2e$png__$28$static__in__ecmascript$2c$__tag__client$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object__with__data__url$2c$__ecmascript$29$__ = __turbopack_context__.i('[project]/front/assets/img/KINO.png.mjs { IMAGE => "[project]/front/assets/img/KINO.png (static in ecmascript, tag client)" } [app-client] (structured image object with data url, ecmascript)');
 var __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/front/node_modules/next/image.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
-'use client';
+"use client";
 ;
 ;
 ;
 ;
 function Register() {
     _s();
-    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(25);
-    if ($[0] !== "e8cd3ff4caff7b98f5aaaf9faf96637cc65c073bce70d2d4cb986616e81bfb41") {
-        for(let $i = 0; $i < 25; $i += 1){
+    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(26);
+    if ($[0] !== "29fa9fdd5397fa412a46805dc834200190e22da34257496f805444f5caae7c88") {
+        for(let $i = 0; $i < 26; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "e8cd3ff4caff7b98f5aaaf9faf96637cc65c073bce70d2d4cb986616e81bfb41";
+        $[0] = "29fa9fdd5397fa412a46805dc834200190e22da34257496f805444f5caae7c88";
     }
     let t0;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
@@ -82,7 +78,7 @@ function Register() {
     let t3;
     if ($[5] === Symbol.for("react.memo_cache_sentinel")) {
         t3 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-            src: KinoLogo,
+            src: __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$assets$2f$img$2f$KINO$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$front$2f$assets$2f$img$2f$KINO$2e$png__$28$static__in__ecmascript$2c$__tag__client$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object__with__data__url$2c$__ecmascript$29$__["default"],
             alt: "Kino Logo",
             width: 200,
             height: 100,
@@ -212,9 +208,35 @@ function Register() {
         t9 = $[19];
     }
     let t10;
-    if ($[20] !== t5 || $[21] !== t6 || $[22] !== t7 || $[23] !== t8) {
-        t10 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex justify-center items-center min-h-screen bg-[#121212]",
+    if ($[20] === Symbol.for("react.memo_cache_sentinel")) {
+        t10 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            className: "p-2",
+            children: [
+                "Ya tenes cuenta?",
+                " ",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                    className: "text-blue-300 text-center",
+                    href: "/login",
+                    children: "Iniciar Sesion"
+                }, void 0, false, {
+                    fileName: "[project]/front/src/componentes/register.tsx",
+                    lineNumber: 122,
+                    columnNumber: 51
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/front/src/componentes/register.tsx",
+            lineNumber: 122,
+            columnNumber: 11
+        }, this);
+        $[20] = t10;
+    } else {
+        t10 = $[20];
+    }
+    let t11;
+    if ($[21] !== t5 || $[22] !== t6 || $[23] !== t7 || $[24] !== t8) {
+        t11 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex flex-col justify-center items-center min-h-screen bg-[#121212]",
             children: [
                 t3,
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$front$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -226,28 +248,29 @@ function Register() {
                         t6,
                         t7,
                         t8,
-                        t9
+                        t9,
+                        t10
                     ]
                 }, void 0, true, {
                     fileName: "[project]/front/src/componentes/register.tsx",
-                    lineNumber: 122,
-                    columnNumber: 91
+                    lineNumber: 129,
+                    columnNumber: 100
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/front/src/componentes/register.tsx",
-            lineNumber: 122,
+            lineNumber: 129,
             columnNumber: 11
         }, this);
-        $[20] = t5;
-        $[21] = t6;
-        $[22] = t7;
-        $[23] = t8;
-        $[24] = t10;
+        $[21] = t5;
+        $[22] = t6;
+        $[23] = t7;
+        $[24] = t8;
+        $[25] = t11;
     } else {
-        t10 = $[24];
+        t11 = $[25];
     }
-    return t10;
+    return t11;
 }
 _s(Register, "qRhQ5M6AHSy+bt5oF1mOyp/jpYQ=");
 _c = Register;
