@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    create(user: CreateUserDto): string;
+    create(user: CreateUserDto): CreateUserDto;
     findAll(): string;
     findOne(id: string): string;
     update(id: string, updateUserDto: UpdateUserDto): string;

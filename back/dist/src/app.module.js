@@ -13,9 +13,9 @@ const typeorm_1 = require("@nestjs/typeorm");
 const config_types_1 = require("../config/config.types");
 const database_config_1 = require("../config/database.config");
 const environment_config_1 = require("../config/environment.config");
-const users_module_1 = require("./users/users.module");
 const movies_module_1 = require("./movies/movies.module");
 const seeder_module_1 = require("./seeder/seeder.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -41,6 +41,7 @@ exports.AppModule = AppModule = __decorate([
             movies_module_1.MoviesModule,
             seeder_module_1.SeederModule,
         ],
+        providers: [seeder_module_1.SeederModule]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

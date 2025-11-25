@@ -1,11 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.typeOrmConfig = void 0;
 const config_1 = require("@nestjs/config");
-const movie_entity_1 = __importDefault(require("../src/movies/movie.entity"));
 exports.typeOrmConfig = (0, config_1.registerAs)('database', () => ({
     type: 'postgres',
     host: process.env.DB_HOST,
@@ -13,7 +9,7 @@ exports.typeOrmConfig = (0, config_1.registerAs)('database', () => ({
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [movie_entity_1.default],
+    entities: ['./dist/**/*.entity{.ts,.js}'],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
 }));

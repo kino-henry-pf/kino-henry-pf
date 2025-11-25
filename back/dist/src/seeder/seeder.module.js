@@ -14,12 +14,13 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const movie_entity_1 = __importDefault(require("../movies/movie.entity"));
 const seeder_service_1 = require("./seeder.service");
+const user_entity_1 = require("../users/entity/user.entity");
 let SeederModule = class SeederModule {
 };
 exports.SeederModule = SeederModule;
 exports.SeederModule = SeederModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default]), typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])],
         providers: [seeder_service_1.SeederService],
         exports: [seeder_service_1.SeederService],
     })
