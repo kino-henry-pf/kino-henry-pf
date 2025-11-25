@@ -13,7 +13,7 @@ import { UsersModule } from './users/users.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [environmentVariables, typeOrmConfig],
-      envFilePath: '.env.example',
+      envFilePath: '.env',
       validationSchema: configSchema,
       validationOptions: { abortEarly: true },
     }),

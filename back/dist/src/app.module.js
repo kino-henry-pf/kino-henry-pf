@@ -25,7 +25,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [environment_config_1.environmentVariables, database_config_1.typeOrmConfig],
-                envFilePath: '.env.example',
+                envFilePath: '.env',
                 validationSchema: config_types_1.configSchema,
                 validationOptions: { abortEarly: true },
             }),

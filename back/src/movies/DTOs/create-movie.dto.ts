@@ -31,10 +31,6 @@ export default class CreateMovieDto {
   @IsEnum(Genre)
   genre: Genre;
 
-  @IsString()
-  @IsNotEmpty()
-  image: string;
-
   @IsNumber()
   duration: number;
 }

@@ -16,7 +16,6 @@ class CreateMovieDto {
     sinopsis;
     rating;
     genre;
-    image;
     duration;
 }
 exports.default = CreateMovieDto;
@@ -42,11 +41,6 @@ __decorate([
     (0, class_validator_1.IsEnum)(movie_entity_1.Genre),
     __metadata("design:type", String)
 ], CreateMovieDto.prototype, "genre", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateMovieDto.prototype, "image", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)

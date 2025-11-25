@@ -40,14 +40,7 @@ let MoviesRepository = class MoviesRepository {
         return movie;
     }
     async createMovie(dto) {
-        const newMovie = this.moviesRepository.create({
-            title: dto.title,
-            sinopsis: dto.sinopsis,
-            rating: dto.rating,
-            genre: dto.genre,
-            image: dto.image,
-            duration: dto.duration,
-        });
+        const newMovie = this.moviesRepository.create(dto);
         return await this.moviesRepository.save(newMovie);
     }
     async updateMovie(id, dto) {
