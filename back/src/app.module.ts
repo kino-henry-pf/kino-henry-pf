@@ -12,7 +12,7 @@ import { SeederModule } from './seeder/seeder.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [environmentVariables, typeOrmConfig],
-      envFilePath: '.env',
+      envFilePath: '.env.example',
       validationSchema: configSchema,
       validationOptions: { abortEarly: true },
     }),
@@ -24,6 +24,7 @@ import { SeederModule } from './seeder/seeder.module';
         return { ...dbConfig };
       },
     }),
+    UsersModule,
     MoviesModule,
     SeederModule,
   ],
