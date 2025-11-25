@@ -1,8 +1,6 @@
 "use client"
 
 import Searcher from "@/components/Searcher"
-import Logo from "../../../public/logo.png"
-import Image from "next/image"
 import Accordion from "@/components/Accordion"
 import { useCallback, useMemo, useState } from "react"
 import { Faq } from "./types"
