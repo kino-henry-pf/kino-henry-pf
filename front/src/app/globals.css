@@ -30,32 +30,6 @@ h1, h2 {
   font-family: var(--font-poppins);
 }
 
-*::-webkit-scrollbar {
-  background-color: var(--background);
-  width: 15px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--foreground);
-  border: solid 4px var(--background);
-  border-radius: 100px;
-  box-sizing: border-box;
-}
-
-*::-webkit-scrollbar-button {
-  width: 5px;
-  height: 5px;
-}
-
-.hide-scrollbar {
-  scrollbar-width: 0;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
 .container-x-padding {
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);
@@ -79,5 +53,24 @@ h1, h2 {
   .container-x-padding {
     padding-left: 25px;
     padding-right: 25px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  *::-webkit-scrollbar {
+    background-color: var(--background);
+    width: 15px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--foreground);
+    border: solid 4px var(--background);
+    border-radius: 100px;
+    box-sizing: border-box;
+  }
+
+  *::-webkit-scrollbar-button {
+    width: 5px;
+    height: 5px;
   }
 }
