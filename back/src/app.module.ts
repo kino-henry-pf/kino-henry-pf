@@ -7,6 +7,7 @@ import { environmentVariables } from '../config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -27,8 +28,9 @@ import { UsersModule } from './users/users.module';
     }),
     UsersModule,
     MoviesModule,
+    ProductsModule,
     SeederModule,
   ],
-  providers:[SeederModule]
+  providers: [SeederModule],
 })
 export class AppModule {}
