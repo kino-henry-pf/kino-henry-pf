@@ -1,7 +1,8 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import Movie from '../src/movies/movie.entity';
-import { User } from 'src/users/entity/user.entity';
+import { User } from '../src/users/entity/user.entity';
+import Product from '../src/products/product.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
@@ -12,7 +13,7 @@ export const typeOrmConfig = registerAs(
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD ?? 'postgres',
     database: process.env.DB_DATABASE,
-    entities: ['./dist/**/*.entity{.ts,.js}'],
+    entities: [User, Product, Movie],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
   }),
