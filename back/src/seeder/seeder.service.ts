@@ -87,7 +87,7 @@ export class SeederService {
         sinopsis: 'A thief uses dream-sharing technology.',
         rating: 4.8,
         genre: Genre.SCI_FI,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/52633',
         duration: 148,
       },
       {
@@ -95,7 +95,7 @@ export class SeederService {
         sinopsis: 'Batman faces the Joker.',
         rating: 4.9,
         genre: Genre.ACTION,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/4792',
         duration: 152,
       },
       {
@@ -103,7 +103,7 @@ export class SeederService {
         sinopsis: 'A jazz musician meets an actress.',
         rating: 4.5,
         genre: Genre.MUSICAL,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/13422',
         duration: 128,
       },
       {
@@ -111,7 +111,7 @@ export class SeederService {
         sinopsis: 'Explorers travel through a wormhole.',
         rating: 4.7,
         genre: Genre.SCI_FI,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/6461',
         duration: 169,
       },
       {
@@ -119,7 +119,7 @@ export class SeederService {
         sinopsis: 'Paranormal investigators help a family.',
         rating: 4.2,
         genre: Genre.HORROR,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/23525',
         duration: 112,
       },
       {
@@ -127,7 +127,7 @@ export class SeederService {
         sinopsis: 'A poor family infiltrates a rich home.',
         rating: 4.9,
         genre: Genre.DRAMA,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/47915',
         duration: 132,
       },
       {
@@ -135,7 +135,7 @@ export class SeederService {
         sinopsis: 'Toys come to life.',
         rating: 4.7,
         genre: Genre.ANIMATION,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/457',
         duration: 81,
       },
       {
@@ -143,7 +143,7 @@ export class SeederService {
         sinopsis: 'Romantic drama from the 1940s.',
         rating: 4.3,
         genre: Genre.ROMANCE,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/167079',
         duration: 123,
       },
       {
@@ -151,7 +151,7 @@ export class SeederService {
         sinopsis: 'A concierge and his lobby boy.',
         rating: 4.6,
         genre: Genre.COMEDY,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/54311',
         duration: 99,
       },
       {
@@ -159,7 +159,7 @@ export class SeederService {
         sinopsis: 'WWII rescue mission.',
         rating: 4.8,
         genre: Genre.WAR,
-        image: 'https://fakeimg.com/movie.jpg',
+        image: 'https://theposterdb.com/api/assets/34772',
         duration: 169,
       },
     ];
@@ -190,35 +190,40 @@ export class SeederService {
     const productsData: Partial<Product>[] = [
       {
         name: 'Palomitas Clásicas',
-        image: 'https://example.com/popcorn.jpg',
+        image:
+          'https://res.cloudinary.com/db9panarm/image/upload/v1764199212/palomitas_mnsmvw.png',
         description: 'Clasicas con mantequilla',
         price: 75,
         category: Category.POPCORN,
       },
       {
         name: 'Refresco Grande',
-        image: 'https://example.com/refresco.jpg',
+        image:
+          'https://res.cloudinary.com/db9panarm/image/upload/v1764199211/refresco_jtef2k.png',
         description: '1 litro bien frio',
         price: 60,
         category: Category.SOFT_DRINK,
       },
       {
         name: 'Nachos con Queso',
-        image: 'https://example.com/nachos.jpg',
+        image:
+          'https://res.cloudinary.com/db9panarm/image/upload/v1764199214/nachos_qpoj94.png',
         description: 'Nachos calientes con queso',
         price: 85,
         category: Category.NACHOS,
       },
       {
         name: 'Gomitas',
-        image: 'https://example.com/gomitas.jpg',
+        image:
+          'https://res.cloudinary.com/db9panarm/image/upload/v1764199215/gomitas_ombpyi.png',
         description: 'Gomitas de sabores',
         price: 40,
         category: Category.CANDY,
       },
       {
         name: 'Combo Pareja',
-        image: 'https://example.com/combo.jpg',
+        image:
+          'https://res.cloudinary.com/db9panarm/image/upload/v1764199210/combo_luzag1.png',
         description: 'Palomitas + 2 refrescos',
         price: 150,
         category: Category.COMBO,
