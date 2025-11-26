@@ -16,7 +16,7 @@
   --foreground: #fff;
   --color-primary: #F3CC63;
   --primary-foreground: #121212;
-  --border-color: #3b3b3b;
+  --color-border: #3b3b3b;
 }
 
 body {
