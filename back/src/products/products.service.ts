@@ -54,9 +54,8 @@ export class ProductsService {
       throw new NotFoundException(`No product with id ${id} has been found`);
     }
 
-    let imageUrl = product.image; // Always start with the current image
-
-    // If a file was uploaded, upload it and replace the image URL
+    let imageUrl = product.image; 
+    
     if (file) {
       imageUrl = await this.cloudinaryService.uploadImage(
         file,
@@ -64,7 +63,7 @@ export class ProductsService {
       );
     }
 
-    // Update product with DTO + final image URL
+    
     const updated = await this.productRepo.updateProduct(id, {
       ...dto,
       image: imageUrl,
