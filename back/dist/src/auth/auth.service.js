@@ -6,9 +6,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-let UsersService = class UsersService {
+let AuthService = class AuthService {
     users = [
         {
             id: "1",
@@ -81,28 +81,24 @@ let UsersService = class UsersService {
             address: "Boulevard del Mar 60, Alicante"
         }
     ];
-    create(user) {
-        return user;
+    async signup(user) {
+        const id = this.users.length + 1;
+        const newUser = { id, ...user };
+        this.users = [...this.users, newUser];
+        return newUser;
     }
-    findAll() {
-        return this.users;
-    }
-    findOne(id) {
-        const thisUser = this.users.find(user => user.id === id);
-        if (!thisUser)
-            throw new common_1.NotFoundException("User not found.");
-        else
-            return thisUser;
-    }
-    update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
-    }
-    remove(id) {
-        return `This action removes a #${id} user`;
+    async signin(credentials) {
+        const foundUser = this.users.find(user => user.email === credentials.email);
+        if (!foundUser)
+            throw new common_1.NotFoundException("Bad credentials");
+        const matchingPasswords = this.users.find(foundUser => foundUser.password === credentials.password);
+        if (!matchingPasswords)
+            throw new common_1.NotFoundException("Bad credentials");
+        return "Logged.";
     }
 };
-exports.UsersService = UsersService;
-exports.UsersService = UsersService = __decorate([
+exports.AuthService = AuthService;
+exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)()
-], UsersService);
-//# sourceMappingURL=users.service.js.map
+], AuthService);
+//# sourceMappingURL=auth.service.js.map
