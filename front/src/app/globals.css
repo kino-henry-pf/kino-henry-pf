@@ -35,7 +35,12 @@ h1, h2 {
   padding-right: calc(50% - 600px);
 }
 
-@media only screen and (max-width: 1300px) {
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@media only screen and (max-width: 1400px) {
   .container-x-padding {
     padding-left: 50px;
     padding-right: 50px;
