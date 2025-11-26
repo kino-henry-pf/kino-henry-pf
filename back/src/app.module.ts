@@ -7,6 +7,7 @@ import { environmentVariables } from '../config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ShowtimesModule } from './showtimes/showtimes.module';
 
@@ -31,6 +32,7 @@ import { ShowtimesModule } from './showtimes/showtimes.module';
     MoviesModule,
     ProductsModule,
     SeederModule,
+    AuthModule,
     ShowtimesModule,
   ],
   providers: [SeederModule],
