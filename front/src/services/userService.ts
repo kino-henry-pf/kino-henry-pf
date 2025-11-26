@@ -3,7 +3,7 @@ import { LoginValues } from "@/app/login/LoginForm";
 
 export async function registerService(userData: FormValues) {
   try {
-    const response = await fetch("http://localhost:3001/users/register", {
+    const response = await fetch("http://localhost:3001/register", {
         method: "POST",
         headers: {
             "Content-type": "application/json"

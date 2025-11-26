@@ -3,6 +3,7 @@
 import Image from "next/image";
 import KinoLogo from "@/../public/logo.png";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import { loginService } from "@/services/userService";
 
 export interface LoginValues {
   email: string;
@@ -32,17 +33,11 @@ function LoginForm() {
     return errors;
   };
 
-  const handleSubmit = (
-    values: LoginValues,
-    { resetForm }: FormikHelpers<LoginValues>
-  ) => {
-    console.log("Datos enviados:", values);
-
-    alert("Login exitoso!");
-
-    resetForm();  
+  const handleSubmit = async (values: LoginValues) => {
+    const response = await loginService(values);
+    console.log('Usuario logueado', response);
     window.location.href = "/";
-  };
+  }; 
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-[#121212]">
