@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Branch } from 'src/branchs/branch.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum Genre {
   ACTION = 'action',
@@ -44,4 +45,7 @@ export default class Movie {
 
   @Column()
   duration: number;
+
+  @ManyToMany(()=> Branch, (branch) => branch.movies)
+  branch: Branch[]
 }
