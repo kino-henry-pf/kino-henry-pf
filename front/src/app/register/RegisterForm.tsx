@@ -4,6 +4,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
 import Image from "next/image";
 import KinoLogo from "@/../public/logo.png";
+import { registerService } from "@/services/userService";
 
 export interface FormValues {
   name: string;
@@ -44,7 +45,6 @@ const RegisterForm: React.FC = () => {
       errors.password = "Debe tener al menos 6 caracteres.";
     }
 
-    // VALIDACIÓN DEL CONFIRM PASSWORD
     if (!values.confirmPassword) {
       errors.confirmPassword = "Debes confirmar la contraseña.";
     } else if (values.confirmPassword !== values.password) {
@@ -56,6 +56,14 @@ const RegisterForm: React.FC = () => {
     }
 
     return errors;
+  };
+
+  const handleSubmit = async (values: FormValues) => {
+    const response = await registerService(values);
+    console.log('Resultado del registro:', response);
+    setTimeout(() => {
+      window.location.href = "/Login";
+    }, 500);
   };
 
   return (
@@ -72,13 +80,7 @@ const RegisterForm: React.FC = () => {
       <Formik
         initialValues={initialValues}
         validate={validate}
-        onSubmit={(values, { resetForm }) => {
-          console.log("Valores enviados:", values);
-          alert("Usuario registrado con exito!!!");
-
-          resetForm();
-          window.location.href = "/login";
-        }}
+        onSubmit={handleSubmit}
       >
         {({ isSubmitting }: FormikProps<FormValues>) => (
           <Form className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4">
