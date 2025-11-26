@@ -35,7 +35,6 @@ export class MoviesService {
     file?: Express.Multer.File,
   ): Promise<Movie> {
     try {
-      // ✅ El archivo es obligatorio
       if (!file) {
         throw new BadRequestException('Image file is required');
       }
@@ -61,7 +60,7 @@ export class MoviesService {
   ): Promise<Movie> {
     try {
       const movie = await this.moviesRepository.findById(id);
-      if (!movie) return this.notFound(id); // ✅ Con return aquí
+      if (!movie) return this.notFound(id); 
 
       let imageUrl = dto.image;
 
