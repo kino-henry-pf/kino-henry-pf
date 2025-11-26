@@ -8,6 +8,8 @@ import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { ShowtimesModule } from './showtimes/showtimes.module';
 
 @Module({
   imports: [
@@ -28,9 +30,11 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     MoviesModule,
+    ProductsModule,
     SeederModule,
     AuthModule,
+    ShowtimesModule,
   ],
-  providers:[SeederModule]
+  providers: [SeederModule],
 })
 export class AppModule {}
