@@ -17,6 +17,9 @@ const movies_module_1 = require("./movies/movies.module");
 const seeder_module_1 = require("./seeder/seeder.module");
 const users_module_1 = require("./users/users.module");
 const branchs_module_1 = require("./branchs/branchs.module");
+const auth_module_1 = require("./auth/auth.module");
+const products_module_1 = require("./products/products.module");
+const showtimes_module_1 = require("./showtimes/showtimes.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -40,10 +43,13 @@ exports.AppModule = AppModule = __decorate([
             }),
             users_module_1.UsersModule,
             movies_module_1.MoviesModule,
+            products_module_1.ProductsModule,
             seeder_module_1.SeederModule,
             branchs_module_1.BranchsModule,
+            auth_module_1.AuthModule,
+            showtimes_module_1.ShowtimesModule,
         ],
-        providers: [seeder_module_1.SeederModule]
+        providers: [seeder_module_1.SeederModule],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

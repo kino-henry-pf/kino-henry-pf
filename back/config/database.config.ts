@@ -4,6 +4,7 @@ import Movie from '../src/movies/movie.entity';
 import { User } from '../src/users/entity/user.entity';
 import Product from '../src/products/product.entity';
 import Showtimes from '../src/showtimes/showtimes.entity';
+import { Branch } from '../src/branchs/branch.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
@@ -14,7 +15,7 @@ export const typeOrmConfig = registerAs(
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD ?? 'postgres',
     database: process.env.DB_DATABASE,
-    entities: [Movie, User, Product, Showtimes],
+    entities: [Movie, User, Product, Showtimes, Branch],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
   }),

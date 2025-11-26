@@ -28,5 +28,5 @@ export default class Movie {
     genre: Genre;
     image: string;
     duration: number;
-    branch: Branch[];
+    branches: Branch[];
 }
