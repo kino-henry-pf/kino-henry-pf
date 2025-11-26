@@ -16,8 +16,8 @@ import { ShowtimesModule } from './showtimes/showtimes.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [environmentVariables, typeOrmConfig],
       envFilePath: '.env',
+      load: [environmentVariables, typeOrmConfig],
       validationSchema: configSchema,
       validationOptions: { abortEarly: true },
     }),

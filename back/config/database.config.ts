@@ -18,5 +18,11 @@ export const typeOrmConfig = registerAs(
     entities: [Movie, User, Product, Showtimes, Branch],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
+    ssl: true,
+    extra: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
   }),
 );
