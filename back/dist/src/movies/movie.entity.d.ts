@@ -1,4 +1,4 @@
-import { Branch } from 'src/branchs/branch.entity';
+import { Branch } from '../branchs/branch.entity';
 export declare enum Genre {
     ACTION = "action",
     ADVENTURE = "adventure",
