@@ -82,8 +82,8 @@ export default function HeroCarrousel({
                                     <Image
                                         alt={movie.title}
                                         src={movie.image}
-                                        width={100}
-                                        height={200}
+                                        width={348}
+                                        height={570}
                                         className="w-full h-full object-cover blur-[10vh] absolute top-0 left-0 z-1 opacity-20"
                                     />
                                     <div className="relative z-9 h-full max-w-full lg:w-fit w-full lg:p-20 lg:container-x-padding">
