@@ -4,7 +4,7 @@ import Image from "next/image";
 import KinoLogo from "@/../public/logo.png";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 
-interface LoginValues {
+export interface LoginValues {
   email: string;
   password: string;
 }
