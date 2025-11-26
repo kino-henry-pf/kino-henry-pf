@@ -1,5 +1,12 @@
 [
   {
+    "id": "123uuid",
+    "title": "Avengers - bla bla bla",
+    "image": "https://i.pinimg.com/736x/68/92/62/689262b1559e667f98a11d916d5ad046.jpg",
+    "rating": 4,
+    "synopsis": "A journalist returns to her coastal hometown and uncovers a decades-old mystery linked to her family's past. A journalist returns to her coastal hometown and uncovers a decades-old mystery linked to her family's past."
+  },
+  {
     "id": "5f6c3b8c-2c3f-4b7b-8f0e-8a2e9f6b1c41",
     "title": "Midnight Echoes",
     "image": "https://posterspy.com/wp-content/uploads/2024/07/midnight-echoes-posterspy.jpg",

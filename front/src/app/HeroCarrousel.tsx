@@ -78,13 +78,13 @@ export default function HeroCarrousel({
                     movies.map(movie => (
                         <div key={movie.id} className="w-screen h-fit container-x-padding">
                             <div className="snap-center shrink-0 w-screen flex items-center justify-center max-w-full h-fit">
-                                <div className="w-[1300px] h-[560px] max-w-full bg-black overflow-hidden rounded-4xl relative flex items-center justify-center">
+                                <div className="w-[1300px] h-[560px] max-w-full bg-[#d9d9d9]/10 overflow-hidden rounded-4xl relative flex items-center justify-center">
                                     <Image
                                         alt={movie.title}
                                         src={movie.image}
                                         width={348}
                                         height={570}
-                                        className="w-full h-full object-cover blur-[10vh] absolute top-0 left-0 z-1 opacity-20"
+                                        className="w-full h-full object-cover blur-md absolute top-0 left-0 z-1 opacity-20"
                                     />
                                     <div className="relative z-9 h-full max-w-full lg:w-fit w-full lg:p-20 lg:container-x-padding">
                                         <MovieData movie={movie} />
