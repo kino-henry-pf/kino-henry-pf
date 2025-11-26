@@ -9,6 +9,7 @@ export interface FormValues {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
   address: string;
 }
 
@@ -17,6 +18,7 @@ const RegisterForm: React.FC = () => {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
     address: '',
   };
 
@@ -40,6 +42,13 @@ const RegisterForm: React.FC = () => {
       errors.password = "La contraseña es obligatoria.";
     } else if (values.password.length < 6) {
       errors.password = "Debe tener al menos 6 caracteres.";
+    }
+
+    // VALIDACIÓN DEL CONFIRM PASSWORD
+    if (!values.confirmPassword) {
+      errors.confirmPassword = "Debes confirmar la contraseña.";
+    } else if (values.confirmPassword !== values.password) {
+      errors.confirmPassword = "Las contraseñas no coinciden.";
     }
 
     if (!values.address) {
@@ -67,7 +76,7 @@ const RegisterForm: React.FC = () => {
           console.log("Valores enviados:", values);
           alert("Usuario registrado con exito!!!");
 
-          resetForm(); 
+          resetForm();
           window.location.href = "/login";
         }}
       >
@@ -114,6 +123,21 @@ const RegisterForm: React.FC = () => {
               />
               <ErrorMessage
                 name="password"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+            </div>
+
+            {/* NUEVO INPUT CONFIRM PASSWORD */}
+            <div>
+              <Field
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirmar Contraseña"
+                className="w-full p-2 rounded bg-[#3d3c3c] text-white"
+              />
+              <ErrorMessage
+                name="confirmPassword"
                 component="p"
                 className="text-red-400 text-sm"
               />

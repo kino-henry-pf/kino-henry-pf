@@ -1,5 +1,12 @@
 [
   {
+    "id": "123uuid",
+    "title": "Avengers - bla bla bla",
+    "image": "https://i.pinimg.com/736x/68/92/62/689262b1559e667f98a11d916d5ad046.jpg",
+    "rating": 4,
+    "synopsis": "A journalist returns to her coastal hometown and uncovers a decades-old mystery linked to her family's past. A journalist returns to her coastal hometown and uncovers a decades-old mystery linked to her family's past."
+  },
+  {
     "id": "5f6c3b8c-2c3f-4b7b-8f0e-8a2e9f6b1c41",
     "title": "Midnight Echoes",
     "image": "https://posterspy.com/wp-content/uploads/2024/07/midnight-echoes-posterspy.jpg",
@@ -26,13 +33,6 @@
     "image": "https://img.pikbest.com/wp/202413/car-rental-services-neon-smoke-drift-service-promotional-poster_9085630.jpg!w700wp",
     "rating": 4,
     "synopsis": "Street racers in Tokyo discover a smuggling ring hidden behind a glamorous racing circuit."
-  },
-  {
-    "id": "f12a98cb-0f3c-4e1a-8d4f-3e5a6b9c4d21",
-    "title": "Paper Boats",
-    "image": "https://example.com/images/paper-boats.jpg",
-    "rating": 5,
-    "synopsis": "Two childhood friends reconnect across continents through letters that change both their lives."
   },
   {
     "id": "6b3c7c4a-9d1e-4f77-8f2a-0c5f8a3e1b65",

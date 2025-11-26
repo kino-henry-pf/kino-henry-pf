@@ -27,7 +27,7 @@ export default function Accordion({
     }, [parentRef])
 
     return (
-        <article ref={parentRef} className="w-[900px] max-w-full h-fit flex bg-white/2 border-1 border-[#1b1b1b] rounded-md flex-col px-6">
+        <article ref={parentRef} className="w-[900px] max-w-full h-fit flex bg-white/2 border-1 border-[var(--color-border)] rounded-md flex-col px-6">
             <button className="w-full h-fit py-4 text-md font-bold text-left grid grid-cols-[1fr_auto] items-center cursor-pointer gap-4" onClick={() => _setIsOpen(!_isOpen)}>
                 <h3>{question}</h3>
                 <Icon.ChevronDown
