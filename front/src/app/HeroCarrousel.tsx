@@ -53,12 +53,22 @@ export default function HeroCarrousel({
 
     return (
         <div className="w-full h-fit relative flex flex-col gap-10 lg:gap-5 select-none">
-            <div className="absolute w-fit h-fit left-5 xl:left-0 z-10 xl:ml-[calc(50%-600px)] lg:top-[50%] lg:-translate-y-[50%] lg:bottom-unset bottom-0 translate-y-[15px]">
+            <div
+                className={[
+                    "absolute w-fit h-fit left-5 xl:left-0 z-10 xl:ml-[calc(50%-600px)] lg:top-[50%] lg:-translate-y-[50%] lg:bottom-unset bottom-0 translate-y-[15px] transition-opacity duration-250",
+                    _currentIndex === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
+                ].join(" ")}
+            >
                 <IconButton onClick={handlePrev}>
                     <Icon.ChevronLeft size={24} />
                 </IconButton>
             </div>
-            <div className="absolute w-fit h-fit right-5 xl:right-0 z-10 xl:mr-[calc(50%-600px)] lg:top-[50%] lg:-translate-y-[50%] lg:bottom-unset bottom-0 translate-y-[15px]">
+            <div
+                className={[
+                    "absolute w-fit h-fit right-5 xl:right-0 z-10 xl:mr-[calc(50%-600px)] lg:top-[50%] lg:-translate-y-[50%] lg:bottom-unset bottom-0 translate-y-[15px] transition-opacity duration-250",
+                    _currentIndex === movies.length - 1 ? "opacity-0 pointer-events-none" : "opacity-100"
+                ].join(" ")}
+            >
                 <IconButton onClick={handleNext}>
                     <Icon.ChevronRight size={24} />
                 </IconButton>
