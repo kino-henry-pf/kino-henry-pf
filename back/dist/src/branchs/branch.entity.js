@@ -50,8 +50,8 @@ __decorate([
     __metadata("design:type", String)
 ], Branch.prototype, "googlePlaceId", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => movie_entity_1.default, (movie) => movie.branch),
-    (0, typeorm_1.JoinTable)({ name: 'BRANCH_MOVIES' }),
+    (0, typeorm_1.ManyToMany)(() => movie_entity_1.default, (movie) => movie.branches),
+    (0, typeorm_1.JoinTable)({ name: 'branch_movies' }),
     __metadata("design:type", Array)
 ], Branch.prototype, "movies", void 0);
 exports.Branch = Branch = __decorate([

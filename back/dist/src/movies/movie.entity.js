@@ -42,7 +42,7 @@ let Movie = class Movie {
     genre;
     image;
     duration;
-    branch;
+    branches;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -75,7 +75,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.ManyToMany)(() => branch_entity_1.Branch, (branch) => branch.movies),
     __metadata("design:type", Array)
-], Movie.prototype, "branch", void 0);
+], Movie.prototype, "branches", void 0);
 Movie = __decorate([
     (0, typeorm_1.Entity)()
 ], Movie);
