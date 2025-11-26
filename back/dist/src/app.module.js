@@ -16,6 +16,7 @@ const environment_config_1 = require("../config/environment.config");
 const movies_module_1 = require("./movies/movies.module");
 const seeder_module_1 = require("./seeder/seeder.module");
 const users_module_1 = require("./users/users.module");
+const branchs_module_1 = require("./branchs/branchs.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -40,6 +41,7 @@ exports.AppModule = AppModule = __decorate([
             users_module_1.UsersModule,
             movies_module_1.MoviesModule,
             seeder_module_1.SeederModule,
+            branchs_module_1.BranchsModule,
         ],
         providers: [seeder_module_1.SeederModule]
     })

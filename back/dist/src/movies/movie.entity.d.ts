@@ -1,3 +1,4 @@
+import { Branch } from 'src/branchs/branch.entity';
 export declare enum Genre {
     ACTION = "action",
     ADVENTURE = "adventure",
@@ -27,4 +28,5 @@ export default class Movie {
     genre: Genre;
     image: string;
     duration: number;
+    branch: Branch[];
 }

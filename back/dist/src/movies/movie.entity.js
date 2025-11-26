@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Genre = void 0;
+const branch_entity_1 = require("../branchs/branch.entity");
 const typeorm_1 = require("typeorm");
 var Genre;
 (function (Genre) {
@@ -41,6 +42,7 @@ let Movie = class Movie {
     genre;
     image;
     duration;
+    branch;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -70,6 +72,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], Movie.prototype, "duration", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => branch_entity_1.Branch, (branch) => branch.movies),
+    __metadata("design:type", Array)
+], Movie.prototype, "branch", void 0);
 Movie = __decorate([
     (0, typeorm_1.Entity)()
 ], Movie);

@@ -7,6 +7,7 @@ import { environmentVariables } from '../config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
+import { BranchsModule } from './branchs/branchs.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     MoviesModule,
     SeederModule,
+    BranchsModule,
   ],
   providers:[SeederModule]
 })

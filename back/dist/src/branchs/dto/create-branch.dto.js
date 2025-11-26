@@ -9,44 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const typeorm_1 = require("typeorm");
-let User = class User {
-    id;
+exports.CreateBranchDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateBranchDto {
     name;
-    email;
-    password;
     address;
-    roles;
-};
-exports.User = User;
+    latitude;
+    longitude;
+    googlePlaceId;
+}
+exports.CreateBranchDto = CreateBranchDto;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.MaxLength)(150),
     __metadata("design:type", String)
-], User.prototype, "id", void 0);
+], CreateBranchDto.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
+], CreateBranchDto.prototype, "address", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateBranchDto.prototype, "latitude", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateBranchDto.prototype, "longitude", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], User.prototype, "address", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "roles", void 0);
-exports.User = User = __decorate([
-    (0, typeorm_1.Entity)({
-        name: 'USERS'
-    })
-], User);
-//# sourceMappingURL=user.entity.js.map
+], CreateBranchDto.prototype, "googlePlaceId", void 0);
+//# sourceMappingURL=create-branch.dto.js.map
