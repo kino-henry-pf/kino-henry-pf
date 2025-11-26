@@ -1,5 +1,7 @@
 "use client"
 
+import { useCallback } from "react"
+
 type GetOptions = {
     disableCache?: boolean
 }
@@ -13,7 +15,7 @@ const API_URL = "http://localhost:3000",
 const cacheMap = new Map<string, any>()
 
 export const useApi = () => {
-    const get = async <T>(path: string, options?: GetOptions): Promise<T> => {
+    const get = useCallback(async <T>(path: string, options?: GetOptions): Promise<T> => {
         if (!cacheMap.get(path) || options?.disableCache) {
             const response = await fetch(`${API_URL}/${path}`, {
                 method: "GET"
@@ -27,9 +29,9 @@ export const useApi = () => {
         }
 
         return cacheMap.get(path)
-    }
+    }, [])
 
-    const post = async <T>(path: string, body: any): Promise<T> => {
+    const post = useCallback(async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "POST",
             headers: DEFAULT_HEADERS,
@@ -37,9 +39,9 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }
+    }, [])
 
-    const put = async <T>(path: string, body: any): Promise<T> => {
+    const put = useCallback(async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "PUT",
             headers: DEFAULT_HEADERS,
@@ -47,9 +49,9 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }
+    }, [])
 
-    const patch = async <T>(path: string, body: any): Promise<T> => {
+    const patch = useCallback(async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "PATCH",
             headers: DEFAULT_HEADERS,
@@ -57,9 +59,9 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }
+    }, [])
 
-    const del = async <T>(path: string, body: any): Promise<T> => {
+    const del = useCallback(async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "DELETE",
             headers: DEFAULT_HEADERS,
@@ -67,7 +69,7 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }
+    }, [])
 
     return {
         get,
