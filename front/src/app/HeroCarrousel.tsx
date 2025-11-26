@@ -5,6 +5,7 @@ import { Movie } from "@/types/movie"
 import Image from "next/image"
 import * as Icon from "akar-icons"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import IconButton from "@/components/IconButton"
 
 export default function HeroCarrousel({
     movies
@@ -24,14 +25,8 @@ export default function HeroCarrousel({
     }, [sliderRef])
 
     const handleGoTo = useCallback((to: number) => {
-        sliderRef.current?.scrollTo({behavior: "smooth", left: sliderRef.current.clientWidth * to})
-    }, [sliderRef])
-
-    const currentItem = useMemo(() =>
-        sliderRef.current ? (
-            sliderRef.current.scrollLeft / sliderRef.current.clientWidth
-        ).toFixed(0) : 0
-    , [sliderRef.current?.scrollLeft])
+        sliderRef.current?.scrollTo({behavior: "smooth", left: (sliderRef.current.scrollWidth / movies.length) * to})
+    }, [sliderRef, movies])
 
     useEffect(() => {
         if (!sliderRef.current) return
@@ -43,9 +38,8 @@ export default function HeroCarrousel({
             }
 
             _setCurrentIndex(
-                parseInt(
-                    (sliderRef.current.scrollLeft / sliderRef.current.clientWidth)
-                        .toFixed(0)
+                Math.floor(
+                    sliderRef.current.scrollLeft / sliderRef.current.clientWidth
                 )
             )
         }
@@ -58,17 +52,21 @@ export default function HeroCarrousel({
     }, [sliderRef])
 
     return (
-        <div className="w-full h-fit relative flex flex-col gap-5">
-            <button onClick={handlePrev} className="absolute top-[50%] -translate-y-[50%] cursor-pointer left-5 md:left-0 md:ml-[calc(50%-600px)] rounded-full w-14 h-14 flex items-center justify-center bg-white/20 z-10 backdrop-blur-md border-white/10 border-1">
-                <Icon.ChevronLeft size={24} />
-            </button>
-            <button onClick={handleNext} className="absolute top-[50%] -translate-y-[50%] cursor-pointer right-5 md:right-0 md:mr-[calc(50%-600px)] rounded-full w-14 h-14 flex items-center justify-center bg-white/20 z-10 backdrop-blur-md border-white/10 border-1">
-                <Icon.ChevronRight size={24} />
-            </button>
+        <div className="w-full h-fit relative flex flex-col gap-10 lg:gap-5 select-none">
+            <div className="absolute w-fit h-fit left-5 xl:left-0 z-10 xl:ml-[calc(50%-600px)] lg:top-[50%] lg:-translate-y-[50%] lg:bottom-unset bottom-0 translate-y-[15px]">
+                <IconButton onClick={handlePrev}>
+                    <Icon.ChevronLeft size={24} />
+                </IconButton>
+            </div>
+            <div className="absolute w-fit h-fit right-5 xl:right-0 z-10 xl:mr-[calc(50%-600px)] lg:top-[50%] lg:-translate-y-[50%] lg:bottom-unset bottom-0 translate-y-[15px]">
+                <IconButton onClick={handleNext}>
+                    <Icon.ChevronRight size={24} />
+                </IconButton>
+            </div>
             <div ref={sliderRef} className={`overflow-x-auto snap-x snap-mandatory flex flex-row gap-10 px-10 scroll-p-0 hide-scrollbar`}>
                 {
                     movies.map(movie => (
-                        <div key={movie.id} className="w-screen h-fit">
+                        <div key={movie.id} className="w-screen h-fit container-x-padding">
                             <div className="snap-center shrink-0 w-screen flex items-center justify-center max-w-full h-fit">
                                 <div className="w-[1300px] h-[560px] max-w-full bg-black overflow-hidden rounded-4xl relative flex items-center justify-center">
                                     <Image
@@ -78,7 +76,7 @@ export default function HeroCarrousel({
                                         height={200}
                                         className="w-full h-full object-cover blur-[10vh] absolute top-0 left-0 z-1 opacity-20"
                                     />
-                                    <div className="relative z-9 h-full p-20 container-x-padding">
+                                    <div className="relative z-9 h-full max-w-full lg:w-fit w-full lg:p-20 lg:container-x-padding">
                                         <MovieData movie={movie} />
                                     </div>
                                 </div>

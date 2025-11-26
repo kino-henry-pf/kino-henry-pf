@@ -7,15 +7,15 @@ export default function MovieData({movie}: {
     movie: Movie
 }) {
     return (
-        <article className="w-[800px] max-w-screen h-full items-center grid grid-cols-[auto_1fr] gap-15 grid-rows-1">
+        <article className="max-w-full w-full lg:w-[800px] h-full items-center lg:grid lg:grid-cols-[auto_1fr] gap-15 lg:grid-rows-1 grid-cols-1">
             <Image
                 width={348}
                 height={570}
                 alt={movie.title}
                 src={movie.image}
-                className="h-full w-auto rounded-2xl"
+                className="h-full lg:w-auto w-full rounded-2xl object-cover"
             />
-            <div className="w-full h-fit flex flex-col gap-5">
+            <div className="w-full h-fit flex flex-col gap-5 lg:relative lg:bottom-unset lg:top-0 lg:left-0 absolute bottom-0 left-0 p-10 lg:p-0 bg-black/60 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none">
                 <h2 className="text-5xl font-bold">{movie.title}</h2>
                 <div className="flex items-center gap-2 font-bold">
                     <Rating value={movie.rating} />
