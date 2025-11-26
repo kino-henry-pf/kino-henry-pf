@@ -1,4 +1,5 @@
 import { Movie } from "@/types/movie"
+import Image from "next/image"
 
 export default function HeroCarrousel({
     movies
@@ -6,18 +7,24 @@ export default function HeroCarrousel({
     movies: Movie[]
 }) {
     return (
-        <div className="relative max-w-[1300px] mx-auto">
-            <div className="overflow-x-auto snap-x snap-mandatory flex gap-10 px-10 scroll-p-0 hide-scrollbar">
-                <div className="snap-center shrink-0 w-[1300px] max-w-full h-[560px] bg-blue-500 rounded-4xl"></div>
-                <div className="snap-center shrink-0 w-[1300px] max-w-full h-[560px] bg-green-500 rounded-4xl"></div>
-                <div className="snap-center shrink-0 w-[1300px] max-w-full h-[560px] bg-purple-500 rounded-4xl"></div>
-                <div className="snap-center shrink-0 w-[1300px] max-w-full h-[560px] bg-orange-500 rounded-4xl"></div>
+            <div className={`overflow-x-auto snap-x snap-mandatory flex flex-row gap-10 px-10 scroll-p-0 hide-scrollbar`}>
+                {
+                    movies.map(movie => (
+                        <div key={movie.id} className="w-screen h-fit">
+                            <div className="snap-center shrink-0 w-screen flex items-center justify-center max-w-full h-fit">
+                                <div className="w-[1300px] h-[560px] max-w-[calc(100vw-50px)] bg-black overflow-hidden rounded-4xl">
+                                    <Image
+                                        alt={movie.title}
+                                        src={movie.image}
+                                        width={100}
+                                        height={200}
+                                        className="w-full h-full object-cover blur-[10vh]"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
-            <div className="
-            absolute w-full h-full top-0 left-0
-            pointer-events-none
-            bg-[linear-gradient(90deg,_var(--background)_2%,_transparent_7%,_transparent_93%,_var(--background)_98%)]
-            "></div>
-        </div>
     )
 }
