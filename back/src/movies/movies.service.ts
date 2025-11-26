@@ -7,7 +7,7 @@ import Movie from './movie.entity';
 import { MoviesRepository } from './movie.repository';
 import CreateMovieDto from './DTOs/create-movie.dto';
 import { UpdateMovieDto } from './DTOs/update-movie.dto';
-import CloudinaryService from 'src/cloudinary/cloudinary.service';
+import CloudinaryService from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class MoviesService {

@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import Movie from '../movies/movie.entity';
 import { SeederService } from './seeder.service';
-import { User } from 'src/users/entity/user.entity';
+import { User } from '../users/entity/user.entity';
+import Product from '../products/product.entity';
+import Showtime from '../showtimes/showtimes.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie]), TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([Movie, User, Product, Showtime])],
   providers: [SeederService],
   exports: [SeederService],
 })

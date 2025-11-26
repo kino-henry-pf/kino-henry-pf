@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { loginUserDTO } from 'src/users/dto/login-user-dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
-export class UsersService {
+export class AuthService {
   private users = [
       {
     id: "1",
@@ -75,25 +76,16 @@ export class UsersService {
     password: "HugoPass100!",
     address: "Boulevard del Mar 60, Alicante"
   }]
-
-  create(user: CreateUserDto) {
-    return user;
-  }
-
-  findAll() {
-    return this.users;
-  }
-
-  findOne(id: string) {
-   const thisUser = this.users.find(user => user.id === id);
-   if (!thisUser) throw new NotFoundException("User not found."); else return thisUser;
-  }
-
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
+async signup(user) {
+      const id = this.users.length + 1
+      const newUser = {id, ...user} 
+      this.users = [...this.users, newUser]
+      return newUser}
+async signin(credentials: loginUserDTO){
+   const foundUser = this.users.find(user => user.email === credentials.email);
+   if (!foundUser) throw new NotFoundException("Bad credentials")
+   const matchingPasswords = this.users.find(foundUser => foundUser.password === credentials.password)
+   if (!matchingPasswords) throw new NotFoundException("Bad credentials")
+   return "Logged."
+}
 }

@@ -7,7 +7,13 @@ import { environmentVariables } from '../config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
+<<<<<<< HEAD
 import { BranchsModule } from './branchs/branchs.module';
+=======
+import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { ShowtimesModule } from './showtimes/showtimes.module';
+>>>>>>> fc4f9dfeba1d105739e1981e16ffbd935571d310
 
 @Module({
   imports: [
@@ -28,9 +34,15 @@ import { BranchsModule } from './branchs/branchs.module';
     }),
     UsersModule,
     MoviesModule,
+    ProductsModule,
     SeederModule,
+<<<<<<< HEAD
     BranchsModule,
+=======
+    AuthModule,
+    ShowtimesModule,
+>>>>>>> fc4f9dfeba1d105739e1981e16ffbd935571d310
   ],
-  providers:[SeederModule]
+  providers: [SeederModule],
 })
 export class AppModule {}
