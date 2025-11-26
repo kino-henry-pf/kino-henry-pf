@@ -14,7 +14,7 @@ export enum Category {
   OTHER = 'other', // Cualquier categoría adicional
 }
 
-@Entity()
+@Entity('products')
 export default class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -22,13 +22,13 @@ export default class Product {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   image: string;
 
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
   @Column({

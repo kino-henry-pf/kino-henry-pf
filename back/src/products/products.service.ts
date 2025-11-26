@@ -43,28 +43,38 @@ export class ProductsService {
         }
   }
 
-  async updateProduct(id: string, dto: UpdateProductDto, file?: Express.Multer.File): Promise<Product> {
-     try {
-      const product = await this.productRepo.findById(id)
-      if(!product) throw new NotFoundException(`No product with id ${id} has been found`)
-      let imageUrl = dto.image;
-      if (file) {
-        imageUrl = await this.cloudinaryService.uploadImage(
-          file,
-          'kino/products',
-        );
-      }
-
-      const updated = await this.productRepo.updateProduct(id, {
-        ...dto,
-        image: imageUrl || product.image,
-      });
-
-      return updated;
-    } catch (error) {
-      throw new BadRequestException('Error updating product: ' + error);
+  async updateProduct(
+  id: string,
+  dto: UpdateProductDto,
+  file?: Express.Multer.File
+): Promise<Product> {
+  try {
+    const product = await this.productRepo.findById(id);
+    if (!product) {
+      throw new NotFoundException(`No product with id ${id} has been found`);
     }
+
+    let imageUrl = product.image; // Always start with the current image
+
+    // If a file was uploaded, upload it and replace the image URL
+    if (file) {
+      imageUrl = await this.cloudinaryService.uploadImage(
+        file,
+        'kino/products'
+      );
+    }
+
+    // Update product with DTO + final image URL
+    const updated = await this.productRepo.updateProduct(id, {
+      ...dto,
+      image: imageUrl,
+    } as any);
+
+    return updated;
+  } catch (error) {
+    throw new BadRequestException('Error updating product: ' + error);
   }
+}
 
   async deleteProduct(id: string): Promise<string> {
     return this.productRepo.deleteProduct(id);
