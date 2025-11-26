@@ -38,6 +38,12 @@ h1, h2 {
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;
   height: 0;
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  overflow: auto;
 }
 
 @media only screen and (max-width: 1400px) {
