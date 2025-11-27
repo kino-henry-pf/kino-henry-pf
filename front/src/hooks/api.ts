@@ -12,7 +12,7 @@ export const useApi = () => {
     const get = async <T>(path: string, options?: GetOptions): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "GET",
-            cache: "force-cache"
+            cache: options?.disableCache ? undefined : "force-cache"
         })
 
         const responseObject = await response.json()
