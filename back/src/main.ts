@@ -4,6 +4,7 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ConfigType } from 'config/config.types';
 import { EnvironmentVariables } from 'config/environment.config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +22,17 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+
+   const options = new DocumentBuilder()
+  .setTitle("KINO API Documentation")
+  .setDescription("Endpoints of the Kino project API")
+  .setVersion("1.0.0")
+  .addBearerAuth()
+  .build();
+
+  const document = SwaggerModule.createDocument(app, options)
+
+  SwaggerModule.setup("api", app, document)
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
