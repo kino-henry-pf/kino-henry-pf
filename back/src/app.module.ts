@@ -30,9 +30,12 @@ import { JwtModule } from '@nestjs/jwt';
         return { ...dbConfig };
       },
     }),
-    JwtModule.register({
+    JwtModule.registerAsync({
       global: true,
-      secret: process.env.JWT_SECRET,
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET'),
+      }),
     }),
     UsersModule,
     MoviesModule,
