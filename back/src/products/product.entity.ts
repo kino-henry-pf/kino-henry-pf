@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Branch } from 'src/branchs/branch.entity';
+import { BranchProduct } from 'src/branchs/branch_products.entity';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum Category {
   POPCORN = 'popcorn', // Pochoclo / palomitas
@@ -37,4 +39,7 @@ export default class Product {
     enumName: 'product_category_enum_v2',
   })
   category: Category;
+
+  @OneToMany(() => BranchProduct, (bp) => bp.product)
+  branchProducts: BranchProduct[];
 }
