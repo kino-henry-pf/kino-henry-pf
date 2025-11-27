@@ -4,12 +4,10 @@ import {
   Column,
   ManyToMany,
   JoinTable,
-  OneToMany,
 } from 'typeorm';
 import Movie from '../movies/movie.entity';
-import { BranchProduct } from '../branchsproducts/branch_products.entity';
 
-@Entity('Branchs')
+@Entity()
 export class Branch {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -32,7 +30,4 @@ export class Branch {
   @ManyToMany(() => Movie, (movie) => movie.branches)
   @JoinTable({ name: 'branch_movies' })
   movies: Movie[];
-
-  @OneToMany(() => BranchProduct, (bp) => bp.branch)
-  branchProducts: BranchProduct[];
 }
