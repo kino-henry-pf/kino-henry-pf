@@ -6,7 +6,6 @@ import {
   Max,
   MaxLength,
   Min,
-  IsUrl,
 } from 'class-validator';
 import { Genre } from '../movie.entity';
 
@@ -33,7 +32,6 @@ export class UpdateMovieDto {
 
   @IsString()
   @IsOptional()
-  @IsUrl()
   image?: string;
 
   @IsNumber()
