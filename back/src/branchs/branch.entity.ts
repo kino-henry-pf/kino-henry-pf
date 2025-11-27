@@ -4,8 +4,10 @@ import {
   Column,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import Movie from '../movies/movie.entity';
+import { BranchProduct } from 'src/branchsproducts/branch_products.entity';
 
 @Entity()
 export class Branch {
@@ -30,4 +32,7 @@ export class Branch {
   @ManyToMany(() => Movie, (movie) => movie.branches)
   @JoinTable({ name: 'branch_movies' })
   movies: Movie[];
+
+  @OneToMany(() => BranchProduct, (branchProduct) => branchProduct.branch)
+  branchProducts: BranchProduct[];
 }
