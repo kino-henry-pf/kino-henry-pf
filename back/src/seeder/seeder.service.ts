@@ -99,7 +99,7 @@ export class SeederService {
       const moviesData: Partial<Movie>[] = [
         {
           title: 'Inception',
-          sinopsis: 'A thief uses dream-sharing technology.',
+          synopsis: 'A thief uses dream-sharing technology.',
           rating: 4.8,
           genre: Genre.SCI_FI,
           image: 'https://theposterdb.com/api/assets/52633',
@@ -107,7 +107,7 @@ export class SeederService {
         },
         {
           title: 'The Dark Knight',
-          sinopsis: 'Batman faces the Joker.',
+          synopsis: 'Batman faces the Joker.',
           rating: 4.9,
           genre: Genre.ACTION,
           image: 'https://theposterdb.com/api/assets/4792',
@@ -115,7 +115,7 @@ export class SeederService {
         },
         {
           title: 'La La Land',
-          sinopsis: 'A jazz musician meets an actress.',
+          synopsis: 'A jazz musician meets an actress.',
           rating: 4.5,
           genre: Genre.MUSICAL,
           image: 'https://theposterdb.com/api/assets/13422',
@@ -123,7 +123,7 @@ export class SeederService {
         },
         {
           title: 'Interstellar',
-          sinopsis: 'Explorers travel through a wormhole.',
+          synopsis: 'Explorers travel through a wormhole.',
           rating: 4.7,
           genre: Genre.SCI_FI,
           image: 'https://theposterdb.com/api/assets/6461',
@@ -131,7 +131,7 @@ export class SeederService {
         },
         {
           title: 'The Conjuring',
-          sinopsis: 'Paranormal investigators help a family.',
+          synopsis: 'Paranormal investigators help a family.',
           rating: 4.2,
           genre: Genre.HORROR,
           image: 'https://theposterdb.com/api/assets/23525',
@@ -139,7 +139,7 @@ export class SeederService {
         },
         {
           title: 'Parasite',
-          sinopsis: 'A poor family infiltrates a rich home.',
+          synopsis: 'A poor family infiltrates a rich home.',
           rating: 4.9,
           genre: Genre.DRAMA,
           image: 'https://theposterdb.com/api/assets/47915',
@@ -147,7 +147,7 @@ export class SeederService {
         },
         {
           title: 'Toy Story',
-          sinopsis: 'Toys come to life.',
+          synopsis: 'Toys come to life.',
           rating: 4.7,
           genre: Genre.ANIMATION,
           image: 'https://theposterdb.com/api/assets/457',
@@ -155,7 +155,7 @@ export class SeederService {
         },
         {
           title: 'The Notebook',
-          sinopsis: 'Romantic drama from the 1940s.',
+          synopsis: 'Romantic drama from the 1940s.',
           rating: 4.3,
           genre: Genre.ROMANCE,
           image: 'https://theposterdb.com/api/assets/167079',
@@ -163,7 +163,7 @@ export class SeederService {
         },
         {
           title: 'The Grand Budapest Hotel',
-          sinopsis: 'A concierge and his lobby boy.',
+          synopsis: 'A concierge and his lobby boy.',
           rating: 4.6,
           genre: Genre.COMEDY,
           image: 'https://theposterdb.com/api/assets/54311',
@@ -171,7 +171,7 @@ export class SeederService {
         },
         {
           title: 'Saving Private Ryan',
-          sinopsis: 'WWII rescue mission.',
+          synopsis: 'WWII rescue mission.',
           rating: 4.8,
           genre: Genre.WAR,
           image: 'https://theposterdb.com/api/assets/34772',

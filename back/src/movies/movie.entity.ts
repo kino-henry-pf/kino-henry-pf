@@ -32,7 +32,7 @@ export default class Movie {
   title: string;
 
   @Column()
-  sinopsis: string;
+  synopsis: string;
 
   @Column({ type: 'numeric', precision: 2, scale: 1 })
   rating: number;
