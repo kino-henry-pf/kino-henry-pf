@@ -13,7 +13,9 @@ export default async function MoviePage({
 }) {
     try {
         const api = useApi(),
-            movie = await api.get<Movie>(`movies/${(await params).movie}`)
+            movie = await api.get<Movie>(`movies/${(await params).movie}`, {
+                disableCache: true
+            })
 
         return (
             <main>
