@@ -4,7 +4,7 @@ import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from
     name: 'USERS'
 })
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string
     @Column()
     name: string
