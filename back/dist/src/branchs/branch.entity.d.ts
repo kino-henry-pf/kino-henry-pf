@@ -1,4 +1,4 @@
-import Movie from 'src/movies/movie.entity';
+import Movie from '../movies/movie.entity';
 export declare class Branch {
     id: string;
     name: string;

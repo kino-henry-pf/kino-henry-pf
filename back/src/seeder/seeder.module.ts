@@ -5,9 +5,10 @@ import { SeederService } from './seeder.service';
 import { User } from '../users/entity/user.entity';
 import Product from '../products/product.entity';
 import Showtime from '../showtimes/showtimes.entity';
+import { Branch } from '../branchs/branch.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie, User, Product, Showtime])],
+  imports: [TypeOrmModule.forFeature([Movie, User, Product, Showtime, Branch])],
   providers: [SeederService],
   exports: [SeederService],
 })

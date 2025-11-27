@@ -60,7 +60,7 @@ export class MoviesService {
   ): Promise<Movie> {
     try {
       const movie = await this.moviesRepository.findById(id);
-      if (!movie) return this.notFound(id);
+      if (!movie) return this.notFound(id); 
 
       let imageUrl = dto.image;
 

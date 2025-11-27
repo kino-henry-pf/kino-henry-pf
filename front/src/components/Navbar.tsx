@@ -4,12 +4,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import KinoLogo from "@/../public/logo.png";
 
 export default function Navbar() {
   // Simulacion del estado de autenticacion
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Datos del usuario (mock)
   const user = {
@@ -18,8 +21,18 @@ export default function Navbar() {
     initials: "VF",
   };
 
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if(menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
   return (
-    <nav className="bg-[#1a1a1a]/80 backdrop-blur-md sticky-top-0 z-50 px-8 py-4 flex items-center justify-between">
+    <nav className="bg-[#1a1a1a]/80 backdrop-blur-md relative z-[9999] sticky-top-0 z-50 px-8 py-4 flex items-center justify-between">
       {/* Logo - siempre visible */}
       <Link href={"/"}>
         <Image
@@ -69,7 +82,10 @@ export default function Navbar() {
           </Link>
 
           {/* Avatar con dropdown (opcional) */}
-          <div className="flex items-center gap-3 cursor-pointer group">
+          <div className="flex items-center gap-3 cursor-pointer group"
+          ref={menuRef}
+          onClick={() => setOpenMenu(!openMenu)}
+          >
             <div className="w-12 h-12 bg-[#F3CC63] rounded-full flex items-center justify-center font-bold text-black">
               {user.initials}
             </div>
@@ -77,6 +93,29 @@ export default function Navbar() {
               <p className="font-semibold">{user.name}</p>
               <p className="text-sm text-gray-400">{user.email}</p>
             </div>
+
+            {/* Menu desplegable*/}
+            {openMenu && (
+              <div className="absolute right-0 top-16 w-48 bg-[#232323] border border-gray-700 rounded-xl shadow-xl p-2">
+                <Link
+                  href="/perfil"
+                  className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                >
+                  Mi perfil
+                </Link>
+                <Link
+                  href="/reservas"
+                  className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                >
+                  Mis reservas
+                </Link>
+                <button
+                  className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700 rounded-lg cursor-pointer"
+                >
+                  Cerrar sesión
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

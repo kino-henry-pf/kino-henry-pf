@@ -8,7 +8,7 @@ export default function Searcher({
     onInput: (value: string) => any
 }) {
     return (
-        <label className="w-[420px] max-w-full cursor-text bg-white/3 rounded-full flex items-center gap-3 p-3 border-1 border-[#1b1b1b] w-full">
+        <label className="w-[420px] max-w-full cursor-text bg-white/3 rounded-full flex items-center gap-3 p-3 border-1 border-[var(--color-border)] w-full">
             <Icon.Search className="size-5" />
             <input
                 placeholder="Busca aquí..."
