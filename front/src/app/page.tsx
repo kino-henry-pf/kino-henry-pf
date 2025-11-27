@@ -2,7 +2,6 @@ import MovieCard from "@/components/MovieCard";
 import HeroCarrousel from "./HeroCarrousel";
 import Footer from "@/components/Footer";
 import { useApi } from "@/hooks/api";
-import { Movie } from "@/types/movie";
 
 export default async function Home() {
 	const api = useApi(),
