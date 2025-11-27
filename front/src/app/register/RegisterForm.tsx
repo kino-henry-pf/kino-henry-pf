@@ -41,8 +41,8 @@ const RegisterForm: React.FC = () => {
 
     if (!values.password) {
       errors.password = "La contraseña es obligatoria.";
-    } else if (values.password.length < 6) {
-      errors.password = "Debe tener al menos 6 caracteres.";
+    } else if (values.password.length < 8) {
+      errors.password = "Debe tener al menos 8 caracteres.";
     }
 
     if (!values.confirmPassword) {
