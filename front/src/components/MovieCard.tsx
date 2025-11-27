@@ -7,12 +7,12 @@ export default function MovieCard({
     movie: Movie
 }) {
     return (
-        <a href="#" className="w-full h-auto overflow-hidden cursor-pointer">
+        <a href={`/movie/${movie.id}`} className="w-full h-auto overflow-hidden cursor-pointer">
             <Image
                 alt={movie.title}
                 src={movie.image}
-                width={348}
-                height={570}
+                width={267}
+                height={400}
                 className="w-full h-auto rounded-xl"
             />
         </a>

@@ -6,6 +6,7 @@ import Image from "next/image"
 import * as Icon from "akar-icons"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import IconButton from "@/components/IconButton"
+import Link from "next/link"
 
 export default function HeroCarrousel({
     movies
@@ -78,7 +79,7 @@ export default function HeroCarrousel({
                     movies.map(movie => (
                         <div key={movie.id} className="w-screen h-fit container-x-padding">
                             <div className="snap-center shrink-0 w-screen flex items-center justify-center max-w-full h-fit">
-                                <div className="w-[1300px] h-[560px] max-w-full bg-[#d9d9d9]/10 overflow-hidden rounded-4xl relative flex items-center justify-center">
+                                <div className="w-[1300px] h-[560px] max-w-full bg-[#d9d9d9]/5 overflow-hidden rounded-4xl relative flex items-center justify-center">
                                     <Image
                                         alt={movie.title}
                                         src={movie.image}
@@ -86,7 +87,12 @@ export default function HeroCarrousel({
                                         className="w-full h-full object-cover blur-md absolute top-0 left-0 z-1 opacity-20"
                                     />
                                     <div className="relative z-9 h-full max-w-full lg:w-fit w-full lg:p-20 lg:container-x-padding">
-                                        <MovieData movie={movie} />
+                                        <MovieData
+                                            movie={movie}
+                                            actions={[
+                                                <Link href={`/movie/${movie.id}`} className="w-fit h-fit px-6 py-3 rounded-full bg-white/10 font-bold text-sm">Ver opiniones</Link>
+                                            ]}
+                                        />
                                     </div>
                                 </div>
                             </div>
