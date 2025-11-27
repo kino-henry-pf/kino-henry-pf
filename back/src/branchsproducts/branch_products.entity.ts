@@ -1,22 +1,35 @@
-import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import {Branch} from '../branchs/branch.entity';
-import Product from '../products/product.entity'
+import { Branch } from 'src/branchs/branch.entity';
+import Product from 'src/products/product.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Column,
+  Unique,
+} from 'typeorm';
 
 @Entity('branch_products')
+@Unique(['branchId', 'productId'])
 export class BranchProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({ type: 'int', default: 0 })
-  stock: number;
 
   @ManyToOne(() => Branch, (branch) => branch.branchProducts, {
     onDelete: 'CASCADE',
   })
   branch: Branch;
 
+  @Column()
+  branchId: string;
+
   @ManyToOne(() => Product, (product) => product.branchProducts, {
     onDelete: 'CASCADE',
   })
   product: Product;
+
+  @Column()
+  productId: string;
+
+  @Column({ type: 'int' })
+  stock: number;
 }
