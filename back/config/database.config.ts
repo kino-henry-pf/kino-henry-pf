@@ -5,7 +5,7 @@ import { User } from '../src/users/entity/user.entity';
 import Product from '../src/products/product.entity';
 import Showtimes from '../src/showtimes/showtimes.entity';
 import { Branch } from '../src/branchs/branch.entity';
-import { BranchProduct } from 'src/branchsproducts/branch_products.entity';
+import { BranchProduct } from '../src/branchsproducts/branch_products.entity';
 
 export const typeOrmConfig = registerAs(
   'database',

@@ -7,6 +7,7 @@ import { User } from '../users/entity/user.entity';
 import Product, { Category } from '../products/product.entity';
 import Showtime, { Format, Language } from '../showtimes/showtimes.entity';
 import { Branch } from '../branchs/branch.entity';
+import { BranchProduct } from '../branchsproducts/branch_products.entity';
 
 @Injectable()
 export class SeederService {
@@ -18,6 +19,8 @@ export class SeederService {
     private showtimeRepository: Repository<Showtime>,
     @InjectRepository(Branch)
     private branchRepository: Repository<Branch>,
+    @InjectRepository(BranchProduct)
+    private bpRepository: Repository<BranchProduct>,
   ) {}
 
   private pickRandom<T>(array: T[], count: number): T[] {
@@ -259,10 +262,29 @@ export class SeederService {
       }
     }
 
-    for (const st of showtimesToCreate) {
-      await this.showtimeRepository.save(st);
+    for (const showtime of showtimesToCreate) {
+      await this.showtimeRepository.save(showtime);
     }
 
+    const allBranches = await this.branchRepository.find();
+    const allProducts = await this.productsRepository.find();
+
+    const bpToInsert: Partial<BranchProduct>[] = [];
+
+    for (const branch of allBranches) {
+      const numProducts = 2 + Math.floor(Math.random() * 3);
+      const selectedProducts = this.pickRandom(allProducts, numProducts);
+
+      for (const product of selectedProducts) {
+        bpToInsert.push({
+          branchId: branch.id,
+          productId: product.id,
+          stock: 10 + Math.floor(Math.random() * 40),
+        });
+      }
+    }
+    await this.bpRepository.save(bpToInsert);
+    console.log(`✓ Branch Products seeded (${bpToInsert.length})`);
     console.log(`✓ Showtimes created (${showtimesToCreate.length})`);
     console.log('Seeder Completed!');
   }

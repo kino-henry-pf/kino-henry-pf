@@ -31,7 +31,7 @@ export default class CloudinaryService {
       );
 
       // FIX DEFINITIVO
-      const readable = Readable.from(file.buffer as Buffer);
+      const readable = Readable.from(file.buffer);
       readable.pipe(stream);
     });
   }
