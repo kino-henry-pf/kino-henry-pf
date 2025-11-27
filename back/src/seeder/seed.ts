@@ -7,7 +7,6 @@ async function bootstrap() {
   const seeder = app.get(SeederService);
 
   await seeder.seed();
-  console.log('Seeding complete');
   await app.close();
 }
 void bootstrap();
