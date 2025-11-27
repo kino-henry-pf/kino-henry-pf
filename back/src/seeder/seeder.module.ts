@@ -6,9 +6,19 @@ import { User } from '../users/entity/user.entity';
 import Product from '../products/product.entity';
 import Showtime from '../showtimes/showtimes.entity';
 import { Branch } from '../branchs/branch.entity';
+import { BranchProduct } from '../branchsproducts/branch_products.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie, User, Product, Showtime, Branch])],
+  imports: [
+    TypeOrmModule.forFeature([
+      Movie,
+      User,
+      Product,
+      Showtime,
+      Branch,
+      BranchProduct,
+    ]),
+  ],
   providers: [SeederService],
   exports: [SeederService],
 })

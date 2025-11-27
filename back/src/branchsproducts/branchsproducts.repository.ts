@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BranchProduct } from './branch_products.entity';
 import { Branch } from '../branchs/branch.entity';
-import Product from 'src/products/product.entity';
+import Product from '../products/product.entity';
 
 @Injectable()
 export class BranchProductsRepository {

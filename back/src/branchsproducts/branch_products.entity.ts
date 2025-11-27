@@ -1,5 +1,5 @@
-import { Branch } from 'src/branchs/branch.entity';
-import Product from 'src/products/product.entity';
+import { Branch } from '../branchs/branch.entity';
+import Product from '../products/product.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

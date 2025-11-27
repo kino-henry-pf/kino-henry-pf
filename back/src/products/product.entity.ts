@@ -1,4 +1,4 @@
-import { BranchProduct } from 'src/branchsproducts/branch_products.entity';
+import { BranchProduct } from '../branchsproducts/branch_products.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum Category {
