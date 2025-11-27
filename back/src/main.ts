@@ -8,7 +8,11 @@ import { EnvironmentVariables } from 'config/environment.config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService<ConfigType>);
-  const PORT = configService.get<EnvironmentVariables>('env')?.port ?? 300;
+  app.enableCors({
+    origin: configService.get<EnvironmentVariables>('env')?.origin,
+    credentials: true,
+  });
+  const PORT = configService.get<EnvironmentVariables>('env')?.port ?? 3000;
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
