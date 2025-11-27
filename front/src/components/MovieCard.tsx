@@ -11,8 +11,8 @@ export default function MovieCard({
             <Image
                 alt={movie.title}
                 src={movie.image}
-                width={348}
-                height={570}
+                width={267}
+                height={400}
                 className="w-full h-auto rounded-xl"
             />
         </a>
