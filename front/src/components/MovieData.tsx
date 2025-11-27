@@ -12,7 +12,7 @@ export default function MovieData({
     actions?: React.ReactNode[]
 }) {
     return (
-        <article className="max-w-full w-full lg:w-[800px] h-full items-center lg:grid lg:grid-cols-[auto_1fr] gap-15 lg:grid-rows-1 grid-cols-1">
+        <article className="max-w-full w-full lg:w-[800px] h-full items-center lg:grid lg:grid-cols-[auto_1fr] gap-15 lg:grid-rows-1 grid-cols-1 relative lg:rounded-none rounded-2xl overflow-hidden">
             <Image
                 width={267}
                 height={400}
