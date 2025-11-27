@@ -1,5 +1,6 @@
 import MovieData from "@/components/MovieData";
 import { useApi } from "@/hooks/api";
+import { Movie } from "@/types/movie";
 import { redirect } from "next/navigation";
 
 export default async function MoviePage({
@@ -11,8 +12,7 @@ export default async function MoviePage({
 }) {
     try {
         const api = useApi(),
-            movieD = await api.get<any>(`movies/${(await params).movie}`),
-            movie = {...movieD, synopsis: movieD.sinopsis}
+            movie = await api.get<Movie>(`movies/${(await params).movie}`)
 
         return (
             <main>
@@ -23,7 +23,8 @@ export default async function MoviePage({
                 </section>
             </main>
         )
-    } catch {
+    } catch (error) {
+        console.error(error)
         redirect("/")
     }
 }
