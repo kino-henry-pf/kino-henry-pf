@@ -2,9 +2,14 @@ import { Movie } from "@/types/movie"
 import Rating from "./Rating"
 import Image from "next/image"
 import Button from "./Button"
+import { Fragment } from "react/jsx-runtime"
 
-export default function MovieData({movie}: {
-    movie: Movie
+export default function MovieData({
+    movie,
+    actions
+}: {
+    movie: Movie,
+    actions?: React.ReactNode[]
 }) {
     return (
         <article className="max-w-full w-full lg:w-[800px] h-full items-center lg:grid lg:grid-cols-[auto_1fr] gap-15 lg:grid-rows-1 grid-cols-1">
@@ -25,7 +30,13 @@ export default function MovieData({movie}: {
                 <p>{movie.synopsis}</p>
                 <nav className="w-fit flex items-center gap-4">
                     <Button rounded>Cotizar boleto</Button>
-                    <Button primary={false} rounded>Ver opiniones</Button>
+                    {
+                        actions && actions.map((action, index) => (
+                            <Fragment key={index}>
+                                {action}
+                            </Fragment>
+                        ))
+                    }
                 </nav>
             </div>
         </article>
