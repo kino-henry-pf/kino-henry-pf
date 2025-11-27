@@ -18,7 +18,7 @@ export class BranchProductsService {
     const product = await this.repo.findProductById(dto.productId);
     if (!product) throw new NotFoundException('Product not found');
 
-    const existing = await this.repo.findRelation(branch, product);
+    const existing = await this.repo.findRelation(dto.branchId, dto.productId);
     if (existing)
       throw new BadRequestException('Product already assigned to this branch');
 
