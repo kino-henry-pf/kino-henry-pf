@@ -32,7 +32,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-[#1a1a1a]/80 backdrop-blur-md relative z-[9999] sticky-top-0 z-50 px-8 py-4 flex items-center justify-between">
+    <nav className="bg-[var(--background)]/50 backdrop-blur-xl relative z-[9999] sticky top-0 z-50 container-x-padding py-4 flex items-center justify-between">
       {/* Logo - siempre visible */}
       <Link href={"/"}>
         <Image
@@ -82,16 +82,16 @@ export default function Navbar() {
           </Link>
 
           {/* Avatar con dropdown (opcional) */}
-          <div className="flex items-center gap-3 cursor-pointer group"
+          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58"
           ref={menuRef}
           onClick={() => setOpenMenu(!openMenu)}
           >
             <div className="w-12 h-12 bg-[#F3CC63] rounded-full flex items-center justify-center font-bold text-black">
               {user.initials}
             </div>
-            <div className="text-white">
-              <p className="font-semibold">{user.name}</p>
-              <p className="text-sm text-gray-400">{user.email}</p>
+            <div className="text-white max-w-full">
+              <p className="font-semibold w-full whitespace-nowrap text-ellipsis overflow-hidden text-md">{user.name}</p>
+              <p className="text-sm text-gray-400 w-full whitespace-nowrap text-ellipsis overflow-hidden">{user.email}</p>
             </div>
 
             {/* Menu desplegable*/}
