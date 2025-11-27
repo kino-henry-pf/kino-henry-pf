@@ -15,6 +15,10 @@ export const useApi = () => {
             cache: options?.disableCache ? undefined : "force-cache"
         })
 
+        if (!response.ok) {
+            throw new Error(response.statusText)
+        }
+
         const responseObject = await response.json()
 
         return responseObject
