@@ -9,8 +9,8 @@ export default function MovieData({movie}: {
     return (
         <article className="max-w-full w-full lg:w-[800px] h-full items-center lg:grid lg:grid-cols-[auto_1fr] gap-15 lg:grid-rows-1 grid-cols-1">
             <Image
-                width={348}
-                height={570}
+                width={267}
+                height={400}
                 alt={movie.title}
                 src={movie.image}
                 className="h-full lg:w-auto w-full rounded-2xl object-cover"
