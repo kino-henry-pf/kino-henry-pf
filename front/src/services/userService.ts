@@ -3,7 +3,7 @@ import { LoginValues } from "@/app/login/LoginForm";
 
 export async function registerService(userData: FormValues) {
   try {
-    const response = await fetch("http://localhost:3001/register", {
+    const response = await fetch("http://localhost:3000/auth/signup", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -23,7 +23,7 @@ export async function registerService(userData: FormValues) {
 
 export async function loginService(userData: LoginValues) {
   try {
-    const response = await fetch("http://localhost:3001/login", {
+    const response = await fetch("http://localhost:3000/auth/signin", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
