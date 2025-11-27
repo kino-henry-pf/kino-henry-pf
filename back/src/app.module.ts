@@ -11,6 +11,7 @@ import { BranchsModule } from './branchs/branchs.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ShowtimesModule } from './showtimes/showtimes.module';
+import { BranchsproductsModule } from './branchsproducts/branchsproducts.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ShowtimesModule } from './showtimes/showtimes.module';
     BranchsModule,
     AuthModule,
     ShowtimesModule,
+    BranchsproductsModule,
   ],
   providers: [SeederModule],
 })

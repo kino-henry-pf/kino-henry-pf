@@ -46,13 +46,7 @@ let ProductsRepository = class ProductsRepository {
         return products;
     }
     async createProduct(product) {
-        const newProduct = this.productRepository.create({
-            name: product.name,
-            image: product.image,
-            description: product.description,
-            price: product.price,
-            category: product.category,
-        });
+        const newProduct = this.productRepository.create(product);
         return await this.productRepository.save(newProduct);
     }
     async updateProduct(id, product) {

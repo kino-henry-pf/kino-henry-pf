@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
+const branch_products_entity_1 = require("../branchsproducts/branch_products.entity");
 const typeorm_1 = require("typeorm");
 var Category;
 (function (Category) {
@@ -32,6 +33,7 @@ let Product = class Product {
     description;
     price;
     category;
+    branchProducts;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -42,7 +44,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: 'varchar', nullable: true }),
     __metadata("design:type", String)
 ], Product.prototype, "image", void 0);
 __decorate([
@@ -50,7 +52,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2, nullable: false }),
+    (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
 ], Product.prototype, "price", void 0);
 __decorate([
@@ -61,8 +63,12 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Product.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => branch_products_entity_1.BranchProduct, (bp) => bp.product),
+    __metadata("design:type", Array)
+], Product.prototype, "branchProducts", void 0);
 Product = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)('products')
 ], Product);
 exports.default = Product;
 //# sourceMappingURL=product.entity.js.map

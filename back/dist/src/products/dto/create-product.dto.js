@@ -13,7 +13,6 @@ const class_validator_1 = require("class-validator");
 const product_entity_1 = require("../product.entity");
 class CreateProductDto {
     name;
-    image;
     description;
     price;
     category;
@@ -25,11 +24,6 @@ __decorate([
     (0, class_validator_1.MaxLength)(100),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateProductDto.prototype, "image", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

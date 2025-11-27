@@ -1,3 +1,4 @@
+import { BranchProduct } from 'src/branchsproducts/branch_products.entity';
 export declare enum Category {
     POPCORN = "popcorn",
     SOFT_DRINK = "soft_drink",
@@ -18,4 +19,5 @@ export default class Product {
     description: string;
     price: number;
     category: Category;
+    branchProducts: BranchProduct[];
 }

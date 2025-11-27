@@ -21,6 +21,8 @@ const products_service_1 = require("./products.service");
 const product_entity_1 = require("./product.entity");
 const create_product_dto_1 = __importDefault(require("./dto/create-product.dto"));
 const update_product_dto_1 = require("./dto/update-product.dto");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
 let ProductsController = class ProductsController {
     productService;
     constructor(productService) {
@@ -35,11 +37,11 @@ let ProductsController = class ProductsController {
     async getByCategory(category) {
         return this.productService.getProductsByCategory(category);
     }
-    async create(dto) {
-        return this.productService.createProduct(dto);
+    async create(dto, file) {
+        return await this.productService.createProduct(dto, file);
     }
-    async update(id, dto) {
-        return this.productService.updateProduct(id, dto);
+    async update(id, dto, file) {
+        return this.productService.updateProduct(id, dto, file);
     }
     async delete(id) {
         const message = await this.productService.deleteProduct(id);
@@ -69,17 +71,21 @@ __decorate([
 ], ProductsController.prototype, "getByCategory", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', { storage: (0, multer_1.memoryStorage)() })),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_product_dto_1.default]),
+    __metadata("design:paramtypes", [create_product_dto_1.default, Object]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "create", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', { storage: (0, multer_1.memoryStorage)() })),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_product_dto_1.UpdateProductDto]),
+    __metadata("design:paramtypes", [String, update_product_dto_1.UpdateProductDto, Object]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "update", null);
 __decorate([

@@ -16,12 +16,13 @@ const products_controller_1 = require("./products.controller");
 const product_repository_1 = require("./product.repository");
 const typeorm_1 = require("@nestjs/typeorm");
 const product_entity_1 = __importDefault(require("./product.entity"));
+const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
 let ProductsModule = class ProductsModule {
 };
 exports.ProductsModule = ProductsModule;
 exports.ProductsModule = ProductsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([product_entity_1.default])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([product_entity_1.default]), cloudinary_module_1.CloudinaryModule],
         controllers: [products_controller_1.ProductsController],
         providers: [products_service_1.ProductsService, product_repository_1.ProductsRepository],
     })
