@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import KinoLogo from "@/../public/logo.png";
+import Avatar from "./Avatar";
 
 export default function Navbar() {
   // Simulacion del estado de autenticacion
@@ -82,13 +83,11 @@ export default function Navbar() {
           </Link>
 
           {/* Avatar con dropdown (opcional) */}
-          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58"
+          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58 user-select-none"
           ref={menuRef}
           onClick={() => setOpenMenu(!openMenu)}
           >
-            <div className="w-12 h-12 bg-[#F3CC63] rounded-full flex items-center justify-center font-bold text-black">
-              {user.initials}
-            </div>
+            <Avatar>{user.name}</Avatar>
             <div className="text-white max-w-full">
               <p className="font-semibold w-full whitespace-nowrap text-ellipsis overflow-hidden text-md">{user.name}</p>
               <p className="text-sm text-gray-400 w-full whitespace-nowrap text-ellipsis overflow-hidden">{user.email}</p>
