@@ -69,7 +69,7 @@ export default function Navbar() {
             href="/dashboard"
             className="text-white hover:text-gray-300 transition"
           >
-            Reservas
+            Mis reservas
           </Link>
 
           {/* Avatar con dropdown (opcional) */}
