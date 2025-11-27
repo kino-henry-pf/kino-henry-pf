@@ -7,6 +7,7 @@ import { environmentVariables } from '../config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
+import { BranchsModule } from './branchs/branchs.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ShowtimesModule } from './showtimes/showtimes.module';
@@ -15,8 +16,8 @@ import { ShowtimesModule } from './showtimes/showtimes.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [environmentVariables, typeOrmConfig],
       envFilePath: '.env',
+      load: [environmentVariables, typeOrmConfig],
       validationSchema: configSchema,
       validationOptions: { abortEarly: true },
     }),
@@ -32,6 +33,7 @@ import { ShowtimesModule } from './showtimes/showtimes.module';
     MoviesModule,
     ProductsModule,
     SeederModule,
+    BranchsModule,
     AuthModule,
     ShowtimesModule,
   ],
