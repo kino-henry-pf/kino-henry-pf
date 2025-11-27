@@ -8,7 +8,7 @@ import { BranchProduct } from './branch_products.entity';
 import { BranchProductsRepository } from './branchsproducts.repository';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Product, Branch, BranchProduct])],
+  imports: [TypeOrmModule.forFeature([Product, Branch, BranchProduct])],
   controllers: [BranchProductsController],
   providers: [BranchProductsService, BranchProductsRepository],
 })

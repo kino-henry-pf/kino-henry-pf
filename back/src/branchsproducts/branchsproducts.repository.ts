@@ -24,8 +24,11 @@ export class BranchProductsRepository {
     return this.productRepo.findOne({ where: { id } });
   }
 
-  async findRelation(branch: Branch, product: Product): Promise<BranchProduct | null> {
-    return this.repo.findOne({ where: { branch, product } });
+  async findRelation(
+    branchId: string,
+    productId: string,
+  ): Promise<BranchProduct | null> {
+    return this.repo.findOne({ where: { branchId, productId } });
   }
 
   async createRelation(bp: Partial<BranchProduct>): Promise<BranchProduct> {
@@ -42,11 +45,17 @@ export class BranchProductsRepository {
   }
 
   async findByBranch(branchId: string): Promise<BranchProduct[]> {
-    return this.repo.find({ where: { branch: { id: branchId } } });
+    return this.repo.find({
+      where: { branchId },
+      relations: ['product', 'branch'],
+    });
   }
 
   async findByProduct(productId: string): Promise<BranchProduct[]> {
-    return this.repo.find({ where: { product: { id: productId } } });
+    return this.repo.find({
+      where: { productId },
+      relations: ['branch', 'product'],
+    });
   }
 
   async delete(id: string): Promise<number> {
