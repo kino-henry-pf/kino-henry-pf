@@ -10,7 +10,7 @@ export default async function Home() {
 	return (
 		<>
 			<main>
-				<section className="py-10">
+				<section className="pb-10">
 					<HeroCarrousel movies={movies} />
 				</section>
 				<section className="py-10 container-x-padding">
