@@ -1,12 +1,8 @@
-"use client"
-
-import { useCallback } from "react"
-
 type GetOptions = {
     disableCache?: boolean
 }
 
-const API_URL = "http://localhost:3000",
+const API_URL = "http://localhost:3001",
     DEFAULT_HEADERS = {
         "Content-Type": "application/json",
         "Accept": "application/json"
@@ -15,7 +11,7 @@ const API_URL = "http://localhost:3000",
 const cacheMap = new Map<string, any>()
 
 export const useApi = () => {
-    const get = useCallback(async <T>(path: string, options?: GetOptions): Promise<T> => {
+    const get = async <T>(path: string, options?: GetOptions): Promise<T> => {
         if (!cacheMap.get(path) || options?.disableCache) {
             const response = await fetch(`${API_URL}/${path}`, {
                 method: "GET"
@@ -29,9 +25,9 @@ export const useApi = () => {
         }
 
         return cacheMap.get(path)
-    }, [])
+    }
 
-    const post = useCallback(async <T>(path: string, body: any): Promise<T> => {
+    const post = async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "POST",
             headers: DEFAULT_HEADERS,
@@ -39,9 +35,9 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }, [])
+    }
 
-    const put = useCallback(async <T>(path: string, body: any): Promise<T> => {
+    const put = async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "PUT",
             headers: DEFAULT_HEADERS,
@@ -49,9 +45,9 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }, [])
+    }
 
-    const patch = useCallback(async <T>(path: string, body: any): Promise<T> => {
+    const patch = async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "PATCH",
             headers: DEFAULT_HEADERS,
@@ -59,9 +55,9 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }, [])
+    }
 
-    const del = useCallback(async <T>(path: string, body: any): Promise<T> => {
+    const del = async <T>(path: string, body: any): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "DELETE",
             headers: DEFAULT_HEADERS,
@@ -69,7 +65,7 @@ export const useApi = () => {
         })
 
         return await response.json()
-    }, [])
+    }
 
     return {
         get,
