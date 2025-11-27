@@ -9,6 +9,7 @@ const movie_entity_1 = __importDefault(require("../src/movies/movie.entity"));
 const user_entity_1 = require("../src/users/entity/user.entity");
 const product_entity_1 = __importDefault(require("../src/products/product.entity"));
 const showtimes_entity_1 = __importDefault(require("../src/showtimes/showtimes.entity"));
+const branch_entity_1 = require("../src/branchs/branch.entity");
 exports.typeOrmConfig = (0, config_1.registerAs)('database', () => ({
     type: 'postgres',
     host: process.env.DB_HOST,
@@ -16,11 +17,14 @@ exports.typeOrmConfig = (0, config_1.registerAs)('database', () => ({
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD ?? 'postgres',
     database: process.env.DB_DATABASE,
-    entities: [movie_entity_1.default, user_entity_1.User, product_entity_1.default, showtimes_entity_1.default],
+    entities: [movie_entity_1.default, user_entity_1.User, product_entity_1.default, showtimes_entity_1.default, branch_entity_1.Branch],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
-    ssl: {
-        rejectUnauthorized: false,
+    ssl: true,
+    extra: {
+        ssl: {
+            rejectUnauthorized: false,
+        },
     },
 }));
 //# sourceMappingURL=database.config.js.map
