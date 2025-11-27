@@ -8,23 +8,16 @@ const API_URL = process.env.API_URL || "http://localhost:3000",
         "Accept": "application/json"
     }
 
-const cacheMap = new Map<string, any>()
-
 export const useApi = () => {
     const get = async <T>(path: string, options?: GetOptions): Promise<T> => {
-        if (!cacheMap.get(path) || options?.disableCache) {
-            const response = await fetch(`${API_URL}/${path}`, {
-                method: "GET"
-            })
+        const response = await fetch(`${API_URL}/${path}`, {
+            method: "GET",
+            cache: "force-cache"
+        })
 
-            const responseObject = await response.json()
+        const responseObject = await response.json()
 
-            cacheMap.set(path, responseObject)
-
-            return responseObject
-        }
-
-        return cacheMap.get(path)
+        return responseObject
     }
 
     const post = async <T>(path: string, body: any): Promise<T> => {
