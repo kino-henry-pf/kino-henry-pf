@@ -6,7 +6,9 @@ import { Movie } from "@/types/movie";
 
 export default async function Home() {
 	const api = useApi(),
-		movies = await api.get<Movie[]>("movies")
+		movies = await api.get<Movie[]>("movies", {
+			disableCache: true
+		})
 
 	return (
 		<>
