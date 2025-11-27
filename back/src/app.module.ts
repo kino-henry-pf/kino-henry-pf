@@ -11,6 +11,7 @@ import { BranchsModule } from './branchs/branchs.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ShowtimesModule } from './showtimes/showtimes.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -28,6 +29,10 @@ import { ShowtimesModule } from './showtimes/showtimes.module';
         const dbConfig = configService.get('database', { infer: true });
         return { ...dbConfig };
       },
+    }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
     }),
     UsersModule,
     MoviesModule,

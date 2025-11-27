@@ -19,4 +19,5 @@ export const configSchema = Joi.object({
   CLOUD_NAME: Joi.string().required(),
   CLOUD_KEY: Joi.string().required(),
   CLOUD_SECRET: Joi.string().required(),
+  JWT_SECRET: Joi.string().required()
 });
