@@ -9,6 +9,7 @@ export interface ConfigType {
 
 export const configSchema = Joi.object({
   PORT: Joi.number().default(3000),
+  ORIGIN: Joi.string().default('http://localhost:5173'),
   DB_HOST: Joi.string().default('localhost'),
   DB_PORT: Joi.number().default(5432),
   DB_USER: Joi.string().required(),
@@ -19,5 +20,5 @@ export const configSchema = Joi.object({
   CLOUD_NAME: Joi.string().required(),
   CLOUD_KEY: Joi.string().required(),
   CLOUD_SECRET: Joi.string().required(),
-  JWT_SECRET: Joi.string().required()
+  JWT_SECRET: Joi.string().required(),
 });

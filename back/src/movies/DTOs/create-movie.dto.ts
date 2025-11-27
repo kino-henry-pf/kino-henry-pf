@@ -18,7 +18,7 @@ export default class CreateMovieDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(1000)
-  sinopsis: string;
+  synopsis: string;
 
   @IsNumber(
     { maxDecimalPlaces: 1 },

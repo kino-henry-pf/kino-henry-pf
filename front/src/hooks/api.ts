@@ -2,7 +2,7 @@ type GetOptions = {
     disableCache?: boolean
 }
 
-const API_URL = process.env.API_URL || "http://localhost:3000",
+const API_URL = process.env.API_URL || "http://localhost:3001",
     DEFAULT_HEADERS = {
         "Content-Type": "application/json",
         "Accept": "application/json"

@@ -18,7 +18,7 @@ export class UpdateMovieDto {
   @IsString()
   @IsOptional()
   @MaxLength(1000)
-  sinopsis?: string;
+  synopsis?: string;
 
   @IsNumber({ maxDecimalPlaces: 1 })
   @IsOptional()
