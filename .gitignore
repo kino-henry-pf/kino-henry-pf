@@ -1,7 +1,9 @@
 # compiled output
-back/dist
+/back/dist
 /node_modules
 back/dist
+back/node_modules
+/back/node_modules
 /build
 
 # Logs
