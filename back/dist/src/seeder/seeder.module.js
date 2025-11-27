@@ -17,12 +17,13 @@ const seeder_service_1 = require("./seeder.service");
 const user_entity_1 = require("../users/entity/user.entity");
 const product_entity_1 = __importDefault(require("../products/product.entity"));
 const showtimes_entity_1 = __importDefault(require("../showtimes/showtimes.entity"));
+const branch_entity_1 = require("../branchs/branch.entity");
 let SeederModule = class SeederModule {
 };
 exports.SeederModule = SeederModule;
 exports.SeederModule = SeederModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default, user_entity_1.User, product_entity_1.default, showtimes_entity_1.default])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.default, user_entity_1.User, product_entity_1.default, showtimes_entity_1.default, branch_entity_1.Branch])],
         providers: [seeder_service_1.SeederService],
         exports: [seeder_service_1.SeederService],
     })

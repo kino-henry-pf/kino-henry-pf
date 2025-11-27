@@ -1,5 +1,5 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import {Branch} from './branch.entity';
+import {Branch} from '../branchs/branch.entity';
 import Product from '../products/product.entity'
 
 @Entity('branch_products')

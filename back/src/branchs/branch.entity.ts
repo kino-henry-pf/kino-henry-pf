@@ -7,8 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import Movie from '../movies/movie.entity';
-import Product from 'src/products/product.entity';
-import { BranchProduct } from './branch_products.entity';
+import { BranchProduct } from '../branchsproducts/branch_products.entity';
 
 @Entity('Branchs')
 export class Branch {

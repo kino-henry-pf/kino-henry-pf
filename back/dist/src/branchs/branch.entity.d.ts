@@ -1,5 +1,5 @@
 import Movie from '../movies/movie.entity';
-import { BranchProduct } from './branch_products.entity';
+import { BranchProduct } from '../branchsproducts/branch_products.entity';
 export declare class Branch {
     id: string;
     name: string;

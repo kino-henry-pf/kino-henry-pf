@@ -16,9 +16,11 @@ const environment_config_1 = require("../config/environment.config");
 const movies_module_1 = require("./movies/movies.module");
 const seeder_module_1 = require("./seeder/seeder.module");
 const users_module_1 = require("./users/users.module");
+const branchs_module_1 = require("./branchs/branchs.module");
 const auth_module_1 = require("./auth/auth.module");
 const products_module_1 = require("./products/products.module");
 const showtimes_module_1 = require("./showtimes/showtimes.module");
+const branchsproducts_module_1 = require("./branchsproducts/branchsproducts.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,8 +29,8 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                load: [environment_config_1.environmentVariables, database_config_1.typeOrmConfig],
                 envFilePath: '.env',
+                load: [environment_config_1.environmentVariables, database_config_1.typeOrmConfig],
                 validationSchema: config_types_1.configSchema,
                 validationOptions: { abortEarly: true },
             }),
@@ -44,8 +46,10 @@ exports.AppModule = AppModule = __decorate([
             movies_module_1.MoviesModule,
             products_module_1.ProductsModule,
             seeder_module_1.SeederModule,
+            branchs_module_1.BranchsModule,
             auth_module_1.AuthModule,
             showtimes_module_1.ShowtimesModule,
+            branchsproducts_module_1.BranchsproductsModule,
         ],
         providers: [seeder_module_1.SeederModule],
     })
