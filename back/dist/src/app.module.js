@@ -20,6 +20,7 @@ const branchs_module_1 = require("./branchs/branchs.module");
 const auth_module_1 = require("./auth/auth.module");
 const products_module_1 = require("./products/products.module");
 const showtimes_module_1 = require("./showtimes/showtimes.module");
+const branchsproducts_module_1 = require("./branchsproducts/branchsproducts.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -48,6 +49,7 @@ exports.AppModule = AppModule = __decorate([
             branchs_module_1.BranchsModule,
             auth_module_1.AuthModule,
             showtimes_module_1.ShowtimesModule,
+            branchsproducts_module_1.BranchsproductsModule,
         ],
         providers: [seeder_module_1.SeederModule],
     })

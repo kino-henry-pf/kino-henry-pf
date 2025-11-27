@@ -2,7 +2,7 @@ import { ProductsRepository } from './product.repository';
 import Product, { Category } from './product.entity';
 import CreateProductDto from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import CloudinaryService from 'src/cloudinary/cloudinary.service';
+import CloudinaryService from '../cloudinary/cloudinary.service';
 export declare class ProductsService {
     private readonly productRepo;
     private readonly cloudinaryService;
