@@ -83,7 +83,7 @@ export default function Navbar() {
           </Link>
 
           {/* Avatar con dropdown (opcional) */}
-          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58 user-select-none"
+          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58 select-none"
           ref={menuRef}
           onClick={() => setOpenMenu(!openMenu)}
           >
