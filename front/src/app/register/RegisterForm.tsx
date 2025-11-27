@@ -62,7 +62,7 @@ const RegisterForm: React.FC = () => {
     const response = await registerService(values);
     console.log('Resultado del registro:', response);
     setTimeout(() => {
-      window.location.href = "/Login";
+      window.location.href = "/login";
     }, 500);
   };
 
