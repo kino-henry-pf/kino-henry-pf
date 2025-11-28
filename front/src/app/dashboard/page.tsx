@@ -1,10 +1,12 @@
+'use client'
+
 import BookingCard from "@/components/BookingCard";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
 
 export default function Dashboard() {
-    const { dataUser } = useAuth();
+    const { dataUser } = useAuth()
     return (
         <>
             <main>
