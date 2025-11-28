@@ -66,10 +66,10 @@ export default function Navbar() {
             Buscar
           </Link>
           <Link
-            href="/reservas"
+            href="/dashboard"
             className="text-white hover:text-gray-300 transition"
           >
-            Reservas
+            Mis reservas
           </Link>
 
           {/* Avatar con dropdown (opcional) */}

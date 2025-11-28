@@ -1,5 +1,4 @@
 import { CSSProperties } from "react"
-import * as Icon from "akar-icons"
 
 export default function IconButton({
     children,
