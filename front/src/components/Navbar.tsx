@@ -6,21 +6,12 @@ import { useRef, useState } from "react";
 import KinoLogo from "@/../public/logo.png";
 import { User } from "@/types/user";
 import UserButton from "./UserButton";
+import { useAuth } from "@/context/authContext";
 
 export default function Navbar() {
   // Simulacion del estado de autenticacion
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  // Datos del usuario (mock)
-  const user: User = {
-    id: "uuid",
-    name: "Valentin Fortunato",
-    email: "gmailprueba@gmail.com",
-    address: "123 av siempreviva",
-    roles: "admin"
-  };
+  const { dataUser } = useAuth();
 
   return (
     <nav className="bg-[var(--background)]/50 backdrop-blur-xl relative z-[9999] sticky top-0 z-50 container-x-padding py-4 flex items-center justify-between">
@@ -36,7 +27,7 @@ export default function Navbar() {
       </Link>
 
       {/* Navbar cuando NO está logueado */}
-      {!isLoggedIn && (
+      {!dataUser && (
         <div className="flex items-center gap-6">
           <Link
             href="/buscar"
@@ -60,7 +51,7 @@ export default function Navbar() {
       )}
 
       {/* Navbar cuando SÍ está logueado */}
-      {isLoggedIn && (
+      {dataUser && (
         <div className="flex items-center gap-6">
           <Link href="/" className="text-white hover:text-gray-300 transition">
             Buscar
@@ -74,7 +65,7 @@ export default function Navbar() {
 
           {/* Avatar con dropdown (opcional) */}
           <UserButton
-            user={user}
+            user={dataUser}
           />
         </div>
       )}
