@@ -16,15 +16,30 @@ export default function Dashboard() {
                             href="#"
                             className="w-fit h-fit px-6 py-3 bg-[var(--color-primary)] rounded-full font-semibold text-sm text-[var(--primary-foreground)]"
                         >
-                            Reservar entradas
+                            Reservar nuevas entradas
                         </Link>
                     </div>
                 </section>
-                <section className="w-full h-fit flex flex-col items-center py-10 container-x-padding">
+                <section className="w-full h-fit min-h-[calc(100vh-12rem)] flex flex-col items-center py-10 container-x-padding">
                     <div className="flex flex-col gap-7 w-[900px] max-w-full">
                         <h2 className="text-xl font-bold">Reservas</h2>
                         <div className="w-full h-fit flex flex-col gap-5">
-                            <BookingCard />
+                            <BookingCard
+                                date="Viernes 3 de Noviembre"
+                                movie="Toy Story"
+                            />
+                            <BookingCard
+                                date="Viernes 3 de Noviembre"
+                                movie="Toy Story"
+                            />
+                            <BookingCard
+                                date="Viernes 3 de Noviembre"
+                                movie="Toy Story"
+                            />
+                            <BookingCard
+                                date="Viernes 3 de Noviembre"
+                                movie="Toy Story"
+                            />
                         </div>
                     </div>
                 </section>
