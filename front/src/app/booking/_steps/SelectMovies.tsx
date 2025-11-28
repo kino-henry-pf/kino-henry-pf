@@ -55,7 +55,7 @@ export default function SelectMoviesStep({
                 <h1 className="text-md font-bold text-center">&iquest;Qué películas vas a ver?</h1>
                 <p className="text-3xl font-bold text-center">Elige las películas que quieres ver</p>
             </div>
-            <div className="container-x-padding w-[900px] max-w-full grid lg:grid-cols-4 grid-cols-2 h-fit gap-8 lg:gap-7">
+            <div className="container-x-padding w-[900px] max-w-full grid lg:grid-cols-4 grid-cols-2 h-fit gap-8 lg:gap-7 select-none">
                 {
                     movies.map(movie => (
                         <MovieSelector
