@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import Movie, { Genre } from '../movies/movie.entity';
 import { User } from '../users/entity/user.entity';
 import Product, { Category } from '../products/product.entity';
 import Showtime, { Format, Language } from '../showtimes/showtimes.entity';
 import { Branch } from '../branchs/branch.entity';
 import { BranchProduct } from '../branchsproducts/branch_products.entity';
+import { RoomsService } from '../rooms/rooms.service';
+import Room from '../rooms/rooms.entity';
 
 @Injectable()
 export class SeederService {
@@ -17,10 +18,11 @@ export class SeederService {
     @InjectRepository(Product) private productsRepository: Repository<Product>,
     @InjectRepository(Showtime)
     private showtimeRepository: Repository<Showtime>,
-    @InjectRepository(Branch)
-    private branchRepository: Repository<Branch>,
+    @InjectRepository(Branch) private branchRepository: Repository<Branch>,
     @InjectRepository(BranchProduct)
     private bpRepository: Repository<BranchProduct>,
+    @InjectRepository(Room) private roomRepository: Repository<Room>,
+    private readonly roomsService: RoomsService,
   ) {}
 
   private pickRandom<T>(array: T[], count: number): T[] {
@@ -28,8 +30,10 @@ export class SeederService {
   }
 
   async seed() {
-    console.log('Starting Seeder...');
+    console.log('--- STARTING DATABASE SEEDER ---');
 
+    // BRANCHES
+    console.log('\n> Seeding Branches...');
     const branchCount = await this.branchRepository.count();
     let savedBranches: Branch[];
 
@@ -85,13 +89,41 @@ export class SeederService {
           googlePlaceId: 'ChIJq8Dpq1D_0YURjKcWfvO83D0',
         },
       ];
+
       savedBranches = await this.branchRepository.save(branchesData);
-      console.log(`✓ Branches seeded (${savedBranches.length})`);
+      console.log(`  ✓ Created ${savedBranches.length} branches`);
     } else {
       savedBranches = await this.branchRepository.find();
-      console.log('⚠ Branches exist — skipping.');
+      console.log('  ✓ Branches already exist, skipping');
     }
 
+    // ROOMS
+    console.log('\n> Seeding Rooms...');
+    const roomCount = await this.roomRepository.count();
+    let savedRooms: Room[];
+
+    if (roomCount === 0) {
+      const roomsToCreate: Room[] = [];
+
+      for (const branch of savedBranches) {
+        for (let i = 1; i <= 3; i++) {
+          const room = await this.roomsService.createRoom({
+            name: `Room ${i}`,
+            branchId: branch.id,
+          });
+          roomsToCreate.push(room);
+        }
+      }
+
+      savedRooms = roomsToCreate;
+      console.log(`  ✓ Created ${savedRooms.length} rooms`);
+    } else {
+      savedRooms = await this.roomRepository.find();
+      console.log('  ✓ Rooms already exist, skipping');
+    }
+
+    // MOVIES
+    console.log('\n> Seeding Movies...');
     const movieCount = await this.movieRepository.count();
     let savedMovies: Movie[];
 
@@ -180,6 +212,7 @@ export class SeederService {
       ];
 
       savedMovies = [];
+
       for (const m of moviesData) {
         const exists = await this.movieRepository.findOne({
           where: { title: m.title },
@@ -187,7 +220,8 @@ export class SeederService {
         savedMovies.push(exists ?? (await this.movieRepository.save(m)));
       }
 
-      console.log(`✓ Movies seeded (${savedMovies.length})`);
+      console.log(`  ✓ Created ${savedMovies.length} movies`);
+
       for (const movie of savedMovies) {
         const randomBranches = this.pickRandom(
           savedBranches,
@@ -196,13 +230,17 @@ export class SeederService {
         movie.branches = randomBranches;
         await this.movieRepository.save(movie);
       }
+
+      console.log('  ✓ Linked movies to branches');
     } else {
       savedMovies = await this.movieRepository.find({
         relations: ['branches'],
       });
-      console.log('⚠ Movies exist — skipping.');
+      console.log('  ✓ Movies already exist, skipping');
     }
 
+    // PRODUCTS
+    console.log('\n> Seeding Products...');
     const productCount = await this.productsRepository.count();
 
     if (productCount === 0) {
@@ -255,11 +293,14 @@ export class SeederService {
         });
         if (!exists) await this.productsRepository.save(p);
       }
-      console.log('✓ Products seeded');
+
+      console.log('  ✓ Products created');
     } else {
-      console.log('⚠ Products exist — skipping.');
+      console.log('  ✓ Products already exist, skipping');
     }
 
+    // SHOWTIMES
+    console.log('\n> Seeding Showtimes...');
     const showtimeCount = await this.showtimeRepository.count();
 
     if (showtimeCount === 0) {
@@ -269,10 +310,14 @@ export class SeederService {
         const branches = this.pickRandom(savedBranches, 2);
 
         for (const branch of branches) {
+          const roomsForBranch = savedRooms.filter(
+            (r) => r.branchId === branch.id,
+          );
+          const selectedRoom = this.pickRandom(roomsForBranch, 1)[0];
+
           showtimesToCreate.push({
             movieId: movie.id,
-            branchId: branch.id,
-            roomId: crypto.randomUUID(),
+            roomId: selectedRoom.id,
             startTime: new Date(
               `2025-12-${String(1 + Math.floor(Math.random() * 10)).padStart(2, '0')}T${String(12 + Math.floor(Math.random() * 10)).padStart(2, '0')}:00:00.000Z`,
             ),
@@ -283,13 +328,14 @@ export class SeederService {
         }
       }
 
-      for (const st of showtimesToCreate)
-        await this.showtimeRepository.save(st);
-      console.log(`✓ Showtimes created (${showtimesToCreate.length})`);
+      await this.showtimeRepository.save(showtimesToCreate);
+      console.log(`  ✓ Created ${showtimesToCreate.length} showtimes`);
     } else {
-      console.log('⚠ Showtimes exist — skipping.');
+      console.log('  ✓ Showtimes already exist, skipping');
     }
 
+    // BRANCH PRODUCTS
+    console.log('\n> Seeding Branch Products...');
     const bpCount = await this.bpRepository.count();
 
     if (bpCount === 0) {
@@ -312,11 +358,11 @@ export class SeederService {
       }
 
       await this.bpRepository.save(bpToInsert);
-      console.log(`✓ Branch Products seeded (${bpToInsert.length})`);
+      console.log(`  ✓ Created ${bpToInsert.length} branch-product links`);
     } else {
-      console.log('⚠ Branch Products exist — skipping.');
+      console.log('  ✓ Branch products already exist, skipping');
     }
 
-    console.log('Seeder Completed!');
+    console.log('\n--- DATABASE SEEDING COMPLETE ---');
   }
 }

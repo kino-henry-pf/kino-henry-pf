@@ -1,0 +1,30 @@
+import { Injectable } from '@nestjs/common';
+import Room from './rooms.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import CreateRoomDto from './DTOs/create-room.dto';
+
+@Injectable()
+export default class RoomsRepository {
+  constructor(
+    @InjectRepository(Room) private readonly roomsRepository: Repository<Room>,
+  ) {}
+
+  async findAll(): Promise<Room[]> {
+    return await this.roomsRepository.find();
+  }
+
+  async findById(id: string): Promise<Room | null> {
+    const room = await this.roomsRepository.findOneBy({ id });
+    return room ?? null;
+  }
+
+  async findByBranch(branchId: string): Promise<Room[]> {
+    return await this.roomsRepository.find({ where: { branchId } });
+  }
+
+  async createRoom(dto: CreateRoomDto): Promise<Room> {
+    const room = this.roomsRepository.create(dto);
+    return await this.roomsRepository.save(room);
+  }
+}

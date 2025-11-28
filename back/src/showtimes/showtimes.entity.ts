@@ -7,6 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import Room from '../rooms/rooms.entity';
 
 export enum Language {
   DUBBED = 'dubbed',
@@ -31,8 +32,9 @@ export default class Showtime {
   @Column()
   movieId: string;
 
-  @Column()
-  branchId: string;
+  @ManyToOne(() => Room, (room) => room.showtimes)
+  @JoinColumn({ name: 'roomId' })
+  room: Room;
 
   @Column()
   roomId: string;

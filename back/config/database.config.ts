@@ -6,8 +6,10 @@ import Product from '../src/products/product.entity';
 import Showtimes from '../src/showtimes/showtimes.entity';
 import { Branch } from '../src/branchs/branch.entity';
 import { BranchProduct } from '../src/branchsproducts/branch_products.entity';
-import { Order } from 'src/orders/entities/order.entity';
-import { OrderDetails } from 'src/orders/entities/order-detail.entity';
+import { Order } from '../src/orders/entities/order.entity';
+import { OrderDetails } from '../src/orders/entities/order-detail.entity';
+import Seat from '../src/seats/seat.entity';
+import Room from '../src/rooms/rooms.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
@@ -18,7 +20,18 @@ export const typeOrmConfig = registerAs(
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD ?? 'postgres',
     database: process.env.DB_DATABASE,
-    entities: [Movie, User, Product, Showtimes, Branch, BranchProduct, Order, OrderDetails],
+    entities: [
+      Movie,
+      User,
+      Product,
+      Showtimes,
+      Seat,
+      Branch,
+      Room,
+      BranchProduct,
+      Order,
+      OrderDetails,
+    ],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
     ssl: true,

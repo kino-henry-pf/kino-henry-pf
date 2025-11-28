@@ -49,7 +49,7 @@ import { SeatsModule } from './seats/seats.module';
     ShowtimesModule,
     OrdersModule,
     BranchsproductsModule,
-    SeatsModule
+    SeatsModule,
   ],
   providers: [SeederModule],
 })
