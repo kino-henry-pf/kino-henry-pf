@@ -20,17 +20,12 @@ export default function MovieSelector({
     }, [onSelect, _quantity])
 
     return (
-        <div className="w-full h-auto relative overflow-hidden rounded-md">
+        <div className="w-full h-auto relative overflow-hidden rounded-md hover:scale-101 active:scale-99 transition-[transform,scale]">
             <button
                 className={[
-                    "absolute top-3 left-3 w-10 h-10 bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center rounded-full shadow-md transition-[transform,scale,opacity] duration-250 hover:scale-110 cursor-pointer active:scale-90",
-                    _quantity === 0 ? "opacity-0 scale-120 pointer-events-none" : ""
+                    "absolute top-3 left-3 w-10 h-10 bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center rounded-full shadow-md transition-[transform,scale,opacity] duration-250 hover:scale-110 cursor-pointer active:scale-90 pointer-events-none",
+                    _quantity === 0 ? "opacity-0 scale-120" : ""
                 ].join(" ")}
-                onClick={() => {
-                    if (_quantity > 0) {
-                        _setQuantity(0)
-                    }
-                }}
             >
                 <Icon.Check className="size-4" />
             </button>
@@ -38,7 +33,7 @@ export default function MovieSelector({
                 onClick={() => {
                     if (_quantity === 0) {
                         _setQuantity(1)
-                    } else if (_quantity === 1) {
+                    } else {
                         _setQuantity(0)
                     }
                 }}
