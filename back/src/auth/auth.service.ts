@@ -1,38 +1,74 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { loginUserDTO } from '../users/dto/login-user-dto';
-import { User } from '../users/entity/user.entity';
-import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
+import { RegisterUserDto } from './DTOs/register-user.dto';
+import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcryptjs';
+import LoginUserDto from './DTOs/login-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
-  async signup(user: CreateUserDto) {
-    const newUser = this.usersRepository.create(user);
-    return await this.usersRepository.save(newUser);
-  }
-  async signin(credentials: loginUserDTO) {
-    const foundUser = await this.usersRepository.findOneBy({
-      email: credentials.email,
-    });
-    if (!foundUser) throw new NotFoundException('Bad credentials');
-    const matchingPasswords = await bcrypt.compare(
-      credentials.password,
-      foundUser.password,
-    );
-    if (!matchingPasswords) throw new NotFoundException('Bad credentials');
+
+  async login(dto: LoginUserDto) {
+    const { email, password } = dto;
+    const user = await this.usersService.findByEmailOrNull(email);
+    if (!user || !user.isActive)
+      throw new BadRequestException('Invalid email or password');
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      throw new BadRequestException('Invalid email or password');
+    }
+
     const payload = {
-      id: foundUser.id,
-      roles: foundUser.roles,
+      sub: user.id,
+      email: user.email,
+      role: user.role,
     };
-    const token = this.jwtService.sign(payload);
-    return { login: true, access_token: token };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+
+    return {
+      message: 'Login successful',
+      access_token: accessToken,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
+  }
+
+  async register(dto: RegisterUserDto) {
+    if (dto.password !== dto.confirmPassword)
+      throw new BadRequestException('Passwords do not match');
+
+    const existing = await this.usersService.findByEmailOrNull(dto.email);
+
+    if (existing) throw new ConflictException('Email is already registered');
+
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const newUser = await this.usersService.create({
+      name: dto.name,
+      email: dto.email,
+      password: hashedPassword,
+      address: dto.address,
+    });
+    return {
+      message: 'User registered successfully',
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+      },
+    };
   }
 }

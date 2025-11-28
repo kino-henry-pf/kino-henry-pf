@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ShowtimesModule } from './showtimes/showtimes.module';
 import { JwtModule } from '@nestjs/jwt';
+import { OrdersModule } from './orders/orders.module';
+import { BranchsproductsModule } from './branchsproducts/branchsproducts.module';
 
 @Module({
   imports: [
@@ -30,9 +32,12 @@ import { JwtModule } from '@nestjs/jwt';
         return { ...dbConfig };
       },
     }),
-    JwtModule.register({
+    JwtModule.registerAsync({
       global: true,
-      secret: process.env.JWT_SECRET,
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET'),
+      }),
     }),
     UsersModule,
     MoviesModule,
@@ -41,6 +46,8 @@ import { JwtModule } from '@nestjs/jwt';
     BranchsModule,
     AuthModule,
     ShowtimesModule,
+    OrdersModule,
+    BranchsproductsModule
   ],
   providers: [SeederModule],
 })

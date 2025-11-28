@@ -1,34 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entity/user.entity';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users (Usuarios)')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() user: CreateUserDto) {
-    return this.usersService.create(user);
-  }
-
+  @ApiOperation({ summary: 'Obtener Todos los usuarios'})
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(): Promise<User[]> {
+    return await this.usersService.findAll();
   }
 
+  @ApiOperation({ summary: 'Obtener usuario mediante UUID'})
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  async findById(@Param('id') id: string): Promise<User> {
+    return await this.usersService.findById(id);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @ApiOperation({ summary: 'Eliminar usuario mediante UUID'})
+  @Patch('/delete/:id')
+  @HttpCode(204)
+  async deleteUser(@Param('id') id: string) {
+    return await this.usersService.deleteUser(id);
   }
 }
