@@ -23,16 +23,16 @@ async function bootstrap() {
     }),
   );
 
-   const options = new DocumentBuilder()
-  .setTitle("KINO API Documentation")
-  .setDescription("Endpoints of the Kino project API")
-  .setVersion("1.0.0")
-  .addBearerAuth()
-  .build();
+  const options = new DocumentBuilder()
+    .setTitle('KINO API Documentation')
+    .setDescription('Endpoints of the Kino project API')
+    .setVersion('1.0.0')
+    .addBearerAuth()
+    .build();
 
-  const document = SwaggerModule.createDocument(app, options)
+  const document = SwaggerModule.createDocument(app, options);
 
-  SwaggerModule.setup("api", app, document)
+  SwaggerModule.setup('api', app, document);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);

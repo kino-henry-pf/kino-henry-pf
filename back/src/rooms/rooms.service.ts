@@ -2,10 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import RoomsRepository from './rooms.repository';
 import Room from './rooms.entity';
 import CreateRoomDto from './DTOs/create-room.dto';
+import { SeatsService } from '../seats/seats.service';
 
 @Injectable()
 export class RoomsService {
-  constructor(private readonly roomsRepository: RoomsRepository) {}
+  constructor(
+    private readonly roomsRepository: RoomsRepository,
+    private readonly seatsService: SeatsService,
+  ) {}
 
   async findAll(): Promise<Room[]> {
     return await this.roomsRepository.findAll();
@@ -22,6 +26,8 @@ export class RoomsService {
   }
 
   async createRoom(dto: CreateRoomDto): Promise<Room> {
-    return await this.roomsRepository.createRoom(dto);
+    const room = await this.roomsRepository.createRoom(dto);
+    await this.seatsService.generateSeatsForRoom(room.id);
+    return room;
   }
 }

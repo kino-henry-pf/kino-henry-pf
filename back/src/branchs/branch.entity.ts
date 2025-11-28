@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import Movie from '../movies/movie.entity';
 import { BranchProduct } from '../branchsproducts/branch_products.entity';
-import { Order } from 'src/orders/entities/order.entity';
-import Room from 'src/rooms/rooms.entity';
+import { Order } from '../orders/entities/order.entity';
+import Room from '../rooms/rooms.entity';
 
 @Entity()
 export class Branch {

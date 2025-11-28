@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import Room from 'src/rooms/rooms.entity';
+import Room from '../rooms/rooms.entity';
 
 export enum Language {
   DUBBED = 'dubbed',
