@@ -16,6 +16,10 @@ export class BranchProductsRepository {
     private readonly productRepo: Repository<Product>,
   ) {}
 
+  async getall(){
+    return await this.repo.find()
+  }
+
   async findBranchById(id: string): Promise<Branch | null> {
     return this.branchRepo.findOne({ where: { id } });
   }
