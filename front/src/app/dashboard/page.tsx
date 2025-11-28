@@ -1,15 +1,21 @@
+'use client'
+
 import BookingCard from "@/components/BookingCard";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/context/authContext";
 import Link from "next/link";
 
 export default function Dashboard() {
+    
+    const { dataUser } = useAuth();
+
     return (
         <>
             <main>
                 <section className="border-t-1 border-b-1 border-[var(--color-border)] gap-10 py-10 container-x-padding flex justify-center">
                     <div className="w-[900px] max-w-full flex items-center justify-between">
                         <div className="w-fit h-fit flex flex-col">
-                            <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">Valentin</span></h1>
+                            <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">{dataUser?.user.name}</span></h1>
                             <p>Tienes 4 reservas hoy</p>
                         </div>
                         <Link
