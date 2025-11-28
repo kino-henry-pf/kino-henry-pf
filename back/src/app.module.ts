@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ShowtimesModule } from './showtimes/showtimes.module';
 import { JwtModule } from '@nestjs/jwt';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { JwtModule } from '@nestjs/jwt';
     BranchsModule,
     AuthModule,
     ShowtimesModule,
+    OrdersModule,
   ],
   providers: [SeederModule],
 })

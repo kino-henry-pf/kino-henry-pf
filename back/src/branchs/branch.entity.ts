@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import Movie from '../movies/movie.entity';
 import { BranchProduct } from '../branchsproducts/branch_products.entity';
+import { Order } from 'src/orders/entities/order.entity';
 
 @Entity()
 export class Branch {
@@ -35,4 +36,8 @@ export class Branch {
 
   @OneToMany(() => BranchProduct, (branchProduct) => branchProduct.branch)
   branchProducts: BranchProduct[];
+
+  @OneToMany(() => Order, (order) => order.branch)
+  order: Order[];
+  
 }
