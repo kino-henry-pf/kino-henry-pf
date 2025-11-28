@@ -1,3 +1,6 @@
+import { Order } from 'src/orders/entities/order.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Exclude } from 'class-transformer';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export enum ROLE {
@@ -23,6 +26,10 @@ export class User {
 
   @Column()
   address: string;
+  @OneToMany(() => Order, (order) => order.user)
+  order: Order[]
+  @Column()
+  roles: string;
 
   // @OneToMany(@OneToMany(() => Orders, (order) => order.user))
   // order: Orders[]
