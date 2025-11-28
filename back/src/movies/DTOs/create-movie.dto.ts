@@ -44,7 +44,7 @@ export default class CreateMovieDto {
 
   @ApiProperty({
       example: 'action',
-      description: 'Género debe ser uno de los siguientes: "action", "adventure", "animation", "comedy", "crime", "drama", "fantasy", "horror", "mystery", "romance", "sci_fi", "thriller", "documentary", "family", "musical", "war", "western", "historical", "sports"'
+      enum:Genre
     })
   @IsEnum(Genre)
   genre: Genre;
