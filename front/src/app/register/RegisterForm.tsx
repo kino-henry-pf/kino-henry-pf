@@ -24,43 +24,58 @@ const RegisterForm: React.FC = () => {
   };
 
   const validate = (values: FormValues) => {
-    const errors: Partial<FormValues> = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const errors: Partial<FormValues> = {};
 
-    if (!values.name) {
-      errors.name = "El nombre es obligatorio.";
-    } else if (values.name.length < 3) {
-      errors.name = "Debe tener al menos 3 caracteres.";
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/;
 
-    if (!values.email) {
-      errors.email = "El correo electrónico es obligatorio.";
-    } else if (!emailRegex.test(values.email)) {
-      errors.email = "Formato de correo inválido.";
-    }
+  if (!values.name) {
+    errors.name = "El nombre es obligatorio.";
+  } else if (values.name.length < 3) {
+    errors.name = "Debe tener al menos 3 caracteres.";
+  } else if (values.name.length > 50) {
+    errors.name = "Debe tener máximo 50 caracteres.";
+  }
 
-    if (!values.password) {
-      errors.password = "La contraseña es obligatoria.";
-    } else if (values.password.length < 8) {
-      errors.password = "Debe tener al menos 8 caracteres.";
-    }
+  if (!values.email) {
+    errors.email = "El correo es obligatorio.";
+  } else if (!emailRegex.test(values.email)) {
+    errors.email = "Formato de correo inválido.";
+  }
 
-    if (!values.confirmPassword) {
-      errors.confirmPassword = "Debes confirmar la contraseña.";
-    } else if (values.confirmPassword !== values.password) {
-      errors.confirmPassword = "Las contraseñas no coinciden.";
-    }
+  if (!values.password) {
+    errors.password = "La contraseña es obligatoria.";
+  } else if (values.password.length < 8) {
+    errors.password = "Debe tener al menos 8 caracteres.";
+  } else if (values.password.length > 20) {
+    errors.password = "Debe tener máximo 20 caracteres.";
+  } else if (!passwordRegex.test(values.password)) {
+    errors.password =
+      "Debe incluir mayúscula, minúscula, número y caracter especial (!@#$%^&*).";
+  }
 
-    if (!values.address) {
-      errors.address = "La dirección es obligatoria.";
-    }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "Debes confirmar la contraseña.";
+  } else if (values.confirmPassword !== values.password) {
+    errors.confirmPassword = "Las contraseñas no coinciden.";
+  }
 
-    return errors;
-  };
+  if (!values.address) {
+    errors.address = "La dirección es obligatoria.";
+  } else if (values.address.length < 3) {
+    errors.address = "Debe tener al menos 3 caracteres.";
+  } else if (values.address.length > 100) {
+    errors.address = "Debe tener máximo 100 caracteres.";
+  }
+
+  return errors;
+};
 
   const handleSubmit = async (values: FormValues) => {
     const response = await registerService(values);
     console.log('Resultado del registro:', response);
+    alert("Usuario Registrado Exitosamente!!!")
     setTimeout(() => {
       window.location.href = "/login";
     }, 500);

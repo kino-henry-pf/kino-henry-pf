@@ -36,7 +36,10 @@ function LoginForm() {
   const handleSubmit = async (values: LoginValues) => {
     const response = await loginService(values);
     console.log('Usuario logueado', response);
-    window.location.href = "/";
+    alert("Login Exitoso!!!")
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 500);
   }; 
 
   return (
