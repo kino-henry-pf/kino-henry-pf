@@ -1,4 +1,4 @@
-import Seat from 'src/seats/seat.entity';
+import Seat from '../seats/seat.entity';
 import { Branch } from '../branchs/branch.entity';
 import {
   Column,
@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import Showtime from 'src/showtimes/showtimes.entity';
+import Showtime from '../showtimes/showtimes.entity';
 
 @Entity()
 export default class Room {
