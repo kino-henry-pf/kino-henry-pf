@@ -5,33 +5,81 @@ import CreateProductDto from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { ApiBody, ApiConsumes, ApiExtraModels, ApiOperation, ApiTags, getSchemaPath } from '@nestjs/swagger';
 
+@ApiTags('products (Productos)')
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productService: ProductsService) {}
+  constructor(private readonly productService: ProductsService) { }
 
+  @ApiOperation({ summary: 'Obtener Todos los productos registrados'})
   @Get()
   async getAll(): Promise<Product[]> {
     return this.productService.getAllProducts();
   }
 
+  @ApiOperation({ summary: 'Obtener producto a traves de su UUID'})
   @Get(':id')
   async getById(@Param('id') id: string): Promise<Product> {
     return this.productService.getProductById(id);
   }
 
+  @ApiOperation({ summary: 'Obtener Todos los productos de una misma categoria'})
   @Get('category/:category')
   async getByCategory(@Param('category') category: Category): Promise<Product[]> {
     return this.productService.getProductsByCategory(category);
   }
 
+  @ApiOperation({ summary: 'Registrar un producto nuevo'})
+  @ApiExtraModels(CreateProductDto)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(CreateProductDto) }, // 👉 hace que el DTO aparezca en Models
+        {
+          type: 'object',
+          properties: {
+            image: {
+              type: 'string',
+              format: 'binary',
+              description: 'Product image'
+            }
+          },
+          required: ["name", "description", "price", "category", "image"]
+        }
+      ]
+    }
+  })
   @Post()
-  @UseInterceptors(FileInterceptor('image', {storage: memoryStorage()}))
+  @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
   async create(@Body() dto: CreateProductDto,
-               @UploadedFile() file?: Express.Multer.File): Promise<Product> {
+    @UploadedFile() file?: Express.Multer.File): Promise<Product> {
     return await this.productService.createProduct(dto, file);
   }
 
+   @ApiOperation({ summary: 'Actualizar una o mas propiedades de un producto nuevo',
+    description:"Debido al comportamiento de Swagger las actualizaciones no se realizan de la manera mas óptima, evitar realizarlas desde aca para no vulnerar la base de datos"
+   })
+  @ApiExtraModels(UpdateProductDto)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(UpdateProductDto) },
+        {
+          type: 'object',
+          properties: {
+            image: {
+              type: 'string',
+              format: 'binary',
+              description: 'Imagen del producto (opcional)',
+            },
+          },
+        },
+      ],
+    },
+  })
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
   async update(
@@ -42,6 +90,7 @@ export class ProductsController {
     return this.productService.updateProduct(id, dto, file);
   }
 
+  @ApiOperation({ summary: 'Eliminar un producto a traves de su UUID'})
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<{ message: string }> {
     const message = await this.productService.deleteProduct(id);

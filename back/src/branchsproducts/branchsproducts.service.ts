@@ -11,6 +11,10 @@ import { UpdateStockDto } from './dto/update-branch-product.dto';
 export class BranchProductsService {
   constructor(private readonly repo: BranchProductsRepository) {}
 
+  async getall(){
+    return this.repo.getall()
+  }
+
   async create(dto: CreateBranchProductDto) {
     const branch = await this.repo.findBranchById(dto.branchId);
     if (!branch) throw new NotFoundException('Branch not found');
