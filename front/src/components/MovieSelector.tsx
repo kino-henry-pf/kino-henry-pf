@@ -2,19 +2,38 @@
 
 import { Movie } from "@/types/movie";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "./IconButton";
 import * as Icon from "akar-icons"
 
 export default function MovieSelector({
-    movie
+    movie,
+    onSelect
 }: {
-    movie: Movie
+    movie: Movie,
+    onSelect: (quantity: number) => any
 }) {
     const [_quantity, _setQuantity] = useState(0)
 
+    useEffect(() => {
+        onSelect(_quantity)
+    }, [onSelect, _quantity])
+
     return (
         <div className="w-full h-auto relative overflow-hidden rounded-md">
+            <button
+                className={[
+                    "absolute top-3 left-3 w-10 h-10 bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center rounded-full shadow-md transition-[transform,scale,opacity] duration-250 hover:scale-110 cursor-pointer active:scale-90",
+                    _quantity === 0 ? "opacity-0 scale-120 pointer-events-none" : ""
+                ].join(" ")}
+                onClick={() => {
+                    if (_quantity > 0) {
+                        _setQuantity(0)
+                    }
+                }}
+            >
+                <Icon.Check className="size-4" />
+            </button>
             <button
                 onClick={() => {
                     if (_quantity === 0) {
@@ -25,14 +44,6 @@ export default function MovieSelector({
                 }}
                 className="cursor-pointer w-full h-fit block"
             >
-                <div
-                    className={[
-                        "absolute top-3 left-3 w-10 h-10 bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center rounded-full shadow-md transition-[transform,scale,opacity] pointer-events-none duration-250",
-                        _quantity === 0 ? "opacity-0 scale-120" : ""
-                    ].join(" ")}
-                >
-                    <Icon.Check className="size-4" />
-                </div>
                 <Image
                     width={267}
                     height={400}
