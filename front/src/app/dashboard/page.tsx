@@ -15,11 +15,11 @@ export default function Dashboard() {
                 <section className="border-t-1 border-b-1 border-[var(--color-border)] gap-10 py-10 container-x-padding flex justify-center">
                     <div className="w-[900px] max-w-full flex items-center justify-between">
                         <div className="w-fit h-fit flex flex-col">
-                            <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">{dataUser?.user.name}</span></h1>
+                            <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">{dataUser?.user.name.split(" ")[0]}</span></h1>
                             <p>Tienes 4 reservas hoy</p>
                         </div>
                         <Link
-                            href="#"
+                            href="/booking"
                             className="w-fit h-fit px-6 py-3 bg-[var(--color-primary)] rounded-full font-semibold text-sm text-[var(--primary-foreground)]"
                         >
                             Reservar nuevas entradas
