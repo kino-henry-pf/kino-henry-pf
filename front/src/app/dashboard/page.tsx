@@ -6,7 +6,9 @@ import { useAuth } from "@/context/authContext";
 import Link from "next/link";
 
 export default function Dashboard() {
-    const { dataUser } = useAuth()
+    
+    const { dataUser } = useAuth();
+
     return (
         <>
             <main>
