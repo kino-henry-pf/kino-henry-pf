@@ -271,7 +271,6 @@ export class SeederService {
         for (const branch of branches) {
           showtimesToCreate.push({
             movieId: movie.id,
-            branchId: branch.id,
             roomId: crypto.randomUUID(),
             startTime: new Date(
               `2025-12-${String(1 + Math.floor(Math.random() * 10)).padStart(2, '0')}T${String(12 + Math.floor(Math.random() * 10)).padStart(2, '0')}:00:00.000Z`,

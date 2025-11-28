@@ -13,7 +13,7 @@ export default class ShowtimesRepository {
 
   async findAll(): Promise<Showtime[]> {
     return await this.showtimesRepository.find({
-      relations: ['movie'],
+      relations: ['room', 'room.branch', 'movie'],
     });
   }
 
