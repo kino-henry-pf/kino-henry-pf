@@ -4,6 +4,7 @@ import Image from "next/image";
 import KinoLogo from "@/../public/logo.png";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { loginService } from "@/services/userService";
+import { useAuth } from "@/context/authContext";
 
 export interface LoginValues {
   email: string;
@@ -11,6 +12,8 @@ export interface LoginValues {
 }
 
 function LoginForm() {
+  const { setDataUser } = useAuth();
+
   const initialValues: LoginValues = {
     email: "",
     password: "",
@@ -35,6 +38,7 @@ function LoginForm() {
 
   const handleSubmit = async (values: LoginValues) => {
     const response = await loginService(values);
+    setDataUser(response);
     console.log('Usuario logueado', response);
     alert("Login Exitoso!!!")
     setTimeout(() => {
