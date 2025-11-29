@@ -15,6 +15,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { OrdersModule } from './orders/orders.module';
 import { BranchsproductsModule } from './branchsproducts/branchsproducts.module';
 import { SeatsModule } from './seats/seats.module';
+import { ReservationsModule } from './reservations/reservations.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { SeatsModule } from './seats/seats.module';
     OrdersModule,
     BranchsproductsModule,
     SeatsModule,
+    ReservationsModule,
   ],
   providers: [SeederModule],
 })

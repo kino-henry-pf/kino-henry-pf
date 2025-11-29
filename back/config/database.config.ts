@@ -10,6 +10,8 @@ import { Order } from '../src/orders/entities/order.entity';
 import { OrderDetails } from '../src/orders/entities/order-detail.entity';
 import Seat from '../src/seats/seat.entity';
 import Room from '../src/rooms/rooms.entity';
+import Reservation from '../src/reservations/reservation.entity';
+import SeatReservation from '../src/reservations/seat-reservation.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
@@ -31,6 +33,8 @@ export const typeOrmConfig = registerAs(
       BranchProduct,
       Order,
       OrderDetails,
+      Reservation,
+      SeatReservation,
     ],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
