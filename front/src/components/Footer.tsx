@@ -42,8 +42,15 @@ export default function Footer() {
                     ) : (
                         <ul className="flex flex-col items-end lg:items-start">
                             <li>
-                                <a href="/login" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Mis reservas</a>
+                                <a href="/dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Mis reservas</a>
                             </li>
+                            {
+                                auth.user.role === "admin" && (
+                                    <li>
+                                        <a href="/admin-dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Administración</a>
+                                    </li>
+                                )
+                            }
                         </ul>
                     )
                 }

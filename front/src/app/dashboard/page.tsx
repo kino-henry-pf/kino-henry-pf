@@ -19,7 +19,7 @@ export default function Dashboard() {
                             <p>Tienes 4 reservas hoy</p>
                         </div>
                         <Link
-                            href="/booking"
+                            href="/register-booking"
                             className="w-fit h-fit px-6 py-3 bg-[var(--color-primary)] rounded-full font-semibold text-sm text-[var(--primary-foreground)]"
                         >
                             Reservar nuevas entradas
