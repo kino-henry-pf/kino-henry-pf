@@ -23,6 +23,7 @@ async function bootstrap() {
     }),
   );
 
+
   const options = new DocumentBuilder()
     .setTitle('KINO API Documentation')
     .setDescription('Endpoints of the Kino project API')
