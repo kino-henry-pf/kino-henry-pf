@@ -32,5 +32,7 @@ export class AuthController {
 //   const { data, error } = await supabase.auth.exchangeCodeForSession(code); 
 //   if (error) throw error; // data contains user + access_token + refresh_token 
 //   return data; 
-// } }}
+// } 
+
 }
+
