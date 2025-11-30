@@ -29,4 +29,8 @@ export class SeatsService {
 
     await this.seatsRepository.createMany(seats);
   }
+
+  async findManyByIds(ids: string[]): Promise<Seat[]> {
+    return await this.seatsRepository.findManyByIds(ids);
+  }
 }

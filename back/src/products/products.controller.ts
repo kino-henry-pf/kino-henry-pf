@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Put, Delete, Patch, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Patch, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import Product, { Category } from './product.entity';
 import CreateProductDto from './dto/create-product.dto';
@@ -6,6 +6,9 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { ApiBody, ApiConsumes, ApiExtraModels, ApiOperation, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import { Roles } from 'src/decorator/role.decorator';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { RolesGuard } from 'src/auth/guards/role-guard.guard';
 
 @ApiTags('products (Productos)')
 @Controller('products')
@@ -20,6 +23,8 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Obtener producto a traves de su UUID'})
   @Get(':id')
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
   async getById(@Param('id') id: string): Promise<Product> {
     return this.productService.getProductById(id);
   }
@@ -52,6 +57,8 @@ export class ProductsController {
     }
   })
   @Post()
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
   @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
   async create(@Body() dto: CreateProductDto,
     @UploadedFile() file?: Express.Multer.File): Promise<Product> {

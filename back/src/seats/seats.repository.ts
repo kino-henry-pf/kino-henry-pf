@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Seat from './seat.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export default class SeatsRepository {
@@ -23,5 +23,12 @@ export default class SeatsRepository {
   ): Promise<void> {
     const entities = seats.map((seat) => this.seatsRepository.create(seat));
     await this.seatsRepository.save(entities);
+  }
+
+  async findManyByIds(ids: string[]): Promise<Seat[]> {
+    if (ids.length === 0) return [];
+    return await this.seatsRepository.find({
+      where: { id: In(ids) },
+    });
   }
 }

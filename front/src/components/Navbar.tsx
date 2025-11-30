@@ -71,7 +71,7 @@ export default function Navbar() {
         {/* Si SÍ está logueado */}
         {dataUser && (
           <>
-            <Link href="/dashboard" className="text-white hover:text-gray-300 transition">
+            <Link href="/bookings" className="text-white hover:text-gray-300 transition">
               Mis reservas
             </Link>
             <UserButton user={dataUser} />
