@@ -3,7 +3,7 @@ import { useApi } from "@/hooks/api";
 import BookingSteps from "./_steps/BookingSteps";
 import { Product } from "@/types/product";
 
-export default async function BookingPage() {
+export default async function RegisterBookingPage() {
     const api = useApi(),
         products = await api.get<Product[]>("products", {
             disableCache: true
