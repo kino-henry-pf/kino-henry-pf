@@ -1,6 +1,6 @@
 "use client"
 
-import ProductSelector from "@/app/register-booking/ProductSelector"
+import ProductSelector from "@/app/bookings/ProductSelector"
 import { SelectedProductState } from "./types"
 import { useCallback, useEffect, useState } from "react"
 import { Product } from "@/types/product"
