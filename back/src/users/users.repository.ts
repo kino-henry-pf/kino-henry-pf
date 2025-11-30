@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entity/user.entity';
+import { User, ROLE } from './entity/user.entity';
 import { Repository } from 'typeorm';
+
 
 @Injectable()
 export default class UsersRepository {
@@ -42,4 +43,37 @@ export default class UsersRepository {
   private async findAnyById(id: string): Promise<User | null> {
     return this.usersRepository.findOne({ where: { id } });
   }
+
+  async ensureUserExists(input: {
+  email: string;
+  providerId: string;
+  provider: string;
+  name?: string;
+}): Promise<User> {
+  const { email, providerId, provider, name } = input;
+
+  let user = await this.usersRepository.findOne({ where: { email } });
+
+  if (user) {
+    if (!user.providerId || !user.provider) {
+      user.providerId = providerId;
+      user.provider = provider;
+      await this.usersRepository.save(user);
+    }
+    return user;
+  }
+
+  const newUser = this.usersRepository.create({
+    email,
+    name: name || null,
+    providerId,
+    provider,
+    password: null,
+    address: null,
+    role: ROLE.USER,
+    isActive: true,
+  } as Partial<User>);
+
+  return this.usersRepository.save(newUser);
+}
 }
