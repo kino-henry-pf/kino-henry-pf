@@ -1,6 +1,6 @@
-import { Movie } from "@/types/movie"
+import { Product } from "@/types/product"
 
-export type SelectedMovieState = {
+export type SelectedProductState = {
     quantity: number,
-    movie: Movie
+    product: Product
 }

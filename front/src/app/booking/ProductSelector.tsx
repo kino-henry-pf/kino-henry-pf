@@ -1,16 +1,16 @@
 "use client"
 
-import { Movie } from "@/types/movie";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import IconButton from "./IconButton";
+import IconButton from "../../components/IconButton";
 import * as Icon from "akar-icons"
+import { Product } from "@/types/product";
 
 export default function MovieSelector({
-    movie,
+    product,
     onSelect
 }: {
-    movie: Movie,
+    product: Product,
     onSelect: (quantity: number) => any
 }) {
     const [_quantity, _setQuantity] = useState(0)
@@ -20,10 +20,10 @@ export default function MovieSelector({
     }, [onSelect, _quantity])
 
     return (
-        <div className="w-full h-auto relative overflow-hidden rounded-md hover:scale-101 active:scale-99 transition-[transform,scale]">
+        <div className="w-full h-auto relative overflow-hidden rounded-2xl hover:scale-101 active:scale-99 transition-[transform,scale] rounded-2xl">
             <button
                 className={[
-                    "absolute top-3 left-3 w-10 h-10 bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center rounded-full shadow-md transition-[transform,scale,opacity] duration-250 hover:scale-110 cursor-pointer active:scale-90 pointer-events-none",
+                    "absolute top-3 left-3 w-10 h-10 bg-[var(--color-primary)] text-[var(--primary-foreground)] flex items-center justify-center rounded-full shadow-md transition-[transform,scale,opacity] duration-250 hover:scale-110 cursor-pointer active:scale-90 pointer-events-none",
                     _quantity === 0 ? "opacity-0 scale-120" : ""
                 ].join(" ")}
             >
@@ -37,14 +37,14 @@ export default function MovieSelector({
                         _setQuantity(0)
                     }
                 }}
-                className="cursor-pointer w-full h-fit block"
+                className="cursor-pointer w-full h-fit min-h-full bg-white rounded-2xl block"
             >
                 <Image
                     width={267}
                     height={400}
-                    alt={movie.title}
-                    src={movie.image}
-                    className="w-full h-auto rounded-3xl"
+                    alt={product.name}
+                    src={product.image}
+                    className="w-full h-auto rounded-2xl"
                 />
             </button>
             <div
