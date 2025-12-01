@@ -2,9 +2,10 @@ import { Controller, Post, Body, HttpCode, Get, Query, Res, BadRequestException 
 import { AuthService } from './auth.service';
 import LoginUserDto from './DTOs/login-user.dto';
 import { RegisterUserDto } from './DTOs/register-user.dto';
-import { supabase } from 'config/supabase.client';
-import UsersRepository from 'src/users/users.repository';
+import { supabase } from '../../config/supabase.client';
+import UsersRepository from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
+import type { Provider } from '@supabase/auth-js';
 
 @Controller('auth')
 export class AuthController {
@@ -23,51 +24,51 @@ export class AuthController {
   signin(@Body() dto: LoginUserDto) {
     return this.authService.login(dto);
   }
+@Get('login')
+async login(@Query('provider') provider: string, @Res() res) {
+  if (!provider) provider = 'google';
 
-  @Get('login') 
-  async login(@Query('provider') provider: string, @Res() res) { 
-    const { data, error } = await supabase.auth.signInWithOAuth({ 
-      provider: "google",
-      options: { redirectTo: 'http://localhost:3000/auth/callback', 
-  }, 
-}); if (error) return res.status(400).json(error); return res.redirect(data.url); } 
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: provider as Provider,
+    options: {
+      redirectTo: 'http://localhost:3000/auth/callback',
+  
+    },
+  });
+
+  if (error) return res.status(400).json(error);
+
+  return res.redirect(data.url);
+}
 
 @Get('callback')
-  async oauthCallback(
-    @Query('code') code: string,
-    @Res() res: any,
-  ) {
-    if (!code) throw new BadRequestException('Missing OAuth code');
+async oauthCallback(@Query('code') code: string, @Res() res: any) {
+  if (!code) throw new BadRequestException('Missing OAuth code');
 
-    // 1️⃣ Exchange code for Supabase session
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  if (error) throw new BadRequestException(error.message);
 
-    if (error) throw new BadRequestException(error.message);
+  const supabaseUser = data.user;
 
-    const supabaseUser = data.user;
+  const user = await this.userRepository.ensureUserExists({
+    email: supabaseUser.email!,
+    providerId: supabaseUser.id,
+    provider: supabaseUser.app_metadata.provider || 'google',
+    name: supabaseUser.user_metadata.full_name,
+  });
 
-    // 2️⃣ Ensure user exists in your DB
-    const user = await this.userRepository.ensureUserExists({
-      email: supabaseUser.email!,
-      providerId: supabaseUser.id,
-      provider: supabaseUser.app_metadata.provider || 'google',
-      name: supabaseUser.user_metadata.full_name,
-    });
+  const token = this.jwtService.sign({
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  });
 
-    // 3️⃣ Generate your own JWT
-    const token = this.jwtService.sign({
-      id: user.id,
-      email: user.email,
-      role: user.role,
-    });
-
-    // 4️⃣ Redirect, return, or set cookie
-    return res.json({
-      message: 'Login successful',
-      token,
-      user,
-    });
-  }
+  return res.json({
+    message: 'Login successful',
+    token,
+    user,
+  });
+}
 }
 
 
