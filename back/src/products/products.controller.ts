@@ -16,17 +16,10 @@ import CreateProductDto from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import {
-  ApiBody,
-  ApiConsumes,
-  ApiExtraModels,
-  ApiOperation,
-  ApiTags,
-  getSchemaPath,
-} from '@nestjs/swagger';
-import { Roles } from 'src/decorator/role.decorator';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
-import { RolesGuard } from 'src/auth/guards/role-guard.guard';
+import { ApiBody, ApiConsumes, ApiExtraModels, ApiOperation, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import { Roles } from '../decorator/role.decorator';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
+import { RolesGuard } from '../auth/guards/role-guard.guard';
 
 @ApiTags('products (Productos)')
 @Controller('products')

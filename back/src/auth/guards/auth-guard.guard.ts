@@ -21,6 +21,14 @@ export class AuthGuard implements CanActivate {
     try {
       const payload = this.jwtService.verify(token, {secret: env.JWT_SECRET})
       request.user = payload
+
+      // Incluye provider para OAuth users
+      request.user = {
+        id: payload.sub,
+        email: payload.email,
+        role: payload.role,
+        provider: payload.provider || null,
+      };
       return true
     } catch (error: any) {
       if(error.name === "TokenExpiredError") throw new UnauthorizedException("Se ha expirado el tiempo del token")
