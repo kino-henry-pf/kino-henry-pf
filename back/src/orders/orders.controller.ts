@@ -1,34 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { OrdersService } from './orders.service';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import OrdersService from './orders.service';
+import { Order } from './entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.ordersService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(id);
+  async findById(@Param('id') id: string): Promise<Order> {
+    return await this.ordersService.findById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+  @Get('/user/:userId')
+  async findByUser(@Param('userId') userId: string): Promise<Order[]> {
+    return await this.ordersService.findByUser(userId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  @Post()
+  async create(@Body() dto: CreateOrderDto): Promise<Order> {
+    return await this.ordersService.create(dto);
   }
 }

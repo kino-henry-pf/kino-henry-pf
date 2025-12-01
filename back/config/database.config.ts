@@ -7,7 +7,7 @@ import Showtimes from '../src/showtimes/showtimes.entity';
 import { Branch } from '../src/branchs/branch.entity';
 import { BranchProduct } from '../src/branchsproducts/branch_products.entity';
 import { Order } from '../src/orders/entities/order.entity';
-import { OrderDetails } from '../src/orders/entities/order-detail.entity';
+import OrderDetails from '../src/orders/entities/orderDetails.entity';
 import Seat from '../src/seats/seat.entity';
 import Room from '../src/rooms/rooms.entity';
 import Reservation from '../src/reservations/reservation.entity';
