@@ -21,4 +21,9 @@ export const configSchema = Joi.object({
   CLOUD_KEY: Joi.string().required(),
   CLOUD_SECRET: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
+  SUPABASE_URL: Joi.string().required(),
+  SUPABASE_ANON_KEY: Joi.string().required(),
+  SUPABASE_SERVICE_ROLE: Joi.string().required(),
+  AUTH_GOOGLE_CLIENT_ID: Joi.string().required(),
+  AUTH_GOOGLE_CLIENT_SECRET: Joi.string().required(),
 });
