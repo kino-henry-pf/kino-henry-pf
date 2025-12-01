@@ -44,7 +44,7 @@ export default function UserButton({
                               onClick={logout}
                               className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700 rounded-lg cursor-pointer"
                             >
-                              Cerrar Sesion
+                             <a href="/login">Cerrar Sesion</a> 
                             </button>
                           </div>
                         ) : (
