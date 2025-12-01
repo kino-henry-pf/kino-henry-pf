@@ -17,44 +17,44 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginUserDto) {
-  const { email, password } = dto;
-  const user = await this.usersService.findByEmailOrNull(email);
+    const { email, password } = dto;
+    const user = await this.usersService.findByEmailOrNull(email);
 
-  if (!user || !user.isActive) {
-    throw new BadRequestException('Invalid email or password');
-  }
+    if (!user || !user.isActive) {
+      throw new BadRequestException('Invalid email or password');
+    }
 
-  // ❗ Handle OAuth users without password
-  if (!user.password) {
-    throw new BadRequestException(
-      'This account uses social login. Please log in with Google or the provider you used.'
-    );
-  }
+    // ❗ Handle OAuth users without password
+    if (!user.password) {
+      throw new BadRequestException(
+        'This account uses social login. Please log in with Google or the provider you used.',
+      );
+    }
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
-  if (!isValidPassword) {
-    throw new BadRequestException('Invalid email or password');
-  }
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      throw new BadRequestException('Invalid email or password');
+    }
 
-  const payload = {
-    sub: user.id,
-    email: user.email,
-    role: user.role,
-  };
-
-  const accessToken = await this.jwtService.signAsync(payload);
-
-  return {
-    message: 'Login successful',
-    access_token: accessToken,
-    user: {
-      id: user.id,
-      name: user.name,
+    const payload = {
+      sub: user.id,
       email: user.email,
       role: user.role,
-    },
-  };
-}
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+
+    return {
+      message: 'Login successful',
+      access_token: accessToken,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
+  }
 
   async register(dto: RegisterUserDto) {
     if (dto.password !== dto.confirmPassword)
@@ -79,5 +79,9 @@ export class AuthService {
         email: newUser.email,
       },
     };
+  }
+
+  async promote(id: string) {
+    return await this.usersService.promote(id);
   }
 }

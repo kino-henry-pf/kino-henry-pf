@@ -1,16 +1,32 @@
-import { Controller, Post, Body, HttpCode, Get, Query, Res, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  Get,
+  Query,
+  Res,
+  BadRequestException,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import LoginUserDto from './DTOs/login-user.dto';
 import { RegisterUserDto } from './DTOs/register-user.dto';
 import { supabase } from 'config/supabase.client';
 import UsersRepository from 'src/users/users.repository';
 import { JwtService } from '@nestjs/jwt';
+import { Roles } from 'src/decorator/role.decorator';
+import { AuthGuard } from './guards/auth-guard.guard';
+import { RolesGuard } from './guards/role-guard.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService,
+  constructor(
+    private readonly authService: AuthService,
     private readonly userRepository: UsersRepository,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post('register')
@@ -24,19 +40,18 @@ export class AuthController {
     return this.authService.login(dto);
   }
 
-  @Get('login') 
-  async login(@Query('provider') provider: string, @Res() res) { 
-    const { data, error } = await supabase.auth.signInWithOAuth({ 
-      provider: "google",
-      options: { redirectTo: 'http://localhost:3000/auth/callback', 
-  }, 
-}); if (error) return res.status(400).json(error); return res.redirect(data.url); } 
+  @Get('login')
+  async login(@Query('provider') provider: string, @Res() res) {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: 'http://localhost:3000/auth/callback' },
+    });
+    if (error) return res.status(400).json(error);
+    return res.redirect(data.url);
+  }
 
-@Get('callback')
-  async oauthCallback(
-    @Query('code') code: string,
-    @Res() res: any,
-  ) {
+  @Get('callback')
+  async oauthCallback(@Query('code') code: string, @Res() res: any) {
     if (!code) throw new BadRequestException('Missing OAuth code');
 
     // 1️⃣ Exchange code for Supabase session
@@ -68,10 +83,11 @@ export class AuthController {
       user,
     });
   }
+
+  @Patch('/users/:id/promote')
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
+  async promote(@Param('id') id: string) {
+    return await this.authService.promote(id);
+  }
 }
-
-
-
-
-
-

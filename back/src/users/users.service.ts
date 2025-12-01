@@ -28,6 +28,12 @@ export class UsersService {
     if (!user) this.notFound(id);
   }
 
+  async promote(id: string): Promise<User> {
+    const user = await this.usersRepository.promote(id);
+    if (!user) this.notFound(id);
+    return user;
+  }
+
   private notFound(indicator: string): never {
     throw new NotFoundException(`No user: ${indicator} has been found.`);
   }
