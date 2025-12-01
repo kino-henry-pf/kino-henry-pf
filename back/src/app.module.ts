@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { configSchema, ConfigType } from '../config/config.types';
-import { typeOrmConfig } from '../config/database.config';
-import { environmentVariables } from '../config/environment.config';
+import { configSchema, ConfigType } from './config/config.types';
+import { typeOrmConfig } from './config/database.config';
+import { environmentVariables } from './config/environment.config';
 import { MoviesModule } from './movies/movies.module';
 import { SeederModule } from './seeder/seeder.module';
 import { UsersModule } from './users/users.module';
@@ -16,6 +16,7 @@ import { OrdersModule } from './orders/orders.module';
 import { BranchsproductsModule } from './branchsproducts/branchsproducts.module';
 import { SeatsModule } from './seats/seats.module';
 import { ReservationsModule } from './reservations/reservations.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { ReservationsModule } from './reservations/reservations.module';
     BranchsproductsModule,
     SeatsModule,
     ReservationsModule,
+    PaymentsModule,
   ],
   providers: [SeederModule],
 })

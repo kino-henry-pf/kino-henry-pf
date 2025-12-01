@@ -12,6 +12,8 @@ export interface EnvironmentVariables {
   subabase_service_role: string;
   auth_google_client_id: string;
   auth_google_client_secret: string;
+  mp_access_token: string;
+  mp_webhook_secret: string;
 }
 
 export const environmentVariables = registerAs(
@@ -28,5 +30,7 @@ export const environmentVariables = registerAs(
     subabase_service_role: process.env.SUPABASE_SERVICE_ROLE ?? '',
     auth_google_client_id: process.env.AUTH_GOOGLE_CLIENT_ID ?? '',
     auth_google_client_secret: process.env.AUTH_GOOGLE_CLIENT_SECRET ?? '',
+    mp_access_token: process.env.MP_ACCESS_TOKEN ?? '',
+    mp_webhook_secret: process.env.MP_WEBHOOK_SECRET ?? '',
   }),
 );

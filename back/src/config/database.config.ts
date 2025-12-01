@@ -1,17 +1,17 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import Movie from '../src/movies/movie.entity';
-import { User } from '../src/users/entity/user.entity';
-import Product from '../src/products/product.entity';
-import Showtimes from '../src/showtimes/showtimes.entity';
-import { Branch } from '../src/branchs/branch.entity';
-import { BranchProduct } from '../src/branchsproducts/branch_products.entity';
-import { Order } from '../src/orders/entities/order.entity';
-import OrderDetails from '../src/orders/entities/orderDetails.entity';
-import Seat from '../src/seats/seat.entity';
-import Room from '../src/rooms/rooms.entity';
-import Reservation from '../src/reservations/reservation.entity';
-import SeatReservation from '../src/reservations/seat-reservation.entity';
+import Movie from '../movies/movie.entity';
+import { User } from '../users/entity/user.entity';
+import Product from '../products/product.entity';
+import Showtimes from '../showtimes/showtimes.entity';
+import { Branch } from '../branchs/branch.entity';
+import { BranchProduct } from '../branchsproducts/branch_products.entity';
+import { Order } from '../orders/entities/order.entity';
+import OrderDetails from '../orders/entities/orderDetails.entity';
+import Seat from '../seats/seat.entity';
+import Room from '../rooms/rooms.entity';
+import Reservation from '../reservations/reservation.entity';
+import SeatReservation from '../reservations/seat-reservation.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
