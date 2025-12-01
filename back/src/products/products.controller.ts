@@ -1,4 +1,15 @@
-import { Controller, Get, Param, Post, Body, Put, Delete, Patch, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Delete,
+  Patch,
+  UseInterceptors,
+  UploadedFile,
+  UseGuards,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import Product, { Category } from './product.entity';
 import CreateProductDto from './dto/create-product.dto';
@@ -13,15 +24,15 @@ import { RolesGuard } from '../auth/guards/role-guard.guard';
 @ApiTags('products (Productos)')
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productService: ProductsService) { }
+  constructor(private readonly productService: ProductsService) {}
 
-  @ApiOperation({ summary: 'Obtener Todos los productos registrados'})
+  @ApiOperation({ summary: 'Obtener Todos los productos registrados' })
   @Get()
   async getAll(): Promise<Product[]> {
     return this.productService.getAllProducts();
   }
 
-  @ApiOperation({ summary: 'Obtener producto a traves de su UUID'})
+  @ApiOperation({ summary: 'Obtener producto a traves de su UUID' })
   @Get(':id')
   @Roles('admin')
   @UseGuards(AuthGuard, RolesGuard)
@@ -29,13 +40,17 @@ export class ProductsController {
     return this.productService.getProductById(id);
   }
 
-  @ApiOperation({ summary: 'Obtener Todos los productos de una misma categoria'})
+  @ApiOperation({
+    summary: 'Obtener Todos los productos de una misma categoria',
+  })
   @Get('category/:category')
-  async getByCategory(@Param('category') category: Category): Promise<Product[]> {
+  async getByCategory(
+    @Param('category') category: Category,
+  ): Promise<Product[]> {
     return this.productService.getProductsByCategory(category);
   }
 
-  @ApiOperation({ summary: 'Registrar un producto nuevo'})
+  @ApiOperation({ summary: 'Registrar un producto nuevo' })
   @ApiExtraModels(CreateProductDto)
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -48,26 +63,30 @@ export class ProductsController {
             image: {
               type: 'string',
               format: 'binary',
-              description: 'Product image'
-            }
+              description: 'Product image',
+            },
           },
-          required: ["name", "description", "price", "category", "image"]
-        }
-      ]
-    }
+          required: ['name', 'description', 'price', 'category', 'image'],
+        },
+      ],
+    },
   })
   @Post()
   @Roles('admin')
   @UseGuards(AuthGuard, RolesGuard)
   @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
-  async create(@Body() dto: CreateProductDto,
-    @UploadedFile() file?: Express.Multer.File): Promise<Product> {
+  async create(
+    @Body() dto: CreateProductDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ): Promise<Product> {
     return await this.productService.createProduct(dto, file);
   }
 
-   @ApiOperation({ summary: 'Actualizar una o mas propiedades de un producto nuevo',
-    description:"Debido al comportamiento de Swagger las actualizaciones no se realizan de la manera mas óptima, evitar realizarlas desde aca para no vulnerar la base de datos"
-   })
+  @ApiOperation({
+    summary: 'Actualizar una o mas propiedades de un producto nuevo',
+    description:
+      'Debido al comportamiento de Swagger las actualizaciones no se realizan de la manera mas óptima, evitar realizarlas desde aca para no vulnerar la base de datos',
+  })
   @ApiExtraModels(UpdateProductDto)
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -97,7 +116,7 @@ export class ProductsController {
     return this.productService.updateProduct(id, dto, file);
   }
 
-  @ApiOperation({ summary: 'Eliminar un producto a traves de su UUID'})
+  @ApiOperation({ summary: 'Eliminar un producto a traves de su UUID' })
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<{ message: string }> {
     const message = await this.productService.deleteProduct(id);

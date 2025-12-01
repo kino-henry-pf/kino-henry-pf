@@ -1,4 +1,16 @@
-import { Controller, Post, Body, HttpCode, Get, Query, Res, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  Get,
+  Query,
+  Res,
+  BadRequestException,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import LoginUserDto from './DTOs/login-user.dto';
 import { RegisterUserDto } from './DTOs/register-user.dto';
@@ -9,9 +21,10 @@ import type { Provider } from '@supabase/auth-js';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService,
+  constructor(
+    private readonly authService: AuthService,
     private readonly userRepository: UsersRepository,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post('register')
@@ -76,3 +89,10 @@ async oauthCallback(@Query('code') code: string, @Res() res: any) {
 
 
 
+  @Patch('/users/:id/promote')
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
+  async promote(@Param('id') id: string) {
+    return await this.authService.promote(id);
+  }
+}
