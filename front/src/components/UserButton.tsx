@@ -33,7 +33,7 @@ export default function UserButton({
                             Mi perfil
                         </Link>
                         <Link
-                            href="/reservas"
+                            href="/bookings"
                             className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
                             Mis reservas
@@ -44,7 +44,7 @@ export default function UserButton({
                               onClick={logout}
                               className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700 rounded-lg cursor-pointer"
                             >
-                              Cerrar Sesion
+                              <a href="/login">Cerrar sesion</a>
                             </button>
                           </div>
                         ) : (
