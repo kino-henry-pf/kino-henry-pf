@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Reservation, { ReservationStatus } from './reservation.entity';
-import { Not, Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
 import CreateReservationDto from './DTOs/create-reservation.dto';
 import { UsersService } from '../users/users.service';
 import { ShowtimesService } from '../showtimes/showtimes.service';
 import { SeatsService } from '../seats/seats.service';
 import Showtime from 'src/showtimes/showtimes.entity';
+import SeatReservation from './seat-reservation.entity';
 
 @Injectable()
 export default class ReservationRepository {
@@ -96,5 +97,11 @@ export default class ReservationRepository {
         `These seats are already reserved: ${taken.join(', ')}`,
       );
     }
+  }
+  async findSeatReservations(ids: string[]) {
+    return await this.reservationRepository.manager.find(SeatReservation, {
+      where: { id: In(ids) },
+      relations: ['seat'],
+    });
   }
 }

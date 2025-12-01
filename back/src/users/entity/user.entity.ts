@@ -12,22 +12,23 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: "varchar" , nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   name: string | null;
 
   @Column({ unique: true })
   email: string;
 
   @Exclude()
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   password: string | null;
 
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   address: string | null;
 
   @OneToMany(() => Order, (order) => order.user)
   order: Order[];
 
+  @Exclude()
   @Column({ type: 'enum', enum: ROLE, default: ROLE.USER })
   role: ROLE;
 
@@ -35,9 +36,9 @@ export class User {
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   providerId: string | null;
 
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   provider: string | null;
 }

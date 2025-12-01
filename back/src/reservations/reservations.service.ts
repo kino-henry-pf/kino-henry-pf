@@ -49,4 +49,8 @@ export class ReservationsService {
   async createReservation(dto: CreateReservationDto): Promise<Reservation> {
     return await this.reservationRepository.createReservation(dto);
   }
+
+  async findSeatReservations(ids: string[]) {
+    return await this.reservationRepository.findSeatReservations(ids);
+  }
 }
