@@ -18,6 +18,9 @@ import { supabase } from '../../config/supabase.client';
 import UsersRepository from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import type { Provider } from '@supabase/auth-js';
+import { Roles } from 'src/decorator/role.decorator';
+import { AuthGuard } from './guards/auth-guard.guard';
+import { RolesGuard } from './guards/role-guard.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -82,17 +85,15 @@ async oauthCallback(@Query('code') code: string, @Res() res: any) {
     user,
   });
 }
-}
 
-
-
-
-
-
-  @Patch('/users/:id/promote')
+@Patch('/users/:id/promote')
   @Roles('admin')
   @UseGuards(AuthGuard, RolesGuard)
   async promote(@Param('id') id: string) {
     return await this.authService.promote(id);
   }
 }
+
+
+  
+
