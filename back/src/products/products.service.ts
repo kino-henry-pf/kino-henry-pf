@@ -72,23 +72,19 @@ export class ProductsService {
       }
 
       // Limpiar DTO: eliminar campos vacíos (string vacíos, null, undefined)
-      const cleanDto: Partial<UpdateProductDto> = {};
+      const cleanDto: Record<string, any> = {};
       Object.entries(dto).forEach(([key, value]) => {
         // IMPORTANTE: 0 es un valor válido, no lo eliminamos
         if (value !== '' && value !== null && value !== undefined) {
-          cleanDto[key as keyof UpdateProductDto] = value;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          cleanDto[key] = value;
         }
       });
-
-      // Solo actualizar price si viene un valor positivo
-      // if (cleanDto.price !== undefined && cleanDto.price <= 0) {
-      //   throw new BadRequestException('Price must be a positive number');
-      // }
 
       const updated = await this.productRepo.updateProduct(id, {
         ...cleanDto,
         image: imageUrl,
-      } as any);
+      } as UpdateProductDto);
 
       return updated;
     } catch (error) {
