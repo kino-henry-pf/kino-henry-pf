@@ -7,6 +7,7 @@ import UserButton from "./UserButton";
 import { useAuth } from "@/context/authContext";
 import { useState, useEffect } from "react";
 import MovieCard from "@/components/MovieCard";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { dataUser } = useAuth();
@@ -15,9 +16,21 @@ export default function Navbar() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
+  const pathname = usePathname();
+
+  useEffect(() => {
+    clearSearch();
+  }, [pathname]);
+
+  const clearSearch = () => {
+    setQuery("");
+    setResults([]);
+    setShowSearch(false);
+  };
+
   useEffect(() => {
     const fetchMovies = async () => {
-      if (query.trim().length === 0) {
+      if (!query.trim()) {
         setResults([]);
         return;
       }
@@ -26,8 +39,8 @@ export default function Navbar() {
         const res = await fetch(
           `http://localhost:3001/movies?title=${encodeURIComponent(query)}`
         );
+
         const data = await res.json();
-        console.log("RESULTADO API:", data);
 
         const fixedMovies = data.map((m: any) => ({
           ...m,
@@ -47,7 +60,7 @@ export default function Navbar() {
   return (
     <nav className="bg-[var(--background)]/50 backdrop-blur-xl relative z-[9999] sticky top-0 container-x-padding py-4 flex flex-col gap-4">
 
-      {/* PARTE SUPERIOR DEL NAV */}
+      {/* PARTE SUPERIOR */}
       <div className="flex items-center justify-between">
 
         {/* LOGO */}
@@ -61,7 +74,7 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* INPUT DE BUSQUEDA */}
+        {/* INPUT DE BÚSQUEDA */}
         {showSearch && (
           <input
             autoFocus
@@ -73,24 +86,26 @@ export default function Navbar() {
           />
         )}
 
-        {/* NAVBAR ITEMS */}
+        {/* NAV ITEMS */}
         <div className="flex items-center gap-6">
 
-          {/* BOTÓN DE BUSQUEDA */}
+          {/* BOTÓN BUSCAR */}
           <button
-            onClick={() => setShowSearch(!showSearch)}
+            onClick={() => {
+              if (showSearch) {
+                clearSearch();  
+              } else {
+                setShowSearch(true); 
+              }
+            }}
             className="text-white hover:text-gray-300 transition cursor-pointer"
           >
             Buscar
           </button>
-          
-          {/* Si el usuario no esta logueado */}
+
           {!dataUser && (
             <>
-              <Link
-                href="/login"
-                className="text-white hover:text-gray-300 transition"
-              >
+              <Link href="/login" className="text-white hover:text-gray-300 transition">
                 Iniciar sesión
               </Link>
 
@@ -102,8 +117,7 @@ export default function Navbar() {
               </Link>
             </>
           )}
-          
-          {/* Si el usuario esta loguead */}
+
           {dataUser && (
             <>
               <Link
@@ -119,8 +133,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 🔎 RESULTADOS DE BÚSQUEDA */}
-      {results.length > 0 && (
+      {/* RESULTADOS */}
+      {showSearch && results.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 py-4">
           {results.map((movie, index) => (
             <MovieCard key={index} movie={movie} />
