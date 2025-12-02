@@ -9,8 +9,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService<ConfigType>);
-  app.enableCors({
-    origin: configService.get<EnvironmentVariables>('env')?.origin,
+   app.enableCors({
+    origin: [
+      configService.get<EnvironmentVariables>('env')?.origin,
+      'http://localhost:3000',
+    ],
     credentials: true,
   });
   const PORT = configService.get<EnvironmentVariables>('env')?.port ?? 3000;
