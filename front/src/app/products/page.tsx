@@ -21,7 +21,7 @@ export default async function ProductsPage() {
                     </article>
                 </section>
                 <section className="container-x-padding w-full h-fit flex justify-center py-10">
-                    <article className="w-[900px] max-w-full grid grid-cols-2 gap-10 h-fit">
+                    <article className="w-[900px] max-w-full grid md:grid-cols-2 gap-10 h-fit">
                         {
                             products.map(product => (
                                 <ProductCard
