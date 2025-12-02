@@ -4,10 +4,10 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/entity/user.entity';
-import UsersRepository from '../users/users.repository';
+import { SupabaseModule } from 'src/supabase/supabase.module';
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forFeature([User])],
+  imports: [UsersModule, TypeOrmModule.forFeature([User]), SupabaseModule],
   controllers: [AuthController],
   providers: [AuthService],
 })

@@ -16,7 +16,7 @@ export default function UserButton({
 
     return (
         <div className="w-fit h-fit relative">
-            <button onClick={() => _setMenuOpen(!_menuOpen)} className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58 select-none">
+            <button onClick={() => _setMenuOpen(!_menuOpen)} className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 cursor-pointer group rounded-full bg-white/10 p-2 pr-6 max-w-58 select-none text-left">
                 <Avatar>{user.user.name}</Avatar>
                 <div className="text-white max-w-full">
                 <p className="font-semibold w-full whitespace-nowrap text-ellipsis overflow-hidden text-md">{user.user.name}</p>
@@ -44,7 +44,7 @@ export default function UserButton({
                               onClick={logout}
                               className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700 rounded-lg cursor-pointer"
                             >
-                              Cerrar Sesion
+                             <a href="/login">Cerrar Sesion</a> 
                             </button>
                           </div>
                         ) : (
@@ -53,6 +53,7 @@ export default function UserButton({
                           </Link>
                          )}
                     </div>
+
                 )
             }
         </div>

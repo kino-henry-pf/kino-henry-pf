@@ -90,7 +90,7 @@ export default function HeroCarrousel({
                                         <MovieData
                                             movie={movie}
                                             actions={[
-                                                <Link href={`/movie/${movie.id}`} className="w-fit h-fit px-6 py-3 rounded-full bg-white/10 font-bold text-sm">Ver opiniones</Link>
+                                                <Link href={`/movies/${movie.id}`} className="w-fit h-fit px-6 py-3 rounded-full bg-white/10 font-bold text-sm">Ver opiniones</Link>
                                             ]}
                                         />
                                     </div>

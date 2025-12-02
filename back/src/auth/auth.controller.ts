@@ -10,17 +10,23 @@ import {
   Param,
   Patch,
   UseGuards,
+  Inject,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import LoginUserDto from './DTOs/login-user.dto';
 import { RegisterUserDto } from './DTOs/register-user.dto';
-import { supabase } from '../../config/supabase.client';
 import UsersRepository from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import type { Provider } from '@supabase/auth-js';
 import { Roles } from 'src/decorator/role.decorator';
 import { AuthGuard } from './guards/auth-guard.guard';
 import { RolesGuard } from './guards/role-guard.guard';
+import { SupabaseClient } from '@supabase/supabase-js';
+import type { Response } from 'express';
+
+interface SupabaseOAuthMetadata {
+  full_name?: string;
+}
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +34,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userRepository: UsersRepository,
     private readonly jwtService: JwtService,
+    @Inject('SUPABASE_CLIENT') private readonly supabase: SupabaseClient,
   ) {}
 
   @Post('register')
@@ -54,14 +61,10 @@ async oauthCallback(@Query('code') code: string, @Res() res: any) {
   return this.authService.oauthCallback(code, res)
 }
 
-@Patch('/users/:id/promote')
+  @Patch('/users/:id/promote')
   @Roles('admin')
   @UseGuards(AuthGuard, RolesGuard)
   async promote(@Param('id') id: string) {
     return await this.authService.promote(id);
   }
 }
-
-
-  
-

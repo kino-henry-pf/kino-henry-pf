@@ -1,5 +1,3 @@
-import { Branch } from '../../branchs/branch.entity';
-import { User } from '../../users/entity/user.entity';
 import {
   Column,
   Entity,
@@ -8,7 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import OrderDetails from './orderDetails.entity';
+import OrderDetail from './orderDetails.entity';
+import { User } from '../../users/entity/user.entity';
+import { Branch } from '../../branchs/branch.entity';
 
 @Entity({ name: 'ORDERS' })
 export class Order {
@@ -23,9 +23,12 @@ export class Order {
   @JoinColumn({ name: 'branch_id' })
   branch: Branch;
 
-  @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
-  details: OrderDetails[];
+  @OneToMany(() => OrderDetail, (orderDetails) => orderDetails.order)
+  details: OrderDetail[];
 
-  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
   total: number;
+
+  @Column({ type: 'varchar', default: 'PENDING' })
+  status: string;
 }

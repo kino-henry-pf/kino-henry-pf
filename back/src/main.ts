@@ -2,8 +2,8 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ConfigType } from 'config/config.types';
-import { EnvironmentVariables } from 'config/environment.config';
+import { ConfigType } from './config/config.types';
+import { EnvironmentVariables } from './config/environment.config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
@@ -22,7 +22,6 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
-
 
   const options = new DocumentBuilder()
     .setTitle('KINO API Documentation')
