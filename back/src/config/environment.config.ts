@@ -12,6 +12,8 @@ export interface EnvironmentVariables {
   subabase_service_role: string;
   auth_google_client_id: string;
   auth_google_client_secret: string;
+  stripe_secret_key: string;
+  stripe_webhook_secret: string;
 }
 
 export const environmentVariables = registerAs(
@@ -28,5 +30,7 @@ export const environmentVariables = registerAs(
     subabase_service_role: process.env.SUPABASE_SERVICE_ROLE ?? '',
     auth_google_client_id: process.env.AUTH_GOOGLE_CLIENT_ID ?? '',
     auth_google_client_secret: process.env.AUTH_GOOGLE_CLIENT_SECRET ?? '',
+    stripe_secret_key: process.env.STRIPE_SECRET_KEY ?? '',
+    stripe_webhook_secret: process.env.STRIPE_WEBHOOK_SECRET ?? '',
   }),
 );
