@@ -23,6 +23,9 @@ export default function Footer() {
                         <a href="/" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Inicio</a>
                     </li>
                     <li>
+                        <a href="/products" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Productos</a>
+                    </li>
+                    <li>
                         <a href="/faqs" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Preguntas frecuentes</a>
                     </li>
                 </ul>
