@@ -45,54 +45,21 @@ export class AuthController {
   @Post('login')
   @HttpCode(200)
   signin(@Body() dto: LoginUserDto) {
-    return this.authService.login(dto);
-  }
-  @Get('login')
-  async login(@Query('provider') provider: string, @Res() res: Response) {
-    if (!provider) provider = 'google';
-
-    const { data, error } = await this.supabase.auth.signInWithOAuth({
-      provider: provider as Provider,
-      options: {
-        redirectTo: 'http://localhost:3000/auth/callback',
-      },
-    });
-    if (error) return res.status(400).json({ message: error.message });
-
-    return res.redirect(data.url);
+    return this.authService.signin(dto);
   }
 
-  @Get('callback')
-  async oauthCallback(@Query('code') code: string, @Res() res: Response) {
-    if (!code) throw new BadRequestException('Missing OAuth code');
+@Get('login')
+async login(@Query('provider') provider: string, @Res() res) {
+  if (!provider) provider = 'google';
 
-    const { data, error } =
-      await this.supabase.auth.exchangeCodeForSession(code);
-    if (error) throw new BadRequestException(error.message);
+  return this.authService.login(provider, res)
+}
 
-    const supabaseUser = data.user;
-
-    const metadata = supabaseUser.user_metadata as SupabaseOAuthMetadata;
-
-    const user = await this.userRepository.ensureUserExists({
-      email: supabaseUser.email!,
-      providerId: supabaseUser.id,
-      provider: supabaseUser.app_metadata.provider || 'google',
-      name: metadata.full_name ?? 'Unknown',
-    });
-
-    const token = this.jwtService.sign({
-      id: user.id,
-      email: user.email,
-      role: user.role,
-    });
-
-    return res.json({
-      message: 'Login successful',
-      token,
-      user,
-    });
-  }
+@Get('callback')
+async oauthCallback(@Query('code') code: string, @Res() res: any) {
+  if (!code) throw new BadRequestException('Missing OAuth code');
+  return this.authService.oauthCallback(code, res)
+}
 
   @Patch('/users/:id/promote')
   @Roles('admin')
