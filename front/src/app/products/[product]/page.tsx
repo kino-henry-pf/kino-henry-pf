@@ -14,18 +14,30 @@ export default async function ProductPage({
     try {
         const api = useApi(),
             productId = (await params).product,
-            product = await api.get<Product>(`product/${productId}`)
+            product = await api.get<Product>(`products/${productId}`, {
+                disableCache: true
+            })
 
         return (
             <>
                 <main className="w-full h-fit min-h-[calc(100vh-6rem)]">
-                    <section className="w-full h-full grid grid-cols-[minmax(auto,.3fr)_1fr] container-x-padding py-10">
+                    <section className="w-full h-full grid grid-cols-[minmax(auto,.5fr)_1fr] container-x-padding py-10 grid-rows-[500px] items-center gap-10">
                         <div className="w-full h-full relative">
                             <Image
                                 alt={product.name}
                                 src={product.image}
                                 fill
                             />
+                        </div>
+                        <div className="w-full h-fit flex flex-col gap-2">
+                            <h1 className="font-bold text-6xl">{product.name}</h1>
+                            <p>{product.description}</p>
+                            <p className="font-semibold text-xl text-[var(--color-primary)]">{
+                                parseFloat(product.price).toLocaleString("es-AR", {
+                                    style: "currency",
+                                    currency: "ARS"
+                                })    
+                            }</p>
                         </div>
                     </section>
                 </main>

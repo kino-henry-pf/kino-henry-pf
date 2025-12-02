@@ -5,7 +5,9 @@ import { Product } from "@/types/product";
 
 export default async function ProductsPage() {
     const api = useApi(),
-        products = await api.get<Product[]>("products")
+        products = await api.get<Product[]>("products", {
+            disableCache: true
+        })
 
     return (
         <>
