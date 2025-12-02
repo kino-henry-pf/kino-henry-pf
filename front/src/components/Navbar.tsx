@@ -83,7 +83,8 @@ export default function Navbar() {
           >
             Buscar
           </button>
-
+          
+          {/* Si el usuario no esta logueado */}
           {!dataUser && (
             <>
               <Link
@@ -101,7 +102,8 @@ export default function Navbar() {
               </Link>
             </>
           )}
-
+          
+          {/* Si el usuario esta loguead */}
           {dataUser && (
             <>
               <Link

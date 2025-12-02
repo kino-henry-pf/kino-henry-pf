@@ -34,8 +34,6 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Obtener producto a traves de su UUID' })
   @Get(':id')
-  @Roles('admin')
-  @UseGuards(AuthGuard, RolesGuard)
   async getById(@Param('id') id: string): Promise<Product> {
     return this.productService.getProductById(id);
   }
