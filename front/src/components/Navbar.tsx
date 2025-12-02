@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+
 export default function Navbar() {
   const { dataUser } = useAuth();
 
