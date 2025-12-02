@@ -1,5 +1,6 @@
 import { Movie } from "@/types/movie";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function MovieCard({
     movie
@@ -7,7 +8,7 @@ export default function MovieCard({
     movie: Movie
 }) {
     return (
-        <a href={`/movies/${movie.id}`} className="w-full h-auto overflow-hidden cursor-pointer">
+        <Link href={`/movies/${movie.id}`} className="w-full h-auto overflow-hidden cursor-pointer">
             <Image
                 alt={movie.title}
                 src={movie.image}
@@ -15,6 +16,6 @@ export default function MovieCard({
                 height={400}
                 className="w-full h-auto rounded-xl"
             />
-        </a>
+        </Link>
     )
 }

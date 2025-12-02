@@ -15,22 +15,26 @@ export default function AdminDashboardPage() {
                         <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">{auth?.user.name}</span></h1>
                     </div>
                 </section>
-                <section className="w-full h-fit flex justify-center container-x-padding py-10">
+                <section className="w-full h-fit flex flex-col items-center gap-3 container-x-padding py-10">
+                    <p className="w-[900px] max-w-full">Estadísticas</p>
                     <div className="w-[900px] max-w-full grid grid-cols-3 gap-5">
                         <DataCard
-                            icon="Send"
+                            icon="Glasses"
                             value="5,530"
-                            label="Tiendas"
+                            label="Productos"
+                            color="cyan"
                         />
                         <DataCard
-                            icon="Send"
-                            value="5,530"
-                            label="Tiendas"
+                            icon="Cart"
+                            value="$2.234,00"
+                            label="Total de ventas"
+                            color="orange"
                         />
                         <DataCard
-                            icon="Send"
-                            value="5,530"
-                            label="Tiendas"
+                            icon="Play"
+                            value="512"
+                            label="Películas"
+                            color="purple"
                         />
                     </div>
                 </section>
