@@ -1,9 +1,11 @@
 import { FormValues } from "@/app/register/RegisterForm";
 import { LoginValues } from "@/app/login/LoginForm";
 
+const API_URL = process.env.API_URL;
+
 export async function registerService(userData: FormValues) {
   try {
-    const response = await fetch("http://localhost:3001/auth/register", {
+    const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -23,7 +25,7 @@ export async function registerService(userData: FormValues) {
 
 export async function loginService(userData: LoginValues) {
   try {
-    const response = await fetch("http://localhost:3001/auth/login", {
+    const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
             "Content-type": "application/json"

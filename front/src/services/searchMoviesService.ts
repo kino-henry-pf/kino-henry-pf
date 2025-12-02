@@ -1,10 +1,12 @@
+const API_URL = process.env.API_URL;
+
 export const searchMovies = async (title: string) => {
   if (!title || title.trim() === "") return [];
 
   const encoded = encodeURIComponent(title.trim());
 
   const response = await fetch(
-    `http://localhost:3001/movies?title=${encoded}`,
+    `${API_URL}/movies?title=${encoded}`,
     { method: "GET" }
   );
 
