@@ -7,7 +7,7 @@ export default function MovieCard({
     movie: Movie
 }) {
     return (
-        <a href={`/movie/${movie.id}`} className="w-full h-auto overflow-hidden cursor-pointer">
+        <a href={`/movies/${movie.id}`} className="w-full h-auto overflow-hidden cursor-pointer">
             <Image
                 alt={movie.title}
                 src={movie.image}

@@ -10,7 +10,7 @@ export default function ProductCard({
 }) {
     return (
         <Link
-            href={`/product/${product.id}`}
+            href={`/products/${product.id}`}
             className="w-full min-h-[200px] h-full bg-white/5 cursor-pointer grid grid-cols-[2fr_3fr] grid-rows-1 overflow-hidden border-1 border-[var(--color-border)] group"
         >
             <div className="w-full h-full relative">
