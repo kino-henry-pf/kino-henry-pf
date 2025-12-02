@@ -48,6 +48,9 @@ export default function Navbar() {
         >
           Buscar
         </button>
+        <Link href="/products" className="text-white hover:text-gray-300 transition">
+          Productos
+        </Link>
 
         {/* Si NO está logueado */}
         {!dataUser && (

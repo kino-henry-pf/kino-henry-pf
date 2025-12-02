@@ -42,7 +42,7 @@ export default function Footer() {
                     ) : (
                         <ul className="flex flex-col items-end lg:items-start">
                             <li>
-                                <a href="/dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Mis reservas</a>
+                                <a href="/bookings" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Mis reservas</a>
                             </li>
                             {
                                 auth.user.role === "admin" && (
