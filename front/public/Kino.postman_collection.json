@@ -1,0 +1,692 @@
+{
+	"info": {
+		"_postman_id": "166a368b-69f0-40dd-85b0-9e5b27ea00b2",
+		"name": "Kino",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43264448"
+	},
+	"item": [
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Get all movies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies/25ad5e3b-280b-4a48-b8ad-66962725fa03",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"25ad5e3b-280b-4a48-b8ad-66962725fa03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies?title=c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title test",
+									"type": "text"
+								},
+								{
+									"key": "sinopsis",
+									"value": "this is a test sinopsis so nothing happens in this movie since the movie is fake lolololol",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "3.5",
+									"type": "text"
+								},
+								{
+									"key": "genre",
+									"value": "drama",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/aram/Desktop/inception.jpg"
+								},
+								{
+									"key": "duration",
+									"value": "136",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update movie",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/aram/Desktop/inception.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/movies/25ad5e3b-280b-4a48-b8ad-66962725fa03",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"25ad5e3b-280b-4a48-b8ad-66962725fa03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies/72249c95-534c-42c2-ba23-a51b85d5301d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"72249c95-534c-42c2-ba23-a51b85d5301d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Showtimes",
+			"item": [
+				{
+					"name": "Get all showtimes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title test",
+									"type": "text"
+								},
+								{
+									"key": "sinopsis",
+									"value": "this is a test sinopsis so nothing happens in this movie since the movie is fake lolololol",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "3.5",
+									"type": "text"
+								},
+								{
+									"key": "genre",
+									"value": "drama",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/aram/Desktop/inception.jpg"
+								},
+								{
+									"key": "duration",
+									"value": "136",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/showtimes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"showtimes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get showtime by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title test",
+									"type": "text"
+								},
+								{
+									"key": "sinopsis",
+									"value": "this is a test sinopsis so nothing happens in this movie since the movie is fake lolololol",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "3.5",
+									"type": "text"
+								},
+								{
+									"key": "genre",
+									"value": "drama",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/aram/Desktop/inception.jpg"
+								},
+								{
+									"key": "duration",
+									"value": "136",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/showtimes/af0cf641-88c5-4bf8-92f4-cd60a0c3457d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"showtimes",
+								"af0cf641-88c5-4bf8-92f4-cd60a0c3457d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new showtime",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"movieId\": \"1\" \n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/showtimes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"showtimes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete showtime by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title test",
+									"type": "text"
+								},
+								{
+									"key": "sinopsis",
+									"value": "this is a test sinopsis so nothing happens in this movie since the movie is fake lolololol",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "3.5",
+									"type": "text"
+								},
+								{
+									"key": "genre",
+									"value": "drama",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/aram/Desktop/inception.jpg"
+								},
+								{
+									"key": "duration",
+									"value": "136",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/showtimes/ca31ef39-46cf-4e08-ac74-55c624489e0b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"showtimes",
+								"ca31ef39-46cf-4e08-ac74-55c624489e0b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get all products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by category",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"image\": \"test.com\",\n    \"description\": \"this is a test product\",\n    \"price\": 12.8,\n    \"category\": \"water\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"HACKED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/1715c131-739e-411f-8cfa-1c60c7f70930",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1715c131-739e-411f-8cfa-1c60c7f70930"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"HACKED\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/products/1715c131-739e-411f-8cfa-1c60c7f70930",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1715c131-739e-411f-8cfa-1c60c7f70930"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Branches",
+			"item": [
+				{
+					"name": "Get all branches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/branches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Aram Hekimian\",\n    \"email\": \"aramhek121@gmail.com\",\n    \"password\": \"Passw0rd!\",\n    \"confirmPassword\": \"Passw0rd!\",\n    \"address\": \"CDMX\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Aram Hekimian\",\n    \"email\": \"aramhek121@gmail.com\",\n    \"password\": \"Passw0rd!\",\n    \"confirmPassword\": \"Passw0rd!\",\n    \"address\": \"CDMX\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "Get all rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rooms",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all rooms from a branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rooms/branch/f135dc49-4d8c-4842-82ff-41c117a7067e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rooms",
+								"branch",
+								"f135dc49-4d8c-4842-82ff-41c117a7067e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seats",
+			"item": [
+				{
+					"name": "Get all seats from a room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seats/room/607ab865-3fae-48f4-81d4-4c17ea396efc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seats",
+								"room",
+								"607ab865-3fae-48f4-81d4-4c17ea396efc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservations",
+			"item": [
+				{
+					"name": "Create a reservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"bb085737-ced8-494f-a7fa-1f47b7121ce2\",\n  \"showtimeId\": \"af0cf641-88c5-4bf8-92f4-cd60a0c3457d\",\n  \"seatIds\": [\n    \"3403947b-4d55-4eb9-8c33-e77b238ec80b\"\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reservations of a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations/bb085737-ced8-494f-a7fa-1f47b7121ce2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"bb085737-ced8-494f-a7fa-1f47b7121ce2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel reservation",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations/03a2298f-bd5e-4e7d-aafd-d14a77ce9df8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"03a2298f-bd5e-4e7d-aafd-d14a77ce9df8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
