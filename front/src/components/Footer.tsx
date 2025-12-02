@@ -3,30 +3,31 @@
 import Logo from "@/../public/logo.png"
 import { useAuth } from "@/context/authContext"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function Footer() {
     let {dataUser: auth} = useAuth()
 
     return (
         <footer className="w-full h-fit container-x-padding py-10 flex justify-center lg:gap-10 bg-black/50 lg:flex-row flex-col items-end lg:items-start">
-            <a href="/" className="lg:mr-20 w-fit flex justify-end">
+            <Link href="/" className="lg:mr-20 w-fit flex justify-end">
                 <Image
                     alt="Logo KINO - PNG"
                     src={Logo}
                     className="lg:w-auto lg:h-20 w-[80%] h-auto lg:p-0"
                 />
-            </a>
+            </Link>
             <nav className="flex flex-col gap-2 items-end text-right w-full lg:w-fit lg:items-start lg:text-left mb-10 lg:mb-0">
                 <h3 className="text-xl font-semibold">Navegación</h3>
                 <ul className="flex flex-col items-end lg:items-start">
                     <li>
-                        <a href="/" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Inicio</a>
+                        <Link href="/" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Inicio</Link>
                     </li>
                     <li>
-                        <a href="/products" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Productos</a>
+                        <Link href="/products" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Productos</Link>
                     </li>
                     <li>
-                        <a href="/faqs" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Preguntas frecuentes</a>
+                        <Link href="/faqs" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Preguntas frecuentes</Link>
                     </li>
                 </ul>
             </nav>
@@ -36,21 +37,21 @@ export default function Footer() {
                     !auth ? (
                         <ul className="flex flex-col items-end lg:items-start">
                             <li>
-                                <a href="/login" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Iniciar sesión</a>
+                                <Link href="/login" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Iniciar sesión</Link>
                             </li>
                             <li>
-                                <a href="/register" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Registrar usuario</a>
+                                <Link href="/register" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Registrar usuario</Link>
                             </li>
                         </ul>
                     ) : (
                         <ul className="flex flex-col items-end lg:items-start">
                             <li>
-                                <a href="/bookings" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Mis reservas</a>
+                                <Link href="/bookings" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Mis reservas</Link>
                             </li>
                             {
                                 auth.user.role === "admin" && (
                                     <li>
-                                        <a href="/admin-dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Administración</a>
+                                        <Link href="/admin-dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Administración</Link>
                                     </li>
                                 )
                             }
