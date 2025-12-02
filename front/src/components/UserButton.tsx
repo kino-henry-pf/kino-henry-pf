@@ -33,7 +33,7 @@ export default function UserButton({
                             Mi perfil
                         </Link>
                         <Link
-                            href="/reservas"
+                            href="/bookings"
                             className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
                             Mis reservas

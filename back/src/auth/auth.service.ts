@@ -2,21 +2,25 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  Provider,
 } from '@nestjs/common';
 import { RegisterUserDto } from './DTOs/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import LoginUserDto from './DTOs/login-user.dto';
+import { supabase } from 'config/supabase.client';
+import UsersRepository from 'src/users/users.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly userRepository: UsersRepository
   ) {}
 
-  async login(dto: LoginUserDto) {
+  async signin(dto: LoginUserDto) {
     const { email, password } = dto;
     const user = await this.usersService.findByEmailOrNull(email);
 
@@ -83,5 +87,47 @@ export class AuthService {
 
   async promote(id: string) {
     return await this.usersService.promote(id);
+  }
+
+
+  async oauthCallback(code, res) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  if (error) throw new BadRequestException(error.message);
+
+  const supabaseUser = data.user;
+
+  const user = await this.userRepository.ensureUserExists({
+    email: supabaseUser.email!,
+    providerId: supabaseUser.id,
+    provider: supabaseUser.app_metadata.provider || 'google',
+    name: supabaseUser.user_metadata.full_name,
+  });
+
+  const token = this.jwtService.sign({
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  });
+
+  return res.json({
+    message: 'Login successful',
+    token,
+    user,
+  });
+  }
+
+  async login(provider, res){
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: provider as any,
+        options: {
+          redirectTo: 'http://localhost:3000/auth/callback',
+      
+        },
+      });
+    
+      if (error) return res.status(400).json(error);
+    
+      return res.redirect(data.url);
   }
 }
