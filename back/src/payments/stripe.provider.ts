@@ -12,7 +12,7 @@ export const stripeClientProvider = {
     }
 
     return new Stripe(key, {
-      apiVersion: '2025-11-17.clover',
+      apiVersion: null,
     });
   },
   inject: [ConfigService],

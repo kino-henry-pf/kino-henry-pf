@@ -16,6 +16,7 @@ import { OrdersModule } from './orders/orders.module';
 import { BranchsproductsModule } from './branchsproducts/branchsproducts.module';
 import { SeatsModule } from './seats/seats.module';
 import { ReservationsModule } from './reservations/reservations.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { ReservationsModule } from './reservations/reservations.module';
     BranchsproductsModule,
     SeatsModule,
     ReservationsModule,
+    PaymentsModule,
   ],
   providers: [SeederModule],
 })
