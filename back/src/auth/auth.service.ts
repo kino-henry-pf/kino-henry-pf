@@ -1,23 +1,24 @@
 import {
   BadRequestException,
   ConflictException,
+  Inject,
   Injectable,
-  Provider,
 } from '@nestjs/common';
 import { RegisterUserDto } from './DTOs/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import LoginUserDto from './DTOs/login-user.dto';
-import { supabase } from 'config/supabase.client';
 import UsersRepository from 'src/users/users.repository';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly userRepository: UsersRepository
+    private readonly userRepository: UsersRepository,
+    @Inject('SUPABASE_CLIENT') private readonly supabase: SupabaseClient,
   ) {}
 
   async signin(dto: LoginUserDto) {
@@ -89,45 +90,43 @@ export class AuthService {
     return await this.usersService.promote(id);
   }
 
-
   async oauthCallback(code, res) {
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-  if (error) throw new BadRequestException(error.message);
+    const { data, error } =
+      await this.supabase.auth.exchangeCodeForSession(code);
+    if (error) throw new BadRequestException(error.message);
 
-  const supabaseUser = data.user;
+    const supabaseUser = data.user;
 
-  const user = await this.userRepository.ensureUserExists({
-    email: supabaseUser.email!,
-    providerId: supabaseUser.id,
-    provider: supabaseUser.app_metadata.provider || 'google',
-    name: supabaseUser.user_metadata.full_name,
-  });
+    const user = await this.userRepository.ensureUserExists({
+      email: supabaseUser.email!,
+      providerId: supabaseUser.id,
+      provider: supabaseUser.app_metadata.provider || 'google',
+      name: supabaseUser.user_metadata.full_name,
+    });
 
-  const token = this.jwtService.sign({
-    id: user.id,
-    email: user.email,
-    role: user.role,
-  });
+    const token = this.jwtService.sign({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    });
 
-  return res.json({
-    message: 'Login successful',
-    token,
-    user,
-  });
+    return res.json({
+      message: 'Login successful',
+      token,
+      user,
+    });
   }
 
-  async login(provider, res){
+  async login(provider, res) {
+    const { data, error } = await this.supabase.auth.signInWithOAuth({
+      provider: provider as any,
+      options: {
+        redirectTo: 'http://localhost:3000/auth/callback',
+      },
+    });
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: provider as any,
-        options: {
-          redirectTo: 'http://localhost:3000/auth/callback',
-      
-        },
-      });
-    
-      if (error) return res.status(400).json(error);
-    
-      return res.redirect(data.url);
+    if (error) return res.status(400).json(error);
+
+    return res.redirect(data.url);
   }
 }
