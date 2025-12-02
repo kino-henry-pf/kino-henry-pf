@@ -2,7 +2,7 @@ type GetOptions = {
     disableCache?: boolean
 }
 
-const API_URL = process.env.API_URL || "https://kino-henry-pf.onrender.com",
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.onrender.com",
 
     DEFAULT_HEADERS = {
         "Content-Type": "application/json",

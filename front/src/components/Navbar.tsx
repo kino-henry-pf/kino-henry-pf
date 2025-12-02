@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import MovieCard from "@/components/MovieCard";
 import { usePathname } from "next/navigation";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Navbar() {
   const { dataUser } = useAuth();
 
@@ -37,7 +39,7 @@ export default function Navbar() {
 
       try {
         const res = await fetch(
-          `http://localhost:3001/movies?title=${encodeURIComponent(query)}`
+          `${API_URL}/movies?title=${encodeURIComponent(query)}`
         );
 
         const data = await res.json();
