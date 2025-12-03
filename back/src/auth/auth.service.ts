@@ -121,7 +121,7 @@ export class AuthService {
     const { data, error } = await this.supabase.auth.signInWithOAuth({
       provider: provider as any,
       options: {
-        redirectTo: 'http://localhost:3000/auth/callback',
+        redirectTo: 'https://kino-henry-pf.onrender.com/auth/callback',
       },
     });
 
