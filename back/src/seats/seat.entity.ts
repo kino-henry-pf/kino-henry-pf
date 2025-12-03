@@ -17,4 +17,7 @@ export default class Seat {
 
   @Column()
   number: number;
+
+  @Column({ default: false })
+  reserved: boolean;
 }
