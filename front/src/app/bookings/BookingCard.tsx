@@ -1,5 +1,4 @@
 import * as Icon from "akar-icons"
-import IconButton from "./IconButton"
 
 export default function BookingCard({date, movie}: {
     date: string,

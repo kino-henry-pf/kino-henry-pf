@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { STRIPE_CLIENT } from './stripe.provider';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Order } from 'src/orders/entities/order.entity';
+import { Order } from '../orders/entities/order.entity';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
@@ -34,25 +34,43 @@ export class PaymentsService {
 
     const session = await this.stripe.checkout.sessions.create({
       mode: 'payment',
+      payment_method_types: ['card'],
       line_items: lineItems,
-      success_url: `https://your-frontend.com/success?orderId=${orderId}`,
-      cancel_url: `https://your-frontend.com/cancel?orderId=${orderId}`,
-      metadata: { orderId },
+      success_url: `https://superlative-zabaione-f74f6b.netlify.app/success?orderId=${orderId}`,
+      cancel_url: `https://superlative-zabaione-f74f6b.netlify.app/cancel?orderId=${orderId}`,
+      metadata: {
+        orderId: orderId,
+      },
     });
+
+    console.log('✅ Checkout session created:', session.id);
+    console.log('📦 Order ID in metadata:', session.metadata.orderId);
+
     return { url: session.url };
   }
 
   async markOrderPaid(orderId: string) {
     const order = await this.orderRepo.findOneBy({ id: orderId });
-    if (!order) return;
+
+    if (!order) {
+      console.error(`❌ Order not found: ${orderId}`);
+      return;
+    }
+
+    if (order.status === 'PAID') {
+      console.log(`ℹ️  Order already marked as paid: ${orderId}`);
+      return;
+    }
 
     order.status = 'PAID';
-
     await this.orderRepo.save(order);
+
+    console.log(`✅ Order ${orderId} successfully marked as PAID`);
   }
 
   async handleWebhook(rawBody: Buffer, signature: string) {
     const endpointSecret: string = this.config.get('env.stripe_webhook_secret');
+
     let event: Stripe.Event;
 
     try {
@@ -61,35 +79,31 @@ export class PaymentsService {
         signature,
         endpointSecret,
       );
-    } catch (error) {
-      console.error('Webhook signature verification failed', error);
-      throw error;
-    }
 
-    switch (event.type) {
-      case 'checkout.session.completed': {
-        const session = event.data.object;
-        const orderId = session.metadata?.orderId;
-        if (orderId) {
+      console.log('EVENT RECEIVED:', event.type);
+
+      switch (event.type) {
+        case 'checkout.session.completed': {
+          const session = event.data.object;
+          const orderId = session.metadata?.orderId;
+
           await this.markOrderPaid(orderId);
+          break;
         }
-        break;
+
+        case 'payment_intent.succeeded': {
+          const pi = event.data.object;
+          console.log('PI SUCCEEDED:', pi.id);
+          break;
+        }
+
+        default:
+          console.log('Unhandled event', event.type);
       }
-
-      case 'checkout.session.async_payment_failed':
-        console.log('❌ Async payment failed');
-        break;
-
-      case 'checkout.session.async_payment_succeeded':
-        console.log('✅ Async payment succeeded');
-        break;
-
-      case 'checkout.session.expired':
-        console.log('⌛ Checkout session expired');
-        break;
-
-      default:
-        console.log(`Unhandled event type: ${event.type}`);
+    } catch (err) {
+      console.error('❌ Webhook signature verification failed');
+      console.error(err);
+      return; // ← IMPORTANT: STOP HERE
     }
   }
 }

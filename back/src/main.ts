@@ -5,19 +5,22 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigType } from './config/config.types';
 import { EnvironmentVariables } from './config/environment.config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as express from 'express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true,
+  });
+
   const configService = app.get(ConfigService<ConfigType>);
+  const env = configService.get<EnvironmentVariables>('env');
+
   app.enableCors({
-    origin: [
-      configService.get<EnvironmentVariables>('env')?.origin,
-      'http://localhost:3000',
-    ],
+    origin: [env?.origin, 'http://localhost:3000'],
     credentials: true,
   });
-  const PORT = configService.get<EnvironmentVariables>('env')?.port ?? 3000;
+
+  const PORT = env?.port ?? 3000;
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -35,12 +38,13 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-
   SwaggerModule.setup('api', app, document);
+
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.use('/payments/webhook', express.raw({ type: 'application/json' }));
+
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
   console.log(process.env.GMAIL_USER); // solo para probar
 }
+
 void bootstrap();

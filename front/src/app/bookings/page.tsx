@@ -1,6 +1,6 @@
 'use client'
 
-import BookingCard from "@/components/BookingCard";
+import BookingCard from "./BookingCard";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";

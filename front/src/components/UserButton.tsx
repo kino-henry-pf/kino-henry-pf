@@ -33,6 +33,12 @@ export default function UserButton({
                             Mi perfil
                         </Link>
                         <Link
+                          href="/faqs"
+                          className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                        >
+                          Preguntas Frecuentes
+                        </Link>
+                        <Link
                             href="/bookings"
                             className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
