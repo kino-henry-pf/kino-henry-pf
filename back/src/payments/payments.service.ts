@@ -17,7 +17,12 @@ export class PaymentsService {
   async createCheckoutSession(orderId: string) {
     const order = await this.orderRepo.findOne({
       where: { id: orderId },
-      relations: ['details', 'details.product', 'details.seatReservation'],
+      relations: [
+        'user',
+        'details',
+        'details.product',
+        'details.seatReservation',
+      ],
     });
     if (!order) throw new NotFoundException('Order not found.');
 
@@ -34,6 +39,7 @@ export class PaymentsService {
 
     const session = await this.stripe.checkout.sessions.create({
       mode: 'payment',
+      customer_email: order.user.email,
       payment_method_types: ['card'],
       line_items: lineItems,
       success_url: `https://superlative-zabaione-f74f6b.netlify.app/success?orderId=${orderId}`,
