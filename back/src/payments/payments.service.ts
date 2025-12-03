@@ -1,15 +1,17 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { STRIPE_CLIENT } from './stripe.provider';
-import Stripe from 'stripe';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from 'src/orders/entities/order.entity';
 import { Repository } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
+import Stripe from 'stripe';
 
 @Injectable()
 export class PaymentsService {
   constructor(
     @Inject(STRIPE_CLIENT) private readonly stripe: Stripe,
     @InjectRepository(Order) private readonly orderRepo: Repository<Order>,
+    private config: ConfigService,
   ) {}
 
   async createCheckoutSession(orderId: string) {
@@ -47,5 +49,47 @@ export class PaymentsService {
     order.status = 'PAID';
 
     await this.orderRepo.save(order);
+  }
+
+  async handleWebhook(rawBody: Buffer, signature: string) {
+    const endpointSecret: string = this.config.get('env.stripe_webhook_secret');
+    let event: Stripe.Event;
+
+    try {
+      event = this.stripe.webhooks.constructEvent(
+        rawBody,
+        signature,
+        endpointSecret,
+      );
+    } catch (error) {
+      console.error('Webhook signature verification failed', error);
+      throw error;
+    }
+
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object;
+        const orderId = session.metadata?.orderId;
+        if (orderId) {
+          await this.markOrderPaid(orderId);
+        }
+        break;
+      }
+
+      case 'checkout.session.async_payment_failed':
+        console.log('❌ Async payment failed');
+        break;
+
+      case 'checkout.session.async_payment_succeeded':
+        console.log('✅ Async payment succeeded');
+        break;
+
+      case 'checkout.session.expired':
+        console.log('⌛ Checkout session expired');
+        break;
+
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
+    }
   }
 }
