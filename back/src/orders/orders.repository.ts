@@ -3,12 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { In, Repository } from 'typeorm';
 import OrderDetail from './entities/orderDetails.entity';
-import Product from 'src/products/product.entity';
-import { UsersService } from 'src/users/users.service';
-import { BranchService } from 'src/branchs/branchs.service';
-import { ReservationsService } from 'src/reservations/reservations.service';
+import Product from '../products/product.entity';
+import { UsersService } from '../users/users.service';
+import { BranchService } from '../branchs/branchs.service';
+import { ReservationsService } from '../reservations/reservations.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import SeatReservation from 'src/reservations/seat-reservation.entity';
+import SeatReservation from '../reservations/seat-reservation.entity';
 
 @Injectable()
 export default class OrdersRepository {

@@ -10,7 +10,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import LoginUserDto from './DTOs/login-user.dto';
-import UsersRepository from 'src/users/users.repository';
+import UsersRepository from '../users/users.repository';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
@@ -112,14 +112,18 @@ export class AuthService {
     role: user.role,
   });
 
-    return res.json({
-      message: 'Login successful',
-      token,
-      user,
-    });
+    return res.redirect(
+      `https://superlative-zabaione-f74f6b.netlify.app/oauth-success?token=${token}`,
+    );
   }
 
-  async login(provider, res){
+  async login(provider, res) {
+    const { data, error } = await this.supabase.auth.signInWithOAuth({
+      provider: provider as any,
+      options: {
+        redirectTo: 'https://kino-henry-pf.onrender.com/auth/callback',
+      },
+    });
 
     const { data, error } = await this.supabase.auth.signInWithOAuth({
         provider: provider as any,

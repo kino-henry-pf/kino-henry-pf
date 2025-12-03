@@ -18,7 +18,7 @@ import { RegisterUserDto } from './DTOs/register-user.dto';
 import UsersRepository from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import type { Provider } from '@supabase/auth-js';
-import { Roles } from 'src/decorator/role.decorator';
+import { Roles } from '../decorator/role.decorator';
 import { AuthGuard } from './guards/auth-guard.guard';
 import { RolesGuard } from './guards/role-guard.guard';
 import { SupabaseClient } from '@supabase/supabase-js';
@@ -48,18 +48,17 @@ export class AuthController {
     return this.authService.signin(dto);
   }
 
-@Get('login')
-async login(@Query('provider') provider: string, @Res() res) {
-  if (!provider) provider = 'google';
+  @Get('login')
+  async login(@Query('provider') provider: string, @Res() res: Response) {
+    if (!provider) provider = 'google';
+    await this.authService.login(provider, res);
+  }
 
-  return this.authService.login(provider, res)
-}
-
-@Get('callback')
-async oauthCallback(@Query('code') code: string, @Res() res: any) {
-  if (!code) throw new BadRequestException('Missing OAuth code');
-  return this.authService.oauthCallback(code, res)
-}
+  @Get('callback')
+  async oauthCallback(@Query('code') code: string, @Res() res: Response) {
+    if (!code) throw new BadRequestException('Missing OAuth code');
+    await this.authService.oauthCallback(code, res);
+  }
 
   @Patch('/users/:id/promote')
   @Roles('admin')

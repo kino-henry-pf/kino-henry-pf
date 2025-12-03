@@ -46,7 +46,7 @@ export default class ReservationRepository {
       showtimeId: dto.showtimeId,
       seats: dto.seatIds.map((seatId) => ({ seatId })),
     });
-
+    await this.seatsService.markSeatsReserved(dto.seatIds);
     return await this.reservationRepository.save(reservation);
   }
 

@@ -17,6 +17,8 @@ import { BranchsproductsModule } from './branchsproducts/branchsproducts.module'
 import { SeatsModule } from './seats/seats.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { GoogleMapsModule } from './google-maps/google-maps.module';
+import { PaymentsModule } from './payments/payments.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { GoogleMapsModule } from './google-maps/google-maps.module';
     SeatsModule,
     ReservationsModule,
     GoogleMapsModule
+    PaymentsModule,
+    MailModule,
   ],
   providers: [SeederModule],
 })

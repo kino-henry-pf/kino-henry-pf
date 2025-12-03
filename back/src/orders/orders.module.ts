@@ -5,11 +5,12 @@ import { Order } from './entities/order.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import OrderDetails from './entities/orderDetails.entity';
-import Product from 'src/products/product.entity';
-import { UsersModule } from 'src/users/users.module';
-import { BranchsModule } from 'src/branchs/branchs.module';
-import { ReservationsModule } from 'src/reservations/reservations.module';
+import Product from '../products/product.entity';
+import { UsersModule } from '../users/users.module';
+import { BranchsModule } from '../branchs/branchs.module';
+import { ReservationsModule } from '../reservations/reservations.module';
 import OrdersRepository from './orders.repository';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import OrdersRepository from './orders.repository';
     UsersModule,
     BranchsModule,
     ReservationsModule,
+    MailModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
