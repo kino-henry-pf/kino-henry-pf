@@ -23,13 +23,7 @@ export class PaymentsController {
     @Req() req: RawBodyRequest<Request>,
     @Headers('stripe-signature') signature: string,
   ) {
-    const rawBody =
-      req.rawBody ||
-      (Buffer.isBuffer(req.body)
-        ? req.body
-        : Buffer.from(JSON.stringify(req.body)));
-
-    await this.paymentsService.handleWebhook(rawBody, signature);
+    await this.paymentsService.handleWebhook(req.rawBody, signature);
     return { received: true };
   }
 }
