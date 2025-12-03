@@ -9,7 +9,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import LoginUserDto from './DTOs/login-user.dto';
-import UsersRepository from 'src/users/users.repository';
+import UsersRepository from '../users/users.repository';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()

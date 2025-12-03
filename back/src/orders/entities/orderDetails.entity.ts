@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Order } from './order.entity';
-import Product from 'src/products/product.entity';
-import SeatReservation from 'src/reservations/seat-reservation.entity';
+import Product from '../../products/product.entity';
+import SeatReservation from '../../reservations/seat-reservation.entity';
 
 @Entity()
 export default class OrderDetail {
@@ -18,13 +18,13 @@ export default class OrderDetail {
   product: Product;
 
   @Column({ nullable: true })
-  productId: string | null;
+  productId: string;
 
   @ManyToOne(() => SeatReservation, { nullable: true })
   seatReservation: SeatReservation;
 
   @Column({ nullable: true })
-  seatReservationId: string | null;
+  seatReservationId: string;
 
   @Column({ type: 'int', default: 1 })
   quantity: number;

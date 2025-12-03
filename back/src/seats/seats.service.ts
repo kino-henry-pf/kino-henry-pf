@@ -10,6 +10,10 @@ export class SeatsService {
     return await this.seatsRepository.findByRoom(roomId);
   }
 
+  async findAvailableSeats(roomId: string): Promise<Partial<Seat>[]> {
+    return await this.seatsRepository.findAvailableSeats(roomId);
+  }
+
   async findById(id: string): Promise<Seat> {
     const seat = await this.seatsRepository.findById(id);
     if (!seat)
@@ -32,5 +36,9 @@ export class SeatsService {
 
   async findManyByIds(ids: string[]): Promise<Seat[]> {
     return await this.seatsRepository.findManyByIds(ids);
+  }
+
+  async markSeatsReserved(ids: string[]) {
+    await this.seatsRepository.markSeatsReserved(ids);
   }
 }

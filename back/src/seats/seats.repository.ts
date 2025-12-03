@@ -13,6 +13,14 @@ export default class SeatsRepository {
     return await this.seatsRepository.find({ where: { roomId } });
   }
 
+  async findAvailableSeats(roomId: string): Promise<Partial<Seat>[]> {
+    const seats = await this.seatsRepository.find({
+      where: { roomId, reserved: false },
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return seats.map(({ reserved, ...rest }) => rest);
+  }
+
   async findById(id: string): Promise<Seat | null> {
     const seat = await this.seatsRepository.findOneBy({ id });
     return seat ?? null;
@@ -30,5 +38,13 @@ export default class SeatsRepository {
     return await this.seatsRepository.find({
       where: { id: In(ids) },
     });
+  }
+
+  async markSeatsReserved(seatIds: string[]) {
+    const seats = await this.findManyByIds(seatIds);
+    seats.forEach((seat) => {
+      seat.reserved = true;
+    });
+    await this.seatsRepository.save(seats);
   }
 }
