@@ -116,9 +116,7 @@ export class AuthService {
         secure: true,
         sameSite: 'none',
       })
-      .redirect(
-        'https://superlative-zabaione-f74f6b.netlify.app/oauth-success',
-      );
+      .redirect('https://superlative-zabaione-f74f6b.netlify.app/');
   }
 
   async login(provider, res) {
