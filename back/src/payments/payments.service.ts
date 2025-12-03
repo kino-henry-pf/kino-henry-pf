@@ -72,7 +72,6 @@ export class PaymentsService {
     const endpointSecret: string = this.config.get('env.stripe_webhook_secret');
 
     let event: Stripe.Event;
-    console.log('EVENT RECEIVED:', event.type); // 👈 ADD HERE
 
     try {
       event = this.stripe.webhooks.constructEvent(
@@ -80,75 +79,31 @@ export class PaymentsService {
         signature,
         endpointSecret,
       );
-      console.log('✅ Webhook verified:', event.type);
-    } catch (error) {
+
+      console.log('EVENT RECEIVED:', event.type);
+
+      switch (event.type) {
+        case 'checkout.session.completed': {
+          const session = event.data.object;
+          const orderId = session.metadata?.orderId;
+
+          await this.markOrderPaid(orderId);
+          break;
+        }
+
+        case 'payment_intent.succeeded': {
+          const pi = event.data.object;
+          console.log('PI SUCCEEDED:', pi.id);
+          break;
+        }
+
+        default:
+          console.log('Unhandled event', event.type);
+      }
+    } catch (err) {
       console.error('❌ Webhook signature verification failed');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      console.error('Error message:', error.message);
-      throw error;
-    }
-
-    // Handle the event
-    switch (event.type) {
-      case 'checkout.session.completed': {
-        const session = event.data.object;
-        const orderId = session.metadata?.orderId;
-
-        console.log('💳 Checkout session completed');
-        console.log('📦 Order ID:', orderId);
-        console.log('💰 Amount total:', session.amount_total);
-        console.log('✅ Payment status:', session.payment_status);
-
-        if (orderId) {
-          await this.markOrderPaid(orderId);
-          console.log('✅ Order marked as paid:', orderId);
-        } else {
-          console.error('❌ No orderId found in session metadata');
-        }
-        break;
-      }
-
-      case 'checkout.session.async_payment_succeeded': {
-        const session = event.data.object;
-        const orderId = session.metadata?.orderId;
-        console.log('✅ Async payment succeeded for order:', orderId);
-        if (orderId) {
-          await this.markOrderPaid(orderId);
-        }
-        break;
-      }
-
-      case 'checkout.session.async_payment_failed': {
-        const session = event.data.object;
-        console.log(
-          '❌ Async payment failed for order:',
-          session.metadata?.orderId,
-        );
-        // Optionally mark order as failed
-        break;
-      }
-
-      case 'checkout.session.expired': {
-        const session = event.data.object;
-        console.log(
-          '⌛ Checkout session expired for order:',
-          session.metadata?.orderId,
-        );
-        // Optionally mark order as expired or release reserved seats
-        break;
-      }
-
-      // These events are informational - you can ignore them or log them
-      case 'payment_intent.succeeded':
-      case 'payment_intent.created':
-      case 'charge.succeeded':
-      case 'product.created':
-      case 'price.created':
-        console.log(`ℹ️  Informational event: ${event.type}`);
-        break;
-
-      default:
-        console.log(`⚠️  Unhandled event type: ${event.type}`);
+      console.error(err);
+      return; // ← IMPORTANT: STOP HERE
     }
   }
 }
