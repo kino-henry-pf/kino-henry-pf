@@ -5,6 +5,9 @@ import KinoLogo from "@/../public/logo.png";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { loginService } from "@/services/userService";
 import { useAuth } from "@/context/authContext";
+import { useEffect } from "react";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface LoginValues {
   email: string;
@@ -45,6 +48,29 @@ function LoginForm() {
       window.location.href = "/";
     }, 500);
   }; 
+
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("userSession");
+  const provider = params.get("provider"); 
+
+  if (token && provider === "google") {
+    const userData = {
+      message: true,
+      access_token: token,
+      user: {
+        id: "",
+        name: "Google User",
+        email: "",
+        role: "user"
+      }
+    };
+
+    setDataUser(userData);
+    localStorage.setItem("userSession", JSON.stringify(userData));
+    window.location.href = "/";
+  }
+}, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-[#121212]">
@@ -110,6 +136,17 @@ function LoginForm() {
                 Crear Cuenta
               </a>
             </p>
+
+            <a
+              href={`${API_URL}/auth/login?provider=google`}
+              className="mx-auto mt-4 block"
+            >
+              <img 
+                className="w-10 h-10 rounded-full cursor-pointer shadow-lg" 
+                src="https://play-lh.googleusercontent.com/NN8G4Xc03GSv2_Tu-icuoeOwSo1xoZ4ouzUl24fVlwm5OeIAo7gV0zS1dVRWgCay-BU" 
+                alt="Google"
+              />
+            </a>
           </Form>
         )}
       </Formik>
