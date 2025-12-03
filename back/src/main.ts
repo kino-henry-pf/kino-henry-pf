@@ -5,16 +5,30 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigType } from './config/config.types';
 import { EnvironmentVariables } from './config/environment.config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as express from 'express';
+import { json } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   const configService = app.get(ConfigService<ConfigType>);
   app.enableCors({
     origin: configService.get<EnvironmentVariables>('env')?.origin,
     credentials: true,
   });
   const PORT = configService.get<EnvironmentVariables>('env')?.port ?? 3000;
+
+  // Custom middleware to handle Stripe webhook raw body
+  app.use(
+    json({
+      verify: (req: any, res, buf) => {
+        // Store raw body for webhook verification
+        if (req.originalUrl === '/payments/webhook') {
+          req.rawBody = buf;
+        }
+      },
+    }),
+  );
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -35,7 +49,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.use('/payments/webhook', express.raw({ type: 'application/json' }));
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
 }
