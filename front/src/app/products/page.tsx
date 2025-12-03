@@ -1,10 +1,10 @@
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import { useApi } from "@/hooks/api";
+import { apiClient } from "@/services/apiClient";
 import { Product } from "@/types/product";
 
 export default async function ProductsPage() {
-    const api = useApi(),
+    const api = apiClient(),
         products = await api.get<Product[]>("products", {
             disableCache: true
         })

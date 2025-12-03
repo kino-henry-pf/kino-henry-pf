@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import MovieData from "@/components/MovieData";
 import OpinionCard from "@/components/OpinionCard";
-import { useApi } from "@/hooks/api";
+import { apiClient } from "@/services/apiClient";
 import { Movie } from "@/types/movie";
 import { redirect } from "next/navigation";
 
@@ -13,7 +13,7 @@ export default async function MoviePage({
     }>
 }) {
     try {
-        const api = useApi(),
+        const api = apiClient(),
             movie = await api.get<Movie>(`movies/${(await params).movie}`, {
                 disableCache: true
             })
