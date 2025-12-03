@@ -10,6 +10,7 @@ import { UsersModule } from '../users/users.module';
 import { BranchsModule } from '../branchs/branchs.module';
 import { ReservationsModule } from '../reservations/reservations.module';
 import OrdersRepository from './orders.repository';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import OrdersRepository from './orders.repository';
     UsersModule,
     BranchsModule,
     ReservationsModule,
+    MailModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
