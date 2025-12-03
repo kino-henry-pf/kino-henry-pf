@@ -103,7 +103,7 @@ export default function Navbar() {
           </button>
 
           <Link
-            href="/menu"
+            href="/products"
             className="text-white hover:text-gray-300 transition"
           >
             Menú
