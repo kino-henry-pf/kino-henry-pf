@@ -110,9 +110,15 @@ export class AuthService {
       role: user.role,
     });
 
-    return res.redirect(
-      `https://superlative-zabaione-f74f6b.netlify.app/oauth-success?token=${token}`,
-    );
+    res
+      .cookie('access_token', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+      })
+      .redirect(
+        'https://superlative-zabaione-f74f6b.netlify.app/oauth-success',
+      );
   }
 
   async login(provider, res) {
