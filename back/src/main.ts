@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigType } from './config/config.types';
 import { EnvironmentVariables } from './config/environment.config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -37,6 +38,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.use('/payments/webhook', express.raw({ type: 'application/json' }));
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
 }
