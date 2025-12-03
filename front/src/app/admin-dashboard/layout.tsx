@@ -15,16 +15,16 @@ export default function AdminDashboardLayout({
     return (
         <>
             <main className="w-full min-h-[calc(100vh-6rem)] flex flex-col">
-                <section className="w-full h-fit container-x-padding grid grid-cols-[1fr_auto] items-center border-t-1 border-b-1 border-[var(--color-border)] py-10">
+                <section className="w-full h-fit container-x-padding grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-5 items-center border-t-1 border-b-1 border-[var(--color-border)] py-10">
                     <div className="h-fit w-fit flex flex-col">
                         <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">{auth?.user.name.split(" ")[0]}</span></h1>
                         <p className="text-md opacity-50">Muestra métricas clave de la plataforma: usuarios, productos, películas y opiniones, todo en un solo lugar.</p>
                     </div>
                     <Button rounded>Imprimir reporte</Button>
                 </section>
-                <div className="w-full h-full grid grid-cols-1 xl:grid-cols-[1fr_900px] gap-10 container-x-padding relative">
+                <div className="w-full h-full grid grid-cols-1 xl:grid-cols-[1fr_850px] gap-10 container-x-padding relative py-10">
                     <AdminMenu />
-                    <div className="w-full h-full flex flex-col gap-10 py-10">
+                    <div className="w-full h-full flex flex-col gap-10">
                         {children}
                     </div>
                 </div>

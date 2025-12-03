@@ -8,12 +8,14 @@ export default function AccordionMenuItem({
     href,
     label,
     children,
-    icon
+    icon,
+    primary = false
 }: {
     href: string,
     label: string,
     children?: React.ReactNode,
-    icon: keyof typeof AkarIcon
+    icon: keyof typeof AkarIcon,
+    primary?: boolean
 }) {
     const Icon = AkarIcon[icon],
         parentRef = useRef<HTMLDivElement | null>(null)
@@ -46,8 +48,8 @@ export default function AccordionMenuItem({
                 onClick={children ? () => _setOpen(!_open) : undefined}
                 href={href}
                 className={[
-                    "w-full h-fit px-4 py-3 grid items-center grid-cols-[auto_1fr_auto] gap-4",
-                    !children ? "pl-10" : ""
+                    "w-full h-fit px-4 grid items-center grid-cols-[auto_1fr_auto] gap-4",
+                    !children && !primary ? "pl-10 py-2" : "py-3"
                 ].join(" ")}
             >
                 <Icon className="size-4" />
@@ -66,12 +68,14 @@ export default function AccordionMenuItem({
             <div
                 className={[
                     "w-full h-fit transition-[max-height] overflow-hidden",
-                    _open ? "max-h-20" : "max-h-0"
+                    _open ? "max-h-[400px] delay-200" : "max-h-0"
                 ].join(" ")}
             >
-                {
-                    children
-                }
+                <div className="pb-2">
+                    {
+                        children
+                    }
+                </div>
             </div>
         </div>
     )
