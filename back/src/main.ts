@@ -5,32 +5,21 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigType } from './config/config.types';
 import { EnvironmentVariables } from './config/environment.config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { json } from 'express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true,
+  });
 
   const configService = app.get(ConfigService<ConfigType>);
-   app.enableCors({
-    origin: [
-      configService.get<EnvironmentVariables>('env')?.origin,
-      'http://localhost:3000',
-    ],
+  const env = configService.get<EnvironmentVariables>('env');
+
+  app.enableCors({
+    origin: [env?.origin, 'http://localhost:3000'],
     credentials: true,
   });
-  const PORT = configService.get<EnvironmentVariables>('env')?.port ?? 3000;
 
-  // Custom middleware to handle Stripe webhook raw body
-  app.use(
-    json({
-      verify: (req: any, res, buf) => {
-        // Store raw body for webhook verification
-        if (req.originalUrl === '/payments/webhook') {
-          req.rawBody = buf;
-        }
-      },
-    }),
-  );
+  const PORT = env?.port ?? 3000;
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -49,10 +38,12 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-
   SwaggerModule.setup('api', app, document);
+
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
 }
+
 void bootstrap();
