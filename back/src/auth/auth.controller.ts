@@ -49,16 +49,15 @@ export class AuthController {
   }
 
   @Get('login')
-  async login(@Query('provider') provider: string, @Res() res) {
+  async login(@Query('provider') provider: string, @Res() res: Response) {
     if (!provider) provider = 'google';
-
-    return this.authService.login(provider, res);
+    await this.authService.login(provider, res);
   }
 
   @Get('callback')
-  async oauthCallback(@Query('code') code: string, @Res() res: any) {
+  async oauthCallback(@Query('code') code: string, @Res() res: Response) {
     if (!code) throw new BadRequestException('Missing OAuth code');
-    return this.authService.oauthCallback(code, res);
+    await this.authService.oauthCallback(code, res);
   }
 
   @Patch('/users/:id/promote')
