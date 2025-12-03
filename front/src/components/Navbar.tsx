@@ -62,7 +62,7 @@ export default function Navbar() {
   return (
     <nav className="bg-[var(--background)]/50 backdrop-blur-xl relative z-[9999] sticky top-0 container-x-padding py-4 flex flex-col gap-4">
       {/* PARTE SUPERIOR */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center h-full justify-between">
         {/* LOGO */}
         <Link href={"/"}>
           <Image
@@ -70,7 +70,7 @@ export default function Navbar() {
             alt="Logo"
             width={100}
             height={40}
-            className="cursor-pointer translate-y-1 hover:scale-105 transition"
+            className="cursor-pointer translate-y-4 hover:scale-105 transition"
           />
         </Link>
 

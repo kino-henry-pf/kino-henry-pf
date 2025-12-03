@@ -1,23 +1,78 @@
-import Link from "next/link"
-import * as Icon from "akar-icons"
+"use client"
 
-export default function MenuItem({
+import Link from "next/link"
+import * as AkarIcon from "akar-icons"
+import { useEffect, useRef, useState } from "react"
+
+export default function AccordionMenuItem({
     href,
-    children
+    label,
+    children,
+    icon
 }: {
-    href: string
-    children?: React.ReactNode
+    href: string,
+    label: string,
+    children?: React.ReactNode,
+    icon: keyof typeof AkarIcon
 }) {
+    const Icon = AkarIcon[icon],
+        parentRef = useRef<HTMLDivElement | null>(null)
+
+    const [_open, _setOpen] = useState(false)
+
+    useEffect(() => {
+        const handleDocumentClick = (event: MouseEvent) => {
+            if (!parentRef.current?.contains(event.target as Node)) {
+                _setOpen(false)
+            }
+        }
+
+        document.addEventListener("click", handleDocumentClick)
+
+        return () => {
+            document.removeEventListener("click", handleDocumentClick)
+        }
+    }, [parentRef])
+
     return (
-        <>
-            <Link href={href} className="w-full h-fit px-4 py-3 grid-cols-[auto_1fr_auto] gap-3">
-                {children}
+        <div
+            ref={parentRef}
+            className={[
+                "w-full h-fit flex rounded-md flex-col transition-[background-color] duration-300",
+                _open ? "bg-[var(--background)]" : "bg-transparent"
+            ].join(" ")}
+        >
+            <Link
+                onClick={children ? () => _setOpen(!_open) : undefined}
+                href={href}
+                className={[
+                    "w-full h-fit px-4 py-3 grid items-center grid-cols-[auto_1fr_auto] gap-4",
+                    !children ? "pl-10" : ""
+                ].join(" ")}
+            >
+                <Icon className="size-4" />
+                <span>{label}</span>
                 {
                     children && (
-                        <Icon.ChevronRight className="size-4" />
+                        <AkarIcon.ChevronDown
+                            className={[
+                                "size-3 duration-300",
+                                _open ? "rotate-180" : ""
+                            ].join(" ")}
+                        />
                     )
                 }
             </Link>
-        </>
+            <div
+                className={[
+                    "w-full h-fit transition-[max-height] overflow-hidden",
+                    _open ? "max-h-20" : "max-h-0"
+                ].join(" ")}
+            >
+                {
+                    children
+                }
+            </div>
+        </div>
     )
 }
