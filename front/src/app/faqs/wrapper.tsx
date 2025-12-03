@@ -1,7 +1,7 @@
 "use client"
 
 import Searcher from "@/components/Searcher"
-import Accordion from "@/components/Accordion"
+import Accordion from "@/app/faqs/Accordion"
 import { useCallback, useMemo, useState } from "react"
 import { Faq } from "../../types/faq"
 import Button from "@/components/Button"
