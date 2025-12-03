@@ -10,7 +10,7 @@ import * as express from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService<ConfigType>);
-   app.enableCors({
+  app.enableCors({
     origin: [
       configService.get<EnvironmentVariables>('env')?.origin,
       'http://localhost:3000',
@@ -41,5 +41,6 @@ async function bootstrap() {
   app.use('/payments/webhook', express.raw({ type: 'application/json' }));
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
+  console.log(process.env.GMAIL_USER); // solo para probar
 }
 void bootstrap();
