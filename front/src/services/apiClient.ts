@@ -9,7 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.onrend
         "Accept": "application/json"
     }
 
-export const useApi = () => {
+export const apiClient = () => {
     const get = async <T>(path: string, options?: GetOptions): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "GET",

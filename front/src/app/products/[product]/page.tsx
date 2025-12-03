@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import { useApi } from "@/hooks/api";
+import { apiClient } from "@/services/apiClient";
 import { Product } from "@/types/product";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -12,7 +12,7 @@ export default async function ProductPage({
     }>
 }) {
     try {
-        const api = useApi(),
+        const api = apiClient(),
             productId = (await params).product,
             product = await api.get<Product>(`products/${productId}`, {
                 disableCache: true
