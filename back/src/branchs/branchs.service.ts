@@ -3,6 +3,7 @@ import { BranchRepository } from './branch.repository';
 import { Branch } from './branch.entity';
 import { CreateBranchDto } from './dto/create-branch.dto';
 import { UpdateBranchDto } from './dto/update-branch.dto';
+import { UpdateBranchLocationDto } from './dto/branch-location.dto';
 
 @Injectable()
 export class BranchService {
@@ -31,4 +32,30 @@ export class BranchService {
   deleteBranch(id: string): Promise<string> {
     return this.branchRepository.deleteBranch(id);
   }
+
+  linkGooglePlace(branchId: string, googlePlaceId: string){
+    return this.branchRepository.linkGooglePlace(branchId, googlePlaceId)
+  }
+
+  updateLocation(
+      branchId: string,
+      locationDto: UpdateBranchLocationDto,
+    ){
+      return this.branchRepository.updateLocation(branchId, locationDto)
+    }
+
+  async geocodeBranchAddress(branchId: string): Promise<Branch>{
+    return this.branchRepository.geocodeBranchAddress(branchId)
+
+  }
+
+  async getBranchGoogleDetails(branchId: string){
+    return this.branchRepository.getBranchGoogleDetails(branchId)
+  }
+
+  getGoogleMapsUrl(branch: Branch): string{
+    return this.branchRepository.getGoogleMapsUrl(branch)
+  }
+
+
 }

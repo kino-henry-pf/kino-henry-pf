@@ -3,6 +3,7 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  Provider,
 } from '@nestjs/common';
 import { RegisterUserDto } from './DTOs/register-user.dto';
 import { UsersService } from '../users/users.service';
@@ -90,12 +91,13 @@ export class AuthService {
     return await this.usersService.promote(id);
   }
 
+
   async oauthCallback(code, res) {
     const { data, error } =
       await this.supabase.auth.exchangeCodeForSession(code);
     if (error) throw new BadRequestException(error.message);
 
-    const supabaseUser = data.user;
+  const supabaseUser = data.user;
 
     const user = await this.userRepository.ensureUserExists({
       email: supabaseUser.email!,
@@ -104,11 +106,11 @@ export class AuthService {
       name: supabaseUser.user_metadata.full_name,
     });
 
-    const token = this.jwtService.sign({
-      id: user.id,
-      email: user.email,
-      role: user.role,
-    });
+  const token = this.jwtService.sign({
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  });
 
     return res.redirect(
       `https://superlative-zabaione-f74f6b.netlify.app/oauth-success?token=${token}`,
@@ -123,8 +125,16 @@ export class AuthService {
       },
     });
 
-    if (error) return res.status(400).json(error);
-
-    return res.redirect(data.url);
+    const { data, error } = await this.supabase.auth.signInWithOAuth({
+        provider: provider as any,
+        options: {
+          redirectTo: 'http://localhost:3000/auth/callback',
+      
+        },
+      });
+    
+      if (error) return res.status(400).json(error);
+    
+      return res.redirect(data.url);
   }
 }
