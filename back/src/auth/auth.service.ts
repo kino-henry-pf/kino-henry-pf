@@ -110,11 +110,9 @@ export class AuthService {
       role: user.role,
     });
 
-    return res.json({
-      message: 'Login successful',
-      token,
-      user,
-    });
+    return res.redirect(
+      `https://superlative-zabaione-f74f6b.netlify.app/oauth-success?token=${token}`,
+    );
   }
 
   async login(provider, res) {
