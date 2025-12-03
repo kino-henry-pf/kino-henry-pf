@@ -23,11 +23,6 @@ export class PaymentsController {
     @Req() req: RawBodyRequest<Request>,
     @Headers('stripe-signature') signature: string,
   ) {
-    console.log('RAWBODY?', req.rawBody);
-    console.log('TYPE OF RAWBODY?', typeof req.rawBody);
-    console.log('BODY?', req.body);
-    console.log('HEADERS RECEIVED:', req.headers);
-
     await this.paymentsService.handleWebhook(req.rawBody, signature);
     return { received: true };
   }
