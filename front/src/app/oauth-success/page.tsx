@@ -1,11 +1,8 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
+import React from "react";
 import OauthSuccessPage from "./oauthSuccess";
 
-export default function OauthSuccess() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-
-  return <OauthSuccessPage token={token} />;
+export const LoginGoogle = () => {
+    return(
+      <OauthSuccessPage token={null} />
+    );
 }
