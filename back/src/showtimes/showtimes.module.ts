@@ -5,9 +5,10 @@ import ShowtimesRepository from './showtimes.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import Showtime from './showtimes.entity';
 import { MoviesModule } from '../movies/movies.module';
+import { BranchsModule } from 'src/branchs/branchs.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Showtime]), MoviesModule],
+  imports: [TypeOrmModule.forFeature([Showtime]), MoviesModule, BranchsModule],
   controllers: [ShowtimesController],
   providers: [ShowtimesService, ShowtimesRepository],
   exports: [ShowtimesService],

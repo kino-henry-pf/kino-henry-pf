@@ -22,6 +22,15 @@ export default class ShowtimesRepository {
     if (!showtime) return null;
     return showtime;
   }
+  async findByMovieAndBranch(movieId: string, branchId: string) {
+    return await this.showtimesRepository.find({
+      where: {
+        movieId,
+        room: { branchId },
+      },
+      relations: ['room', 'room.branch'],
+    });
+  }
 
   async createMovie(dto: CreateShowtimeDto): Promise<Showtime> {
     const newShowtime = this.showtimesRepository.create(dto);

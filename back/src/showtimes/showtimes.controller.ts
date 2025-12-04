@@ -20,6 +20,14 @@ export class ShowtimesController {
     return await this.showtimesService.findAll();
   }
 
+  @Get('movie/:movieId/branch/:branchId')
+  async findByMovieAndBranch(
+    @Param('movieId') movieId: string,
+    @Param('branchId') branchId: string,
+  ): Promise<Showtime[]> {
+    return await this.showtimesService.findByMovieAndBranch(movieId, branchId);
+  }
+
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Showtime> {
     return await this.showtimesService.findById(id);
