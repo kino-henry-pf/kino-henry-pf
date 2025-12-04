@@ -1,17 +1,35 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, Patch, ParseUUIDPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  Query,
+  Patch,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { BranchService } from './branchs.service';
 import { Branch } from './branch.entity';
 import { CreateBranchDto } from './dto/create-branch.dto';
-import { UpdateBranchDto } from './dto/update-branch.dto';import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UpdateBranchDto } from './dto/update-branch.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GoogleMapsService } from 'src/google-maps/google-maps.service';
-import { FindNearbyBranchesDto, GeocodeAddressDto, SearchPlacesDto, SetPlaceIdDto, UpdateBranchLocationDto } from './dto/branch-location.dto';
+import {
+  FindNearbyBranchesDto,
+  GeocodeAddressDto,
+  SearchPlacesDto,
+  SetPlaceIdDto,
+  UpdateBranchLocationDto,
+} from './dto/branch-location.dto';
 @Controller('branches')
-
 @ApiTags('branches (Sucursales)')
 @Controller('branches')
 export class BranchController {
-  constructor(private readonly branchService: BranchService,
-              private readonly googleMapsService: GoogleMapsService
+  constructor(
+    private readonly branchService: BranchService,
+    private readonly googleMapsService: GoogleMapsService,
   ) {}
 
   @ApiOperation({ summary: 'Obtener todas las sucursales registradas' })
@@ -20,9 +38,11 @@ export class BranchController {
     return this.branchService.findAll();
   }
 
-  @ApiOperation({ summary: 'Obtener sucursales por busqueda parcial de su dirección',
-    description:'Este endpoint retorna una o mas sucursales que coincidan total o parcialmente entre su dirección registrada y la busqueda realizada'
-   })
+  @ApiOperation({
+    summary: 'Obtener sucursales por busqueda parcial de su dirección',
+    description:
+      'Este endpoint retorna una o mas sucursales que coincidan total o parcialmente entre su dirección registrada y la busqueda realizada',
+  })
   @Get('search')
   findByPartialAddress(@Query('q') search: string): Promise<Branch[]> {
     return this.branchService.findBranchesByPartialAddress(search);
@@ -40,16 +60,21 @@ export class BranchController {
     return this.branchService.createBranch(dto);
   }
 
-  @ApiOperation({ summary: 'Actualizar una o varias propiedades de una sucursal registrada' })
+  @ApiOperation({
+    summary: 'Actualizar una o varias propiedades de una sucursal registrada',
+  })
   @Patch(':id')
-  updateBranch(@Param('id') id: string, @Body() dto: UpdateBranchDto): Promise<Branch> {
+  updateBranch(
+    @Param('id') id: string,
+    @Body() dto: UpdateBranchDto,
+  ): Promise<Branch> {
     return this.branchService.updateBranch(id, dto);
   }
 
   @ApiOperation({ summary: 'Eliminar una sucursal a traves de su UUID' })
   @Delete(':id')
   deleteBranch(@Param('id') id: string): Promise<string> {
-    return this.branchService.deleteBranch(id)
+    return this.branchService.deleteBranch(id);
   }
 
   // ========== Búsqueda de lugares en Google Maps con su direccion escrita ==========
@@ -190,12 +215,4 @@ export class BranchController {
   //     nearbyDto.maxDistance || 10,
   //   );
   // }
-
-
-
-
-
-
-
-
 }
