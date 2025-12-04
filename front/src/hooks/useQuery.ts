@@ -14,9 +14,10 @@ export const useQuery = <T>(path: string) => {
     const handleFetch = useCallback(async () => {
         _setIsLoading(true)
         try {
-            const apiResponse = await apiClient().get<T>(path, auth?.access_token ? {
-                BearerToken: auth.access_token
-            } : undefined)
+            const apiResponse = await apiClient().get<T>(path, {
+                disableCache: true,
+                bearerToken: auth?.access_token
+            })
             _setData(apiResponse)
         } catch (error) {
             _setError(error)
@@ -31,7 +32,6 @@ export const useQuery = <T>(path: string) => {
     }, [_isLoading, handleFetch])
 
     useEffect(() => {
-        if (!auth) return
         handleFetch()
     }, [auth, handleFetch])
 

@@ -1,25 +1,16 @@
 "use client"
 
-import { useQuery } from "@/hooks/useQuery"
 import { User } from "@/types/user"
-import Table from "@/components/Table"
+import AdminResourcePage from "../_resources/AdminResourcePage"
 
 export default function AdminUsersPage() {
-    const users = useQuery<User[]>("users")
-
-    return users.data ? (
-        <section className="w-full h-fit flex flex-col gap-3">
-            <p>Usuarios <span className="opacity-50">{!users.isLoading && users.data ? `(${users.data.length})` : null}</span></p>
-            <Table
-                head={["Nombre", "Correo electrónico", "Dirección"]}
-                body={
-                    users.data.map(user => [
-                        user.name,
-                        user.email,
-                        user.address
-                    ])
-                }
-            />
-        </section>
-    ) : null
+    return <AdminResourcePage<User>
+        title="Usuarios"
+        resource="users"
+        head={["Nombre", "Correo electrónico", "Dirección"]}
+        mapRow={user => ({
+            resourceId: user.id,
+            value: [user.name, user.email, user.address]
+        })}
+    />
 }

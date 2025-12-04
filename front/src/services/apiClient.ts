@@ -3,7 +3,7 @@ type GetOptions = {
 }
 
 type OperationOptions = {
-    BearerToken: string
+    bearerToken?: string
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.onrender.com",
@@ -17,9 +17,9 @@ export const apiClient = () => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "GET",
             cache: options?.disableCache ? undefined : "force-cache",
-            headers: options?.BearerToken ? {
+            headers: options?.bearerToken ? {
                 ...DEFAULT_HEADERS,
-                "Authorization": `Bearer ${options?.BearerToken}`
+                "Authorization": `Bearer ${options?.bearerToken}`
             } : DEFAULT_HEADERS
         })
 
