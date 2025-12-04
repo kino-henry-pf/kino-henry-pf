@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useAuth } from "@/context/authContext";
+import { redirect } from "next/navigation";
 
 interface Props {
   token: string | null;
@@ -33,6 +34,10 @@ export default function OauthSuccessPage({ token }: Props) {
     // Redirigir al home
     window.location.href = "/";
   }, [token]);
+  
+    redirect("/");
 
-  return <p>Procesando login...</p>;
+  return(
+     <p>Procesando login...</p>
+  )
 }
