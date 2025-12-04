@@ -8,7 +8,7 @@ interface Props {
   token: string | null;
 }
 
-export default function OauthSuccessPage({ token }: Props) {
+function OauthSuccessPage({ token }: Props) {
   const { setDataUser } = useAuth();
 
   useEffect(() => {
@@ -25,10 +25,8 @@ export default function OauthSuccessPage({ token }: Props) {
       }
     };
 
-    // Guardar sesión
     localStorage.setItem("userSession", JSON.stringify(session));
 
-    // Setear contexto
     setDataUser(session);
 
     // Redirigir al home
