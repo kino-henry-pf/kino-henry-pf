@@ -1,26 +1,11 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import OauthSuccessPage from "./oauthSuccess";
 
-export default function OauthSuccessPage() {
+export default function OauthSuccess() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const token = searchParams.get("token");
 
-  useEffect(() => {
-    if (token) {
-      // Guardar token
-      localStorage.setItem("userSession", token);
-
-      // Redirigir al home
-      router.push("/");
-    }
-  }, [token, router]);
-
-  return (
-    <div className="flex items-center justify-center h-screen text-xl">
-      Procesando token...
-    </div>
-  );
+  return <OauthSuccessPage token={token} />;
 }
