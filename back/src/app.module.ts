@@ -55,7 +55,7 @@ import { MailModule } from './mail/mail.module';
     BranchsproductsModule,
     SeatsModule,
     ReservationsModule,
-    GoogleMapsModule
+    GoogleMapsModule,
     PaymentsModule,
     MailModule,
   ],
