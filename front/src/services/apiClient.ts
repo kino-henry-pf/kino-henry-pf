@@ -2,18 +2,25 @@ type GetOptions = {
     disableCache?: boolean
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.onrender.com",
+type OperationOptions = {
+    bearerToken?: string
+}
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.onrender.com",
     DEFAULT_HEADERS = {
         "Content-Type": "application/json",
         "Accept": "application/json"
     }
 
 export const apiClient = () => {
-    const get = async <T>(path: string, options?: GetOptions): Promise<T> => {
+    const get = async <T>(path: string, options?: GetOptions & OperationOptions): Promise<T> => {
         const response = await fetch(`${API_URL}/${path}`, {
             method: "GET",
-            cache: options?.disableCache ? undefined : "force-cache"
+            cache: options?.disableCache ? undefined : "force-cache",
+            headers: options?.bearerToken ? {
+                ...DEFAULT_HEADERS,
+                "Authorization": `Bearer ${options?.bearerToken}`
+            } : DEFAULT_HEADERS
         })
 
         if (!response.ok) {

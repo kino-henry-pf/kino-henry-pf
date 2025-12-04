@@ -1,10 +1,16 @@
+"use client"
+
+import { User } from "@/types/user"
+import AdminResourcePage from "../_layouts/AdminResourcePage"
+
 export default function AdminUsersPage() {
-    return (
-        <section className="w-full h-fit flex flex-col gap-3">
-            <p>Estadísticas</p>
-            <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                
-            </div>
-        </section>
-    )
+    return <AdminResourcePage<User>
+        title="Usuarios"
+        resource="users"
+        head={["Nombre", "Correo electrónico", "Dirección"]}
+        mapRow={user => ({
+            resourceId: user.id,
+            value: [user.name, user.email, user.address]
+        })}
+    />
 }

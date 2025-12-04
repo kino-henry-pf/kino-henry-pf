@@ -3,11 +3,6 @@
 * {
   box-sizing: border-box;
   outline: none;
-}
-
-* {
-  box-sizing: border-box;
-  outline: none;
   font-family: inherit;
 }
 
@@ -41,6 +36,9 @@ input[type="number"] {
   appearance: textfield;
 }
 
+a, button {
+  user-select: none;
+}
 
 .container-x-padding {
   padding-left: calc(50% - 600px);
