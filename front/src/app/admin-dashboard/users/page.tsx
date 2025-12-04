@@ -1,7 +1,7 @@
 "use client"
 
 import { User } from "@/types/user"
-import AdminResourcePage from "../_resources/AdminResourcePage"
+import AdminResourcePage from "../_layouts/AdminResourcePage"
 
 export default function AdminUsersPage() {
     return <AdminResourcePage<User>

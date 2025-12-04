@@ -2,50 +2,43 @@
 
 import Link from "next/link"
 import * as AkarIcon from "akar-icons"
-import { useEffect, useRef, useState } from "react"
+import { useMemo, useRef } from "react"
+import { usePathname } from "next/navigation"
 
 export default function AccordionMenuItem({
     href,
     label,
     children,
     icon,
-    primary = false
+    primary = false,
+    onClick
 }: {
     href: string,
     label: string,
     children?: React.ReactNode,
     icon: keyof typeof AkarIcon,
-    primary?: boolean
+    primary?: boolean,
+    onClick?: () => any
 }) {
+    const pathname = usePathname()
+
     const Icon = AkarIcon[icon],
         parentRef = useRef<HTMLDivElement | null>(null)
 
-    const [_open, _setOpen] = useState(false)
-
-    useEffect(() => {
-        const handleDocumentClick = (event: MouseEvent) => {
-            if (!parentRef.current?.contains(event.target as Node)) {
-                _setOpen(false)
-            }
-        }
-
-        document.addEventListener("click", handleDocumentClick)
-
-        return () => {
-            document.removeEventListener("click", handleDocumentClick)
-        }
-    }, [parentRef])
+    const isOpen = useMemo(() => {
+        return (pathname.startsWith(href) && children)
+    }, [pathname, children, href])
 
     return (
         <div
             ref={parentRef}
             className={[
-                "w-full h-fit flex rounded-md flex-col transition-[background-color] duration-300",
-                _open ? "bg-[var(--background)]" : "bg-transparent"
+                "w-full h-fit flex rounded-md flex-col",
+                isOpen ? "bg-[var(--background)]" : "bg-transparent"
             ].join(" ")}
         >
             <Link
-                onClick={children ? () => _setOpen(!_open) : undefined}
+                onClick={onClick}
                 href={href}
                 className={[
                     "w-full h-fit px-4 grid items-center grid-cols-[auto_1fr_auto] gap-4",
@@ -56,10 +49,10 @@ export default function AccordionMenuItem({
                 <span>{label}</span>
                 {
                     children && (
-                        <AkarIcon.ChevronDown
+                        <AkarIcon.ChevronRight
                             className={[
-                                "size-3 duration-300",
-                                _open ? "rotate-180" : ""
+                                "size-3 transition-[transform,rotate] duration-300",
+                                isOpen ? "rotate-90" : ""
                             ].join(" ")}
                         />
                     )
@@ -67,8 +60,8 @@ export default function AccordionMenuItem({
             </Link>
             <div
                 className={[
-                    "w-full h-fit transition-[max-height] overflow-hidden",
-                    _open ? "max-h-[400px] delay-200" : "max-h-0"
+                    "w-full h-fit overflow-hidden",
+                    isOpen ? "max-h-[400px]" : "max-h-0"
                 ].join(" ")}
             >
                 <div className="pb-2">

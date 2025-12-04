@@ -16,7 +16,7 @@ export default function DataCard({
     return (
         <div
             className={[
-                "w-full h-full flex flex-col gap-3 rounded-md border-1 border-b-4 p-5",
+                "w-full h-full flex flex-col gap-5 rounded-md border-1 border-b-4 p-5",
                 color === "cyan" ? "bg-cyan-500/2 border-cyan-500"
                     : color === "orange" ? "bg-orange-500/2 border-orange-500"
                     : "bg-purple-500/2 border-purple-500"
@@ -32,7 +32,7 @@ export default function DataCard({
             />
             <h2
                 className={[
-                    "text-4xl font-bold",
+                    "text-2xl font-semibold leading-1",
                     color === "cyan" ? "text-cyan-100"
                         : color === "orange" ? "text-orange-100"
                         : "text-purple-100"

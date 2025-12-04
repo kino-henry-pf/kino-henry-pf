@@ -1,7 +1,7 @@
 "use client"
 
 import { Movie } from "@/types/movie";
-import AdminResourcePage from "../_resources/AdminResourcePage";
+import AdminResourcePage from "../_layouts/AdminResourcePage";
 import Image from "next/image";
 import Link from "next/link";
 

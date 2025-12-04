@@ -1,13 +1,13 @@
 "use client"
 
 import { Product } from "@/types/product";
-import AdminResourcePage from "../_resources/AdminResourcePage";
+import AdminResourcePage from "../_layouts/AdminResourcePage";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AdminProductsPage() {
     return <AdminResourcePage<Product>
-        title="Películas"
+        title="Productos"
         resource="products"
         head={["Imagen", "Nombre", "Precio"]}
         mapRow={product => ({

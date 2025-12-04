@@ -32,6 +32,7 @@ export const useQuery = <T>(path: string) => {
     }, [_isLoading, handleFetch])
 
     useEffect(() => {
+        if (!auth) return
         handleFetch()
     }, [auth, handleFetch])
 

@@ -1,7 +1,14 @@
+"use client"
+
+import { useEffect } from "react";
 import DataCard from "./DataCard";
 import RoomCard from "./RoomCard";
 
 export default function AdminDashboardPage() {
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: "smooth"})
+    }, [])
+
     return (
         <>
             <section className="w-full h-fit flex flex-col gap-3">
