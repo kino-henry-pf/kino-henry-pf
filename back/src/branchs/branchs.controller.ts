@@ -15,7 +15,7 @@ import { Branch } from './branch.entity';
 import { CreateBranchDto } from './dto/create-branch.dto';
 import { UpdateBranchDto } from './dto/update-branch.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { GoogleMapsService } from 'src/google-maps/google-maps.service';
+import { GoogleMapsService } from '../google-maps/google-maps.service';
 import {
   FindNearbyBranchesDto,
   GeocodeAddressDto,

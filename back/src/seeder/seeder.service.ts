@@ -67,27 +67,6 @@ export class SeederService {
           longitude: -99.15702,
           googlePlaceId: 'ChIJWX--c2D_0YURhGkP0vH-co4',
         },
-        {
-          name: 'Kino Satélite',
-          address: 'Circuito Centro Comercial 2251, Cd. Satélite',
-          latitude: 19.50021,
-          longitude: -99.23712,
-          googlePlaceId: 'ChIJLcA5plT_0YURnqsQ6m81q9o',
-        },
-        {
-          name: 'Kino Santa Fe',
-          address: 'Vasco de Quiroga 3800, Santa Fe, CDMX',
-          latitude: 19.36435,
-          longitude: -99.27484,
-          googlePlaceId: 'ChIJZ1UTIWf_0YURjHb9IkA6EaE',
-        },
-        {
-          name: 'Kino Lindavista',
-          address: 'Insurgentes Norte 1820, Lindavista, CDMX',
-          latitude: 19.49342,
-          longitude: -99.13084,
-          googlePlaceId: 'ChIJq8Dpq1D_0YURjKcWfvO83D0',
-        },
       ];
 
       savedBranches = await this.branchRepository.save(branchesData);
@@ -161,54 +140,6 @@ export class SeederService {
           image: 'https://theposterdb.com/api/assets/6461',
           duration: 169,
         },
-        {
-          title: 'The Conjuring',
-          synopsis: 'Paranormal investigators help a family.',
-          rating: 4.2,
-          genre: Genre.HORROR,
-          image: 'https://theposterdb.com/api/assets/23525',
-          duration: 112,
-        },
-        {
-          title: 'Parasite',
-          synopsis: 'A poor family infiltrates a rich home.',
-          rating: 4.9,
-          genre: Genre.DRAMA,
-          image: 'https://theposterdb.com/api/assets/47915',
-          duration: 132,
-        },
-        {
-          title: 'Toy Story',
-          synopsis: 'Toys come to life.',
-          rating: 4.7,
-          genre: Genre.ANIMATION,
-          image: 'https://theposterdb.com/api/assets/457',
-          duration: 81,
-        },
-        {
-          title: 'The Notebook',
-          synopsis: 'Romantic drama from the 1940s.',
-          rating: 4.3,
-          genre: Genre.ROMANCE,
-          image: 'https://theposterdb.com/api/assets/167079',
-          duration: 123,
-        },
-        {
-          title: 'The Grand Budapest Hotel',
-          synopsis: 'A concierge and his lobby boy.',
-          rating: 4.6,
-          genre: Genre.COMEDY,
-          image: 'https://theposterdb.com/api/assets/54311',
-          duration: 99,
-        },
-        {
-          title: 'Saving Private Ryan',
-          synopsis: 'WWII rescue mission.',
-          rating: 4.8,
-          genre: Genre.WAR,
-          image: 'https://theposterdb.com/api/assets/34772',
-          duration: 169,
-        },
       ];
 
       savedMovies = [];
@@ -222,16 +153,13 @@ export class SeederService {
 
       console.log(`  ✓ Created ${savedMovies.length} movies`);
 
+      // Link all movies to all branches
       for (const movie of savedMovies) {
-        const randomBranches = this.pickRandom(
-          savedBranches,
-          2 + Math.floor(Math.random() * 3),
-        );
-        movie.branches = randomBranches;
+        movie.branches = savedBranches;
         await this.movieRepository.save(movie);
       }
 
-      console.log('  ✓ Linked movies to branches');
+      console.log('  ✓ Linked all movies to all branches');
     } else {
       savedMovies = await this.movieRepository.find({
         relations: ['branches'],
@@ -269,22 +197,6 @@ export class SeederService {
           price: 85,
           category: Category.NACHOS,
         },
-        {
-          name: 'Gomitas',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1764199215/gomitas_ombpyi.png',
-          description: 'Gomitas de sabores',
-          price: 40,
-          category: Category.CANDY,
-        },
-        {
-          name: 'Combo Pareja',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1764199210/combo_luzag1.png',
-          description: 'Palomitas + 2 refrescos',
-          price: 150,
-          category: Category.COMBO,
-        },
       ];
 
       for (const p of productsData) {
@@ -295,11 +207,9 @@ export class SeederService {
       }
 
       console.log('  ✓ Products created');
-    } else {
-      console.log('  ✓ Products already exist, skipping');
     }
 
-    // SHOWTIMES
+    // SHOWTIMES (Generate for ALL movies in ALL branches)
     console.log('\n> Seeding Showtimes...');
     const showtimeCount = await this.showtimeRepository.count();
 
@@ -307,24 +217,34 @@ export class SeederService {
       const showtimesToCreate: Partial<Showtime>[] = [];
 
       for (const movie of savedMovies) {
-        const branches = this.pickRandom(savedBranches, 2);
-
-        for (const branch of branches) {
+        for (const branch of savedBranches) {
           const roomsForBranch = savedRooms.filter(
             (r) => r.branchId === branch.id,
           );
-          const selectedRoom = this.pickRandom(roomsForBranch, 1)[0];
 
-          showtimesToCreate.push({
-            movieId: movie.id,
-            roomId: selectedRoom.id,
-            startTime: new Date(
-              `2025-12-${String(1 + Math.floor(Math.random() * 10)).padStart(2, '0')}T${String(12 + Math.floor(Math.random() * 10)).padStart(2, '0')}:00:00.000Z`,
-            ),
-            language:
-              Math.random() > 0.5 ? Language.DUBBED : Language.SUBTITLED,
-            format: Math.random() > 0.5 ? Format.TWO_D : Format.THREE_D,
-          });
+          // Create 2–3 showtimes per movie per branch
+          const numShowtimes = 2 + Math.floor(Math.random() * 2);
+
+          for (let i = 0; i < numShowtimes; i++) {
+            const selectedRoom = this.pickRandom(roomsForBranch, 1)[0];
+
+            showtimesToCreate.push({
+              movieId: movie.id,
+              roomId: selectedRoom.id,
+              startTime: new Date(
+                `2025-12-${String(1 + Math.floor(Math.random() * 10)).padStart(
+                  2,
+                  '0',
+                )}T${String(12 + Math.floor(Math.random() * 8)).padStart(
+                  2,
+                  '0',
+                )}:00:00.000Z`,
+              ),
+              language:
+                Math.random() > 0.5 ? Language.DUBBED : Language.SUBTITLED,
+              format: Math.random() > 0.5 ? Format.TWO_D : Format.THREE_D,
+            });
+          }
         }
       }
 
@@ -332,35 +252,6 @@ export class SeederService {
       console.log(`  ✓ Created ${showtimesToCreate.length} showtimes`);
     } else {
       console.log('  ✓ Showtimes already exist, skipping');
-    }
-
-    // BRANCH PRODUCTS
-    console.log('\n> Seeding Branch Products...');
-    const bpCount = await this.bpRepository.count();
-
-    if (bpCount === 0) {
-      const allBranches = await this.branchRepository.find();
-      const allProducts = await this.productsRepository.find();
-
-      const bpToInsert: Partial<BranchProduct>[] = [];
-
-      for (const branch of allBranches) {
-        const numProducts = 2 + Math.floor(Math.random() * 3);
-        const selectedProducts = this.pickRandom(allProducts, numProducts);
-
-        for (const product of selectedProducts) {
-          bpToInsert.push({
-            branchId: branch.id,
-            productId: product.id,
-            stock: 10 + Math.floor(Math.random() * 40),
-          });
-        }
-      }
-
-      await this.bpRepository.save(bpToInsert);
-      console.log(`  ✓ Created ${bpToInsert.length} branch-product links`);
-    } else {
-      console.log('  ✓ Branch products already exist, skipping');
     }
 
     console.log('\n--- DATABASE SEEDING COMPLETE ---');
