@@ -60,7 +60,7 @@ function LoginForm() {
       access_token: token,
       user: {
         id: "",
-        name: "Google User",
+        name: "",
         email: "",
         role: "user"
       }
