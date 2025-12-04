@@ -3,7 +3,7 @@ import ShowtimesRepository from './showtimes.repository';
 import Showtime from './showtimes.entity';
 import { CreateShowtimeDto } from './DTOs/create-showtime.dto';
 import { MoviesService } from '../movies/movies.service';
-import { BranchService } from 'src/branchs/branchs.service';
+import { BranchService } from '../branchs/branchs.service';
 
 @Injectable()
 export class ShowtimesService {

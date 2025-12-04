@@ -1,85 +1,91 @@
-import { InjectRepository } from "@nestjs/typeorm";
-import { Branch } from "./branch.entity";
-import { Repository } from "typeorm";
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { CreateBranchDto } from "./dto/create-branch.dto";
-import { UpdateBranchDto } from "./dto/update-branch.dto";
-import { GoogleMapsService } from "src/google-maps/google-maps.service";
-import { UpdateBranchLocationDto } from "./dto/branch-location.dto";
-
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Branch } from './branch.entity';
+import { Repository } from 'typeorm';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { CreateBranchDto } from './dto/create-branch.dto';
+import { UpdateBranchDto } from './dto/update-branch.dto';
+import { GoogleMapsService } from '../google-maps/google-maps.service';
+import { UpdateBranchLocationDto } from './dto/branch-location.dto';
 
 @Injectable()
 export class BranchRepository {
-    constructor(
-        @InjectRepository(Branch)
-        private readonly branchRepository: Repository<Branch>,
-        private googleMapsService: GoogleMapsService)  {}
+  constructor(
+    @InjectRepository(Branch)
+    private readonly branchRepository: Repository<Branch>,
+    private googleMapsService: GoogleMapsService,
+  ) {}
 
-    async findAll(){
-        return await this.branchRepository.find()
-    }
-    
-    async findBranchesByPartialAddress(search: string): Promise<Branch[]> {
+  async findAll() {
+    return await this.branchRepository.find();
+  }
+
+  async findBranchesByPartialAddress(search: string): Promise<Branch[]> {
     const addressKeywords = search
-    .split(' ')
-    .map(word => word.trim())
-    .filter(word => word.length > 0);
+      .split(' ')
+      .map((word) => word.trim())
+      .filter((word) => word.length > 0);
 
     let query = this.branchRepository.createQueryBuilder('branch');
 
     addressKeywords.forEach((keyword, index) => {
-    query = query.orWhere(`branch.address ILIKE :keyword${index}`, {
-      [`keyword${index}`]: `%${keyword}%`,
+      query = query.orWhere(`branch.address ILIKE :keyword${index}`, {
+        [`keyword${index}`]: `%${keyword}%`,
+      });
     });
-  });
 
     const Branches = await query.getMany();
 
-    return Branches
-}
+    return Branches;
+  }
 
-    async findById(id: string): Promise<Branch>{
-        const findBranch = await this.branchRepository.findOneBy({id})
-        if(!findBranch) throw new NotFoundException(`Sucursal con id ${id} no fue encontrada`)
+  async findById(id: string): Promise<Branch> {
+    const findBranch = await this.branchRepository.findOneBy({ id });
+    if (!findBranch)
+      throw new NotFoundException(`Sucursal con id ${id} no fue encontrada`);
 
-        return findBranch
+    return findBranch;
+  }
+
+  async createBranch(branch: CreateBranchDto): Promise<Branch> {
+    const newBranch = this.branchRepository.create({
+      name: branch.name,
+      address: branch.address,
+      latitude: branch.latitude,
+      longitude: branch.longitude,
+      googlePlaceId: branch.googlePlaceId,
+    });
+
+    return await this.branchRepository.save(newBranch);
+  }
+
+  async updateBranch(id: string, branch: UpdateBranchDto): Promise<Branch> {
+    await this.findById(id); // asegura que existe
+    await this.branchRepository.update(id, branch);
+    const updatedBranch = await this.branchRepository.findOneBy({ id });
+
+    if (!updatedBranch) {
+      throw new BadRequestException(
+        `Error al actualizar la sucursal con id ${id}`,
+      );
     }
 
-    async createBranch(branch: CreateBranchDto): Promise<Branch>{
-        const newBranch = this.branchRepository.create({
-            name: branch.name,
-            address: branch.address,
-            latitude: branch.latitude,
-            longitude: branch.longitude,
-            googlePlaceId: branch.googlePlaceId
-        })
+    return updatedBranch;
+  }
 
-        return await this.branchRepository.save(newBranch)
+  async deleteBranch(id: string): Promise<string> {
+    await this.findById(id);
+    await this.branchRepository.delete({ id });
+    return `Sucursal con id ${id} ha sido eliminada exitosamente`;
+  }
 
-    }
-
-    async updateBranch(id: string, branch: UpdateBranchDto): Promise<Branch>{
-        await this.findById(id); // asegura que existe
-        await this.branchRepository.update(id, branch);
-        const updatedBranch = await this.branchRepository.findOneBy({ id });
-
-        if (!updatedBranch) {
-        throw new BadRequestException(`Error al actualizar la sucursal con id ${id}`);
-        }
-
-        return updatedBranch;
-        
-    }
-
-    async deleteBranch(id: string):Promise<string>{
-        await this.findById(id)
-        await this.branchRepository.delete({id})
-        return `Sucursal con id ${id} ha sido eliminada exitosamente`
-
-    }
-
-    async linkGooglePlace(branchId: string, googlePlaceId: string): Promise<Branch> {
+  async linkGooglePlace(
+    branchId: string,
+    googlePlaceId: string,
+  ): Promise<Branch> {
     const branch = await this.branchRepository.findOne({
       where: { id: branchId },
     });
@@ -90,7 +96,8 @@ export class BranchRepository {
 
     try {
       // Obtener detalles del lugar desde Google Maps
-      const placeDetails = await this.googleMapsService.getPlaceDetails(googlePlaceId);
+      const placeDetails =
+        await this.googleMapsService.getPlaceDetails(googlePlaceId);
 
       // Actualizar sucursal con la información de Google Maps
       branch.googlePlaceId = placeDetails.placeId;
@@ -199,7 +206,14 @@ export class BranchRepository {
     maxDistance: number = 10,
   ) {
     const branches = await this.branchRepository.find({
-      select: ['id', 'name', 'address', 'latitude', 'longitude', 'googlePlaceId'],
+      select: [
+        'id',
+        'name',
+        'address',
+        'latitude',
+        'longitude',
+        'googlePlaceId',
+      ],
     });
 
     const branchesWithDistance = branches
@@ -266,6 +280,3 @@ export class BranchRepository {
     return `https://www.google.com/maps/search/?api=1&query=${branch.latitude},${branch.longitude}`;
   }
 }
-
-
-  
