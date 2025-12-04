@@ -44,6 +44,7 @@ async function bootstrap() {
 
   await app.listen(PORT);
   console.log(`Server listening on port ${PORT}`);
+  console.log(process.env.GMAIL_USER); // solo para probar
 }
 
 void bootstrap();

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from 'src/orders/entities/order.entity';
+import { Order } from '../orders/entities/order.entity';
 import { stripeClientProvider } from './stripe.provider';
 import { PaymentsController } from './payments.controller';
 import { PaymentsService } from './payments.service';
