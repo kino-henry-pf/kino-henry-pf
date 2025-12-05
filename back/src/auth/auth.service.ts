@@ -93,18 +93,26 @@ export class AuthService {
 
 
   async oauthCallback(code, res) {
-    const { data, error } =
-      await this.supabase.auth.exchangeCodeForSession(code);
-    if (error) throw new BadRequestException(error.message);
+  const { data, error } = await this.supabase.auth.exchangeCodeForSession(code);
+  if (error) throw new BadRequestException(error.message);
 
   const supabaseUser = data.user;
 
-    const user = await this.userRepository.ensureUserExists({
-      email: supabaseUser.email!,
-      providerId: supabaseUser.id,
-      provider: supabaseUser.app_metadata.provider || 'google',
-      name: supabaseUser.user_metadata.full_name,
-    });
+  const metadata = supabaseUser.user_metadata;
+
+  const name =
+    metadata.full_name ||
+    metadata.name ||
+    metadata.user_name ||
+    metadata.given_name ||
+    '';
+
+  const user = await this.userRepository.ensureUserExists({
+    email: supabaseUser.email!,
+    providerId: supabaseUser.id,
+    provider: supabaseUser.app_metadata.provider || 'google',
+    name,
+  });
 
   const token = this.jwtService.sign({
     id: user.id,
@@ -112,10 +120,10 @@ export class AuthService {
     role: user.role,
   });
 
-    return res.redirect(
-      `https://kino-henry-pf.vercel.app/oauth-success?token=${token}`,
-    );
-  }
+  return res.redirect(
+    `https://kino-henry-pf.vercel.app/oauth-success?token=${token}`,
+  );
+}
 
   async login(provider, res) {
     const { data, error } = await this.supabase.auth.signInWithOAuth({
