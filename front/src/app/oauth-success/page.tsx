@@ -6,12 +6,14 @@ import { useAuth } from "@/context/authContext";
 export default function OauthSuccessPage({
   searchParams,
 }: {
-  searchParams: { token?: string };
+  searchParams: { [key: string]: string | undefined };
 }) {
-  const token = searchParams?.token;
   const { setDataUser } = useAuth();
+  const token = searchParams.token;
 
   useEffect(() => {
+    console.log("TOKEN RECIBIDO DESDE URL:", token);
+
     if (!token) return;
 
     const session = {
@@ -33,4 +35,3 @@ export default function OauthSuccessPage({
 
   return <p>Procesando login...</p>;
 }
-
