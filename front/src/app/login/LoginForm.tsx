@@ -55,7 +55,6 @@ function LoginForm() {
 
     setDataUser(dataUser);
     localStorage.setItem("userSession", JSON.stringify(dataUser));
-    window.location.href = "/";
 }, []);
 
   return (
