@@ -28,4 +28,8 @@ export const configSchema = Joi.object({
   AUTH_GOOGLE_CLIENT_SECRET: Joi.string().required(),
   STRIPE_WEBHOOK_SECRET: Joi.string().required(),
   STRIPE_SECRET_KEY: Joi.string().required(),
+  DEV_FRONT_URL: Joi.string().required(),
+  DEV_BACK_URL: Joi.string().required(),
+  PROD_BACK_URL: Joi.string().required(),
+  PROD_FRONT_URL: Joi.string().required(),
 });
