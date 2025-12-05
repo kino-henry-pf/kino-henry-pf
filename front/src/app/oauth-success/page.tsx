@@ -1,6 +1,6 @@
 import OAuthSuccessPage from "@/components/OauthSuccess"
 
-export const LoginGoogle = () => {
+export default function LoginGoogle() {
   return(
     <OAuthSuccessPage />
   )
