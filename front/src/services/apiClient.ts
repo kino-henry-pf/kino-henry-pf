@@ -6,7 +6,7 @@ type OperationOptions = {
     bearerToken?: string
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.onrender.com",
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://kino-henry-pf.vercel.app",
     DEFAULT_HEADERS = {
         "Content-Type": "application/json",
         "Accept": "application/json"
