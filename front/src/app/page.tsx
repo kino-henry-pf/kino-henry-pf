@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import MovieCard from "@/components/MovieCard";
 import HeroCarrousel from "./HeroCarrousel";
 import Footer from "@/components/Footer";
