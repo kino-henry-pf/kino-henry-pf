@@ -14,6 +14,10 @@ export interface EnvironmentVariables {
   auth_google_client_secret: string;
   stripe_secret_key: string;
   stripe_webhook_secret: string;
+  dev_back_url: string;
+  dev_front_url: string;
+  prod_back_url: string;
+  prod_front_url: string;
 }
 
 export const environmentVariables = registerAs(
@@ -32,5 +36,9 @@ export const environmentVariables = registerAs(
     auth_google_client_secret: process.env.AUTH_GOOGLE_CLIENT_SECRET ?? '',
     stripe_secret_key: process.env.STRIPE_SECRET_KEY ?? '',
     stripe_webhook_secret: process.env.STRIPE_WEBHOOK_SECRET ?? '',
+    dev_back_url: process.env.DEV_BACK_URL ?? '',
+    dev_front_url: process.env.DEV_FRONT_URL ?? '',
+    prod_back_url: process.env.PROD_BACK_URL ?? '',
+    prod_front_url: process.env.PROD_FRONT_URL ?? '',
   }),
 );
