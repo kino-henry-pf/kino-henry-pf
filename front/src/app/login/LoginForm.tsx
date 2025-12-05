@@ -15,7 +15,7 @@ export interface LoginValues {
 }
 
 function LoginForm() {
-  const { setDataUser } = useAuth();
+  const { setDataUser, dataUser } = useAuth();
 
   const initialValues: LoginValues = {
     email: "",
@@ -52,24 +52,10 @@ function LoginForm() {
   useEffect(() => {
   const params = new URLSearchParams(window.location.search);
   const token = params.get("userSession");
-  const provider = params.get("provider"); 
 
-  if (token && provider === "google") {
-    const userData = {
-      message: true,
-      access_token: token,
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        role: "user"
-      }
-    };
-
-    setDataUser(userData);
-    localStorage.setItem("userSession", JSON.stringify(userData));
+    setDataUser(dataUser);
+    localStorage.setItem("userSession", JSON.stringify(dataUser));
     window.location.href = "/";
-  }
 }, []);
 
   return (
