@@ -1,19 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/authContext";
 
-export default function OauthSuccessPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) {
+export default function OAuthSuccessPage() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const { setDataUser } = useAuth();
-  const token = searchParams.token;
 
   useEffect(() => {
-    console.log("TOKEN RECIBIDO DESDE URL:", token);
-
     if (!token) return;
 
     const session = {
@@ -23,13 +19,14 @@ export default function OauthSuccessPage({
         id: "",
         name: "",
         email: "",
-        role: "user",
-      },
+        role: ""
+      }
     };
 
     localStorage.setItem("userSession", JSON.stringify(session));
     setDataUser(session);
 
+    // Redirigir al home
     window.location.href = "/";
   }, [token]);
 
