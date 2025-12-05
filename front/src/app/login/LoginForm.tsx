@@ -138,7 +138,7 @@ function LoginForm() {
             </p>
 
             <a
-              href={`${API_URL}/auth/login?provider=google`}
+              href={`${API_URL}auth/login?provider=google`}
               className="mx-auto mt-4 block"
             >
               <img 
