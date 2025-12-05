@@ -8,7 +8,7 @@ interface Props {
   token: string | null;
 }
 
-function OauthSuccessPage({ token }: Props) {
+export default function OauthSuccessPage({ token }: Props) {
   const { setDataUser } = useAuth();
 
   useEffect(() => {
