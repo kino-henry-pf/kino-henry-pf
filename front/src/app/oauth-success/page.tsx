@@ -1,7 +1,7 @@
 import React from "react";
 import OauthSuccessPage from "./oauthSuccess";
 
-export const LoginGoogle = () => {
+export default function LoginGoogle = () => {
     return(
       <OauthSuccessPage token={null} />
     );
