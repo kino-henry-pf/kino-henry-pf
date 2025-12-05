@@ -1,5 +1,5 @@
 import React from "react";
-import OauthSuccessPage from "./oauthSuccess";
+import { OauthSuccessPage } from "./oauthSuccess";
 
 export default function LoginGoogle () {
     return(
