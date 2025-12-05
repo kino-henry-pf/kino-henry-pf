@@ -118,7 +118,7 @@ export class AuthService {
     const PROD_FRONT_URL = this.configService.get<string>('PROD_FRONT_URL');
     const DEV_FRONT_URL = this.configService.get<string>('DEV_FRONT_URL');
 
-    return res.redirect(`${PROD_FRONT_URL}oauth-success?token=${token}`);
+    return res.redirect(`${PROD_FRONT_URL}/oauth-success?token=${token}`);
   }
 
   async login(provider, res) {
