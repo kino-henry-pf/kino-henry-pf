@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/authContext";
+import { userSessionInterface } from "@/types/userSession";
 
 export default function OAuthSuccessPage() {
   const searchParams = useSearchParams();
@@ -12,7 +13,7 @@ export default function OAuthSuccessPage() {
   useEffect(() => {
     if (!token) return;
 
-    const session = {
+    const session: userSessionInterface = {
       message: true,
       access_token: token,
       user: {
@@ -26,7 +27,6 @@ export default function OAuthSuccessPage() {
     localStorage.setItem("userSession", JSON.stringify(session));
     setDataUser(session);
 
-    // Redirigir al home
     window.location.href = "/";
   }, [token]);
 
