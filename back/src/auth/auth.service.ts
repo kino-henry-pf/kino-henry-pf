@@ -113,7 +113,7 @@ export class AuthService {
   });
 
     return res.redirect(
-      `https://superlative-zabaione-f74f6b.netlify.app/oauth-success?token=${token}`,
+      `https://kino-henry-pf.vercel.app/oauth-success?token=${token}`,
     );
   }
 
