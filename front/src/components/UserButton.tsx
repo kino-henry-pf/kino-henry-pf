@@ -27,7 +27,7 @@ export default function UserButton({
                 _menuOpen && (
                     <div className="absolute right-0 top-16 w-48 bg-[#232323] border border-gray-700 rounded-xl shadow-xl p-2">
                         <Link
-                            href="/perfil"
+                            href="/myProfile"
                             className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
                             Mi perfil
