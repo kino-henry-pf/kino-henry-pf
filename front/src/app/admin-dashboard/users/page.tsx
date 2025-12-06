@@ -2,6 +2,7 @@
 
 import { User } from "@/types/user"
 import AdminResourcePage from "../_layouts/AdminResourcePage"
+import Link from "next/link"
 
 export default function AdminUsersPage() {
     return <AdminResourcePage<User>
@@ -10,7 +11,23 @@ export default function AdminUsersPage() {
         head={["Nombre", "Correo electrónico", "Dirección"]}
         mapRow={user => ({
             resourceId: user.id,
-            value: [user.name, user.email, user.address]
+            value: [
+                <Link
+                    href={`/admin-dashboard/users/${user.id}`}
+                >
+                    {user.name}
+                </Link>,
+                <Link
+                    href={`/admin-dashboard/users/${user.id}`}
+                >
+                    {user.email}
+                </Link>,
+                <Link
+                    href={`/admin-dashboard/users/${user.id}`}
+                >
+                    {user.address}
+                </Link>
+            ]
         })}
     />
 }
