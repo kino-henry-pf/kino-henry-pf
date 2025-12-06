@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect } from "react";
-import DataCard from "./DataCard";
-import RoomCard from "./RoomCard";
+import DataCard from "./_components/DataCard";
+import RoomCard from "./_components/RoomCard";
 
 export default function AdminDashboardPage() {
     useEffect(() => {

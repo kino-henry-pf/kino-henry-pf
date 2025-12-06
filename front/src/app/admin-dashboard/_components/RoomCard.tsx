@@ -1,4 +1,4 @@
-import { Room } from "./types";
+import { Room } from "../types";
 import * as Icon from "akar-icons"
 
 export default function RoomCard({

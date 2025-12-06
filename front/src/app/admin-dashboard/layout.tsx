@@ -22,7 +22,7 @@ export default function AdminDashboardLayout({
                     </div>
                     <Button rounded>Imprimir reporte</Button>
                 </section>
-                <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 container-x-padding py-10">
+                <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 lg:container-x-padding py-10">
                     <AdminMenu />
                     <div className="w-full h-full flex flex-col gap-10 relative">
                         {children}

@@ -45,7 +45,7 @@ export default function AdminMenu() {
                     </nav>
                 </div>
             </aside>
-            <div className="w-full flex justify-end h-0 z-999 sticky top-[calc(100%-5rem)] left-0 block xl:hidden">
+            <div className="w-full flex justify-end h-0 z-999 sticky top-[calc(100%-5rem)] left-0 container-x-padding lg:px-0 block xl:hidden">
                 <IconButton onClick={() => _setOpen(true)}>
                     <Icon.TextAlignJustified className="size-4" />
                 </IconButton>

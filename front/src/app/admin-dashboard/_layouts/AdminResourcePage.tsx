@@ -32,7 +32,7 @@ export default function AdminResourcePage<T>({
             {
                 query.data ? (
                     <>
-                        <p>{title} <span className="opacity-50">{!query.isLoading && query.data ? `(${query.data.length})` : null}</span></p>
+                        <p className="lg:px-0 container-x-padding">{title} <span className="opacity-50">{!query.isLoading && query.data ? `(${query.data.length})` : null}</span></p>
                         <DataTable
                             resource={resource}
                             head={head}
