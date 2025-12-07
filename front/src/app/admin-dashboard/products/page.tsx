@@ -1,15 +1,15 @@
 "use client"
 
 import { Product } from "@/types/product";
-import AdminResourcePage from "../_layouts/AdminResourcePage";
+import ResourcePage from "../templates/ResourcePage";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AdminProductsPage() {
-    return <AdminResourcePage<Product>
+    return <ResourcePage<Product>
         title="Productos"
         resource="products"
-        head={["Imagen", "Nombre", "Precio"]}
+        head={["Imagen", "Nombre", "Categoría", "Precio"]}
         mapRow={product => ({
             resourceId: product.id,
             value: [
@@ -24,6 +24,7 @@ export default function AdminProductsPage() {
                 <Link href={`/admin-dashboard/products/${product.id}`}>
                     {product.name}
                 </Link>,
+                product.category,
                 parseFloat(product.price).toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS"

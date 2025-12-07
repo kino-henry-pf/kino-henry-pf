@@ -14,7 +14,7 @@ export default function DataTable({
     }[]
 }) {
     return (
-        <div className="overflow-x-auto container-x-padding lg:px-0">
+        <div className="overflow-x-auto container-x-padding lg:![padding-right:0] lg:![padding-left:0] scroll-bounce">
             <table className="w-full h-fit">
                 <thead className="text-left">
                     <tr>

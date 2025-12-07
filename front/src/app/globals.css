@@ -63,6 +63,13 @@ a, button {
   }
 }
 
+@media only screen and (max-width: 64rem) {
+  .max-lg-no-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   .container-x-padding {
     padding-left: 30px;

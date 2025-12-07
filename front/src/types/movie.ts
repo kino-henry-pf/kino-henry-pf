@@ -4,4 +4,5 @@ export type Movie = {
     synopsis: string
     image: string
     rating: string
+    genre: string
 }

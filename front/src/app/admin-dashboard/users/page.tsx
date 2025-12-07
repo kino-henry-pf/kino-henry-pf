@@ -1,11 +1,11 @@
 "use client"
 
 import { User } from "@/types/user"
-import AdminResourcePage from "../_layouts/AdminResourcePage"
+import ResourcePage from "../templates/ResourcePage"
 import Link from "next/link"
 
 export default function AdminUsersPage() {
-    return <AdminResourcePage<User>
+    return <ResourcePage<User>
         title="Usuarios"
         resource="users"
         head={["Nombre", "Correo electrónico", "Dirección"]}
