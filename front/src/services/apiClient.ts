@@ -4,33 +4,34 @@ type GetOptions = {
 
 type OperationOptions = {
   bearerToken?: string;
+  withFiles?: boolean;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL,
-  DEFAULT_HEADERS = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  };
-console.log(API_URL);
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export const apiClient = () => {
+export const apiClient = (operationOptions?: OperationOptions) => {
+  const baseHeaders: Record<string, string> = {}
+
+  if (operationOptions?.bearerToken) {
+    baseHeaders["Authorization"] = `Bearer ${operationOptions.bearerToken}`
+  }
+
+  if (!operationOptions?.withFiles) {
+    baseHeaders["Content-Type"] = "application/json"
+  }
+
   const get = async <T>(
     path: string,
-    options?: GetOptions & OperationOptions
+    options?: GetOptions
   ): Promise<T> => {
     const response = await fetch(`${API_URL}/${path}`, {
       method: 'GET',
       cache: options?.disableCache ? undefined : 'force-cache',
-      headers: options?.bearerToken
-        ? {
-            ...DEFAULT_HEADERS,
-            Authorization: `Bearer ${options?.bearerToken}`,
-          }
-        : DEFAULT_HEADERS,
+      headers: baseHeaders
     });
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
+    if (!response.ok && response.status !== 304) {
+      throw new Error(response.status.toString());
     }
 
     const responseObject = await response.json();
@@ -38,41 +39,85 @@ export const apiClient = () => {
     return responseObject;
   };
 
-  const post = async <T>(path: string, body: any): Promise<T> => {
+  const post = async <T>(path: string, body: Record<string, unknown>): Promise<T> => {
+    let finalBody: BodyInit = JSON.stringify(body)
+    if (operationOptions?.withFiles) {
+      finalBody = new FormData()
+      Object.entries(body).map(([key, value]) => {
+        (finalBody as FormData).set(key, value as string | Blob)
+      })
+    }
+
     const response = await fetch(`${API_URL}/${path}`, {
       method: 'POST',
-      headers: DEFAULT_HEADERS,
-      body: JSON.stringify(body),
+      body: finalBody,
+      headers: baseHeaders
     });
 
-    return await response.json();
+    const jsonResponse = await response.json()
+
+    if (!response.ok) {
+      throw jsonResponse
+    }
+
+    return await jsonResponse;
   };
 
-  const put = async <T>(path: string, body: any): Promise<T> => {
+  const put = async <T>(path: string, body: Record<string, unknown>): Promise<T> => {
+    let finalBody: BodyInit | undefined
+    if (operationOptions?.withFiles) {
+      finalBody = new FormData()
+      Object.entries(body).map(([key, value]) => {
+        (finalBody as FormData).set(key, value as string | Blob)
+      })
+    } else {
+      finalBody = JSON.stringify(body)
+    }
+
     const response = await fetch(`${API_URL}/${path}`, {
       method: 'PUT',
-      headers: DEFAULT_HEADERS,
-      body: JSON.stringify(body),
+      body: finalBody,
+      headers: baseHeaders
     });
 
-    return await response.json();
+    const jsonResponse = await response.json()
+
+    if (!response.ok) {
+      throw jsonResponse
+    }
+
+    return jsonResponse;
   };
 
-  const patch = async <T>(path: string, body: any): Promise<T> => {
+  const patch = async <T>(path: string, body: Record<string, unknown>): Promise<T> => {
+    let finalBody: BodyInit = JSON.stringify(body)
+    if (operationOptions?.withFiles) {
+      finalBody = new FormData()
+      Object.entries(body).map(([key, value]) => {
+        (finalBody as FormData).set(key, value as string | Blob)
+      })
+    }
+
     const response = await fetch(`${API_URL}/${path}`, {
       method: 'PATCH',
-      headers: DEFAULT_HEADERS,
-      body: JSON.stringify(body),
+      body: finalBody,
+      headers: baseHeaders
     });
 
-    return await response.json();
+    const jsonResponse = await response.json()
+    
+    if (!response.ok) {
+      throw jsonResponse
+    }
+
+    return jsonResponse;
   };
 
   const del = async <T>(path: string, body: any): Promise<T> => {
     const response = await fetch(`${API_URL}/${path}`, {
       method: 'DELETE',
-      headers: DEFAULT_HEADERS,
       body: JSON.stringify(body),
+      headers: baseHeaders
     });
 
     return await response.json();

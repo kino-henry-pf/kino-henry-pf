@@ -1,18 +1,28 @@
+import Link from "next/link"
 import { CSSProperties } from "react"
 
 export default function IconButton({
     children,
     style,
     small,
+    type = "button",
+    href,
     onClick
 }: {
     children: React.ReactNode,
     style?: CSSProperties,
     small?: boolean,
+    type?: "link" | "button",
+    href?: string,
     onClick?: () => any
 }) {
+    const Element = (props: any) => type === "link" ? (
+        <Link {...props} />
+    ) : <button {...props} />
+
     return (
-        <button
+        <Element
+            href={href}
             onClick={onClick}
             className={[
                 "cursor-pointer rounded-full flex items-center justify-center bg-white/20 z-10 backdrop-blur-md border-white/10 border-1 hover:scale-105 active:scale-95 transition-[transform,scale]",
@@ -21,6 +31,6 @@ export default function IconButton({
             style={style}
         >
             {children}
-        </button>
+        </Element>
     )
 }

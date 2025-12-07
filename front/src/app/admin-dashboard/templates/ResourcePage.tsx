@@ -4,7 +4,7 @@ import { useQuery } from "@/hooks/useQuery"
 import DataTable from "@/components/DataTable"
 import { useEffect, useRef } from "react"
 
-export default function AdminResourcePage<T>({
+export default function ResourcePage<T>({
     resource,
     title,
     head,
@@ -32,7 +32,7 @@ export default function AdminResourcePage<T>({
             {
                 query.data ? (
                     <>
-                        <p>{title} <span className="opacity-50">{!query.isLoading && query.data ? `(${query.data.length})` : null}</span></p>
+                        <p className="lg:![padding-right:0] lg:![padding-left:0] container-x-padding">{title} <span className="opacity-50">{!query.isLoading && query.data ? `(${query.data.length})` : null}</span></p>
                         <DataTable
                             resource={resource}
                             head={head}

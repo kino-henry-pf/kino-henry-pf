@@ -9,14 +9,15 @@ export const useQuery = <T>(path: string) => {
 
     const [_data, _setData] = useState<T | null>(null),
         [_error, _setError] = useState<any | null>(null),
-        [_isLoading, _setIsLoading] = useState(false)
+        [_isLoading, _setIsLoading] = useState(true)
 
     const handleFetch = useCallback(async () => {
         _setIsLoading(true)
         try {
-            const apiResponse = await apiClient().get<T>(path, {
-                disableCache: true,
+            const apiResponse = await apiClient({
                 bearerToken: auth?.access_token
+            }).get<T>(path, {
+                disableCache: true
             })
             _setData(apiResponse)
         } catch (error) {

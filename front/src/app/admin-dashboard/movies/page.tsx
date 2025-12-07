@@ -1,15 +1,15 @@
 "use client"
 
 import { Movie } from "@/types/movie";
-import AdminResourcePage from "../_layouts/AdminResourcePage";
+import ResourcePage from "../templates/ResourcePage";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AdminMoviesPage() {
-    return <AdminResourcePage<Movie>
+    return <ResourcePage<Movie>
         title="Películas"
         resource="movies"
-        head={["Imagen", "Título", "Calificación"]}
+        head={["Imagen", "Título", "Género", "Calificación"]}
         mapRow={movie => ({
             resourceId: movie.id,
             value: [
@@ -24,6 +24,7 @@ export default function AdminMoviesPage() {
                 <Link href={`/admin-dashboard/movies/${movie.id}`}>
                     {movie.title}
                 </Link>,
+                movie.genre,
                 movie.rating
             ]
         })}

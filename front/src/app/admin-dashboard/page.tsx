@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect } from "react";
-import DataCard from "./DataCard";
-import RoomCard from "./RoomCard";
+import DataCard from "./components/DataCard";
+import RoomCard from "./components/RoomCard";
 
 export default function AdminDashboardPage() {
     useEffect(() => {
@@ -11,7 +11,7 @@ export default function AdminDashboardPage() {
 
     return (
         <>
-            <section className="w-full h-fit flex flex-col gap-3">
+            <section className="w-full h-fit flex flex-col gap-3 lg:![padding-right:0] lg:![padding-left:0] container-x-padding">
                 <p>Estadísticas</p>
                 <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <DataCard
@@ -34,7 +34,7 @@ export default function AdminDashboardPage() {
                     />
                 </div>
             </section>
-            <section className="w-full h-fit flex flex-col gap-3">
+            <section className="w-full h-fit flex flex-col gap-3 lg:![padding-right:0] lg:![padding-left:0] container-x-padding pb-5 xl:pb-0">
                 <p>Capacidad de las salas</p>
                 <div className="w-full flex flex-col gap-5">
                     <RoomCard
