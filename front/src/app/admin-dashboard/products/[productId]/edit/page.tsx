@@ -18,7 +18,8 @@ export default function CreateProductPage() {
             successMessage="Se ha actualizado el producto"
             validate={validateProductUpdate}
             mapPreview={data => data.image}
-            successRedirect={product => `/admin-dashboard/products/${product.id}`}
+            successRedirect={product => `/admin-dashboard/products/${product?.id}`}
+            backLink={`/admin-dashboard/products/${params.productId}`}
             mapError={() => {
                 return {
                     title: "Error desconocido",

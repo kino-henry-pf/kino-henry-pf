@@ -14,6 +14,7 @@ export default function CreateUserPage() {
             successMessage="Se ha creado el usuario"
             validate={validateUserCreation}
             successRedirect={() => "/admin-dashboard/users"}
+            backLink="/admin-dashboard/users"
             mapError={error => {
                 if (error && error["statusCode"] && error["statusCode"] === 409) {
                     return {

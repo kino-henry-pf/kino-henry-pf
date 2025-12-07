@@ -13,6 +13,7 @@ export default function CreateProductPage() {
             submitText="Crear producto"
             successMessage="Se ha creado el producto"
             successRedirect={() => "/admin-dashboard/products"}
+            backLink="/admin-dashboard/products"
             validate={validateProductCreation}
             mapError={() => {
                 return {

@@ -18,7 +18,8 @@ export default function UpdateMoviePage() {
             successMessage="Se ha modificado la película"
             validate={validateMovieUpdate}
             mapPreview={data => data.image}
-            successRedirect={movie => `/admin-dashboard/movies/${movie.id}`}
+            successRedirect={movie => `/admin-dashboard/movies/${movie?.id}`}
+            backLink={`/admin-dashboard/movies/${params.movieId}`}
             mapError={() => {
                 return {
                     title: "Error desconocido",

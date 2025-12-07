@@ -66,7 +66,7 @@ export default function SingleResourcePage<T>({
                         <IconButton type="link" href={backLink}>
                             <Icon.ArrowLeft className="size-5" />
                         </IconButton>
-                        <span className="text-xl">{data.title}</span>
+                        <span>{data.title}</span>
                     </div>
                     <nav className="w-fit h-fit flex items-center gap-3">
                         {
