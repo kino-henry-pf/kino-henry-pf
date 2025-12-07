@@ -4,13 +4,22 @@ import Button from "@/components/Button"
 import AdminMenu from "./components/AdminMenu"
 import { useAuth } from "@/context/authContext"
 import Footer from "@/components/Footer"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function AdminDashboardLayout({
     children
 }: {
     children: React.ReactNode
 }) {
-    const {dataUser: auth} = useAuth()
+    const {dataUser: auth} = useAuth(),
+        router = useRouter()
+
+    useEffect(() => {
+        if (!localStorage.getItem("userSession")) {
+            router.push("/")
+        }
+    }, [router])
 
     return (
         <>
