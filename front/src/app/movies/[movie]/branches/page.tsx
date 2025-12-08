@@ -22,7 +22,7 @@ export default async function BranchSelectionPage({
         {branches.map((branch) => (
           <Link
             key={branch.id}
-            href={`/movies/${movie}/branches/${branch.id}`}
+            href={`/movies/${movie}/branches/${branch.id}/showtimes`}
             className="
               block p-6 rounded-xl border border-[var(--color-border)] 
               bg-[var(--background)] hover:bg-[#1e1e1e] transition 
