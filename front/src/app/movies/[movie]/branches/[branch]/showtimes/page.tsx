@@ -1,5 +1,6 @@
 import { apiClient } from '@/services/apiClient';
 import { Showtime } from '@/types/showtime';
+import Link from 'next/link';
 
 export default async function ShowtimesPage({
   params,
@@ -33,7 +34,7 @@ export default async function ShowtimesPage({
       hour12: false,
     })
       .format(date)
-      .replace('.', ''); // remove abbreviation dot (dic. → dic)
+      .replace('.', '');
   };
 
   return (
@@ -54,9 +55,13 @@ export default async function ShowtimesPage({
               Sala: {show.room.name} • {show.language} • {show.format}
             </p>
 
-            <button className="mt-4 px-4 py-2 rounded bg-[var(--color-primary)] text-[var(--primary-foreground)] font-bold">
-              Seleccionar
-            </button>
+            <Link
+              href={`/movies/${movie}/branches/${branch}/showtimes/${show.id}/seats`}
+            >
+              <button className="mt-4 px-4 py-2 rounded bg-[var(--color-primary)] text-[var(--primary-foreground)] font-bold cursor-pointer">
+                Seleccionar
+              </button>
+            </Link>
           </div>
         ))}
       </div>
