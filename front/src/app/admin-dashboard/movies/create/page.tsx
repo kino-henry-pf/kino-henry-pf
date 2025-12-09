@@ -14,6 +14,7 @@ export default function CreateMoviePage() {
             successMessage="Se ha creado la película"
             validate={validateMovieCreation}
             successRedirect={() => "/admin-dashboard/movies"}
+            backLink="/admin-dashboard/movies"
             mapError={() => {
                 return {
                     title: "Error desconocido",

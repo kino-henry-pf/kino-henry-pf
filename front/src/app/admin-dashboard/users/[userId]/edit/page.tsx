@@ -17,7 +17,8 @@ export default function UpdateUserPage() {
             submitText="Actualizar usuario"
             successMessage="Se ha actualizado el usuario"
             validate={validateUserUpdate}
-            successRedirect={user => `/admin-dashboard/users/${user.id}`}
+            successRedirect={user => `/admin-dashboard/users/${user?.id}`}
+            backLink={`/admin-dashboard/users/${params.userId}`}
             mapError={error => {
                 if (error && error["statusCode"] && error["statusCode"] === 409) {
                     return {
