@@ -10,4 +10,9 @@ export class AnalyticsController {
     const totalRevenue = await this.analyticsService.getTotalRevenue();
     return { totalRevenue };
   }
+
+  @Get('total-tickets')
+  async getTotalTickets() {
+    return await this.analyticsService.getTotalTickets();
+  }
 }

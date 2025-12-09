@@ -36,8 +36,8 @@ export class PaymentsService {
       mode: 'payment',
       payment_method_types: ['card'],
       line_items: lineItems,
-      success_url: `https://superlative-zabaione-f74f6b.netlify.app/success?orderId=${orderId}`,
-      cancel_url: `https://superlative-zabaione-f74f6b.netlify.app/cancel?orderId=${orderId}`,
+      success_url: `https://kino-henry-pf.vercel.app/success?orderId=${orderId}`,
+      cancel_url: `https://kino-henry-pf.vercel.app/cancel?orderId=${orderId}`,
       metadata: {
         orderId: orderId,
       },
