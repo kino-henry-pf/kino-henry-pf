@@ -47,6 +47,7 @@ export default class OrdersRepository {
       seatDetails = await this.reservationsService.findSeatReservations(
         dto.seatReservationIds,
       );
+      console.log(dto.seatReservationIds);
       if (seatDetails.length !== dto.seatReservationIds.length) {
         throw new BadRequestException(
           'One or more seatReservationIds are invalid',
