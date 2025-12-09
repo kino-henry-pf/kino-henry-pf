@@ -1,8 +1,16 @@
-import { Controller, Get, HttpCode, Param, Patch, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entity/user.entity';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/decorator/role.decorator';
+import UpdateUserDto from './DTOs/update-user.dto';
 //import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
 //import { RolesGuard } from 'src/auth/guards/role-guard.guard';
 
@@ -11,7 +19,7 @@ import { Roles } from 'src/decorator/role.decorator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @ApiOperation({ summary: 'Obtener Todos los usuarios'})
+  @ApiOperation({ summary: 'Obtener Todos los usuarios' })
   @ApiBearerAuth()
   @Get()
   // @Roles('admin')
@@ -20,7 +28,7 @@ export class UsersController {
     return await this.usersService.findAll();
   }
 
-  @ApiOperation({ summary: 'Obtener usuario mediante UUID'})
+  @ApiOperation({ summary: 'Obtener usuario mediante UUID' })
   @ApiBearerAuth()
   @Get(':id')
   // @UseGuards(AuthGuard)
@@ -28,7 +36,12 @@ export class UsersController {
     return await this.usersService.findById(id);
   }
 
-  @ApiOperation({ summary: 'Eliminar usuario mediante UUID'})
+  @Patch('/:id')
+  async updateUser(@Param('id') id: string, dto: UpdateUserDto): Promise<User> {
+    return await this.usersService.updateUser(id, dto);
+  }
+
+  @ApiOperation({ summary: 'Eliminar usuario mediante UUID' })
   @Patch('/delete/:id')
   @HttpCode(204)
   async deleteUser(@Param('id') id: string) {
