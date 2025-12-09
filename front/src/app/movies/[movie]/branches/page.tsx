@@ -48,6 +48,7 @@ export default function BranchSelectionPage({
         {branches.map((branch) => (
           <div
             key={branch.id}
+            
             className="
               rounded-xl border border-[var(--color-border)] 
               bg-[var(--background)] shadow-md overflow-hidden
@@ -62,7 +63,7 @@ export default function BranchSelectionPage({
 
             {/* INFORMACIÓN */}
             <Link
-              href={`/movies/${movie}/branches/${branch.id}`}
+              href={`/movies/${movie}/branches/${branch.id}/showtimes`}
               className="
                 block p-6 hover:bg-[#1e1e1e] transition 
                 group
