@@ -18,7 +18,7 @@ export default function AdminDashboardLayout({
     useEffect(() => {
         if (
             !localStorage.getItem("userSession")
-            || auth?.user.role !== "ADMIN"
+            || (auth && auth.user.role !== "ADMIN")
         ) {
             router.push("/")
         }
