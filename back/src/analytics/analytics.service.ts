@@ -38,4 +38,18 @@ export class AnalyticsService {
       totalTickets: Number(result?.totalTickets ?? 0),
     };
   }
+
+  async getTotalProductsSold(): Promise<{ totalProductsSold: number }> {
+    const result = await this.orderDetailsRepo
+      .createQueryBuilder('detail')
+      .innerJoin('detail.order', 'order')
+      .where('order.status = :status', { status: 'PAID' })
+      .andWhere('detail.productId IS NOT NULL')
+      .select('COALESCE(SUM(detail.quantity), 0)', 'totalProductsSold')
+      .getRawOne<{ totalProductsSold: string }>();
+
+    return {
+      totalProductsSold: Number(result?.totalProductsSold ?? 0),
+    };
+  }
 }

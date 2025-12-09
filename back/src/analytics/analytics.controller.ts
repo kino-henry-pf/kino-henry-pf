@@ -15,4 +15,9 @@ export class AnalyticsController {
   async getTotalTickets() {
     return await this.analyticsService.getTotalTickets();
   }
+
+  @Get('total-products')
+  async getTotalProducts() {
+    return await this.analyticsService.getTotalProductsSold();
+  }
 }
