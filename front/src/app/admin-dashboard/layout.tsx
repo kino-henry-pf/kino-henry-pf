@@ -16,10 +16,13 @@ export default function AdminDashboardLayout({
         router = useRouter()
 
     useEffect(() => {
-        if (!localStorage.getItem("userSession")) {
+        if (
+            !localStorage.getItem("userSession")
+            || auth?.user.role !== "ADMIN"
+        ) {
             router.push("/")
         }
-    }, [router])
+    }, [router, auth])
 
     return (
         <>
