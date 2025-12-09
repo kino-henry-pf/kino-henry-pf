@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpCode,
@@ -37,7 +38,10 @@ export class UsersController {
   }
 
   @Patch('/:id')
-  async updateUser(@Param('id') id: string, dto: UpdateUserDto): Promise<User> {
+  async updateUser(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ): Promise<User> {
     return await this.usersService.updateUser(id, dto);
   }
 
