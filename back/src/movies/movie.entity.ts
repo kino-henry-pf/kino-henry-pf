@@ -46,6 +46,6 @@ export default class Movie {
   @Column()
   duration: number;
 
-  @ManyToMany(() => Branch, (branch) => branch.movies)
+  @ManyToMany(() => Branch, (branch) => branch.movies, {onDelete: "CASCADE"})
   branches: Branch[];
 }

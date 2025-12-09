@@ -10,12 +10,14 @@ export default function UploadImage({
     name,
     label,
     required,
+    disabled,
     ...props
 }: {
     preview?: string
     name: string
     label: string
     required?: boolean
+    disabled?: boolean
 }) {
     const [,, helpers] = useField(name),
         [_preview, _setPreview] = useState(preview ?? null)
@@ -39,7 +41,14 @@ export default function UploadImage({
 
     return (
         <div className="w-full h-full relative">
-            <input type="file" accept="image/png,image/jpg,image/jpeg,image/webp" {...props} onChange={handleChange} className="absolute top-0 left-0 opacity-0 w-full h-full z-99" />
+            <input
+                type="file"
+                accept="image/png,image/jpg,image/jpeg,image/webp"
+                {...props}
+                onChange={handleChange}
+                disabled={disabled}
+                className="absolute top-0 left-0 opacity-0 w-full h-full z-99"
+            />
             <div className="w-full h-full flex items-center justify-center">
                 {
                     _preview ? (

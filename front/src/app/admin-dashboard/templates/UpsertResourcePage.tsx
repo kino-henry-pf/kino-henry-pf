@@ -11,6 +11,7 @@ import { useQuery } from "@/hooks/useQuery"
 import { useRouter } from "next/navigation"
 import IconButton from "@/components/IconButton"
 import * as Icon from "akar-icons"
+import Loader from "../components/Loader"
 
 export default function UpsertResourcePage<T>({
     resource,
@@ -155,6 +156,13 @@ export default function UpsertResourcePage<T>({
                             shortTitle="Operación exitosa"
                         />
                     </>
+                )
+            }
+            {
+                getterResource && query?.isLoading && (
+                    <div className="w-full h-[400px] flex items-center justify-center">
+                        <Loader className="size-10" />
+                    </div>
                 )
             }
         </div>

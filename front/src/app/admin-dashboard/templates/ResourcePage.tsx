@@ -3,6 +3,7 @@
 import { useQuery } from "@/hooks/useQuery"
 import DataTable from "@/components/DataTable"
 import { useEffect, useRef } from "react"
+import Loader from "../components/Loader"
 
 export default function ResourcePage<T>({
     resource,
@@ -25,10 +26,10 @@ export default function ResourcePage<T>({
         if (!topSectionRef.current) return
         const scrollTop = window.scrollY + topSectionRef.current.getBoundingClientRect().top
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
-    }, [topSectionRef, resource])
+    }, [topSectionRef])
 
     return (
-        <section ref={topSectionRef} className="w-full h-fit flex flex-col gap-3">
+        <section ref={topSectionRef} className="w-full h-fit flex flex-col gap-3 relative">
             {
                 query.data ? (
                     <>
@@ -40,10 +41,12 @@ export default function ResourcePage<T>({
                         />
                     </>
                 ) : query.isLoading ? (
-                    <span>Cargando...</span>
-                ) : query.error ? (
+                    <div className="w-full h-[400px] flex items-center justify-center">
+                        <Loader className="size-10" />
+                    </div>
+                ) : (
                     <span>ERROR</span>
-                ) : null
+                )
             }
         </section>
     )
