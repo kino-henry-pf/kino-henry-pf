@@ -59,103 +59,109 @@ export default function SingleResourcePage<T>({
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
     }, [topSectionRef, resource, data])
 
-    return data ? (
-        <>
-            <div ref={topSectionRef} className="w-full h-fit flex flex-col gap-10 container-x-padding lg:![padding-left:0] lg:![padding-right:0]">
-                <div className="w-full flex items-center gap-10 justify-between">
-                    <div className="w-full h-fit flex items-center gap-10">
-                        <IconButton type="link" href={backLink}>
-                            <Icon.ArrowLeft className="size-5" />
-                        </IconButton>
-                        <span>{data.title}</span>
-                    </div>
-                    <nav className="w-fit h-fit flex items-center gap-3">
-                        {
-                            editLink && (
-                                <IconButton small type="link" href={editLink}>
-                                    <Icon.Edit className="size-4" />
-                                </IconButton>
-                            )
-                        }
-                        {
-                            deleteResource && (
-                                <IconButton small onClick={() => _setDeleteDialog(true)}>
-                                    <Icon.TrashBin className="size-4" />
-                                </IconButton>
-                            )
-                        }
-                    </nav>
-                </div>
-                <div
-                    className={[
-                        "h-fit",
-                        data.image ? "grid lg:grid-cols-[auto_1fr] gap-5" : "w-fit"
-                    ].join(" ")}
-                >
-                    {
-                        data.image ? (
-                            <Image
-                                alt={data.title}
-                                src={data.image}
-                                width={300}
-                                height={300}
-                                className="w-[16rem] auto object-contain"
-                            />
-                        ) : null
-                    }
-                    <div className="w-full h-fit flex flex-col gap-5">
-                        {
-                            data.rows.map((row, index) => (
-                                <div key={index} className="w-fit h-fit grid grid-cols-[100px_1fr] items-center gap-3">
-                                    <div className="w-full h-fit flex justify-start text-md">
-                                        <span>{row.name}</span>
-                                    </div>
-                                    <div className="w-fit ml-auto h-fit flex justify-end text-md font-semibold bg-white/3 rounded-md border-1 border-[var(--color-border)] py-1 px-2">
-                                        <span>{row.value}</span>
-                                    </div>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
-            </div>
+    return (
+        <section className="w-full h-fit" ref={topSectionRef}>
             {
-                deleteResource && query.data && (
-                    <AlertModal
-                        show={_deleteDialog}
-                        title={deleteResource.title}
-                        shortTitle="Eliminar"
-                        description={deleteResource.description(query.data)}
-                        icon="TrashBin"
-                        onClose={() => _setDeleteDialog(false)}
-                        isLoading={deleteMutation?.isLoading || query.isLoading || deleteMutation?.data}
-                        actions={
-                            <nav className="w-full h-fit grid grid-cols-2 gap-5">
-                                <Button
-                                    width="100%"
-                                    primary={false}
-                                    onClick={() => {
-                                        _setDeleteDialog(false)
-                                    }}
-                                >Cancelar</Button>
-                                <Button
-                                    width="100%"
-                                    onClick={async () => {
-                                        await deleteMutation?.submit({})
-                                        router.push(deleteResource.successRedirect)
-                                    }}
-                                >Eliminar</Button>
-                            </nav>
+                data ? (
+                    <>
+                        <div className="w-full h-fit flex flex-col gap-10 container-x-padding lg:![padding-left:0] lg:![padding-right:0]">
+                            <div className="w-full flex items-center gap-10 justify-between">
+                                <div className="w-full h-fit flex items-center gap-10">
+                                    <IconButton type="link" href={backLink}>
+                                        <Icon.ArrowLeft className="size-5" />
+                                    </IconButton>
+                                    <span>{data.title}</span>
+                                </div>
+                                <nav className="w-fit h-fit flex items-center gap-3">
+                                    {
+                                        editLink && (
+                                            <IconButton small type="link" href={editLink}>
+                                                <Icon.Edit className="size-4" />
+                                            </IconButton>
+                                        )
+                                    }
+                                    {
+                                        deleteResource && (
+                                            <IconButton small onClick={() => _setDeleteDialog(true)}>
+                                                <Icon.TrashBin className="size-4" />
+                                            </IconButton>
+                                        )
+                                    }
+                                </nav>
+                            </div>
+                            <div
+                                className={[
+                                    "h-fit",
+                                    data.image ? "grid lg:grid-cols-[auto_1fr] gap-5" : "w-fit"
+                                ].join(" ")}
+                            >
+                                {
+                                    data.image ? (
+                                        <Image
+                                            alt={data.title}
+                                            src={data.image}
+                                            width={300}
+                                            height={300}
+                                            className="w-[16rem] auto object-contain"
+                                        />
+                                    ) : null
+                                }
+                                <div className="w-full h-fit flex flex-col gap-5">
+                                    {
+                                        data.rows.map((row, index) => (
+                                            <div key={index} className="w-fit h-fit grid grid-cols-[100px_1fr] items-center gap-3">
+                                                <div className="w-full h-fit flex justify-start text-md">
+                                                    <span>{row.name}</span>
+                                                </div>
+                                                <div className="w-fit ml-auto h-fit flex justify-end text-md font-semibold bg-white/3 rounded-md border-1 border-[var(--color-border)] py-1 px-2">
+                                                    <span>{row.value}</span>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            deleteResource && query.data && (
+                                <AlertModal
+                                    show={_deleteDialog}
+                                    title={deleteResource.title}
+                                    shortTitle="Eliminar"
+                                    description={deleteResource.description(query.data)}
+                                    icon="TrashBin"
+                                    onClose={() => _setDeleteDialog(false)}
+                                    isLoading={deleteMutation?.isLoading || query.isLoading || deleteMutation?.data}
+                                    actions={
+                                        <nav className="w-full h-fit grid grid-cols-2 gap-5">
+                                            <Button
+                                                width="100%"
+                                                primary={false}
+                                                onClick={() => {
+                                                    _setDeleteDialog(false)
+                                                }}
+                                            >Cancelar</Button>
+                                            <Button
+                                                width="100%"
+                                                onClick={async () => {
+                                                    await deleteMutation?.submit({})
+                                                    router.push(deleteResource.successRedirect)
+                                                }}
+                                            >Eliminar</Button>
+                                        </nav>
+                                    }
+                                />
+                            )
                         }
-                    />
+                    </>
+                ) : query.isLoading ? (
+                    <div className="w-full h-[400px] flex items-center justify-center">
+                        <Loader className="size-10" />
+                    </div>
+                ) : (
+                    <p>ERROR</p>
                 )
             }
-        </>
-    ) : query.isLoading ? (
-        <div className="w-full h-[400px] flex items-center justify-center">
-            <Loader className="size-10" />
-        </div>
-    ) : (
-        <p>ERROR</p>
+        </section>
     )
 }

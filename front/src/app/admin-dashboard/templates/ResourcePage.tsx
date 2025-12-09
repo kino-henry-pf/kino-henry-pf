@@ -26,7 +26,7 @@ export default function ResourcePage<T>({
         if (!topSectionRef.current) return
         const scrollTop = window.scrollY + topSectionRef.current.getBoundingClientRect().top
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
-    }, [topSectionRef, resource])
+    }, [topSectionRef])
 
     return (
         <section ref={topSectionRef} className="w-full h-fit flex flex-col gap-3 relative">
