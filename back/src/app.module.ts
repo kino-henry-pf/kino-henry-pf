@@ -19,6 +19,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { GoogleMapsModule } from './google-maps/google-maps.module';
 import { PaymentsModule } from './payments/payments.module';
 import { MailModule } from './mail/mail.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { MailModule } from './mail/mail.module';
     GoogleMapsModule,
     PaymentsModule,
     MailModule,
+    AnalyticsModule,
   ],
   providers: [SeederModule],
 })
