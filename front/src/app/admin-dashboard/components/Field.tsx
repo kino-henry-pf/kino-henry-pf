@@ -10,7 +10,7 @@ export default function Field(field: FormField) {
 
     return (
         <div key={field.name} className="flex flex-col gap-1">
-            <label className="w-full h-fit grid lg:grid-cols-[1fr_2fr] items-center">
+            <label className="w-full h-fit grid lg:grid-cols-[1fr_2fr] gap-2 lg:gap-0 items-center">
                 <div className="w-full grid items-center grid-cols-[auto_1fr] gap-7 pr-7">
                     <span>{field.label} {
                         field.required && (

@@ -9,6 +9,7 @@ import useMutation from "@/hooks/useMutation"
 import AlertModal from "@/components/AlertModal"
 import Button from "@/components/Button"
 import { useRouter } from "next/navigation"
+import Loader from "../components/Loader"
 
 export default function SingleResourcePage<T>({
     resource,
@@ -151,7 +152,9 @@ export default function SingleResourcePage<T>({
             }
         </>
     ) : query.isLoading ? (
-        <p>Cargando...</p>
+        <div className="w-full h-[400px] flex items-center justify-center">
+            <Loader className="size-10" />
+        </div>
     ) : (
         <p>ERROR</p>
     )
