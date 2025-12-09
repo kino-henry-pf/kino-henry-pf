@@ -39,8 +39,9 @@ export default function AdminMenu() {
                             <AccordionMenuItem href="/admin-dashboard/products" label="Listado de productos" icon="BookOpen" onClick={() => _setOpen(false)} />
                             <AccordionMenuItem href="/admin-dashboard/products/create" label="Crear producto" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
-                        <AccordionMenuItem href="#" label="Reservas" icon="FaceVeryHappy">
-                            <AccordionMenuItem href="#" label="Listado de reservas" icon="Calendar" onClick={() => _setOpen(false)} />
+                        <AccordionMenuItem href="/admin-dashboard/branches" label="Sucursales" icon="CheckIn">
+                            <AccordionMenuItem href="/admin-dashboard/branches" label="Listado de sucursales" icon="Bank" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/branches/create" label="Crear sucursal" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
                     </nav>
                 </div>
