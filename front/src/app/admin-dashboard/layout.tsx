@@ -5,6 +5,7 @@ import Button from "@/components/Button"
 import AdminMenu from "./components/AdminMenu"
 import { useAuth } from "@/context/authContext"
 import Footer from "@/components/Footer"
+import { useEffect, useState } from "react"
 
 export default function AdminDashboardLayout({
     children
@@ -12,13 +13,18 @@ export default function AdminDashboardLayout({
     children: React.ReactNode
 }) {
     const {dataUser: auth} = useAuth()
+    const [forbidden, setForbidden] = useState(false)
 
-        if (
-            !localStorage.getItem("userSession")
-            || (auth && auth.user.role !== "admin")
-        ) {
-             return <PageError />
-        }
+  useEffect(() => {
+    if (
+      !localStorage.getItem("userSession") ||
+      (auth && auth.user.role !== "admin")
+    ) {
+      setForbidden(true)
+    } else {
+      setForbidden(false)
+    }
+  }, [auth])
 
     return (
         <>
