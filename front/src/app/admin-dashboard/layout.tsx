@@ -26,6 +26,10 @@ export default function AdminDashboardLayout({
     }
   }, [auth])
 
+   if (forbidden) {
+    return <PageError />
+  }
+
     return (
         <>
             <main className="w-full h-fit min-h-[calc(100vh-6rem)] relative grid grid-cols-1 grid-rows-[auto_1fr]">
