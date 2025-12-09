@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vis.gl/react-google-maps": "^1.7.1",
     "akar-icons": "^1.9.31",
     "formik": "^2.4.9",
     "jwt-decode": "^4.0.0",
