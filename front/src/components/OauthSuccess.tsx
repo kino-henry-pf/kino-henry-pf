@@ -30,7 +30,7 @@ export default function OAuthSuccessPage() {
         id: decoded.id,
         name: decoded.name,
         email: decoded.email,
-        role: decoded.email,
+        role: decoded.role,
       },
     };
 
