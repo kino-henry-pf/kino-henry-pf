@@ -33,7 +33,7 @@ export default function AdminDashboardLayout({
                 </section>
                 <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 py-10 container-x-padding max-lg-no-padding">
                     <AdminMenu />
-                    <div className="w-full h-full flex flex-col gap-10 relative">
+                    <div className="w-full h-fit flex flex-col gap-10 relative min-h-[calc(100dvh-10rem)]">
                         {children}
                     </div>
                 </div>
