@@ -1,28 +1,24 @@
 "use client"
 
+import PageError from "../errorUserPage/page"
 import Button from "@/components/Button"
 import AdminMenu from "./components/AdminMenu"
 import { useAuth } from "@/context/authContext"
 import Footer from "@/components/Footer"
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
 
 export default function AdminDashboardLayout({
     children
 }: {
     children: React.ReactNode
 }) {
-    const {dataUser: auth} = useAuth(),
-        router = useRouter()
+    const {dataUser: auth} = useAuth()
 
-    useEffect(() => {
         if (
             !localStorage.getItem("userSession")
             || (auth && auth.user.role !== "admin")
         ) {
-            router.push("/")
+             return <PageError />
         }
-    }, [router, auth])
 
     return (
         <>
