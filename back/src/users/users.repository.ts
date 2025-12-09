@@ -2,6 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User, ROLE } from './entity/user.entity';
 import { Repository } from 'typeorm';
+import UpdateUserDto from './DTOs/update-user.dto';
 
 @Injectable()
 export default class UsersRepository {
@@ -83,5 +84,13 @@ export default class UsersRepository {
     } as Partial<User>);
 
     return this.usersRepository.save(newUser);
+  }
+
+  async updateUser(id: string, dto: UpdateUserDto): Promise<User | null> {
+    const user = await this.findById(id);
+    if (!user) return null;
+    const updated = Object.assign(user, dto);
+    await this.usersRepository.save(updated);
+    return this.findById(id);
   }
 }
