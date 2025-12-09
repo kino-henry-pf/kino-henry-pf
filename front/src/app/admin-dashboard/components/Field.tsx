@@ -63,6 +63,7 @@ export default function Field(field: FormField) {
                                 name={field.name}
                                 label={field.label}
                                 required={field.required}
+                                disabled={field.disabled || field.isLoading}
                             />
                         )
                     }
