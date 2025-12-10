@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsEmail,
   IsOptional,
@@ -13,6 +14,7 @@ export default class UpdateUserDto {
   @MaxLength(50)
   name?: string;
 
+  @Transform(({value}) => value === "" ? undefined : value)
   @IsOptional()
   @IsString()
   @MinLength(3)

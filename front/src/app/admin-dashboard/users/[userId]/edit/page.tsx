@@ -10,7 +10,7 @@ export default function UpdateUserPage() {
 
     return (
         <UpsertResourcePage<User>
-            type="PUT"
+            type="PATCH"
             resource={`users/${params.userId}`}
             getterResource={`users/${params.userId}`}
             title="Modifica un usuario"
