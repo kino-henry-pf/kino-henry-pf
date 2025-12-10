@@ -106,8 +106,6 @@ export default class OrdersRepository {
       );
     }
 
-    await this.detailsRepository.save(details);
-
     const savedDetails = await this.detailsRepository.save(details);
 
     // Calculate total
