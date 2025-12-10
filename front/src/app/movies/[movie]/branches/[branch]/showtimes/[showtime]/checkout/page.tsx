@@ -8,9 +8,21 @@ import { Branch } from '@/types/branch';
 import { Product } from '@/types/product';
 
 type SearchParams = {
-  seats?: string; // A1,A2,...
-  seatIds?: string; // uuid,uuid
-  products?: string; // productId:qty,productId:qty
+  seats?: string;
+  seatIds?: string;
+  products?: string;
+};
+
+type ReservationResponse = {
+  seats: { id: string }[];
+};
+
+type OrderResponse = {
+  id: string;
+};
+
+type PaymentResponse = {
+  url?: string;
 };
 
 export default function CheckoutSummary({
@@ -22,22 +34,13 @@ export default function CheckoutSummary({
 }) {
   const api = apiClient();
 
-  // Required unwrapping (React 19)
   const { movie, branch, showtime } = use(params);
   const unwrappedSearch = use(searchParams);
 
-  // -------------------------------
-  // Seats
-  // -------------------------------
   const seatLabels = unwrappedSearch.seats?.split(',') ?? [];
   const seatIds = unwrappedSearch.seatIds?.split(',') ?? [];
 
-  // -------------------------------
-  // Parse products string
-  // Format: productId:qty,productId:qty
-  // -------------------------------
   const productQuantities: Record<string, number> = {};
-
   if (unwrappedSearch.products) {
     for (const item of unwrappedSearch.products.split(',')) {
       const [id, qty] = item.split(':');
@@ -50,9 +53,6 @@ export default function CheckoutSummary({
   const [productsData, setProductsData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // -------------------------------
-  // Load movie / branch / product info once
-  // -------------------------------
   useEffect(() => {
     async function load() {
       const movieRes = await api.get<Movie>(`movies/${movie}`);
@@ -67,29 +67,23 @@ export default function CheckoutSummary({
     }
 
     load();
-  }, [movie, branch]); // << NO "api" here — prevents infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movie, branch]);
 
   if (!movieData || !branchData) {
     return <p className="p-10">Cargando resumen...</p>;
   }
 
-  // -------------------------------
-  // Totals
-  // -------------------------------
   const ticketPrice = 75;
   const ticketsTotal = seatIds.length * ticketPrice;
 
   const productsTotal = productsData.reduce(
-    (sum, p) => sum + p.price * (productQuantities[p.id] || 0),
+    (sum, p) => sum + Number(p.price) * (productQuantities[p.id] || 0),
     0
   );
 
   const finalTotal = ticketsTotal + productsTotal;
 
-  // -------------------------------
-  // Final Step:
-  // CREATE RESERVATION → CREATE ORDER → CREATE PAYMENT SESSION
-  // -------------------------------
   const handlePayNow = async () => {
     try {
       setLoading(true);
@@ -100,8 +94,7 @@ export default function CheckoutSummary({
 
       const userId = session.user.id;
 
-      // 1️⃣ CREATE RESERVATION
-      const reservation = await api.post('reservations', {
+      const reservation = await api.post<ReservationResponse>('reservations', {
         userId,
         showtimeId: showtime,
         seatIds,
@@ -111,37 +104,29 @@ export default function CheckoutSummary({
         (s: { id: string }) => s.id
       );
 
-      // 2️⃣ PRODUCT PAYLOAD
       const productsPayload = productsData.map((p) => ({
         productId: p.id,
         quantity: productQuantities[p.id],
       }));
 
-      // 3️⃣ CREATE ORDER
-      const order = await api.post('orders', {
+      const order = await api.post<OrderResponse>('orders', {
         userId,
         branchId: branch,
         seatReservationIds,
         products: productsPayload,
       });
 
-      const orderId = order.id;
-
-      // 4️⃣ CREATE PAYMENT SESSION
-      const payment = await api.post('payments/checkout', {
-        orderId,
+      const payment = await api.post<PaymentResponse>('payments/checkout', {
+        orderId: order.id,
       });
 
-      console.log('PAYMENT SESSION:', payment);
-
-      // 5️⃣ Redirect to Stripe session if backend returns a URL
       if (payment.url) {
         window.location.href = payment.url;
       } else {
         alert('Payment created, but no redirect URL found.');
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error('Checkout error:', err);
       alert('Error durante el checkout.');
     } finally {
       setLoading(false);
@@ -152,7 +137,6 @@ export default function CheckoutSummary({
     <main className="container-x-padding py-10">
       <h1 className="text-3xl font-bold mb-8">Resumen de compra</h1>
 
-      {/* Movie info */}
       <section className="flex gap-10 mb-10">
         <Image
           src={movieData.image}
@@ -173,7 +157,6 @@ export default function CheckoutSummary({
         </div>
       </section>
 
-      {/* Products */}
       <section className="mb-10">
         <h3 className="text-xl font-semibold mb-4">Productos seleccionados</h3>
 
@@ -188,14 +171,15 @@ export default function CheckoutSummary({
                 <span>
                   {product.name} × {productQuantities[product.id]}
                 </span>
-                <span>${product.price * productQuantities[product.id]}</span>
+                <span>
+                  ${Number(product.price) * productQuantities[product.id]}
+                </span>
               </div>
             ))}
           </div>
         )}
       </section>
 
-      {/* Totals */}
       <section className="border-t border-gray-700 pt-6">
         <h3 className="text-xl font-semibold mb-4">Totales</h3>
 
@@ -215,7 +199,6 @@ export default function CheckoutSummary({
         </div>
       </section>
 
-      {/* Pay button */}
       <div className="mt-10 flex justify-end">
         <button
           disabled={loading}
