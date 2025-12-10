@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
 import Image from "next/image";
 import KinoLogo from "@/../public/logo.png";
 import { registerService } from "@/services/userService";
+import toast from "react-hot-toast";
 
 export interface FormValues {
   name: string;
@@ -73,14 +74,21 @@ const RegisterForm: React.FC = () => {
 };
 
   const handleSubmit = async (values: FormValues) => {
+  try {
     const response = await registerService(values);
-    console.log('Resultado del registro:', response);
-    alert("Usuario Registrado Exitosamente!!!")
+    console.log("Usuario registrado", response)
+
+    toast.success("✅ Usuario registrado correctamente");
+
     setTimeout(() => {
       window.location.href = "/login";
-    }, 500);
-  };
-
+    }, 1500);
+  } catch (error: any) {
+    toast.error(
+      "❌ Error al registrar usuario"
+    );
+  }
+};
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-[#121212]">
       <Image
@@ -177,7 +185,7 @@ const RegisterForm: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
+              className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black cursor-pointer"
             >
               Registrarse
             </button>

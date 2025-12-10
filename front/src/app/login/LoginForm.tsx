@@ -6,6 +6,8 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { loginService } from "@/services/userService";
 import { useAuth } from "@/context/authContext";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -40,13 +42,19 @@ function LoginForm() {
   };
 
   const handleSubmit = async (values: LoginValues) => {
-    const response = await loginService(values);
-    setDataUser(response);
-    console.log('Usuario logueado', response);
-    alert("Login Exitoso!!!")
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 500);
+    try {
+      const response = await loginService(values);
+      setDataUser(response);
+      console.log('Usuario logueado', response);
+      toast.success("✅ Usuario logueado correctamente");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1500);
+    } catch (error: any) {
+        toast.error(
+        "❌ Error al loguear usuario"
+      );
+    }
   }; 
 
   useEffect(() => {
@@ -110,7 +118,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black"
+              className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black cursor-pointer"
             >
               Iniciar Sesión
             </button>
