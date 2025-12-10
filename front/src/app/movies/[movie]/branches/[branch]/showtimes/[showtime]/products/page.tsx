@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 type SearchParams = {
-  seats?: string; // A1,B2,C3
-  seatIds?: string; // uuid1,uuid2,uuid3
+  seats?: string;
+  seatIds?: string;
 };
 
 export default function ProductsPage({
@@ -21,7 +21,6 @@ export default function ProductsPage({
   const router = useRouter();
   const api = apiClient();
 
-  // unwrap promises (React 19)
   const { movie, branch, showtime } = use(params);
   const unwrappedSearch = use(searchParams);
 
@@ -32,16 +31,13 @@ export default function ProductsPage({
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(false);
 
-  // -------------------------
-  // FIXED useEffect dependency
-  // -------------------------
   useEffect(() => {
     async function load() {
-      const p = await api.get<Product[]>('products');
+      const p = await api.get<Product[]>('products', { disableCache: true });
       setProducts(p);
     }
     load();
-    // ❌ DO NOT include "api" here, it causes infinite re-renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateQuantity = (id: string, amount: number) => {
@@ -51,13 +47,11 @@ export default function ProductsPage({
     });
   };
 
-  // -------------------------
-  // NEXT STEP → GOTO CHECKOUT SUMMARY PAGE
-  // -------------------------
   const goToCheckout = () => {
     setLoading(true);
 
     const productPayload = Object.entries(quantities)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter(([_, qty]) => qty > 0)
       .map(([productId, qty]) => `${productId}:${qty}`)
       .join(',');
@@ -122,7 +116,6 @@ export default function ProductsPage({
         ))}
       </div>
 
-      {/* Continue Button */}
       <div className="mt-10 w-full flex justify-end">
         <button
           disabled={loading}
