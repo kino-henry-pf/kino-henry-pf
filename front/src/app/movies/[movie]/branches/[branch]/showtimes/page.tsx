@@ -11,7 +11,8 @@ export default async function ShowtimesPage({
 
   const api = apiClient();
   const showtimes = await api.get<Showtime[]>(
-    `showtimes/movie/${movie}/branch/${branch}`
+    `showtimes/movie/${movie}/branch/${branch}`,
+    { disableCache: true }
   );
 
   if (!showtimes.length) {

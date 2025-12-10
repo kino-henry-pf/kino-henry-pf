@@ -34,10 +34,18 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
       const { movie, branch, showtime } = await params;
       const api = apiClient();
 
-      const showtimeData = await api.get<Showtime>(`showtimes/${showtime}`);
-      const movieData = await api.get<Movie>(`movies/${movie}`);
-      const branchData = await api.get<Branch>(`branches/${branch}`);
-      const seats = await api.get<Seat[]>(`seats/room/${showtimeData.roomId}`);
+      const showtimeData = await api.get<Showtime>(`showtimes/${showtime}`, {
+        disableCache: true,
+      });
+      const movieData = await api.get<Movie>(`movies/${movie}`, {
+        disableCache: true,
+      });
+      const branchData = await api.get<Branch>(`branches/${branch}`, {
+        disableCache: true,
+      });
+      const seats = await api.get<Seat[]>(`seats/room/${showtimeData.roomId}`, {
+        disableCache: true,
+      });
 
       setData({
         movie,
