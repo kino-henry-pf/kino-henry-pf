@@ -57,7 +57,9 @@ export default function CheckoutSummary({
     async function load() {
       const movieRes = await api.get<Movie>(`movies/${movie}`);
       const branchRes = await api.get<Branch>(`branches/${branch}`);
-      const allProducts = await api.get<Product[]>(`products`);
+      const allProducts = await api.get<Product[]>(`products`, {
+        disableCache: true,
+      });
 
       setMovieData(movieRes);
       setBranchData(branchRes);
