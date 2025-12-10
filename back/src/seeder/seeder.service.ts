@@ -176,7 +176,7 @@ export class SeederService {
         {
           name: 'Palomitas Clásicas',
           image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1764199212/palomitas_mnsmvw.png',
+            'https://res.cloudinary.com/db9panarm/image/upload/v1765334934/image_gjv9ym.png',
           description: 'Clasicas con mantequilla',
           price: 75,
           category: Category.POPCORN,
@@ -184,7 +184,7 @@ export class SeederService {
         {
           name: 'Refresco Grande',
           image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1764199211/refresco_jtef2k.png',
+            'https://res.cloudinary.com/db9panarm/image/upload/v1765335509/image_zx39lt.png',
           description: '1 litro bien frio',
           price: 60,
           category: Category.SOFT_DRINK,
@@ -192,10 +192,27 @@ export class SeederService {
         {
           name: 'Nachos con Queso',
           image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1764199214/nachos_qpoj94.png',
+            'https://res.cloudinary.com/db9panarm/image/upload/v1765334793/image_vstph8.png',
           description: 'Nachos calientes con queso',
           price: 85,
           category: Category.NACHOS,
+        },
+        {
+          name: 'Gomitas',
+          image:
+            'https://res.cloudinary.com/db9panarm/image/upload/v1765334693/gomitas_veiu68.png',
+          description: 'Gomitas clásicas sabor a frutas',
+          price: 45,
+          category: Category.CANDY,
+        },
+        {
+          name: 'Combo Pareja',
+          image:
+            'https://res.cloudinary.com/db9panarm/image/upload/v1765334693/combo_ork5md.png',
+          description:
+            'Inlcuye unas palomitas clásicas y dos refrescos grandes',
+          price: 145,
+          category: Category.COMBO,
         },
       ];
 

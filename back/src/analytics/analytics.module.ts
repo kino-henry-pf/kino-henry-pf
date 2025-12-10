@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { AnalyticsService } from './analytics.service';
 import { AnalyticsController } from './analytics.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from 'src/orders/entities/order.entity';
-import OrderDetail from 'src/orders/entities/orderDetails.entity';
-import Room from 'src/rooms/rooms.entity';
+import { Order } from '../orders/entities/order.entity';
+import OrderDetail from '../orders/entities/orderDetails.entity';
+import Room from '../rooms/rooms.entity';
 
 @Module({
   imports: [

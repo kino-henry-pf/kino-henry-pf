@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from '../orders/entities/order.entity';
 import { Repository } from 'typeorm';
-import OrderDetail from 'src/orders/entities/orderDetails.entity';
-import Room from 'src/rooms/rooms.entity';
+import OrderDetail from '../orders/entities/orderDetails.entity';
+import Room from '../rooms/rooms.entity';
 
 interface RoomOccupancyRaw {
   roomId: string;
