@@ -35,16 +35,14 @@ export class PaymentsService {
     const session = await this.stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
+      customer_email: order.user.email,
       line_items: lineItems,
-      success_url: `https://kino-henry-pf.vercel.app/success?orderId=${orderId}`,
-      cancel_url: `https://kino-henry-pf.vercel.app/cancel?orderId=${orderId}`,
+      success_url: `https://kino-henry-pf.vercel.app/payment/success?orderId=${orderId}`,
+      cancel_url: `https://kino-henry-pf.vercel.app/payment/fail?orderId=${orderId}`,
       metadata: {
         orderId: orderId,
       },
     });
-
-    console.log('✅ Checkout session created:', session.id);
-    console.log('📦 Order ID in metadata:', session.metadata.orderId);
 
     return { url: session.url };
   }

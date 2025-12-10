@@ -7,6 +7,7 @@ import { Showtime } from '@/types/showtime';
 import { Movie } from '@/types/movie';
 import { Branch } from '@/types/branch';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Params = {
   movie: string;
@@ -54,7 +55,15 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
 
   if (!data) return <p className="p-10">Cargando asientos...</p>;
 
-  const { movieData, branchData, showtimeData, seats } = data;
+  const {
+    movieData,
+    branchData,
+    showtimeData,
+    seats,
+    movie,
+    branch,
+    showtime,
+  } = data;
 
   const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
 
@@ -127,7 +136,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
         <div className="flex-1 max-w-3xl">
           <h1 className="text-2xl font-bold mb-6">Selecciona tus asientos</h1>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mb-8">
             {rows.map((row) => (
               <div key={row} className="flex items-center gap-3">
                 <div className="text-[var(--color-primary)] w-10 text-right">
@@ -164,6 +173,23 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
               </div>
             ))}
           </div>
+
+          {selectedSeats.length > 0 && (
+            <Link
+              className="mt-6 px-6 py-3 bg-[var(--color-primary)] text-black font-semibold rounded hover:bg-yellow-100 cursor-pointer transition"
+              href={{
+                pathname: `/movies/${movie}/branches/${branch}/showtimes/${showtime}/products`,
+                query: {
+                  seats: selectedSeats
+                    .map((s) => `${s.row}${s.number}`)
+                    .join(','), // For display
+                  seatIds: selectedSeats.map((s) => s.id).join(','), // For backend
+                },
+              }}
+            >
+              Continuar a productos
+            </Link>
+          )}
         </div>
       </div>
     </main>
