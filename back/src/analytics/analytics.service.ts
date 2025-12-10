@@ -3,6 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from '../orders/entities/order.entity';
 import { Repository } from 'typeorm';
 import OrderDetail from 'src/orders/entities/orderDetails.entity';
+import Room from 'src/rooms/rooms.entity';
+
+interface RoomOccupancyRaw {
+  roomId: string;
+  roomName: string;
+  branchName: string;
+  totalSeats: string | number;
+  soldSeats: string | number;
+}
 
 @Injectable()
 export class AnalyticsService {
@@ -12,6 +21,9 @@ export class AnalyticsService {
 
     @InjectRepository(OrderDetail)
     private readonly orderDetailsRepo: Repository<OrderDetail>,
+
+    @InjectRepository(Room)
+    private readonly roomRepo: Repository<Room>,
   ) {}
 
   async getTotalRevenue(): Promise<number> {
@@ -51,5 +63,40 @@ export class AnalyticsService {
     return {
       totalProductsSold: Number(result?.totalProductsSold ?? 0),
     };
+  }
+
+  async getRoomOccupancy() {
+    const result = await this.roomRepo
+      .createQueryBuilder('room')
+      .leftJoin('room.branch', 'branch')
+      .leftJoin('room.seats', 'seat')
+      .leftJoin('seat_reservation', 'sr', 'sr.seatId = seat.id')
+      .leftJoin('order_detail', 'od', 'od.seatReservationId = sr.id')
+      .leftJoin('ORDERS', 'o', 'o.id = od.orderId AND o.status = :status', {
+        status: 'PAID',
+      })
+      .select('room.id', 'roomId')
+      .addSelect('room.name', 'roomName')
+      .addSelect('branch.name', 'branchName')
+      .addSelect('COUNT(seat.id)', 'totalSeats')
+      .addSelect('COUNT(sr.id)', 'soldSeats')
+      .groupBy('room.id')
+      .addGroupBy('room.name')
+      .addGroupBy('branch.name')
+      .getRawMany<RoomOccupancyRaw>();
+
+    return result.map((r) => {
+      const totalSeats = Number(r.totalSeats ?? 0);
+      const sold = Number(r.soldSeats ?? 0);
+
+      return {
+        roomId: r.roomId,
+        roomName: r.roomName,
+        branch: r.branchName,
+        totalSeats,
+        sold,
+        summary: `${sold}/${totalSeats}`,
+      };
+    });
   }
 }
