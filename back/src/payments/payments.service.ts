@@ -35,7 +35,6 @@ export class PaymentsService {
     const session = await this.stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
-      customer_email: order.user.email,
       line_items: lineItems,
       success_url: `https://kino-henry-pf.vercel.app/payment/success?orderId=${orderId}`,
       cancel_url: `https://kino-henry-pf.vercel.app/payment/fail?orderId=${orderId}`,
