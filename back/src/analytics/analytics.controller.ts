@@ -18,7 +18,7 @@ export class AnalyticsController {
 
   @Get('total-products')
   async getTotalProducts() {
-    return await this.analyticsService.getTotalProductsSold();
+    return await this.analyticsService.getTotalProducts();
   }
 
   @Get('rooms/occupancy')
