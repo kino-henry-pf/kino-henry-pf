@@ -60,7 +60,9 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
 
   const seatsByRow: Record<string, Seat[]> = {};
   rows.forEach((row) => {
-    seatsByRow[row] = seats.filter((seat) => seat.row === row);
+    seatsByRow[row] = seats
+      .filter((seat) => seat.row === row)
+      .sort((a, b) => a.number - b.number);
   });
 
   const formattedDate = new Date(showtimeData.startTime).toLocaleString(
