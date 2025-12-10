@@ -55,8 +55,12 @@ export default function CheckoutSummary({
 
   useEffect(() => {
     async function load() {
-      const movieRes = await api.get<Movie>(`movies/${movie}`);
-      const branchRes = await api.get<Branch>(`branches/${branch}`);
+      const movieRes = await api.get<Movie>(`movies/${movie}`, {
+        disableCache: true,
+      });
+      const branchRes = await api.get<Branch>(`branches/${branch}`, {
+        disableCache: true,
+      });
       const allProducts = await api.get<Product[]>(`products`, {
         disableCache: true,
       });
