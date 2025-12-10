@@ -17,19 +17,24 @@ export default class OrdersService {
 
   async create(dto: CreateOrderDto): Promise<Order> {
     const newOrder = await this.ordersRepository.create(dto);
-    if (!newOrder) throw new BadRequestException(`Order could not be created`);
-    const user = await this.ordersRepository['usersService'].findById(
-      dto.userId,
-    );
-    try {
-      await this.mailService.sendOrderEmail(
-        user.email,
-        newOrder.id,
-        newOrder.total,
-      );
-    } catch (error) {
-      console.error('Error sending order email:', error);
+    if (!newOrder) {
+      throw new BadRequestException(`Order could not be created`);
     }
+
+    this.ordersRepository['usersService']
+      .findById(dto.userId)
+      .then((user) => {
+        return this.mailService.sendOrderEmail(
+          user.email,
+          newOrder.id,
+          newOrder.total,
+        );
+      })
+      .catch((err) => {
+        console.error('Email error:', err);
+      });
+
+    // Immediately return response to frontend
     return newOrder;
   }
 
