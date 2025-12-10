@@ -51,7 +51,7 @@ export class AnalyticsService {
     };
   }
 
-  async getTotalProductsSold(): Promise<{ totalProductsSold: number }> {
+  async getTotalProducts(): Promise<{ totalProducts: number }> {
     const result = await this.orderDetailsRepo
       .createQueryBuilder('detail')
       .innerJoin('detail.order', 'order')
@@ -61,7 +61,7 @@ export class AnalyticsService {
       .getRawOne<{ totalProductsSold: string }>();
 
     return {
-      totalProductsSold: Number(result?.totalProductsSold ?? 0),
+      totalProducts: Number(result?.totalProductsSold ?? 0),
     };
   }
 
