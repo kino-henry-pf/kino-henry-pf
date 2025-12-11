@@ -23,7 +23,7 @@ import {
   SetPlaceIdDto,
   UpdateBranchLocationDto,
 } from './dto/branch-location.dto';
-@Controller('branches')
+
 @ApiTags('branches (Sucursales)')
 @Controller('branches')
 export class BranchController {
@@ -163,56 +163,10 @@ export class BranchController {
     return await this.branchService.getBranchGoogleDetails(id);
   }
 
-  // @Get(':id/maps-url')
-  // @ApiOperation({ summary: 'Get Google Maps URL for a branch' })
-  // @ApiResponse({
-  //   status: 200,
-  //   description: 'Google Maps URL generated',
-  // })
-  // async getGoogleMapsUrl(@Param('id', ParseUUIDPipe) id: string) {
-  //   const branch = await this.branchService.findOne(id);
-  //   const url = this.branchService.getGoogleMapsUrl(branch);
+  @Get(':id/showtimes')
+  async getMoviesWithShowtimes(@Param('id') branchId: string) {
+    return await this.branchService.getMoviesWithShowtimes(branchId)
 
-  //   return {
-  //     branchId: branch.id,
-  //     branchName: branch.name,
-  //     googleMapsUrl: url,
-  //   };
-  // }
 
-  // // ========== Búsqueda de sucursales cercanas ==========
-
-  // @Post('nearby')
-  // @ApiOperation({
-  //   summary: 'Find nearby branches',
-  //   description: 'Finds branches within a specified radius',
-  // })
-  // @ApiResponse({
-  //   status: 200,
-  //   description: 'List of nearby branches with distances',
-  // })
-  // async findNearbyBranches(@Body() nearbyDto: FindNearbyBranchesDto) {
-  //   return await this.branchService.findNearbyBranches(
-  //     nearbyDto.latitude,
-  //     nearbyDto.longitude,
-  //     nearbyDto.maxDistance || 10,
-  //   );
-  // }
-
-  // @Get('nearby')
-  // @ApiOperation({
-  //   summary: 'Find nearby branches (GET version)',
-  //   description: 'Finds branches within a specified radius using query params',
-  // })
-  // @ApiResponse({
-  //   status: 200,
-  //   description: 'List of nearby branches with distances',
-  // })
-  // async findNearbyBranchesGet(@Query() nearbyDto: FindNearbyBranchesDto) {
-  //   return await this.branchService.findNearbyBranches(
-  //     nearbyDto.latitude,
-  //     nearbyDto.longitude,
-  //     nearbyDto.maxDistance || 10,
-  //   );
-  // }
+  }
 }
