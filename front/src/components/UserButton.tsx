@@ -30,19 +30,19 @@ export default function UserButton({
                             href="/myProfile"
                             className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
-                            Mi perfil
+                            My profile
                         </Link>
                         <Link
                           href="/faqs"
                           className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
-                          Preguntas Frecuentes
+                          Frequently Asked Questions
                         </Link>
                         <Link
                             href="/bookings"
                             className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
                         >
-                            Mis reservas
+                            My reservations
                         </Link>
                         {dataUser ? (
                           <div className="flex items-center space-x-4">
@@ -50,7 +50,7 @@ export default function UserButton({
                               onClick={logout}
                               className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700 rounded-lg cursor-pointer"
                             >
-                             <a href="/login">Cerrar Sesion</a> 
+                             <a href="/login">Log out</a> 
                             </button>
                           </div>
                         ) : (

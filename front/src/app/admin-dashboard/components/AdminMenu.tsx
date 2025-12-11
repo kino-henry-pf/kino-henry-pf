@@ -26,22 +26,22 @@ export default function AdminMenu() {
                 >
                     <p className="font-semibold text-md">Navegación</p>
                     <nav className="w-full h-fit flex flex-col">
-                        <AccordionMenuItem primary href="/admin-dashboard" label="Inicio" icon="HomeAlt1" onClick={() => _setOpen(false)} />
-                        <AccordionMenuItem href="/admin-dashboard/users" label="Usuarios" icon="Person">
-                            <AccordionMenuItem href="/admin-dashboard/users" label="Listado de usuarios" icon="PeopleGroup" onClick={() => _setOpen(false)} />
-                            <AccordionMenuItem href="/admin-dashboard/users/create" label="Crear usuario" icon="Clipboard" onClick={() => _setOpen(false)} />
+                        <AccordionMenuItem primary href="/admin-dashboard" label="Home" icon="HomeAlt1" onClick={() => _setOpen(false)} />
+                        <AccordionMenuItem href="/admin-dashboard/users" label="User" icon="Person">
+                            <AccordionMenuItem href="/admin-dashboard/users" label="User List" icon="PeopleGroup" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/users/create" label="Create user" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
-                        <AccordionMenuItem href="/admin-dashboard/movies" label="Películas" icon="Play">
-                            <AccordionMenuItem href="/admin-dashboard/movies" label="Listado de películas" icon="Folder" onClick={() => _setOpen(false)} />
-                            <AccordionMenuItem href="/admin-dashboard/movies/create" label="Crear película" icon="Clipboard" onClick={() => _setOpen(false)} />
+                        <AccordionMenuItem href="/admin-dashboard/movies" label="Movies" icon="Play">
+                            <AccordionMenuItem href="/admin-dashboard/movies" label="Movie List" icon="Folder" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/movies/create" label="Create movie" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
-                        <AccordionMenuItem href="/admin-dashboard/products" label="Productos" icon="WineGlass">
-                            <AccordionMenuItem href="/admin-dashboard/products" label="Listado de productos" icon="BookOpen" onClick={() => _setOpen(false)} />
-                            <AccordionMenuItem href="/admin-dashboard/products/create" label="Crear producto" icon="Clipboard" onClick={() => _setOpen(false)} />
+                        <AccordionMenuItem href="/admin-dashboard/products" label="Products" icon="WineGlass">
+                            <AccordionMenuItem href="/admin-dashboard/products" label="Product List" icon="BookOpen" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/products/create" label="Create product" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
-                        <AccordionMenuItem href="/admin-dashboard/branches" label="Sucursales" icon="CheckIn">
-                            <AccordionMenuItem href="/admin-dashboard/branches" label="Listado de sucursales" icon="Bank" onClick={() => _setOpen(false)} />
-                            <AccordionMenuItem href="/admin-dashboard/branches/create" label="Crear sucursal" icon="Clipboard" onClick={() => _setOpen(false)} />
+                        <AccordionMenuItem href="/admin-dashboard/branches" label="Branches" icon="CheckIn">
+                            <AccordionMenuItem href="/admin-dashboard/branches" label="List of branches" icon="Bank" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/branches/create" label="Create branch" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
                     </nav>
                 </div>

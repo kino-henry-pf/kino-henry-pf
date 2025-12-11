@@ -127,7 +127,7 @@ export default function SingleResourcePage<T>({
                                 <AlertModal
                                     show={_deleteDialog}
                                     title={deleteResource.title}
-                                    shortTitle="Eliminar"
+                                    shortTitle="Delete"
                                     description={deleteResource.description(query.data)}
                                     icon="TrashBin"
                                     onClose={() => _setDeleteDialog(false)}
@@ -140,14 +140,14 @@ export default function SingleResourcePage<T>({
                                                 onClick={() => {
                                                     _setDeleteDialog(false)
                                                 }}
-                                            >Cancelar</Button>
+                                            >Cancel</Button>
                                             <Button
                                                 width="100%"
                                                 onClick={async () => {
                                                     await deleteMutation?.submit({})
                                                     router.push(deleteResource.successRedirect)
                                                 }}
-                                            >Eliminar</Button>
+                                            >Delete</Button>
                                         </nav>
                                     }
                                 />

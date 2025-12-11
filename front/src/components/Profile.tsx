@@ -8,21 +8,21 @@ export default function MyProfilePage() {
   const mockOrders = [
     {
       id: 1,
-      date: "Viernes 3 de Noviembre",
+      date: "Friday, November 3rd",
       movie: "Toy Story",
-      status: "Confirmada"
+      status: "Confirmed"
     },
     {
       id: 2,
-      date: "Sábado 11 de Noviembre",
+      date: "Saturday, November 11th",
       movie: "Avengers",
-      status: "Confirmada"
+      status: "Confirmed"
     },
     {
       id: 3,
-      date: "Domingo 19 de Noviembre",
+      date: "Sunday, November 19th",
       movie: "Interstellar",
-      status: "Cancelada"
+      status: "Canceled"
     },
   ]
 
@@ -30,28 +30,28 @@ export default function MyProfilePage() {
     <div className="min-h-screen bg-[#0F0F0F] text-white p-6 pt-10">
 
       <h1 className="text-4xl font-bold mb-2">
-        Mi <span className="text-yellow-500">Perfil</span>
+        Mi <span className="text-yellow-500">Profile</span>
       </h1>
-      <p className="text-gray-400 mb-10">Información de tu cuenta</p>
+      <p className="text-gray-400 mb-10">Your account information</p>
 
       <div className="bg-[#1A1A1A] p-6 rounded-2xl max-w-xl shadow-lg border border-[#2a2a2a] mb-12">
 
         <div className="mb-6">
-          <p className="text-gray-400 text-sm">Nombre</p>
+          <p className="text-gray-400 text-sm">Name</p>
           <p className="text-xl font-semibold">
-            {dataUser?.user.name || "Cargando..."}
+            {dataUser?.user.name || "Charging..."}
           </p>
         </div>
 
         <div className="mb-6">
           <p className="text-gray-400 text-sm">Email</p>
           <p className="text-xl font-semibold">
-            {dataUser?.user.email || "Cargando..."}
+            {dataUser?.user.email || "Charging..."}
           </p>
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-4">Historial de órdenes</h2>
+      <h2 className="text-2xl font-semibold mb-4">Order history</h2>
 
       <div className="space-y-4 max-w-3xl">
 
@@ -69,7 +69,7 @@ export default function MyProfilePage() {
 
             <p
               className={`text-sm px-3 py-1 rounded-full border 
-                ${order.status === "Confirmada"
+                ${order.status === "Confirmed"
                   ? "border-green-600 text-green-400"
                   : "border-red-600 text-red-400"
                 }`}

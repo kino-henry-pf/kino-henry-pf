@@ -13,17 +13,17 @@ export default function validateMovieCreation(values?: {
     if (!values.image) {
         errors.notFound = "image"
     } else if (values.image.size > 5 * 1024 * 1024) {
-        errors.image = "Debe pesar menos de 5MB"
+        errors.image = "It must weigh less than 5MB"
     }
 
     if (!values.title) {
         errors.notFound = "title"
     } else if (values.title.length > 100) {
-        errors.title = "Debe contener menos de 100 caracteres"
+        errors.title = "It must contain fewer than 100 characters"
     }
 
     if (values.rating && !/^(?:[0-4](?:\.[0-9])?|5(?:\.0)?)$/.test(values.rating)) {
-        errors.rating = "Solo contiene un decimal y debe estar entre el 0 y el 5"
+        errors.rating = "It contains only one decimal place and must be between 0 and 5."
     }
 
     if (!values.genre) {
@@ -33,7 +33,7 @@ export default function validateMovieCreation(values?: {
     if (values.duration === "" || values.duration === undefined) {
         errors.notFound = "duration"
     } else if (!/^(?:([1-9])|([1-9][0-9])|([1-4][0-9]{2})|(500))$/.test(values.duration)) {
-        errors.duration = "Debe ser un número entre 1 y 500"
+        errors.duration = "It must be a number between 1 and 500"
     }
 
     return errors

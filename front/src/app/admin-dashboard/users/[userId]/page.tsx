@@ -14,9 +14,9 @@ export default function AdminUserPage() {
         deleteResource={{
             type: "PATCH",
             path: `users/delete/${params.userId}`,
-            title: "¿Desea eliminar el usuario?",
+            title: "Do you want to delete the user?",
             successRedirect: "/admin-dashboard/users/",
-            description: user => `Se eliminará el usuario ${user.email}`
+            description: user => `The user will be deleted ${user.email}`
         }}
         mapData={user => ({
             title: user.name,
@@ -26,15 +26,15 @@ export default function AdminUserPage() {
                     value: user.id
                 },
                 {
-                    name: "Nombre",
+                    name: "Name",
                     value: user.name
                 },
                 {
-                    name: "Correo electrónico",
+                    name: "Email",
                     value: user.email
                 },
                 ...user.address ? [{
-                    name: "Dirección",
+                    name: "Address",
                     value: user.address
                 }] : []
             ]

@@ -32,42 +32,42 @@ const RegisterForm: React.FC = () => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/;
 
   if (!values.name) {
-    errors.name = "El nombre es obligatorio.";
+    errors.name = "The name is required.";
   } else if (values.name.length < 3) {
-    errors.name = "Debe tener al menos 3 caracteres.";
+    errors.name = "It must have at least 3 characters.";
   } else if (values.name.length > 50) {
-    errors.name = "Debe tener máximo 50 caracteres.";
+    errors.name = "It must have a maximum of 50 characters.";
   }
 
   if (!values.email) {
-    errors.email = "El correo es obligatorio.";
+    errors.email = "Email is required.";
   } else if (!emailRegex.test(values.email)) {
-    errors.email = "Formato de correo inválido.";
+    errors.email = "Invalid email format.";
   }
 
   if (!values.password) {
-    errors.password = "La contraseña es obligatoria.";
+    errors.password = "A password is required.";
   } else if (values.password.length < 8) {
-    errors.password = "Debe tener al menos 8 caracteres.";
+    errors.password = "It must have at least 8 characters.";
   } else if (values.password.length > 20) {
-    errors.password = "Debe tener máximo 20 caracteres.";
+    errors.password = "It must have a maximum of 20 characters.";
   } else if (!passwordRegex.test(values.password)) {
     errors.password =
-      "Debe incluir mayúscula, minúscula, número y caracter especial (!@#$%^&*).";
+      "It must include uppercase letters, lowercase letters, numbers, and special characters (!@#$%^&*).";
   }
 
   if (!values.confirmPassword) {
-    errors.confirmPassword = "Debes confirmar la contraseña.";
+    errors.confirmPassword = "You must confirm the password.";
   } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = "Las contraseñas no coinciden.";
+    errors.confirmPassword = "The passwords do not match.";
   }
 
   if (!values.address) {
-    errors.address = "La dirección es obligatoria.";
+    errors.address = "The address is required.";
   } else if (values.address.length < 3) {
-    errors.address = "Debe tener al menos 3 caracteres.";
+    errors.address = "It must have at least 3 characters.";
   } else if (values.address.length > 100) {
-    errors.address = "Debe tener máximo 100 caracteres.";
+    errors.address = "It must have a maximum of 100 characters.";
   }
 
   return errors;
@@ -76,16 +76,16 @@ const RegisterForm: React.FC = () => {
   const handleSubmit = async (values: FormValues) => {
   try {
     const response = await registerService(values);
-    console.log("Usuario registrado", response)
+    console.log("Registered user", response)
 
-    toast.success("✅ Usuario registrado correctamente");
+    toast.success("✅ User successfully registered");
 
     setTimeout(() => {
       window.location.href = "/login";
     }, 1500);
   } catch (error: any) {
     toast.error(
-      "❌ Error al registrar usuario"
+      "❌ Error registering user"
     );
   }
 };
@@ -108,14 +108,14 @@ const RegisterForm: React.FC = () => {
         {({ isSubmitting }: FormikProps<FormValues>) => (
           <Form className="bg-white/3 p-8 rounded-xl shadow-lg w-full max-w-md space-y-4">
             <h2 className="text-2xl font-bold text-center mb-4 text-white">
-              Registro
+              Register
             </h2>
 
             <div>
               <Field
                 type="text"
                 name="name"
-                placeholder="Nombre"
+                placeholder="Name"
                 className="w-full p-2 rounded bg-[#3d3c3c] text-white"
               />
               <ErrorMessage
@@ -143,7 +143,7 @@ const RegisterForm: React.FC = () => {
               <Field
                 type="password"
                 name="password"
-                placeholder="Contraseña"
+                placeholder="Password"
                 className="w-full p-2 rounded bg-[#3d3c3c] text-white"
               />
               <ErrorMessage
@@ -158,7 +158,7 @@ const RegisterForm: React.FC = () => {
               <Field
                 type="password"
                 name="confirmPassword"
-                placeholder="Confirmar Contraseña"
+                placeholder="Confirm Password"
                 className="w-full p-2 rounded bg-[#3d3c3c] text-white"
               />
               <ErrorMessage
@@ -172,7 +172,7 @@ const RegisterForm: React.FC = () => {
               <Field
                 type="text"
                 name="address"
-                placeholder="Dirección"
+                placeholder="Address"
                 className="w-full p-2 rounded bg-[#3d3c3c] text-white"
               />
               <ErrorMessage
@@ -187,13 +187,13 @@ const RegisterForm: React.FC = () => {
               disabled={isSubmitting}
               className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black cursor-pointer"
             >
-              Registrarse
+              Register
             </button>
 
             <p className="p-2 text-center">
-              Ya tenes cuenta?{" "}
+              Do you already have an account?{" "}
               <a className="text-blue-300" href="/login">
-                Iniciar Sesión
+                Login
               </a>
             </p>
           </Form>

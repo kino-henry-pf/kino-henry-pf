@@ -61,7 +61,7 @@ export default function UploadImage({
                         />
                     ) : <div className="w-full h-full flex items-center justify-center opacity-60 flex-col gap-5 pr-6">
                         <Icon.Image className="size-10" />
-                        <span className="text-xl font-bold">Seleccione una imagen</span>
+                        <span className="text-xl font-bold">Select an image</span>
                     </div>
                 }
             </div>

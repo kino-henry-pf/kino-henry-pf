@@ -40,5 +40,5 @@ export default function OAuthSuccessPage() {
     window.location.href = '/';
   }, [token, setDataUser]);
 
-  return <p>Procesando login...</p>;
+  return <p>Processing login...</p>;
 }

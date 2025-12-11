@@ -9,43 +9,43 @@ export default function CreateBranchPage() {
         <UpsertResourcePage<Branch>
             type="POST"
             resource="branches"
-            title="Crear una nueva sucursal"
-            submitText="Crear sucursal"
-            successMessage="Se ha creado la sucursal"
+            title="Create a new branch"
+            submitText="Create branch"
+            successMessage="The branch has been created"
             validate={validateBranchUpsert}
             successRedirect={() => "/admin-dashboard/branches"}
             backLink="/admin-dashboard/branches"
             mapError={() => {
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
                 {
                     name: "name",
-                    label: "Nombre",
-                    placeholder: "Ej: Centro",
+                    label: "Name",
+                    placeholder: "Ej: Center",
                     icon: "Planet",
                     required: true,
                     autoFocus: true
                 },
                 {
                     name: "address",
-                    label: "Dirección",
+                    label: "Address",
                     icon: "CheckIn",
                     required: true
                 },
                 {
                     name: "latitude",
-                    label: "Latitud",
+                    label: "Latitude",
                     icon: "ArrowUp",
                     type: "number",
                     required: true
                 },
                 {
                     name: "longitude",
-                    label: "Longitud",
+                    label: "Longitude",
                     icon: "ArrowRight",
                     type: "number",
                     required: true

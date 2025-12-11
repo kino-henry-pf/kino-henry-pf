@@ -61,7 +61,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
     loadData();
   }, [params]);
 
-  if (!data) return <p className="p-10">Cargando asientos...</p>;
+  if (!data) return <p className="p-10">Loading seats...</p>;
 
   const {
     movieData,
@@ -125,7 +125,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
 
           {selectedSeats.length > 0 && (
             <div className="mt-5 text-sm text-gray-300">
-              <p className="font-semibold mb-1">Asientos seleccionados:</p>
+              <p className="font-semibold mb-1">Selected seats:</p>
               <div className="flex flex-wrap gap-2">
                 {selectedSeats.map((s) => (
                   <span
@@ -142,7 +142,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
         </aside>
 
         <div className="flex-1 max-w-3xl">
-          <h1 className="text-2xl font-bold mb-6">Selecciona tus asientos</h1>
+          <h1 className="text-2xl font-bold mb-6">Select your seats</h1>
 
           <div className="flex flex-col gap-3 mb-8">
             {rows.map((row) => (
@@ -195,7 +195,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
                 },
               }}
             >
-              Continuar a productos
+              Continue to products
             </Link>
           )}
         </div>

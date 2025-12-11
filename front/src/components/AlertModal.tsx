@@ -65,7 +65,7 @@ export default function AlertModal({
                 </div>
                 {
                     !actions ? (
-                        <Button onClick={!isLoading ? onClose : undefined} width="100%">Cerrar</Button>
+                        <Button onClick={!isLoading ? onClose : undefined} width="100%">Close</Button>
                     ) : actions
                 }
             </div>

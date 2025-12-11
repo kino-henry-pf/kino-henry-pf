@@ -9,16 +9,16 @@ export default function CreateMoviePage() {
         <UpsertResourcePage<Movie>
             type="POST"
             resource="movies"
-            title="Crear una nueva película"
-            submitText="Crear película"
-            successMessage="Se ha creado la película"
+            title="Create a new movie"
+            submitText="Create movie"
+            successMessage="The film has been created"
             validate={validateMovieCreation}
             successRedirect={() => "/admin-dashboard/movies"}
             backLink="/admin-dashboard/movies"
             mapError={() => {
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
@@ -32,14 +32,14 @@ export default function CreateMoviePage() {
                 },
                 {
                     name: "title",
-                    label: "Título",
+                    label: "Títle",
                     icon: "Heart",
                     required: true,
                     autoFocus: true
                 },
                 {
                     name: "synopsis",
-                    label: "Sinopsis",
+                    label: "Synopsis",
                     icon: "Pencil",
                     as: "textarea",
                     required: true,
@@ -47,30 +47,30 @@ export default function CreateMoviePage() {
                 },
                 {
                     name: "genre",
-                    label: "Género",
+                    label: "Genre",
                     icon: "DoubleSword",
                     as: "select",
                     required: true,
                     options: [
                         {
                             value: "action",
-                            label: "Acción"
+                            label: "Action"
                         },
                         {
                             value: "adventure",
-                            label: "Aventura"
+                            label: "Adventure"
                         },
                         {
                             value: "animation",
-                            label: "Animación"
+                            label: "Animatión"
                         },
                         {
                             value: "comedy",
-                            label: "Comedia"
+                            label: "Comedy"
                         },
                         {
                             value: "crime",
-                            label: "Crimen"
+                            label: "Crime"
                         },
                         {
                             value: "drama",
@@ -78,7 +78,7 @@ export default function CreateMoviePage() {
                         },
                         {
                             value: "fantasy",
-                            label: "Fantasía"
+                            label: "Fantasy"
                         },
                         {
                             value: "horror",
@@ -86,7 +86,7 @@ export default function CreateMoviePage() {
                         },
                         {
                             value: "mistery",
-                            label: "Misterio"
+                            label: "Mistery"
                         },
                         {
                             value: "romance",
@@ -102,7 +102,7 @@ export default function CreateMoviePage() {
                         },
                         {
                             value: "documentary",
-                            label: "Documental"
+                            label: "Documentary"
                         },
                         {
                             value: "musical",
@@ -110,32 +110,32 @@ export default function CreateMoviePage() {
                         },
                         {
                             value: "war",
-                            label: "Guerra"
+                            label: "War"
                         },
                         {
                             value: "western",
-                            label: "Lejano oeste"
+                            label: "Western"
                         },
                         {
                             value: "historical",
-                            label: "Historico"
+                            label: "Historical"
                         },
                         {
                             value: "sports",
-                            label: "Deportes"
+                            label: "Sports"
                         }
                     ]
                 },
                 {
                     name: "rating",
-                    label: "Calificación inicial",
+                    label: "Initial qualification",
                     icon: "Star",
                     required: true,
                     type: "number"
                 },
                 {
                     name: "duration",
-                    label: "Duración en minutos",
+                    label: "Duration in minutes",
                     icon: "Clock",
                     required: true,
                     type: "number"

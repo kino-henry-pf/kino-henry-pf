@@ -17,7 +17,7 @@ export default function RoomCard({
         >
             <h3 className="text-md font-semibold">{name}</h3>
             <div className="absolute bottom-0 left-0 lg:bottom-unset lg:left-unset w-full lg:w-fit max-w-full flex items-center gap-4 lg:relative">
-                <span className="text-sm opacity-65 font-semibold hidden lg:flex">{seats-sold} asientos de {seats}</span>
+                <span className="text-sm opacity-65 font-semibold hidden lg:flex">{seats-sold} seats of {seats}</span>
                 <div className="w-full absolute bottom-0 left-0 lg:relative lg:bottom-unset lg:left-unset lg:w-[220px] max-w-full bg-[var(--background)] lg:border-1 border-[var(--color-border)] h-1 lg:h-4 relative">
                     <div style={{width: `${100-((sold/seats)*100)}%`}} className={`h-full bg-[var(--color-primary)]`}></div>
                 </div>

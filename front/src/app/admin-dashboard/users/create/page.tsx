@@ -9,29 +9,29 @@ export default function CreateUserPage() {
         <UpsertResourcePage<User>
             type="POST"
             resource="auth/register"
-            title="Crear un nuevo usuario"
-            submitText="Crear usuario"
-            successMessage="Se ha creado el usuario"
+            title="Create a new user"
+            submitText="Create user"
+            successMessage="The user has been created"
             validate={validateUserCreation}
             successRedirect={() => "/admin-dashboard/users"}
             backLink="/admin-dashboard/users"
             mapError={error => {
                 if (error && error["statusCode"] && error["statusCode"] === 409) {
                     return {
-                        title: "Correo en uso",
-                        description: "La dirección de correo electrónico proporcionada ya está en uso"
+                        title: "Mail in use",
+                        description: "The email address provided is already in use"
                     }
                 }
 
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
                 {
                     name: "name",
-                    label: "Nombre",
+                    label: "Name",
                     placeholder: "Ej: Lindo Aramsito",
                     icon: "Person",
                     required: true,
@@ -39,25 +39,25 @@ export default function CreateUserPage() {
                 },
                 {
                     name: "email",
-                    label: "Correo electrónico",
+                    label: "Email",
                     icon: "Mention",
                     required: true
                 },
                 {
                     name: "address",
-                    label: "Dirección",
+                    label: "Address",
                     icon: "CheckIn"
                 },
                 {
                     name: "password",
-                    label: "Contraseña",
+                    label: "Password",
                     icon: "Key",
                     type: "password",
                     required: true
                 },
                 {
                     name: "confirmPassword",
-                    label: "Repita la contraseña",
+                    label: "Confirm Password",
                     icon: "Key",
                     type: "password",
                     required: true

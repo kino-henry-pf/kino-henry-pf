@@ -13,12 +13,12 @@ export default function AdminMoviePage() {
         backLink="/admin-dashboard/movies"
         deleteResource={{
             path: `movies/${params.movieId}`,
-            title: "¿Desea eliminar esta película?",
-            description: movie => `Se eliminará la película "${movie.title}"`,
+            title: "Do you want to delete this movie?",
+            description: movie => `The film will be removed "${movie.title}"`,
             successRedirect: "/admin-dashboard/movies"
         }}
         mapData={movie => ({
-            title: "Película: " + movie.title,
+            title: "Movie: " + movie.title,
             image: movie.image,
             rows: [
                 {
@@ -26,19 +26,19 @@ export default function AdminMoviePage() {
                     value: movie.id
                 },
                 {
-                    name: "Título",
+                    name: "Títle",
                     value: movie.title
                 },
                 {
-                    name: "Sinopsis",
+                    name: "Synopsis",
                     value: movie.synopsis
                 },
                 {
-                    name: "Género",
+                    name: "Genre",
                     value: movie.genre
                 },
                 {
-                    name: "Calificación",
+                    name: "Qualification",
                     value: movie.rating
                 }
             ]

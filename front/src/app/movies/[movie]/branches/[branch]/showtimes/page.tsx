@@ -18,7 +18,7 @@ export default async function ShowtimesPage({
   if (!showtimes.length) {
     return (
       <main className="p-10">
-        <h1>No hay horarios disponibles 😞</h1>
+        <h1>No times available 😞</h1>
       </main>
     );
   }
@@ -40,7 +40,7 @@ export default async function ShowtimesPage({
 
   return (
     <main className="container-x-padding py-10">
-      <h1 className="text-2xl font-bold mb-6">Horarios disponibles</h1>
+      <h1 className="text-2xl font-bold mb-6">Available times</h1>
 
       <div className="grid grid-cols-1 gap-6">
         {showtimes.map((show) => (
@@ -60,7 +60,7 @@ export default async function ShowtimesPage({
               href={`/movies/${movie}/branches/${branch}/showtimes/${show.id}/seats`}
             >
               <button className="mt-4 px-4 py-2 rounded bg-[var(--color-primary)] text-[var(--primary-foreground)] font-bold cursor-pointer">
-                Seleccionar
+                Select
               </button>
             </Link>
           </div>

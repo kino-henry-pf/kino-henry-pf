@@ -35,10 +35,10 @@ export default function AdminDashboardLayout({
             <main className="w-full h-fit min-h-[calc(100vh-6rem)] relative grid grid-cols-1 grid-rows-[auto_1fr]">
                 <section className="w-full h-fit container-x-padding grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-5 items-center border-t-1 border-b-1 border-[var(--color-border)] py-10">
                     <div className="h-fit w-fit flex flex-col">
-                        <h1 className="text-3xl font-bold">Bienvenido, <span className="text-[var(--color-primary)]">{auth?.user.name.split(" ")[0]}</span></h1>
-                        <p className="text-md opacity-50">Muestra métricas clave de la plataforma: usuarios, productos, películas y opiniones, todo en un solo lugar.</p>
+                        <h1 className="text-3xl font-bold">Welcome, <span className="text-[var(--color-primary)]">{auth?.user.name.split(" ")[0]}</span></h1>
+                        <p className="text-md opacity-50">It displays key platform metrics: users, products, movies, and reviews, all in one place.</p>
                     </div>
-                    <Button rounded>Imprimir reporte</Button>
+                    <Button rounded>Print report</Button>
                 </section>
                 <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 py-10 container-x-padding max-lg-no-padding">
                     <AdminMenu />

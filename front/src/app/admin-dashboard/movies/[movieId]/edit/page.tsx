@@ -13,17 +13,17 @@ export default function UpdateMoviePage() {
             type="PATCH"
             resource={`movies/${params.movieId}`}
             getterResource={`movies/${params.movieId}`}
-            title="Modificar película"
-            submitText="Aplicar cambios"
-            successMessage="Se ha modificado la película"
+            title="Modify movie"
+            submitText="Apply changes"
+            successMessage="The film has been modified"
             validate={validateMovieUpdate}
             mapPreview={data => data.image}
             successRedirect={movie => `/admin-dashboard/movies/${movie?.id}`}
             backLink={`/admin-dashboard/movies/${params.movieId}`}
             mapError={() => {
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
@@ -37,14 +37,14 @@ export default function UpdateMoviePage() {
                 },
                 {
                     name: "title",
-                    label: "Título",
+                    label: "Títle",
                     icon: "Heart",
                     required: true,
                     autoFocus: true
                 },
                 {
                     name: "synopsis",
-                    label: "Sinopsis",
+                    label: "Synopsis",
                     icon: "Pencil",
                     as: "textarea",
                     required: true,
@@ -52,30 +52,30 @@ export default function UpdateMoviePage() {
                 },
                 {
                     name: "genre",
-                    label: "Género",
+                    label: "Genre",
                     icon: "DoubleSword",
                     as: "select",
                     required: true,
                     options: [
                         {
                             value: "action",
-                            label: "Acción"
+                            label: "Actión"
                         },
                         {
                             value: "adventure",
-                            label: "Aventura"
+                            label: "Adventure"
                         },
                         {
                             value: "animation",
-                            label: "Animación"
+                            label: "Animatión"
                         },
                         {
                             value: "comedy",
-                            label: "Comedia"
+                            label: "Comedy"
                         },
                         {
                             value: "crime",
-                            label: "Crimen"
+                            label: "Crime"
                         },
                         {
                             value: "drama",
@@ -83,7 +83,7 @@ export default function UpdateMoviePage() {
                         },
                         {
                             value: "fantasy",
-                            label: "Fantasía"
+                            label: "Fantasy"
                         },
                         {
                             value: "horror",
@@ -91,7 +91,7 @@ export default function UpdateMoviePage() {
                         },
                         {
                             value: "mistery",
-                            label: "Misterio"
+                            label: "Mistery"
                         },
                         {
                             value: "romance",
@@ -107,7 +107,7 @@ export default function UpdateMoviePage() {
                         },
                         {
                             value: "documentary",
-                            label: "Documental"
+                            label: "Documentary"
                         },
                         {
                             value: "musical",
@@ -115,32 +115,32 @@ export default function UpdateMoviePage() {
                         },
                         {
                             value: "war",
-                            label: "Guerra"
+                            label: "war"
                         },
                         {
                             value: "western",
-                            label: "Lejano oeste"
+                            label: "Western"
                         },
                         {
                             value: "historical",
-                            label: "Historico"
+                            label: "Historical"
                         },
                         {
                             value: "sports",
-                            label: "Deportes"
+                            label: "Sports"
                         }
                     ]
                 },
                 {
                     name: "rating",
-                    label: "Calificación inicial",
+                    label: "Initial qualification",
                     icon: "Star",
                     required: true,
                     type: "number"
                 },
                 {
                     name: "duration",
-                    label: "Duración en minutos",
+                    label: "Duration in minutes",
                     icon: "Clock",
                     required: true,
                     type: "number"

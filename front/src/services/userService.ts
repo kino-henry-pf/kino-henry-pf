@@ -15,8 +15,7 @@ export async function registerService(userData: FormValues) {
     if (response.ok) {
             return response.json();
         } else {
-            alert("No pudimos registrarte con exito");
-            throw new Error("Registro fallido");
+            throw new Error("Registration failed");
         }
     } catch (error: any) {
       throw new Error(error);
@@ -35,8 +34,7 @@ export async function loginService(userData: LoginValues) {
     if (response.ok) {
             return response.json();
         } else {
-            alert("No pudimos loguearte con exito");
-            throw new Error("Logueo fallido");
+            throw new Error("Login failed");
         }
     } catch (error: any) {
       throw new Error(error);
