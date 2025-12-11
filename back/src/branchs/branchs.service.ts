@@ -57,5 +57,10 @@ export class BranchService {
     return this.branchRepository.getGoogleMapsUrl(branch)
   }
 
+  async getMoviesWithShowtimes(branchId: string) {
+    return this.branchRepository.getMoviesWithShowtimes(branchId)
+
+  }
+
 
 }

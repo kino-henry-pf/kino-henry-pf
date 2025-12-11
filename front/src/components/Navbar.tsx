@@ -151,6 +151,13 @@ export default function Navbar() {
             Menú
           </Link>
 
+          <Link
+                href="/branches"
+                className="text-white hover:text-gray-300 transition"
+              >
+                Sucursales
+              </Link>
+
           {!dataUser && (
             <>
               <Link
