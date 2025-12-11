@@ -13,9 +13,9 @@ export default function AdminBranchPage() {
         backLink="/admin-dashboard/branches"
         deleteResource={{
             path: `branches/${params.branchId}`,
-            title: "¿Desea eliminar la sucursal?",
+            title: "Do you want to delete the branch?",
             successRedirect: "/admin-dashboard/branches/",
-            description: branch => `Se eliminará la sucursal ${branch.name}`
+            description: branch => `The branch will be closed ${branch.name}`
         }}
         mapData={branch => ({
             title: branch.name,
@@ -25,15 +25,15 @@ export default function AdminBranchPage() {
                     value: branch.id
                 },
                 {
-                    name: "Nombre",
+                    name: "Name",
                     value: branch.name
                 },
                 {
-                    name: "Dirección",
+                    name: "Address",
                     value: branch.address
                 },
                 {
-                    name: "Mapa",
+                    name: "Map",
                     value: branch.latitude + ", " + branch.longitude
                 }
             ]

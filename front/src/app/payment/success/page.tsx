@@ -9,16 +9,15 @@ export default async function SuccessPage(props: {
   if (!searchParams.orderId) redirect('/');
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-10">
-      <h1 className="text-3xl font-bold text-green-600">Pago exitoso!</h1>
+      <h1 className="text-3xl font-bold text-green-600">Successful payment!</h1>
 
       <p className="mt-4 text-lg text-gray-400">
-        Tu orden fue procesada correctamente. En unos instantes recibirás tus
-        entradas a tu correo.
+        Your order was processed successfully. You will receive your tickets in your email shortly.
       </p>
 
       <p className="mt-2 text-gray-500">Order ID: {searchParams.orderId}</p>
       <Link href="/" className="mt-6">
-        <Button>Volver al inicio</Button>
+        <Button>Back to home</Button>
       </Link>
     </main>
   );

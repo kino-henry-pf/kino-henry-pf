@@ -11,16 +11,16 @@ export default function PageError() {
         <div className="text-yellow-500 text-6xl mb-4 select-none">🚫</div>
 
         <h1 className="text-3xl font-bold mb-3">
-          Acceso restringido
+          Restricted access
         </h1>
 
         <p className="text-zinc-400 mb-8">
-          Solo los administradores pueden entrar a esta sección.
+          Only administrators can access this section.
         </p>
 
         <Link href="/">
           <button className="w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black font-semibold transition cursor-pointer">
-            Volver al inicio
+            Back to home
           </button>
         </Link>
 

@@ -13,43 +13,43 @@ export default function UpdateBranchPage() {
             type="PATCH"
             resource={`branches/${params.branchId}`}
             getterResource={`branches/${params.branchId}`}
-            title="Modifica una sucursal"
-            submitText="Actualizar sucursal"
-            successMessage="Se ha actualizado la sucursal"
+            title="Modify a branch"
+            submitText="Update branch"
+            successMessage="The branch has been updated"
             validate={validateBranchUpsert}
             successRedirect={branch => `/admin-dashboard/branches/${branch?.id}`}
             backLink={`/admin-dashboard/branches/${params.branchId}`}
             mapError={() => {
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
                 {
                     name: "name",
-                    label: "Nombre",
-                    placeholder: "Ej: Centro",
+                    label: "Name",
+                    placeholder: "Ej: Center",
                     icon: "Planet",
                     required: true,
                     autoFocus: true
                 },
                 {
                     name: "address",
-                    label: "Dirección",
+                    label: "Address",
                     icon: "CheckIn",
                     required: true
                 },
                 {
                     name: "latitude",
-                    label: "Latitud",
+                    label: "Latitude",
                     icon: "ArrowUp",
                     type: "number",
                     required: true
                 },
                 {
                     name: "longitude",
-                    label: "Longitud",
+                    label: "Longitude",
                     icon: "ArrowRight",
                     type: "number",
                     required: true

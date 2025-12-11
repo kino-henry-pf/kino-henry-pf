@@ -7,9 +7,9 @@ import * as Icon from "akar-icons"
 
 export default function AdminUsersPage() {
     return <ResourcePage<User>
-        title="Usuarios"
+        title="Users"
         resource="users"
-        head={["Nombre", "Correo electrónico", "Dirección", ""]}
+        head={["Name", "Email", "Address", ""]}
         mapRow={user => ({
             resourceId: user.id,
             value: [

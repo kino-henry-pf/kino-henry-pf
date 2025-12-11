@@ -153,7 +153,7 @@ export default function UpsertResourcePage<T>({
                             }}
                             title={successMessage}
                             icon="CircleCheck"
-                            shortTitle="Operación exitosa"
+                            shortTitle="Successful operation"
                         />
                     </>
                 )

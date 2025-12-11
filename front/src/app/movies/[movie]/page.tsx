@@ -26,7 +26,7 @@ export default async function MoviePage({
           </section>
 
           <section className="py-10 container-x-padding flex flex-col gap-10">
-            <h2 className="text-xl font-bold">Opiniones</h2>
+            <h2 className="text-xl font-bold">Opinions</h2>
             <div className="w-full h-fit flex flex-col gap-5">
               <OpinionCard />
               <OpinionCard />

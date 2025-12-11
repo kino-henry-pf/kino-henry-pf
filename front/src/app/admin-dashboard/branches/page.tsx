@@ -6,9 +6,9 @@ import { Branch } from "@/types/branch"
 
 export default function AdminBranchesPage() {
     return <ResourcePage<Branch>
-        title="Sucursales"
+        title="Branches"
         resource="branches"
-        head={["Nombre", "Dirección"]}
+        head={["Name", "Address"]}
         mapRow={branch => ({
             resourceId: branch.id,
             value: [

@@ -29,14 +29,14 @@ export default function AdminDashboardPage() {
     && roomsOccupancyQuery.data ? (
         <>
             <section className="w-full h-fit flex flex-col gap-3 lg:![padding-right:0] lg:![padding-left:0] container-x-padding">
-                <p>Estadísticas</p>
+                <p>Statistics</p>
                 <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <DataCard
                         icon="Glasses"
                         value={
                             productsQuery.data?.totalProducts.toString() || "-"
                         }
-                        label="Productos vendidos"
+                        label="Products sold"
                         color="cyan"
                     />
                     <DataCard
@@ -44,7 +44,7 @@ export default function AdminDashboardPage() {
                         value={
                             ticketsQuery.data?.totalTickets.toString() || "-"
                         }
-                        label="Tickets vendidos"
+                        label="Tickets sold"
                         color="orange"
                     />
                     <DataCard
@@ -55,13 +55,13 @@ export default function AdminDashboardPage() {
                                 currency: "ARS"
                             }) || "-"
                         }
-                        label="Total recaudado"
+                        label="Total raised"
                         color="purple"
                     />
                 </div>
             </section>
             <section className="w-full h-fit flex flex-col gap-7 lg:![padding-right:0] lg:![padding-left:0] container-x-padding pb-5 xl:pb-0">
-                <p>Capacidad de las salas</p>
+                <p>Room capacity</p>
                 <div className="w-full flex flex-col gap-7">
                     {
                         roomsOccupancyQuery.data?.reduce((acc, curr) => {

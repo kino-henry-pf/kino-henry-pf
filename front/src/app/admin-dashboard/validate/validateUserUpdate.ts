@@ -11,9 +11,9 @@ export default function validateUserUpdate(values?: {
 
     if (values.name) {
         if (values.name.length > 50) {
-            errors.name = "Debe contener menos de 50 caracteres"
+            errors.name = "It must contain fewer than 50 characters"
         } else if (values.name.length < 3) {
-            errors.name = "Debe contener más de 3 caracteres"
+            errors.name = "It must contain more than 3 characters"
         }
     } else {
         errors.notFound = "name"
@@ -23,7 +23,7 @@ export default function validateUserUpdate(values?: {
         values.email
         && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
     ) {
-        errors.email = "Ingrese un correo válido"
+        errors.email = "Enter a valid email address"
     } else if (!values.email) {
         errors.notFound = "email"
     }
@@ -32,9 +32,9 @@ export default function validateUserUpdate(values?: {
         values.address
     ) {
         if (values.address.length > 100) {
-            errors.address = "Debe contener menos de 100 caracteres"
+            errors.address = "It must contain fewer than 100 characters"
         } else if (values.address.length < 3) {
-            errors.address = "Debe contener al menos 3 caracteres"
+            errors.address = "It must contain at least 3 characters"
         }
     }
 

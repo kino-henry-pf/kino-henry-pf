@@ -11,9 +11,9 @@ export default function validateUserCreation(values?: {
 
     if (values.name) {
         if (values.name.length > 50) {
-            errors.name = "Debe contener menos de 50 caracteres"
+            errors.name = "It must contain fewer than 50 characters"
         } else if (values.name.length < 3) {
-            errors.name = "Debe contener más de 3 caracteres"
+            errors.name = "It must contain more than 3 characters"
         }
     } else {
         errors.notFound = "name"
@@ -23,7 +23,7 @@ export default function validateUserCreation(values?: {
         values.email
         && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
     ) {
-        errors.email = "Ingrese un correo válido"
+        errors.email = "Enter a valid email address"
     } else if (!values.email) {
         errors.notFound = "email"
     }
@@ -32,28 +32,28 @@ export default function validateUserCreation(values?: {
         values.address
     ) {
         if (values.address.length > 100) {
-            errors.address = "Debe contener menos de 100 caracteres"
+            errors.address = "It must contain fewer than 100 characters"
         } else if (values.address.length < 3) {
-            errors.address = "Debe contener al menos 3 caracteres"
+            errors.address = "It must contain at least 3 characters"
         }
     }
 
     if (values.password) {
         if (values.password.length > 20) {
-            errors.password = "Debe contener menos de 20 caracteres"
+            errors.password = "It must contain fewer than 20 characters"
         } else if (values.password.length < 8) {
-            errors.password = "Debe contener más de 8 caracteres"
+            errors.password = "It must contain more than 8 characters"
         } else if (
             !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/.test(values.password)
         ) {
-            errors.password = "Debe contener al menos: una letra minúscula, una letra mayúscula, un numero y un caracter especial"
+            errors.password = "It must contain at least: one lowercase letter, one uppercase letter, one number, and one special character."
         }
     } else {
         errors.notFound = "password"
     }
 
     if (values.confirmPassword && values.confirmPassword !== values.password) {
-        errors.confirmPassword = "No coincide con la contraseña"
+        errors.confirmPassword = "The password does not match."
     } else if (!values.confirmPassword) {
         errors.notFound = "confirmPassword"
     }
