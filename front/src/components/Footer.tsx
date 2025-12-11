@@ -29,6 +29,9 @@ export default function Footer() {
                     <li>
                         <Link href="/faqs" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Preguntas frecuentes</Link>
                     </li>
+                    <li>
+                        <Link href="/branches" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Sucursales</Link>
+                    </li>
                 </ul>
             </nav>
             <nav className="flex flex-col gap-2 items-end text-right w-full lg:w-fit lg:items-start lg:text-left">
