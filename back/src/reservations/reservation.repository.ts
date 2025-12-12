@@ -20,7 +20,14 @@ export default class ReservationRepository {
   ) {}
 
   async getByUser(userId: string): Promise<Reservation[]> {
-    return await this.reservationRepository.find({ where: { userId } });
+    return await this.reservationRepository.find({
+      where: { userId },
+      relations: {
+        showtime: {
+          movie: true
+        }
+      }
+    });
   }
 
   async getById(id: string): Promise<Reservation | null> {
