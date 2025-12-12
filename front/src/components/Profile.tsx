@@ -1,30 +1,40 @@
 'use client'
 
 import { useAuth } from "@/context/authContext"
+import { useEffect, useState } from "react";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function MyProfilePage() {
-  const { dataUser } = useAuth();
 
-  const mockOrders = [
-    {
-      id: 1,
-      date: "Friday, November 3rd",
-      movie: "Toy Story",
-      status: "Confirmed"
-    },
-    {
-      id: 2,
-      date: "Saturday, November 11th",
-      movie: "Avengers",
-      status: "Confirmed"
-    },
-    {
-      id: 3,
-      date: "Sunday, November 19th",
-      movie: "Interstellar",
-      status: "Canceled"
-    },
-  ]
+  const { dataUser } = useAuth();
+  const [historial, setHistorial] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!dataUser?.user.id) return;
+
+    const historialProfile = async (userID: string) => {
+      try {
+        const response = await fetch(`${API_URL}/reservations/user/${userID}`);
+
+        if (!response.ok) {
+          throw new Error("Error retrieving reservations");
+        }
+
+        const data = await response.json();
+        console.log("RESERVATIONS DATA ===>", data);
+        setHistorial(data);
+
+      } catch (error) {
+        console.error("reservationsService error:", error);
+        setHistorial([]);
+      }
+    };
+
+    // acá la ejecutamos pasándole el userID
+    historialProfile(dataUser.user.id);
+
+  }, [dataUser]);
 
   return (
     <div className="min-h-screen bg-[#0F0F0F] text-white p-6 pt-10">
@@ -55,7 +65,7 @@ export default function MyProfilePage() {
 
       <div className="space-y-4 max-w-3xl">
 
-        {mockOrders.map(order => (
+        {historial.map(order => (
           <div
             key={order.id}
             className="bg-[#1A1A1A] border border-[#2a2a2a] rounded-xl px-6 py-4 flex justify-between items-center shadow-md"
@@ -81,5 +91,5 @@ export default function MyProfilePage() {
 
       </div>
     </div>
-  )
+  );
 }
