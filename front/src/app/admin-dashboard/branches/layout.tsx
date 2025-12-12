@@ -8,7 +8,7 @@ export default function AdminBranchesLayout({
     return (
         <>
             <Script
-                src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}&loading=async`}
+                src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&loading=async`}
                 strategy="afterInteractive"
             />
             {children}
