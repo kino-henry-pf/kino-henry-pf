@@ -44,6 +44,7 @@ export default function AccordionMenuItem({
                     "w-full h-fit px-4 grid items-center grid-cols-[auto_1fr_auto] gap-4",
                     !children && !primary ? "pl-10 py-2" : "py-3"
                 ].join(" ")}
+                scroll={false}
             >
                 <Icon className="size-4" />
                 <span>{label}</span>
