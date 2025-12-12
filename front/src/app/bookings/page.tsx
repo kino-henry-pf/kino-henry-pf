@@ -19,7 +19,7 @@ export default function Dashboard() {
                             <p>You have 4 bookings today</p>
                         </div>
                         <Link
-                            href="/bookings"
+                            href="/"
                             className="w-fit h-fit px-6 py-3 bg-[var(--color-primary)] rounded-full font-semibold text-sm text-[var(--primary-foreground)]"
                         >
                             Book new tickets
