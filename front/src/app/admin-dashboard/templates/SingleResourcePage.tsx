@@ -68,7 +68,7 @@ export default function SingleResourcePage<T>({
                         <div className="w-full h-fit flex flex-col gap-10 container-x-padding lg:![padding-left:0] lg:![padding-right:0]">
                             <div className="w-full flex items-center gap-10 justify-between">
                                 <div className="w-full h-fit flex items-center gap-10">
-                                    <IconButton type="link" href={backLink}>
+                                    <IconButton scroll={false} type="link" href={backLink}>
                                         <Icon.ArrowLeft className="size-5" />
                                     </IconButton>
                                     <span>{data.title}</span>
@@ -76,7 +76,7 @@ export default function SingleResourcePage<T>({
                                 <nav className="w-fit h-fit flex items-center gap-3">
                                     {
                                         editLink && (
-                                            <IconButton small type="link" href={editLink}>
+                                            <IconButton scroll={false} small type="link" href={editLink}>
                                                 <Icon.Edit className="size-4" />
                                             </IconButton>
                                         )

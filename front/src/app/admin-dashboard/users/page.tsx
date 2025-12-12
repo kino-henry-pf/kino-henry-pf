@@ -14,16 +14,19 @@ export default function AdminUsersPage() {
             resourceId: user.id,
             value: [
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/users/${user.id}`}
                 >
                     {user.name}
                 </Link>,
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/users/${user.id}`}
                 >
                     {user.email}
                 </Link>,
                 <Link
+                    scroll={false}
                     className="max-w-[150px] block overflow-hidden text-ellipsis"
                     href={`/admin-dashboard/users/${user.id}`}
                 >
