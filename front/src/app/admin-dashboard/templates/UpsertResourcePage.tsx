@@ -22,6 +22,7 @@ export default function UpsertResourcePage<T>({
     fields,
     getterResource,
     backLink,
+    mapDefaultValues,
     successRedirect,
     mapPreview,
     validate,
@@ -35,6 +36,7 @@ export default function UpsertResourcePage<T>({
     fields: FormField[],
     getterResource?: string,
     backLink?: string,
+    mapDefaultValues?: (fetched: T) => any,
     successRedirect?: (query: T | null) => string,
     mapPreview?: (field: T) => string,
     validate?: (values: any) => any,
@@ -79,6 +81,15 @@ export default function UpsertResourcePage<T>({
         }
     }, [mutation.data])
 
+    useEffect(() => {
+        if (!query?.data || !mapDefaultValues) return
+        const dv = mapDefaultValues(query.data)
+        Object.entries(dv).forEach(([key, value]) => {
+            const field = fields.find(f => f.name === key)
+            if (field) field.defaultValue = value
+        })
+    }, [query?.data])
+
     return (
         <div className="w-full h-fit" ref={topSectionRef}>
             {
@@ -90,11 +101,11 @@ export default function UpsertResourcePage<T>({
                                 Object.fromEntries(
                                     fields.map(field => [
                                         field.name,
-                                        field.as === "select" ? field.options?.[0].value ?? "" : field.as !== "file" ? query?.data?.[field.name as keyof T] ?? "" : ""
+                                        field.as === "select" ? field.options?.[0].value ?? "" : field.as === "location" ? {lat: 0, lng: 0} : field.as !== "file" ? (query?.data?.[field.name as keyof T] ?? "") : field.defaultValue ?? ""
                                     ])
                                 )
                             }
-                            onSubmit={body => mutation.submit(body)}
+                            onSubmit={body => mutation.submit({...body, location: undefined})}
                             validate={validate}
                         >
                             {
@@ -114,7 +125,7 @@ export default function UpsertResourcePage<T>({
                                             {
                                                 fields.map((field, index) => {
                                                     const preview = query?.data ? (mapPreview?.(query.data)) : undefined
-                                                    return <Field disabled={field.isLoading || field.disabled || query?.isLoading || mutation.isLoading} preview={preview} {...field } key={index} />
+                                                    return <Field onChange={field.onChange} disabled={field.isLoading || field.disabled || query?.isLoading || mutation.isLoading} preview={preview} {...field } key={index} />
                                                 })
                                             }
                                             <div className="w-full lg:w-[66.6%] lg:ml-auto h-12 flex justify-end pt-4 xl:pt-2">

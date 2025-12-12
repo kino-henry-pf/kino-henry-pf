@@ -1,4 +1,5 @@
 import * as Icon from "akar-icons"
+import { Form as FormikForm } from "formik"
 
 export type Room = {
     id: string
@@ -18,6 +19,9 @@ export type FormField = {
     isLoading?: boolean
     disabled?: boolean
     preview?: string
+    defaultValue?: any
+    onChange?: (values: any) => any,
+    form?: typeof FormikForm,
     options?: {
         value: string
         label: string
