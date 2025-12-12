@@ -38,12 +38,10 @@ export default function LocationPicker({
                 center: {lat: 39.8283, lng: -98.5795},
                 zoom: 4,
                 gestureHandling: "greevy",
-                disableDefaultUI: true,
                 fullscreenControl: false,
                 streetViewControl: false,
                 clickableIcons: false,
-                mapId: "1",
-                mapTypeControl: false
+                mapId: "1"
             })
 
             mapInstanceRef.current.addListener("idle", () => {

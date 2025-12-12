@@ -43,6 +43,10 @@ export default function AdminMenu() {
                             <AccordionMenuItem href="/admin-dashboard/branches" label="List of branches" icon="Bank" onClick={() => _setOpen(false)} />
                             <AccordionMenuItem href="/admin-dashboard/branches/create" label="Create branch" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
+                        <AccordionMenuItem href="/admin-dashboard/rooms" label="Rooms" icon="Door">
+                            <AccordionMenuItem href="/admin-dashboard/rooms" label="List of rooms" icon="BookClose" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/rooms/create" label="Create room" icon="Clipboard" onClick={() => _setOpen(false)} />
+                        </AccordionMenuItem>
                     </nav>
                 </div>
             </aside>
