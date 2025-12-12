@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, PlaceInputType } from '@googlemaps/google-maps-services-js';
 
@@ -150,13 +150,13 @@ export class GoogleMapsService {
     try {
       const response = await this.client.reverseGeocode({
         params: {
-          latlng: { lat: latitude, lng: longitude },
+          latlng: [latitude, longitude],
           key: this.apiKey,
         },
       });
 
       if (response.data.status !== 'OK' || response.data.results.length === 0) {
-        throw new Error('Location not found');
+        throw new NotFoundException('Location not found');
       }
 
       const result = response.data.results[0];
@@ -166,8 +166,7 @@ export class GoogleMapsService {
         placeId: result.place_id,
       };
     } catch (error) {
-      this.logger.error('Error reverse geocoding:', error);
-      throw new Error('Failed to reverse geocode coordinates');
+      throw error;
     }
   }
 

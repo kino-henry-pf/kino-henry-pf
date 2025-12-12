@@ -40,6 +40,10 @@ a, button {
   user-select: none;
 }
 
+gmp-internal-dialog {
+  display: none;
+}
+
 .container-x-padding {
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);

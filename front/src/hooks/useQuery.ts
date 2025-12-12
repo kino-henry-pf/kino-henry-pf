@@ -4,7 +4,9 @@ import { useAuth } from "@/context/authContext"
 import { apiClient } from "@/services/apiClient"
 import { useCallback, useEffect, useState } from "react"
 
-export const useQuery = <T>(path: string) => {
+export const useQuery = <T>(path: string, options?: {
+    autoFetch?: boolean
+}) => {
     const {dataUser: auth} = useAuth()
 
     const [_data, _setData] = useState<T | null>(null),
@@ -34,8 +36,13 @@ export const useQuery = <T>(path: string) => {
 
     useEffect(() => {
         if (!auth) return
+        else if (options?.autoFetch === false) {
+            _setIsLoading(false)
+            return
+        }
+
         handleFetch()
-    }, [auth, handleFetch])
+    }, [auth, options?.autoFetch, handleFetch])
 
     return {
         data: _data,

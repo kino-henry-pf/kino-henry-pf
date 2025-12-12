@@ -27,13 +27,10 @@ export default function validateBranchUpsert(values?: {
     }
 
     if (values.longitude && isNaN(values.longitude)) {
-        console.log(values.longitude)
         errors.longitude = "It must be a valid decimal number."
     } else if (!values.longitude) {
         errors.notFound = "longitude"
     }
-
-    console.log(errors.notFound)
 
     return errors
 }
