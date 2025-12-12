@@ -13,11 +13,13 @@ export default function AdminBranchesPage() {
             resourceId: branch.id,
             value: [
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/branches/${branch.id}`}
                 >
                     {branch.name}
                 </Link>,
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/branches/${branch.id}`}
                 >
                     {branch.address}

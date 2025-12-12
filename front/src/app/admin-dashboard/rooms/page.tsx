@@ -13,11 +13,13 @@ export default function AdminRoomsPage() {
             resourceId: room.id,
             value: [
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/rooms/${room.id}`}
                 >
                     {room.name}
                 </Link>,
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/rooms/${room.id}`}
                 >
                     {room.branch.name}

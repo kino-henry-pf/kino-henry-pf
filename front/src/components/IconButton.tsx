@@ -6,6 +6,7 @@ export default function IconButton({
     style,
     small,
     type = "button",
+    scroll = true,
     href,
     onClick
 }: {
@@ -14,10 +15,11 @@ export default function IconButton({
     small?: boolean,
     type?: "link" | "button",
     href?: string,
+    scroll?: boolean,
     onClick?: () => any
 }) {
     const Element = (props: any) => type === "link" ? (
-        <Link {...props} />
+        <Link {...props} scroll={scroll} />
     ) : <button {...props} />
 
     return (
