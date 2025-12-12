@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Reservation, { ReservationStatus } from './reservation.entity';
-import { In, Not, Repository } from 'typeorm';
+import { In, LessThan, MoreThan, Not, Repository } from 'typeorm';
 import CreateReservationDto from './DTOs/create-reservation.dto';
 import { UsersService } from '../users/users.service';
 import { ShowtimesService } from '../showtimes/showtimes.service';
@@ -104,4 +104,88 @@ export default class ReservationRepository {
       relations: ['seat'],
     });
   }
+
+  async getUpcomingReservations(userId: string) {
+  const now = new Date();
+  
+  return this.reservationRepository.find({
+    where: {
+      userId: userId,
+      showtime: {
+        startTime: MoreThan(now) // fecha mayor a ahora
+      }
+    },
+    relations: ['showtime', 'showtime.movie', 'showtime.room', 'showtime.room.branch'],
+    order: {
+      showtime: {
+        startTime: 'ASC' // más próximas primero
+      }
+    }
+  });
+}
+
+async getPastReservations(userId: string) {
+  const now = new Date();
+  
+  return this.reservationRepository.find({
+    where: {
+      userId: userId,
+      showtime: {
+        startTime: LessThan(now) // fecha menor a ahora
+      }
+    },
+    relations: ['showtime', 'showtime.movie', 'showtime.room', 'showtime.room.branch'],
+    order: {
+      showtime: {
+        startTime: 'DESC' // más recientes primero
+      }
+    }
+  });
+}
+
+async getAllReservations() {
+  return this.reservationRepository.find({
+    relations: ['user', 'showtime', 'showtime.movie', 'showtime.room', 'showtime.room.branch'],
+    order: {
+      createdAt: 'DESC' // más recientes primero
+    }
+  });
+}
+
+async getAllUpcomingReservations() {
+  const now = new Date();
+  
+  return this.reservationRepository.find({
+    where: {
+      showtime: {
+        startTime: MoreThan(now)
+      }
+    },
+    relations: ['user', 'showtime', 'showtime.movie', 'showtime.room', 'showtime.room.branch'],
+    order: {
+      showtime: {
+        startTime: 'ASC'
+      }
+    }
+  });
+}
+
+async getAllPastReservations() {
+  const now = new Date();
+  
+  return this.reservationRepository.find({
+    where: {
+      showtime: {
+        startTime: LessThan(now)
+      }
+    },
+    relations: ['user', 'showtime', 'showtime.movie', 'showtime.room', 'showtime.room.branch'],
+    order: {
+      showtime: {
+        startTime: 'DESC'
+      }
+    }
+  });
+}
+
 }

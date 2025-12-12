@@ -53,4 +53,24 @@ export class ReservationsService {
   async findSeatReservations(ids: string[]) {
     return await this.reservationRepository.findSeatReservations(ids);
   }
+
+  async getUpcomingReservations(userId: string) {
+    return this.reservationRepository.getUpcomingReservations(userId)
+  }
+
+  async getPastReservations(userId: string){
+    return this.reservationRepository.getPastReservations(userId)
+  }
+
+  async getAllUpcomingReservations() {
+    return this.reservationRepository.getAllUpcomingReservations()
+  }
+
+  async getAllPastReservations() {
+    return this.reservationRepository.getAllReservations()
+  }
+
+   async getAllReservations() {
+    return this.reservationRepository.getAllReservations()
+  }
 }
