@@ -101,11 +101,17 @@ export default function UpsertResourcePage<T>({
                                 Object.fromEntries(
                                     fields.map(field => [
                                         field.name,
-                                        field.as === "select" ? field.options?.[0].value ?? "" : field.as === "location" ? {lat: 0, lng: 0} : field.as !== "file" ? (query?.data?.[field.name as keyof T] ?? "") : field.defaultValue ?? ""
+                                        field.as === "select" ? (query?.data?.[field.name as keyof T] || field.options?.[0].value) ?? "" : field.as === "location" ? {lat: 0, lng: 0} : field.as !== "file" ? (query?.data?.[field.name as keyof T] ?? "") : field.defaultValue ?? ""
                                     ])
                                 )
                             }
-                            onSubmit={body => mutation.submit({...body, location: undefined})}
+                            onSubmit={body => {
+                                const filtered = Object.fromEntries(
+                                    Object.entries(body).filter(([key]) => key !== "location")
+                                )
+
+                                mutation.submit(filtered)
+                            }}
                             validate={validate}
                         >
                             {

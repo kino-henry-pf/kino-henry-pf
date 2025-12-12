@@ -11,11 +11,18 @@ export default class RoomsRepository {
   ) {}
 
   async findAll(): Promise<Room[]> {
-    return await this.roomsRepository.find();
+    return await this.roomsRepository.find({
+      relations: {
+        branch: true
+      }
+    });
   }
 
   async findById(id: string): Promise<Room | null> {
-    const room = await this.roomsRepository.findOneBy({ id });
+    const room = await this.roomsRepository.findOne({
+      where: {id},
+      relations: {branch: true}
+    });
     return room ?? null;
   }
 

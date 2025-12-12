@@ -79,8 +79,8 @@ export default function CreateProductPage() {
                             value: "candy"
                         },
                         {
-                            label: "chocolates",
-                            value: "Chocolates"
+                            label: "Chocolates",
+                            value: "chocolates"
                         },
                         {
                             label: "Gum",

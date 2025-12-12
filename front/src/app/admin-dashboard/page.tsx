@@ -7,6 +7,7 @@ import { useQuery } from "@/hooks/useQuery";
 import Loader from "./components/Loader";
 
 type RoomOccupancy = {
+    roomId: string,
     roomName: string
     branch: string
     totalSeats: number
@@ -88,6 +89,7 @@ export default function AdminDashboardPage() {
                                         branch.occupancy.map((room, index) => (
                                             <RoomCard
                                                 key={index}
+                                                id={room.roomId}
                                                 name={room.roomName}
                                                 seats={room.totalSeats}
                                                 sold={room.sold}

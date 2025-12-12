@@ -2,17 +2,19 @@ import { Room } from "../types";
 import * as Icon from "akar-icons"
 
 export default function RoomCard({
+    id,
     name,
     seats,
     sold
 }: {
+    id: string,
     name: string,
     seats: number,
     sold: number
 }) {
     return (
         <a
-            href="#"
+            href={`/admin-dashboard/rooms/${id}`}
             className="w-full h-14 px-6 rounded-md bg-white/3 border-1 border-[var(--color-border)] grid items-center grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_auto] gap-6 relative overflow-hidden"
         >
             <h3 className="text-md font-semibold">{name}</h3>
