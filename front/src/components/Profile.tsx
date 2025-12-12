@@ -1,40 +1,17 @@
 'use client'
 
 import { useAuth } from "@/context/authContext"
-import { useEffect, useState } from "react";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { useQuery } from "@/hooks/useQuery";
+import { Showtime } from "@/types/showtime";
 
 export default function MyProfilePage() {
 
-  const { dataUser } = useAuth();
-  const [historial, setHistorial] = useState<any[]>([]);
-
-  useEffect(() => {
-    if (!dataUser?.user.id) return;
-
-    const historialProfile = async (userID: string) => {
-      try {
-        const response = await fetch(`${API_URL}/reservations/user/${userID}`);
-
-        if (!response.ok) {
-          throw new Error("Error retrieving reservations");
-        }
-
-        const data = await response.json();
-        console.log("RESERVATIONS DATA ===>", data);
-        setHistorial(data);
-
-      } catch (error) {
-        console.error("reservationsService error:", error);
-        setHistorial([]);
-      }
-    };
-
-    // acá la ejecutamos pasándole el userID
-    historialProfile(dataUser.user.id);
-
-  }, [dataUser]);
+  const { dataUser } = useAuth(),
+    historyQuery = useQuery<{
+      showtime: Showtime,
+      id: string,
+      status: string
+    }[]>(`reservations/user/${dataUser?.user.id}`)
 
   return (
     <div className="min-h-screen bg-[#0F0F0F] text-white p-6 pt-10">
@@ -65,21 +42,21 @@ export default function MyProfilePage() {
 
       <div className="space-y-4 max-w-3xl">
 
-        {historial.map(order => (
+        {historyQuery.data?.map(order => (
           <div
             key={order.id}
             className="bg-[#1A1A1A] border border-[#2a2a2a] rounded-xl px-6 py-4 flex justify-between items-center shadow-md"
           >
             <div>
-              <p className="font-semibold text-lg">{order.date}</p>
+              <p className="font-semibold text-lg">{(new Date(order.showtime.startTime)).toLocaleString("en-US", {timeStyle: "short", dateStyle: "short"})}</p>
               <p className="text-yellow-500 font-bold text-md mt-1">
-                ● {order.movie}
+                ● {order.showtime.movie.title}
               </p>
             </div>
 
             <p
               className={`text-sm px-3 py-1 rounded-full border 
-                ${order.status === "Confirmed"
+                ${order.status === "confirmed"
                   ? "border-green-600 text-green-400"
                   : "border-red-600 text-red-400"
                 }`}
@@ -87,7 +64,7 @@ export default function MyProfilePage() {
               {order.status}
             </p>
           </div>
-        ))}
+        )) || "Charging..."}
 
       </div>
     </div>

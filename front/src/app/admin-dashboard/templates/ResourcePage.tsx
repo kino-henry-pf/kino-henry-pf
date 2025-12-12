@@ -25,6 +25,7 @@ export default function ResourcePage<T>({
     useEffect(() => {
         if (!topSectionRef.current) return
         const scrollTop = window.scrollY + topSectionRef.current.getBoundingClientRect().top
+        if (!scrollTop) return
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
     }, [topSectionRef])
 
