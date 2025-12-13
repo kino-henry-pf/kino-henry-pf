@@ -9,6 +9,7 @@ import {
   Query,
   Patch,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { BranchService } from './branchs.service';
 import { Branch } from './branch.entity';
@@ -23,6 +24,10 @@ import {
   SetPlaceIdDto,
   UpdateBranchLocationDto,
 } from './dto/branch-location.dto';
+import { Roles } from 'src/decorator/role.decorator';
+import { Role } from 'src/auth/roles.enum';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { RolesGuard } from 'src/auth/guards/role-guard.guard';
 
 @ApiTags('branches (Sucursales)')
 @Controller('branches')
@@ -56,6 +61,8 @@ export class BranchController {
 
   @ApiOperation({ summary: 'Registrar una nueva sucursal' })
   @Post()
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   createBranch(@Body() dto: CreateBranchDto): Promise<Branch> {
     return this.branchService.createBranch(dto);
   }
@@ -64,6 +71,8 @@ export class BranchController {
     summary: 'Actualizar una o varias propiedades de una sucursal registrada',
   })
   @Patch(':id')
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   updateBranch(
     @Param('id') id: string,
     @Body() dto: UpdateBranchDto,
@@ -73,6 +82,8 @@ export class BranchController {
 
   @ApiOperation({ summary: 'Eliminar una sucursal a traves de su UUID' })
   @Delete(':id')
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   deleteBranch(@Param('id') id: string): Promise<string> {
     return this.branchService.deleteBranch(id);
   }
@@ -107,6 +118,8 @@ export class BranchController {
   // ========== Gestión de ubicación de sucursales ==========
 
   @Patch(':id/location')
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Update branch location' })
   @ApiResponse({
     status: 200,
@@ -165,8 +178,6 @@ export class BranchController {
 
   @Get(':id/showtimes')
   async getMoviesWithShowtimes(@Param('id') branchId: string) {
-    return await this.branchService.getMoviesWithShowtimes(branchId)
-
-
+    return await this.branchService.getMoviesWithShowtimes(branchId);
   }
 }
