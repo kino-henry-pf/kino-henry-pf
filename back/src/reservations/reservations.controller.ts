@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import Reservation from './reservation.entity';
 import CreateReservationDto from './DTOs/create-reservation.dto';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -17,6 +26,7 @@ export class ReservationsController {
     return await this.reservationsService.getById(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async cancel(@Param('id') id: string): Promise<Reservation> {
     return await this.reservationsService.cancel(id);

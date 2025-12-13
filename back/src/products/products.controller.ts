@@ -16,10 +16,18 @@ import CreateProductDto from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { ApiBody, ApiConsumes, ApiExtraModels, ApiOperation, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiExtraModels,
+  ApiOperation,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 import { Roles } from '../decorator/role.decorator';
 import { AuthGuard } from '../auth/guards/auth-guard.guard';
 import { RolesGuard } from '../auth/guards/role-guard.guard';
+import { Role } from 'src/auth/roles.enum';
 
 @ApiTags('products (Productos)')
 @Controller('products')
@@ -70,7 +78,7 @@ export class ProductsController {
     },
   })
   @Post()
-  @Roles('admin')
+  @Roles(Role.admin)
   @UseGuards(AuthGuard, RolesGuard)
   @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
   async create(
@@ -106,6 +114,8 @@ export class ProductsController {
   })
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image', { storage: memoryStorage() }))
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateProductDto,
@@ -116,6 +126,8 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Eliminar un producto a traves de su UUID' })
   @Delete(':id')
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async delete(@Param('id') id: string): Promise<{ message: string }> {
     const message = await this.productService.deleteProduct(id);
     return { message };
