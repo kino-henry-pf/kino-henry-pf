@@ -1,32 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import * as nodemailer from 'nodemailer';
+import { ConfigService } from '@nestjs/config';
+import { Resend } from 'resend';
 
 @Injectable()
-export class MailService {
-  private transporter;
+export default class MailService {
+  private resend: Resend;
 
-  constructor() {
-    this.transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER ?? '',
-        pass: process.env.GMAIL_PASS ?? '',
-      },
-    });
+  constructor(private readonly configService: ConfigService) {
+    this.resend = new Resend(this.configService.get<string>('RESEND_API_KEY'))!;
   }
 
   async sendOrderEmail(to: string, orderId: string, total: number) {
-    const message = `
-      ¡Gracias por tu compra!
-      Tu pedido con ID ${orderId} ha sido confirmado.
-      Total pagado: $${total}
-    `;
-
-    await this.transporter.sendMail({
-      from: `"Mi App" <${process.env.GMAIL_USER}>`,
+    await this.resend.emails.send({
+      from: 'Kino <noreply@onresend.com>',
       to,
       subject: 'Confirmación de tu pedido',
-      text: message,
+      text: `
+        Thank you for your purchase!
+        Your order with ID ${orderId} has been confirmed. You should recieve your tickets within a few minutes.
+      
+        Total paid: $${total}
+      `,
+    });
+  }
+
+  async sendNewsLetter(to: string, content: string) {
+    await this.resend.emails.send({
+      from: 'Kino <newsletter@onresend.com>',
+      to,
+      subject: 'Kino Weekly Newsletter',
+      html: content,
     });
   }
 }
