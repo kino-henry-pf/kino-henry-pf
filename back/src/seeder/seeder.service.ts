@@ -174,43 +174,42 @@ export class SeederService {
     if (productCount === 0) {
       const productsData: Partial<Product>[] = [
         {
-          name: 'Palomitas Clásicas',
+          name: 'Classic Popcorn',
           image:
             'https://res.cloudinary.com/db9panarm/image/upload/v1765334934/image_gjv9ym.png',
-          description: 'Clasicas con mantequilla',
+          description: 'Classic poprcorn with butter',
           price: 75,
           category: Category.POPCORN,
         },
         {
-          name: 'Refresco Grande',
+          name: 'Large Soda',
           image:
             'https://res.cloudinary.com/db9panarm/image/upload/v1765335509/image_zx39lt.png',
-          description: '1 litro bien frio',
+          description: 'Large fountain soda',
           price: 60,
           category: Category.SOFT_DRINK,
         },
         {
-          name: 'Nachos con Queso',
+          name: 'Nachos with Cheese',
           image:
             'https://res.cloudinary.com/db9panarm/image/upload/v1765334793/image_vstph8.png',
-          description: 'Nachos calientes con queso',
+          description: 'Nachos with melted cheddar cheese',
           price: 85,
           category: Category.NACHOS,
         },
         {
-          name: 'Gomitas',
+          name: 'Candy',
           image:
             'https://res.cloudinary.com/db9panarm/image/upload/v1765334693/gomitas_veiu68.png',
-          description: 'Gomitas clásicas sabor a frutas',
+          description: 'Classic fruit-flavored candy',
           price: 45,
           category: Category.CANDY,
         },
         {
-          name: 'Combo Pareja',
+          name: 'Couple Combo',
           image:
             'https://res.cloudinary.com/db9panarm/image/upload/v1765334693/combo_ork5md.png',
-          description:
-            'Inlcuye unas palomitas clásicas y dos refrescos grandes',
+          description: 'Inlcudes large popcorn with two large soda´s',
           price: 145,
           category: Category.COMBO,
         },
