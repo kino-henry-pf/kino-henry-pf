@@ -28,4 +28,10 @@ export default class ReviewsRepository {
 
     return await this.reviewsRepository.save(review);
   }
+
+  async deleteReview(reviewId: string) {
+    const review = await this.reviewsRepository.findOneBy({ id: reviewId });
+    if (!review) return null;
+    return await this.reviewsRepository.delete(review);
+  }
 }

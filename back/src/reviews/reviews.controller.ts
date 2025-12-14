@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './DTOs/create-review.dto';
 
@@ -14,5 +14,10 @@ export class ReviewsController {
   @Post()
   async createReview(@Body() dto: CreateReviewDto) {
     return await this.reviewsService.createReview(dto);
+  }
+
+  @Delete(':reviewId')
+  async deleteReview(@Param('reviewId') reviewId: string) {
+    return await this.reviewsService.deleteReview(reviewId);
   }
 }
