@@ -12,6 +12,7 @@ import Seat from '../seats/seat.entity';
 import Room from '../rooms/rooms.entity';
 import Reservation from '../reservations/reservation.entity';
 import SeatReservation from '../reservations/seat-reservation.entity';
+import { Review } from 'src/reviews/review.entity';
 
 export const typeOrmConfig = registerAs(
   'database',
@@ -35,6 +36,7 @@ export const typeOrmConfig = registerAs(
       OrderDetails,
       Reservation,
       SeatReservation,
+      Review,
     ],
     synchronize: Number(process.env.DB_SYNC) === 1,
     dropSchema: Number(process.env.DB_DROP) === 1,
