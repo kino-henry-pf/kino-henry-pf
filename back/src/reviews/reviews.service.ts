@@ -20,6 +20,6 @@ export class ReviewsService {
       throw new NotFoundException(
         `No review with an id of ${reviewId} exists.`,
       );
-    return reviewDeleted;
+    return 'Deleted review successfully';
   }
 }
