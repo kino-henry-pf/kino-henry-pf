@@ -12,7 +12,7 @@ export default class MailService {
 
   async sendOrderEmail(to: string, orderId: string, total: number) {
     await this.resend.emails.send({
-      from: 'Kino <noreply@onresend.com>',
+      from: 'Kino <noreply@resend.dev>',
       to,
       subject: 'Confirmación de tu pedido',
       text: `
@@ -26,7 +26,7 @@ export default class MailService {
 
   async sendNewsLetter(to: string, content: string) {
     await this.resend.emails.send({
-      from: 'Kino <newsletter@onresend.com>',
+      from: 'Kino <newsletter@resend.dev>',
       to,
       subject: 'Kino Weekly Newsletter',
       html: content,
