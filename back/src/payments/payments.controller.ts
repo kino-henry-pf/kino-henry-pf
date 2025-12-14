@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { Request } from 'express';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
 
 @Controller('payments')
 export class PaymentsController {

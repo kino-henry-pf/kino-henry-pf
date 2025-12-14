@@ -12,7 +12,7 @@ import Seat from '../seats/seat.entity';
 import Room from '../rooms/rooms.entity';
 import Reservation from '../reservations/reservation.entity';
 import SeatReservation from '../reservations/seat-reservation.entity';
-import { Review } from 'src/reviews/review.entity';
+import { Review } from '../reviews/review.entity';
 
 export const typeOrmConfig = registerAs(
   'database',

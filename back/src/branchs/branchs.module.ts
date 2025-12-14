@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Branch } from './branch.entity';
 import { BranchRepository } from './branch.repository';
 import { GoogleMapsModule } from '../google-maps/google-maps.module';
-import Showtime from 'src/showtimes/showtimes.entity';
+import Showtime from '../showtimes/showtimes.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Branch, Showtime]), GoogleMapsModule],

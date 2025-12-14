@@ -10,25 +10,25 @@ import {
 import { ReservationsService } from './reservations.service';
 import Reservation from './reservation.entity';
 import CreateReservationDto from './DTOs/create-reservation.dto';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
 
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
-@Get('all')
-async getAllReservations() {
-  return this.reservationsService.getAllReservations();
-}
+  @Get('all')
+  async getAllReservations() {
+    return this.reservationsService.getAllReservations();
+  }
 
-@Get('all/upcoming')
-async getAllUpcomingReservations() {
-  return this.reservationsService.getAllUpcomingReservations();
-}
+  @Get('all/upcoming')
+  async getAllUpcomingReservations() {
+    return this.reservationsService.getAllUpcomingReservations();
+  }
 
-@Get('all/past')
-async getAllPastReservations() {
-  return this.reservationsService.getAllPastReservations();
-}
+  @Get('all/past')
+  async getAllPastReservations() {
+    return this.reservationsService.getAllPastReservations();
+  }
 
   @Get('user/:id')
   async getByUser(@Param('id') userId: string): Promise<Reservation[]> {
@@ -54,13 +54,12 @@ async getAllPastReservations() {
   }
 
   @Get('user/:userId/upcoming')
-async getUpcomingReservations(@Param('userId') userId: string) {
-  return this.reservationsService.getUpcomingReservations(userId);
-}
+  async getUpcomingReservations(@Param('userId') userId: string) {
+    return this.reservationsService.getUpcomingReservations(userId);
+  }
 
-@Get('user/:userId/past')
-async getPastReservations(@Param('userId') userId: string) {
-  return this.reservationsService.getPastReservations(userId);
-}
-
+  @Get('user/:userId/past')
+  async getPastReservations(@Param('userId') userId: string) {
+    return this.reservationsService.getPastReservations(userId);
+  }
 }

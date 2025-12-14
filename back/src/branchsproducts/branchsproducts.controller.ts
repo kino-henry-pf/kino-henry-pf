@@ -12,10 +12,10 @@ import { BranchProductsService } from './branchsproducts.service';
 import { CreateBranchProductDto } from './dto/create-branch-product.dto';
 import { UpdateStockDto } from './dto/update-branch-product.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/decorator/role.decorator';
-import { Role } from 'src/auth/roles.enum';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
-import { RolesGuard } from 'src/auth/guards/role-guard.guard';
+import { Roles } from '../decorator/role.decorator';
+import { Role } from '../auth/roles.enum';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
+import { RolesGuard } from '../auth/guards/role-guard.guard';
 
 @ApiTags('branch-products (Manejo de stock de productos por sucursal)')
 @Controller('branch-products')

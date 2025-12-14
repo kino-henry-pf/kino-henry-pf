@@ -1,7 +1,7 @@
 import { Order } from '../../orders/entities/order.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { Review } from 'src/reviews/review.entity';
+import { Review } from '../../reviews/review.entity';
 
 export enum ROLE {
   ADMIN = 'admin',
@@ -14,17 +14,17 @@ export class User {
   id: string;
 
   @Column({ type: 'varchar', nullable: true })
-  name: string | null;
+  name: string;
 
   @Column({ unique: true })
   email: string;
 
   @Exclude()
   @Column({ type: 'varchar', nullable: true })
-  password: string | null;
+  password: string;
 
   @Column({ type: 'varchar', nullable: true })
-  address: string | null;
+  address: string;
 
   @OneToMany(() => Order, (order) => order.user)
   order: Order[];
