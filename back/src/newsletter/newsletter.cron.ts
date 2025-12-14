@@ -10,7 +10,7 @@ export default class NewsletterCron {
     private readonly usersService: UsersService,
   ) {}
 
- @Cron('*/30 * * * * *')
+ @Cron('0 9 * * 1')
   async sendWeeklyNewsletter() {
     const users = await this.usersService.findAll();
 
