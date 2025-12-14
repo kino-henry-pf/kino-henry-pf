@@ -6,8 +6,7 @@ import Image from 'next/image';
 import { Movie } from '@/types/movie';
 import { Branch } from '@/types/branch';
 import { Product } from '@/types/product';
-import toast from "react-hot-toast";
-
+import toast from 'react-hot-toast';
 
 type SearchParams = {
   seats?: string;
@@ -98,9 +97,14 @@ export default function CheckoutSummary({
 
       const sessionStr = localStorage.getItem('userSession');
       if (!sessionStr) throw new Error('No session found');
-      const session = JSON.parse(sessionStr);
 
+      const session = JSON.parse(sessionStr);
       const userId = session.user.id;
+      const token = session.access_token;
+
+      const api = apiClient({
+        bearerToken: token,
+      });
 
       const reservation = await api.post<ReservationResponse>('reservations', {
         userId,
@@ -108,9 +112,7 @@ export default function CheckoutSummary({
         seatIds,
       });
 
-      const seatReservationIds = reservation.seats.map(
-        (s: { id: string }) => s.id
-      );
+      const seatReservationIds = reservation.seats.map((s) => s.id);
 
       const productsPayload = productsData.map((p) => ({
         productId: p.id,
@@ -130,14 +132,9 @@ export default function CheckoutSummary({
 
       if (payment.url) {
         window.location.href = payment.url;
-      } else {
-        alert('Payment created, but no redirect URL found.');
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      toast.error(
-      "❌ Error during checkout."
-    );
+    } catch {
+      toast.error('❌ Error during checkout.');
     } finally {
       setLoading(false);
     }
