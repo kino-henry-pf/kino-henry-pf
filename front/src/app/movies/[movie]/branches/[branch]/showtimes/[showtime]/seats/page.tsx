@@ -82,17 +82,21 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
       .sort((a, b) => a.number - b.number);
   });
 
-  const formattedDate = new Date(showtimeData.startTime).toLocaleString(
-    'en-US',
-    {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+
+    return new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
       day: 'numeric',
       month: 'short',
       hour: '2-digit',
       minute: '2-digit',
       hour12: false,
-    }
-  );
+    })
+      .format(date)
+      .replace('.', '');
+  };
+  const formattedDate = formatDate(showtimeData.startTime);
 
   const toggleSeat = (seat: Seat) => {
     if (seat.reserved) return;

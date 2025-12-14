@@ -53,7 +53,7 @@ export default async function ShowtimesPage({
             </h2>
 
             <p className="mt-2 text-gray-400">
-              Sala: {show.room.name} • {show.language} • {show.format}
+              Function: {show.room.name} • {show.language} • {show.format}
             </p>
 
             <Link
