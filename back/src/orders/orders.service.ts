@@ -6,7 +6,7 @@ import {
 import OrdersRepository from './orders.repository';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './entities/order.entity';
-import { MailService } from '../mail/mail.service';
+import MailService from '../mail/mail.service';
 
 @Injectable()
 export default class OrdersService {
@@ -34,7 +34,6 @@ export default class OrdersService {
         console.error('Email error:', err);
       });
 
-    // Immediately return response to frontend
     return newOrder;
   }
 

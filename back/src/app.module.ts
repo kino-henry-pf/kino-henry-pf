@@ -20,6 +20,8 @@ import { GoogleMapsModule } from './google-maps/google-maps.module';
 import { PaymentsModule } from './payments/payments.module';
 import { MailModule } from './mail/mail.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { NewsletterModule } from './newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
         secret: config.get<string>('JWT_SECRET'),
       }),
     }),
+    ScheduleModule.forRoot(),
     UsersModule,
     MoviesModule,
     ProductsModule,
@@ -59,6 +62,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     GoogleMapsModule,
     PaymentsModule,
     MailModule,
+    NewsletterModule,
     AnalyticsModule,
   ],
   providers: [SeederModule],

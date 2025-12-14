@@ -32,4 +32,5 @@ export const configSchema = Joi.object({
   DEV_BACK_URL: Joi.string().required(),
   PROD_BACK_URL: Joi.string().required(),
   PROD_FRONT_URL: Joi.string().required(),
+  RESEND_API_KEY: Joi.string().required(),
 });
