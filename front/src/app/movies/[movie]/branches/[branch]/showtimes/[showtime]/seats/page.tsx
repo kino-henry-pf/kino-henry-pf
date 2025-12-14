@@ -83,7 +83,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
   });
 
   const formattedDate = new Date(showtimeData.startTime).toLocaleString(
-    'es-MX',
+    'en-US',
     {
       weekday: 'long',
       day: 'numeric',

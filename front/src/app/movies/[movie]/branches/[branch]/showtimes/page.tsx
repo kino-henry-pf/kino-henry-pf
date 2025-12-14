@@ -26,7 +26,7 @@ export default async function ShowtimesPage({
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
 
-    return new Intl.DateTimeFormat('es-MX', {
+    return new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
       day: 'numeric',
       month: 'short',

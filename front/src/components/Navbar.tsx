@@ -1,14 +1,13 @@
+'use client';
 
-"use client";
-
-import Link from "next/link";
-import Image from "next/image";
-import KinoLogo from "@/../public/logo.png";
-import UserButton from "./UserButton";
-import { useAuth } from "@/context/authContext";
-import { useState, useEffect } from "react";
-import MovieCard from "@/components/MovieCard";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import Image from 'next/image';
+import KinoLogo from '@/../public/logo.png';
+import UserButton from './UserButton';
+import { useAuth } from '@/context/authContext';
+import { useState, useEffect } from 'react';
+import MovieCard from '@/components/MovieCard';
+import { usePathname } from 'next/navigation';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,7 +15,7 @@ export default function Navbar() {
   const { dataUser } = useAuth();
 
   const [showSearch, setShowSearch] = useState(false);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -28,7 +27,7 @@ export default function Navbar() {
   }, [pathname]);
 
   const clearSearch = () => {
-    setQuery("");
+    setQuery('');
     setResults([]);
     setShowSearch(false);
   };
@@ -42,19 +41,19 @@ export default function Navbar() {
 
       try {
         const res = await fetch(
-          `${API_URL}/movies?title=${encodeURIComponent(query)}`,
+          `${API_URL}/movies?title=${encodeURIComponent(query)}`
         );
 
         const data = await res.json();
 
         const fixedMovies = data.map((m: any) => ({
           ...m,
-          image: m.image || m.poster || m.imageURL || "/fallback.jpg",
+          image: m.image || m.poster || m.imageURL || '/fallback.jpg',
         }));
 
         setResults(fixedMovies);
       } catch (error) {
-        console.error("Error buscando películas:", error);
+        console.error('Error buscando películas:', error);
       }
     };
 
@@ -67,7 +66,7 @@ export default function Navbar() {
       {/* PARTE SUPERIOR */}
       <div className="flex items-center h-full justify-between">
         {/* LOGO */}
-        <Link href={"/"}>
+        <Link href={'/'}>
           <Image
             src={KinoLogo}
             alt="Logo"
@@ -148,15 +147,15 @@ export default function Navbar() {
             href="/products"
             className="text-white hover:text-gray-300 transition"
           >
-            Menú
+            Products
           </Link>
 
           <Link
-                href="/branches"
-                className="text-white hover:text-gray-300 transition"
-              >
-                Branches
-              </Link>
+            href="/branches"
+            className="text-white hover:text-gray-300 transition"
+          >
+            Branches
+          </Link>
 
           {!dataUser && (
             <>
@@ -201,9 +200,8 @@ export default function Navbar() {
             href="/products"
             className="text-white hover:text-gray-300 transition py-2"
           >
-            Menú
+            Products
           </Link>
-
         </div>
       )}
 
