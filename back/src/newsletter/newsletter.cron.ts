@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import MailService from 'src/mail/mail.service';
-import { UsersService } from 'src/users/users.service';
+import MailService from '../mail/mail.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export default class NewsletterCron {
@@ -10,7 +10,7 @@ export default class NewsletterCron {
     private readonly usersService: UsersService,
   ) {}
 
- @Cron('0 9 * * 1')
+  @Cron('0 9 * * 1')
   async sendWeeklyNewsletter() {
     const users = await this.usersService.findAll();
 

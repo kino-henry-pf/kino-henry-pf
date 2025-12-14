@@ -19,10 +19,10 @@ import { UpdateMovieDto } from './DTOs/update-movie.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { RolesGuard } from 'src/auth/guards/role-guard.guard';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
-import { Role } from 'src/auth/roles.enum';
-import { Roles } from 'src/decorator/role.decorator';
+import { RolesGuard } from '../auth/guards/role-guard.guard';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
+import { Role } from '../auth/roles.enum';
+import { Roles } from '../decorator/role.decorator';
 
 @ApiTags('movies (Películas)')
 @Controller('movies')

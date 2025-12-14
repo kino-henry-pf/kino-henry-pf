@@ -1,4 +1,4 @@
-import { Review } from 'src/reviews/review.entity';
+import { Review } from '../reviews/review.entity';
 import { Branch } from '../branchs/branch.entity';
 import {
   Column,

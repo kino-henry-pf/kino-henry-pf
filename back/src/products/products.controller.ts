@@ -27,7 +27,7 @@ import {
 import { Roles } from '../decorator/role.decorator';
 import { AuthGuard } from '../auth/guards/auth-guard.guard';
 import { RolesGuard } from '../auth/guards/role-guard.guard';
-import { Role } from 'src/auth/roles.enum';
+import { Role } from '../auth/roles.enum';
 
 @ApiTags('products (Productos)')
 @Controller('products')

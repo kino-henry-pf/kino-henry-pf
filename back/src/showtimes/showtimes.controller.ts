@@ -11,10 +11,10 @@ import {
 import { ShowtimesService } from './showtimes.service';
 import Showtime from './showtimes.entity';
 import { CreateShowtimeDto } from './DTOs/create-showtime.dto';
-import { RolesGuard } from 'src/auth/guards/role-guard.guard';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
-import { Role } from 'src/auth/roles.enum';
-import { Roles } from 'src/decorator/role.decorator';
+import { RolesGuard } from '../auth/guards/role-guard.guard';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
+import { Role } from '../auth/roles.enum';
+import { Roles } from '../decorator/role.decorator';
 
 @Controller('showtimes')
 export class ShowtimesController {

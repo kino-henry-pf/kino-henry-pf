@@ -10,7 +10,7 @@ import { CreateBranchDto } from './dto/create-branch.dto';
 import { UpdateBranchDto } from './dto/update-branch.dto';
 import { GoogleMapsService } from '../google-maps/google-maps.service';
 import { UpdateBranchLocationDto } from './dto/branch-location.dto';
-import Showtime from 'src/showtimes/showtimes.entity';
+import Showtime from '../showtimes/showtimes.entity';
 
 @Injectable()
 export class BranchRepository {
@@ -283,38 +283,35 @@ export class BranchRepository {
     return `https://www.google.com/maps/search/?api=1&query=${branch.latitude},${branch.longitude}`;
   }
 
-
   async getMoviesWithShowtimes(branchId: string) {
-  // 1. Obtener las películas de esta sucursal
-  const branch = await this.branchRepository.findOne({
-    where: { id: branchId },
-    relations: ['movies'],
-  });
+    // 1. Obtener las películas de esta sucursal
+    const branch = await this.branchRepository.findOne({
+      where: { id: branchId },
+      relations: ['movies'],
+    });
 
-  if (!branch) {
-    throw new NotFoundException('Sucursal no encontrada');
+    if (!branch) {
+      throw new NotFoundException('Sucursal no encontrada');
+    }
+
+    // 2. Para cada película, buscar sus showtimes en esta sucursal
+    const moviesWithShowtimes = await Promise.all(
+      branch.movies.map(async (movie) => {
+        const showtimes = await this.showtimeRepository.find({
+          where: {
+            movieId: movie.id,
+            room: { branchId: branchId },
+          },
+          relations: ['room'],
+        });
+
+        return {
+          ...movie,
+          showtimes,
+        };
+      }),
+    );
+
+    return moviesWithShowtimes;
   }
-
-  // 2. Para cada película, buscar sus showtimes en esta sucursal
-  const moviesWithShowtimes = await Promise.all(
-    branch.movies.map(async (movie) => {
-      const showtimes = await this.showtimeRepository.find({
-        where: {
-          movieId: movie.id,
-          room: { branchId: branchId }
-        },
-        relations: ['room'],
-      });
-
-      return {
-        ...movie,
-        showtimes,
-      };
-    })
-  );
-
-  return moviesWithShowtimes;
 }
-}
-
-

@@ -18,16 +18,15 @@ import { UpdateBranchDto } from './dto/update-branch.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GoogleMapsService } from '../google-maps/google-maps.service';
 import {
-  FindNearbyBranchesDto,
   GeocodeAddressDto,
   SearchPlacesDto,
   SetPlaceIdDto,
   UpdateBranchLocationDto,
 } from './dto/branch-location.dto';
-import { Roles } from 'src/decorator/role.decorator';
-import { Role } from 'src/auth/roles.enum';
-import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
-import { RolesGuard } from 'src/auth/guards/role-guard.guard';
+import { Roles } from '../decorator/role.decorator';
+import { Role } from '../auth/roles.enum';
+import { AuthGuard } from '../auth/guards/auth-guard.guard';
+import { RolesGuard } from '../auth/guards/role-guard.guard';
 
 @ApiTags('branches (Sucursales)')
 @Controller('branches')
