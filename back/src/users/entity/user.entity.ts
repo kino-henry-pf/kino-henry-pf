@@ -1,6 +1,7 @@
 import { Order } from '../../orders/entities/order.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Review } from 'src/reviews/review.entity';
 
 export enum ROLE {
   ADMIN = 'admin',
@@ -37,8 +38,11 @@ export class User {
   isActive: boolean;
 
   @Column({ type: 'varchar', nullable: true })
-  providerId: string | null;
+  providerId: string;
 
   @Column({ type: 'varchar', nullable: true })
-  provider: string | null;
+  provider: string;
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
 }

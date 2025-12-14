@@ -22,6 +22,7 @@ import { MailModule } from './mail/mail.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { NewsletterModule } from './newsletter/newsletter.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { NewsletterModule } from './newsletter/newsletter.module';
     MailModule,
     NewsletterModule,
     AnalyticsModule,
+    ReviewsModule,
   ],
   providers: [SeederModule],
 })

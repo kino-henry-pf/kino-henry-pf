@@ -1,5 +1,12 @@
+import { Review } from 'src/reviews/review.entity';
 import { Branch } from '../branchs/branch.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export enum Genre {
   ACTION = 'action',
@@ -46,6 +53,9 @@ export default class Movie {
   @Column()
   duration: number;
 
-  @ManyToMany(() => Branch, (branch) => branch.movies, {onDelete: "CASCADE"})
+  @ManyToMany(() => Branch, (branch) => branch.movies, { onDelete: 'CASCADE' })
   branches: Branch[];
+
+  @OneToMany(() => Review, (review) => review.movie)
+  reviews: Review[];
 }
