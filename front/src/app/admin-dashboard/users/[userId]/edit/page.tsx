@@ -13,42 +13,42 @@ export default function UpdateUserPage() {
             type="PATCH"
             resource={`users/${params.userId}`}
             getterResource={`users/${params.userId}`}
-            title="Modifica un usuario"
-            submitText="Actualizar usuario"
-            successMessage="Se ha actualizado el usuario"
+            title="Modify a user"
+            submitText="Update user"
+            successMessage="The user has been updated"
             validate={validateUserUpdate}
             successRedirect={user => `/admin-dashboard/users/${user?.id}`}
             backLink={`/admin-dashboard/users/${params.userId}`}
             mapError={error => {
                 if (error && error["statusCode"] && error["statusCode"] === 409) {
                     return {
-                        title: "Correo en uso",
-                        description: "La dirección de correo electrónico proporcionada ya está en uso"
+                        title: "Mail in use",
+                        description: "The email address provided is already in use"
                     }
                 }
 
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
                 {
                     name: "name",
-                    label: "Nombre",
+                    label: "Name",
                     icon: "Person",
                     required: true,
                     autoFocus: true
                 },
                 {
                     name: "email",
-                    label: "Correo electrónico",
+                    label: "Email",
                     icon: "Mention",
                     required: true
                 },
                 {
                     name: "address",
-                    label: "Dirección",
+                    label: "Address",
                     icon: "CheckIn"
                 }
             ]}

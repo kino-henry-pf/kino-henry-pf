@@ -69,10 +69,10 @@ export default function ProductsPage({
 
   return (
     <main className="container-x-padding py-10">
-      <h1 className="text-2xl font-bold mb-6">Agrega productos opcionales</h1>
+      <h1 className="text-2xl font-bold mb-6">Add optional products</h1>
 
       <p className="text-gray-400 mb-6">
-        Asientos seleccionados:{' '}
+        Selected seats:{' '}
         <strong>{selectedSeatsLabels.join(', ')}</strong>
       </p>
 
@@ -122,7 +122,7 @@ export default function ProductsPage({
           className="px-6 py-3 rounded-xl bg-[var(--color-primary)] text-black text-lg font-semibold cursor-pointer disabled:opacity-50"
           onClick={goToCheckout}
         >
-          {loading ? 'Procesando...' : 'Continuar al checkout'}
+          {loading ? 'Processing...' : 'Continue to checkout'}
         </button>
       </div>
     </main>

@@ -82,7 +82,7 @@ export default function Navbar() {
           <input
             autoFocus
             type="text"
-            placeholder="Buscar película..."
+            placeholder="Search movie..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="hidden md:block px-4 py-2 rounded-full w-64 bg-gray-800 text-white border border-gray-600 outline-none"
@@ -141,7 +141,7 @@ export default function Navbar() {
             }}
             className="text-white hover:text-gray-300 transition cursor-pointer"
           >
-            Buscar
+            Search
           </button>
 
           <Link
@@ -155,7 +155,7 @@ export default function Navbar() {
                 href="/branches"
                 className="text-white hover:text-gray-300 transition"
               >
-                Sucursales
+                Branches
               </Link>
 
           {!dataUser && (
@@ -164,27 +164,20 @@ export default function Navbar() {
                 href="/login"
                 className="text-white hover:text-gray-300 transition"
               >
-                Iniciar sesión
+                Login
               </Link>
 
               <Link
                 href="/register"
                 className="bg-[var(--color-primary)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-[var(--primary-foreground)] font-semibold px-6 py-3 rounded-full transition-colors"
               >
-                Crear cuenta
+                Create account
               </Link>
             </>
           )}
 
           {dataUser && (
             <>
-              <Link
-                href="/bookings"
-                className="text-white hover:text-gray-300 transition"
-              >
-                Mis reservas
-              </Link>
-
               <UserButton user={dataUser} />
             </>
           )}
@@ -211,38 +204,6 @@ export default function Navbar() {
             Menú
           </Link>
 
-          {!dataUser && (
-            <>
-              <Link
-                href="/login"
-                className="text-white hover:text-gray-300 transition py-2"
-              >
-                Iniciar sesión
-              </Link>
-
-              <Link
-                href="/register"
-                className="bg-[var(--color-primary)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-[var(--primary-foreground)] font-semibold px-6 py-3 rounded-full transition-colors text-center"
-              >
-                Crear cuenta
-              </Link>
-            </>
-          )}
-
-          {dataUser && (
-            <>
-              <Link
-                href="/bookings"
-                className="text-white hover:text-gray-300 transition py-2"
-              >
-                Mis reservas
-              </Link>
-
-              <div className="pt-2">
-                <UserButton user={dataUser} />
-              </div>
-            </>
-          )}
         </div>
       )}
 

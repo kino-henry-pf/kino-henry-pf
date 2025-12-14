@@ -28,7 +28,7 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
     return (
       <main className="container-x-padding py-10">
         <h1 className="text-2xl font-bold mb-6">
-          No hay películas disponibles en esta sucursal 😞
+          There are no movies available at this branch 😞
         </h1>
       </main>
     );
@@ -36,7 +36,7 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
 
   return (
     <main className="container-x-padding py-10">
-      <h1 className="text-2xl font-bold mb-8">Películas disponibles</h1>
+      <h1 className="text-2xl font-bold mb-8">Available movies</h1>
 
       <div className="space-y-6">
         {movies.map((movie) => {
@@ -67,7 +67,7 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
               {/* HORARIOS - LADO DERECHO */}
               <div className="flex-1">
                 <h3 className="text-md font-semibold mb-4 text-gray-300">
-                  Horarios disponibles
+                  Available times
                 </h3>
                 
                 <div className="flex flex-wrap gap-3">

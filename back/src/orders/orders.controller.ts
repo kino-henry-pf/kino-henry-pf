@@ -1,7 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import OrdersService from './orders.service';
 import { Order } from './entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { RolesGuard } from 'src/auth/guards/role-guard.guard';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { Role } from 'src/auth/roles.enum';
+import { Roles } from 'src/decorator/role.decorator';
 
 @Controller('orders')
 export class OrdersController {
@@ -18,6 +22,7 @@ export class OrdersController {
   }
 
   @Post()
+  @UseGuards(AuthGuard)
   async create(@Body() dto: CreateOrderDto): Promise<Order> {
     return await this.ordersService.create(dto);
   }

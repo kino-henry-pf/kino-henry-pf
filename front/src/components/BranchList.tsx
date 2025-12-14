@@ -14,12 +14,12 @@ export default function BranchList({
   branches, 
   getLinkHref, 
   loading = false,
-  title = "Selecciona una sucursal"
+  title = "Select a branch"
 }: BranchListProps) {
   if (loading) {
     return (
       <main className="min-h-screen container-x-padding py-16">
-        <h1 className="text-3xl font-bold mb-10">Cargando sucursales...</h1>
+        <h1 className="text-3xl font-bold mb-10">Loading branches...</h1>
       </main>
     );
   }
@@ -45,40 +45,37 @@ export default function BranchList({
             />
 
             {/* INFORMACIÓN */}
-            <Link
-              href={getLinkHref(branch.id)}
-              className="
-                block p-6 hover:bg-[#1e1e1e] transition 
-                group
-              "
-            >
-              <h2 className="text-xl font-semibold mb-2 group-hover:text-[var(--color-primary)] transition">
-                {branch.name}
-              </h2>
+            <div className="p-6 hover:bg-[#1e1e1e] transition group">
+              <Link 
+                href={getLinkHref(branch.id)}
+                className="block"
+              >
+                <h2 className="text-xl font-semibold mb-2 group-hover:text-[var(--color-primary)] transition">
+                  {branch.name}
+                </h2>
 
-              <p className="text-sm text-gray-300 mb-4">{branch.address}</p>
+                <p className="text-sm text-gray-300 mb-4">{branch.address}</p>
 
-              {/* BOTONES */}
-              <div className="flex gap-3 items-center">
                 <span className="text-sm text-[var(--color-primary)] font-semibold">
-                  Ver horarios
+                  See schedules
                 </span>
+              </Link>
 
-                <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${branch.latitude},${branch.longitude}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="
-                    text-xs px-3 py-1.5 rounded-full 
-                    bg-blue-600 hover:bg-blue-700 
-                    text-white transition
-                  "
-                >
-                  Cómo llegar
-                </a>
-              </div>
-            </Link>
+              {/* BOTÓN EXTERNO PARA GOOGLE MAPS */}
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${branch.latitude},${branch.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  mt-3 inline-block
+                  text-xs px-3 py-1.5 rounded-full 
+                  bg-blue-600 hover:bg-blue-700 
+                  text-white transition
+                "
+              >
+                How to get there
+              </a>
+            </div>
           </div>
         ))}
       </div>

@@ -9,22 +9,22 @@ export default function CreateProductPage() {
         <UpsertResourcePage<Product>
             type="POST"
             resource="products"
-            title="Crear un nuevo producto"
-            submitText="Crear producto"
-            successMessage="Se ha creado el producto"
+            title="Create a new product"
+            submitText="Create product"
+            successMessage="The product has been created"
             successRedirect={() => "/admin-dashboard/products"}
             backLink="/admin-dashboard/products"
             validate={validateProductCreation}
             mapError={() => {
                 return {
-                    title: "Error desconocido",
-                    description: "Se desconoce la causa del error, contacte con el soporte"
+                    title: "Unknown error",
+                    description: "The cause of the error is unknown, please contact support"
                 }
             }}
             fields={[
                 {
                     name: "image",
-                    label: "Imagen",
+                    label: "Image",
                     icon: "Image",
                     required: true,
                     as: "file",
@@ -32,14 +32,14 @@ export default function CreateProductPage() {
                 },
                 {
                     name: "name",
-                    label: "Nombre",
+                    label: "Name",
                     icon: "WineGlass",
                     required: true,
                     autoFocus: true
                 },
                 {
                     name: "description",
-                    label: "Descripción",
+                    label: "Descriptión",
                     icon: "Pencil",
                     as: "textarea",
                     required: true,
@@ -47,43 +47,43 @@ export default function CreateProductPage() {
                 },
                 {
                     name: "price",
-                    label: "Precio",
+                    label: "Price",
                     icon: "Coin",
                     required: true,
                 },
                 {
                     name: "category",
-                    label: "Categoría",
+                    label: "Category",
                     icon: "ShippingBoxV2",
                     required: true,
                     as: "select",
                     options: [
                         {
-                            label: "Pochoclo",
+                            label: "Popcorn",
                             value: "popcorn"
                         },
                         {
-                            label: "Gaseosas",
+                            label: "Soft_drink",
                             value: "soft_drink"
                         },
                         {
-                            label: "Agua",
+                            label: "Water",
                             value: "water"
                         },
                         {
-                            label: "Jugo",
+                            label: "Juice",
                             value: "juice"
                         },
                         {
-                            label: "Golosinas",
+                            label: "Candy",
                             value: "candy"
                         },
                         {
-                            label: "chocolate",
-                            value: "Chocolates"
+                            label: "Chocolates",
+                            value: "chocolates"
                         },
                         {
-                            label: "Chicles",
+                            label: "Gum",
                             value: "gum"
                         },
                         {
@@ -91,15 +91,15 @@ export default function CreateProductPage() {
                             value: "nachos"
                         },
                         {
-                            label: "Perros calientes",
+                            label: "Hotdog",
                             value: "hotdog"
                         },
                         {
-                            label: "Combinaciones",
+                            label: "Combo",
                             value: "combo"
                         },
                         {
-                            label: "Otro",
+                            label: "Other",
                             value: "other"
                         },
                     ]

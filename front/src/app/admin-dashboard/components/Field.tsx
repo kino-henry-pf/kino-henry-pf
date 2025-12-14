@@ -1,12 +1,22 @@
 "use client"
 
-import { ErrorMessage, Field as FormikField } from "formik";
+import { ErrorMessage, Field as FormikField, useFormikContext } from "formik";
 import { FormField } from "../types";
 import * as Icon from "akar-icons"
 import UploadImage from "./UploadImage";
+import LocationPicker from "./LocationPicker";
+import { ChangeEvent, useEffect } from "react";
 
 export default function Field(field: FormField) {
     const FieldIcon = field.icon ? Icon[field.icon] : null
+
+    const formikContext = useFormikContext<any>()
+
+    useEffect(() => {
+        if (field.defaultValue) {
+            formikContext.setFieldValue(field.name, field.defaultValue)
+        }
+    }, [field.defaultValue])
 
     return (
         <div key={field.name} className="flex flex-col gap-1">
@@ -23,7 +33,8 @@ export default function Field(field: FormField) {
                     className={[
                         "grid grid-cols-[auto_1fr] grid-rows-[100%] bg-white/3 border-1 border-[var(--color-border)] rounded-md w-full px-4 focus-within:shadow-[0_0_0_.2rem_rgb(255_255_255_/_10%)] shadow-[0_0_0_.2rem_rgb(255_255_255_/_0%)] transition-shadow",
                         field.as === "textarea" || field.as === "file" ? "h-32 py-3 items-start" : "items-center min-h-12",
-                        field.as === "file" ? "h-52" : ""
+                        field.as === "file" ? "h-52" : "",
+                        field.as === "location" ? "h-72 !pr-0 gap-4 overflow-hidden" : ""
                     ].join(" ")}
                 >
                     {
@@ -35,7 +46,7 @@ export default function Field(field: FormField) {
                         />
                     }
                     {
-                        field.type !== "file" && field.as !== "file" ? (
+                        field.as !== "file" && field.as !== "location" ? (
                             <FormikField
                                 key={field}
                                 type={field.type || "text"}
@@ -50,6 +61,11 @@ export default function Field(field: FormField) {
                                 disabled={field.isLoading || field.disabled}
                                 autoFocus={field.autoFocus}
                                 autoComplete="off"
+                                value={formikContext.values[field.name]}
+                                onChange={(e: any) => {
+                                    formikContext.setFieldValue(field.name, e.currentTarget.value)
+                                    field.onChange?.(e.currentTarget.value)
+                                }}
                             >
                                 {
                                     field.options?.map(option => (
@@ -57,7 +73,7 @@ export default function Field(field: FormField) {
                                     )) || null
                                 }
                             </FormikField>
-                        ) : (
+                        ) : field.as === "file" ? (
                             <UploadImage
                                 preview={field.preview}
                                 name={field.name}
@@ -65,6 +81,8 @@ export default function Field(field: FormField) {
                                 required={field.required}
                                 disabled={field.disabled || field.isLoading}
                             />
+                        ) : (
+                            <LocationPicker defaultValue={field.defaultValue} onChange={field.onChange} />
                         )
                     }
                 </div>

@@ -12,25 +12,25 @@ export default function validateProductCreation(values?: {
     if (!values.image) {
         errors.notFound = "image"
     } else if (values.image.size > 5 * 1024 * 1024) {
-        errors.image = "Debe pesar menos de 5MB"
+        errors.image = "It must weigh less than 5MB"
     }
 
     if (!values.name) {
         errors.notFound = "name"
     } else if (values.name.length > 100) {
-        errors.name = "Debe contener menos de 100 caracteres"
+        errors.name = "It must contain fewer than 100 characters"
     }
 
     if (!values.description) {
         errors.notFound = "description"
     } else if (values.description.length > 200) {
-        errors.name = "Debe contener menos de 200 caracteres"
+        errors.name = "It must contain fewer than 200 characters"
     }
 
     if (values.price === "" || values.price === undefined) {
         errors.notFound = "price"
     } else if (parseFloat(values.price.replace(".", "").replace(",", ".")) <= 0) {
-        errors.price = "Debe ser un número decimal mayor a 0 separando decimales con coma"
+        errors.price = "It must be a decimal number greater than 0, separating decimals with a comma."
     }
 
     if (values.category === "" || values.category === undefined) {

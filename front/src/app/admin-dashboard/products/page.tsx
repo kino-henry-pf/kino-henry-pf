@@ -13,7 +13,7 @@ export default function AdminProductsPage() {
         mapRow={product => ({
             resourceId: product.id,
             value: [
-                <Link href={`/admin-dashboard/products/${product.id}`}>
+                <Link scroll={false} href={`/admin-dashboard/products/${product.id}`}>
                     <Image
                         width={100}
                         height={100}
@@ -21,7 +21,7 @@ export default function AdminProductsPage() {
                         src={product.image}
                     />
                 </Link>,
-                <Link href={`/admin-dashboard/products/${product.id}`}>
+                <Link scroll={false} href={`/admin-dashboard/products/${product.id}`}>
                     {product.name}
                 </Link>,
                 product.category,

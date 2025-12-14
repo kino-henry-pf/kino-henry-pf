@@ -9,31 +9,28 @@ export default function validateBranchUpsert(values?: {
     const errors: Partial<Omit<typeof values, "latitude" | "longitude">> & {notFound?: string, latitude?: string, longitude?: string} = {}
 
     if (values.name && values.name.length > 150) {
-        errors.name = "Debe contener menos de 150 caracteres"
+        errors.name = "DIt must contain less than 150 characters"
     } else if (!values.name) {
         errors.notFound = "name"
     }
 
     if (values.address && values.address.length > 255) {
-        errors.address = "Debe contener menos de 255 caracteres"
+        errors.address = "It must contain less than 255 characters"
     } else if (!values.address) {
         errors.notFound = "address"
     }
 
     if (values.latitude && isNaN(values.latitude)) {
-        errors.latitude = "Debe ser un número decimal válido"
+        errors.latitude = "It must be a valid decimal number."
     } else if (!values.latitude) {
         errors.notFound = "latitude"
     }
 
     if (values.longitude && isNaN(values.longitude)) {
-        console.log(values.longitude)
-        errors.longitude = "Debe ser un número decimal válido"
+        errors.longitude = "It must be a valid decimal number."
     } else if (!values.longitude) {
         errors.notFound = "longitude"
     }
-
-    console.log(errors.notFound)
 
     return errors
 }

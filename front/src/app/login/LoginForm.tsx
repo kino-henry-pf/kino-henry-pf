@@ -29,13 +29,13 @@ function LoginForm() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!values.email) {
-      errors.email = "El correo electrónico es obligatorio.";
+      errors.email = "Email is required.";
     } else if (!emailRegex.test(values.email)) {
-      errors.email = "Formato de correo inválido.";
+      errors.email = "Invalid email format.";
     }
 
     if (!values.password) {
-      errors.password = "La contraseña es obligatoria.";
+      errors.password = "A password is required.";
     }
 
     return errors;
@@ -45,14 +45,14 @@ function LoginForm() {
     try {
       const response = await loginService(values);
       setDataUser(response);
-      console.log('Usuario logueado', response);
-      toast.success("✅ Usuario logueado correctamente");
+      console.log('Logged in user', response);
+      toast.success("✅ User logged in successfully");
       setTimeout(() => {
         window.location.href = "/";
       }, 1500);
     } catch (error: any) {
         toast.error(
-        "❌ Error al loguear usuario"
+        "❌ Error logging in user"
       );
     }
   }; 
@@ -105,7 +105,7 @@ function LoginForm() {
               <Field
                 type="password"
                 name="password"
-                placeholder="Contraseña"
+                placeholder="Password"
                 className="w-full p-2 rounded bg-[#3d3c3c] text-white"
               />
               <ErrorMessage
@@ -120,13 +120,13 @@ function LoginForm() {
               disabled={isSubmitting}
               className="w-full bg-[#F3CC63] hover:bg-[#f6d783] transition p-2 rounded font-semibold text-black cursor-pointer"
             >
-              Iniciar Sesión
+              Login
             </button>
 
             <p className="p-2">
-              No tenes cuenta?{" "}
+              Don't you have an account?{" "}
               <a className="text-blue-300 text-center" href="/register">
-                Crear Cuenta
+                Create Account
               </a>
             </p>
 

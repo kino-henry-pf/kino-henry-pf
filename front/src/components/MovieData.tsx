@@ -26,12 +26,12 @@ export default function MovieData({
         <div className="flex items-center gap-2 font-bold">
           <Rating value={movie.rating} />
           <div className="w-[4px] h-[4px] bg-white rounded-full"></div>
-          <span>Disponible ahora!</span>
+          <span>Available now!</span>
         </div>
         <p>{movie.synopsis}</p>
         <nav className="w-fit flex items-center gap-4">
           <Link href={`/movies/${movie.id}/branches`}>
-            <Button rounded>Cotizar boleto</Button>
+            <Button rounded>Quote ticket</Button>
           </Link>
           {actions &&
             actions.map((action, index) => (

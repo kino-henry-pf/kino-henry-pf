@@ -6,10 +6,15 @@ import {
   HttpCode,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ShowtimesService } from './showtimes.service';
 import Showtime from './showtimes.entity';
 import { CreateShowtimeDto } from './DTOs/create-showtime.dto';
+import { RolesGuard } from 'src/auth/guards/role-guard.guard';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { Role } from 'src/auth/roles.enum';
+import { Roles } from 'src/decorator/role.decorator';
 
 @Controller('showtimes')
 export class ShowtimesController {
@@ -34,6 +39,8 @@ export class ShowtimesController {
   }
 
   @Post()
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async createShowtime(@Body() dto: CreateShowtimeDto): Promise<Showtime> {
     return await this.showtimesService.createShowtime(dto);
   }

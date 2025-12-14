@@ -11,7 +11,7 @@ export const searchMovies = async (title: string) => {
   );
 
   if (!response.ok) {
-    console.error("Error en la búsqueda:", response.status);
+    console.error("Search error:", response.status);
     return [];
   }
 

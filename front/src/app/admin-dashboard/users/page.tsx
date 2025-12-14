@@ -7,23 +7,26 @@ import * as Icon from "akar-icons"
 
 export default function AdminUsersPage() {
     return <ResourcePage<User>
-        title="Usuarios"
+        title="Users"
         resource="users"
-        head={["Nombre", "Correo electrónico", "Dirección", ""]}
+        head={["Name", "Email", "Address", ""]}
         mapRow={user => ({
             resourceId: user.id,
             value: [
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/users/${user.id}`}
                 >
                     {user.name}
                 </Link>,
                 <Link
+                    scroll={false}
                     href={`/admin-dashboard/users/${user.id}`}
                 >
                     {user.email}
                 </Link>,
                 <Link
+                    scroll={false}
                     className="max-w-[150px] block overflow-hidden text-ellipsis"
                     href={`/admin-dashboard/users/${user.id}`}
                 >

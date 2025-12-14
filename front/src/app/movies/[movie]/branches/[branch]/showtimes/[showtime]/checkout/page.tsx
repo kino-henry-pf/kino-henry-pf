@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Movie } from '@/types/movie';
 import { Branch } from '@/types/branch';
 import { Product } from '@/types/product';
+import toast from "react-hot-toast";
+
 
 type SearchParams = {
   seats?: string;
@@ -77,7 +79,7 @@ export default function CheckoutSummary({
   }, [movie, branch]);
 
   if (!movieData || !branchData) {
-    return <p className="p-10">Cargando resumen...</p>;
+    return <p className="p-10">Loading summary...</p>;
   }
 
   const ticketPrice = 75;
@@ -133,7 +135,9 @@ export default function CheckoutSummary({
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      alert('Error durante el checkout.');
+      toast.error(
+      "❌ Error during checkout."
+    );
     } finally {
       setLoading(false);
     }
@@ -141,7 +145,7 @@ export default function CheckoutSummary({
 
   return (
     <main className="container-x-padding py-10">
-      <h1 className="text-3xl font-bold mb-8">Resumen de compra</h1>
+      <h1 className="text-3xl font-bold mb-8">Purchase summary</h1>
 
       <section className="flex gap-10 mb-10">
         <Image
@@ -157,17 +161,17 @@ export default function CheckoutSummary({
           <p className="text-gray-400">{branchData.name}</p>
 
           <div className="mt-6">
-            <h3 className="font-semibold text-lg">Asientos seleccionados</h3>
+            <h3 className="font-semibold text-lg">Selected seats</h3>
             <p className="text-gray-300">{seatLabels.join(', ')}</p>
           </div>
         </div>
       </section>
 
       <section className="mb-10">
-        <h3 className="text-xl font-semibold mb-4">Productos seleccionados</h3>
+        <h3 className="text-xl font-semibold mb-4">Selected products</h3>
 
         {productsData.length === 0 && (
-          <p className="text-gray-400">No agregaste productos.</p>
+          <p className="text-gray-400">You did not add any products.</p>
         )}
 
         {productsData.length > 0 && (
@@ -187,15 +191,15 @@ export default function CheckoutSummary({
       </section>
 
       <section className="border-t border-gray-700 pt-6">
-        <h3 className="text-xl font-semibold mb-4">Totales</h3>
+        <h3 className="text-xl font-semibold mb-4">Totals</h3>
 
         <div className="flex justify-between mb-2">
-          <span>Boletos ({seatIds.length})</span>
+          <span>Tickets ({seatIds.length})</span>
           <span>${ticketsTotal}</span>
         </div>
 
         <div className="flex justify-between mb-2">
-          <span>Productos</span>
+          <span>Products</span>
           <span>${productsTotal}</span>
         </div>
 
@@ -211,7 +215,7 @@ export default function CheckoutSummary({
           onClick={handlePayNow}
           className="px-6 py-3 rounded-xl bg-[var(--color-primary)] text-black text-lg font-semibold cursor-pointer disabled:opacity-50"
         >
-          {loading ? 'Procesando…' : 'Pagar ahora'}
+          {loading ? 'Processing…' : 'Pay now'}
         </button>
       </div>
     </main>

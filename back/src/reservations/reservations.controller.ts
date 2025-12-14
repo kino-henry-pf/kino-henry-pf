@@ -1,14 +1,37 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import Reservation from './reservation.entity';
 import CreateReservationDto from './DTOs/create-reservation.dto';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
 
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
+@Get('all')
+async getAllReservations() {
+  return this.reservationsService.getAllReservations();
+}
 
-  @Get(':userId')
-  async getByUser(@Param('userId') userId: string): Promise<Reservation[]> {
+@Get('all/upcoming')
+async getAllUpcomingReservations() {
+  return this.reservationsService.getAllUpcomingReservations();
+}
+
+@Get('all/past')
+async getAllPastReservations() {
+  return this.reservationsService.getAllPastReservations();
+}
+
+  @Get('user/:id')
+  async getByUser(@Param('id') userId: string): Promise<Reservation[]> {
     return await this.reservationsService.getByUser(userId);
   }
 
@@ -17,6 +40,7 @@ export class ReservationsController {
     return await this.reservationsService.getById(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async cancel(@Param('id') id: string): Promise<Reservation> {
     return await this.reservationsService.cancel(id);
@@ -28,4 +52,15 @@ export class ReservationsController {
   ): Promise<Reservation> {
     return await this.reservationsService.createReservation(dto);
   }
+
+  @Get('user/:userId/upcoming')
+async getUpcomingReservations(@Param('userId') userId: string) {
+  return this.reservationsService.getUpcomingReservations(userId);
+}
+
+@Get('user/:userId/past')
+async getPastReservations(@Param('userId') userId: string) {
+  return this.reservationsService.getPastReservations(userId);
+}
+
 }

@@ -13,8 +13,8 @@ export default function AdminProductPage() {
         backLink="/admin-dashboard/products"
         deleteResource={{
             path: `products/${params.productId}`,
-            title: "¿Desea eliminar este producto?",
-            description: product => `Se eliminará el producto "${product.name}"`,
+            title: "Do you want to delete this product?",
+            description: product => `The product will be removed "${product.name}"`,
             successRedirect: "/admin-dashboard/products"
         }}
         mapData={product => ({
@@ -26,22 +26,22 @@ export default function AdminProductPage() {
                     value: product.id
                 },
                 {
-                    name: "Nombre",
+                    name: "Name",
                     value: product.name
                 },
                 {
-                    name: "Descripción",
+                    name: "Descriptión",
                     value: product.description
                 },
                 {
-                    name: "Precio",
+                    name: "Price",
                     value: parseFloat(product.price).toLocaleString("es-AR", {
                         currency: "ARS",
                         style: "currency"
                     })
                 },
                 {
-                    name: "Categoría",
+                    name: "Category",
                     value: product.category
                 }
             ]

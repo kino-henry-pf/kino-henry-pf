@@ -39,7 +39,7 @@ export default function BranchSelectionPage({
       branches={branches}
       getLinkHref={getLinkHref}
       loading={loading}
-      title="Selecciona una sucursal"
+      title="Select a branch"
     />
   );
 }

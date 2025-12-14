@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const [dataUser, setDataUser] = useState<userSessionInterface | null>(null);
 
   useEffect(() => {
-    console.log("dataUser CAMBIÓ →", dataUser);
+    console.log("dataUser CHANGED →", dataUser);
     if(dataUser){
         localStorage.setItem('userSession', JSON.stringify(dataUser))
     }

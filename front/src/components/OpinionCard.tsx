@@ -11,7 +11,7 @@ export default function OpinionCard() {
                 </div>
                 <Rating value="2.5" />
             </div>
-            <p>Esta es una reseña :D</p>
+            <p>This is a review :DD</p>
         </article>
     )
 }

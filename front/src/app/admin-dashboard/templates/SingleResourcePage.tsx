@@ -56,6 +56,7 @@ export default function SingleResourcePage<T>({
     useEffect(() => {
         if (!topSectionRef.current) return
         const scrollTop = window.scrollY + topSectionRef.current.getBoundingClientRect().top
+        if (!scrollTop) return
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
     }, [topSectionRef, resource, data])
 
@@ -67,7 +68,7 @@ export default function SingleResourcePage<T>({
                         <div className="w-full h-fit flex flex-col gap-10 container-x-padding lg:![padding-left:0] lg:![padding-right:0]">
                             <div className="w-full flex items-center gap-10 justify-between">
                                 <div className="w-full h-fit flex items-center gap-10">
-                                    <IconButton type="link" href={backLink}>
+                                    <IconButton scroll={false} type="link" href={backLink}>
                                         <Icon.ArrowLeft className="size-5" />
                                     </IconButton>
                                     <span>{data.title}</span>
@@ -75,7 +76,7 @@ export default function SingleResourcePage<T>({
                                 <nav className="w-fit h-fit flex items-center gap-3">
                                     {
                                         editLink && (
-                                            <IconButton small type="link" href={editLink}>
+                                            <IconButton scroll={false} small type="link" href={editLink}>
                                                 <Icon.Edit className="size-4" />
                                             </IconButton>
                                         )
@@ -127,7 +128,7 @@ export default function SingleResourcePage<T>({
                                 <AlertModal
                                     show={_deleteDialog}
                                     title={deleteResource.title}
-                                    shortTitle="Eliminar"
+                                    shortTitle="Delete"
                                     description={deleteResource.description(query.data)}
                                     icon="TrashBin"
                                     onClose={() => _setDeleteDialog(false)}
@@ -140,14 +141,14 @@ export default function SingleResourcePage<T>({
                                                 onClick={() => {
                                                     _setDeleteDialog(false)
                                                 }}
-                                            >Cancelar</Button>
+                                            >Cancel</Button>
                                             <Button
                                                 width="100%"
                                                 onClick={async () => {
                                                     await deleteMutation?.submit({})
                                                     router.push(deleteResource.successRedirect)
                                                 }}
-                                            >Eliminar</Button>
+                                            >Delete</Button>
                                         </nav>
                                     }
                                 />

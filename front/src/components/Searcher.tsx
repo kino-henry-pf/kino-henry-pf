@@ -11,7 +11,7 @@ export default function Searcher({
         <label className="w-[420px] max-w-full cursor-text bg-white/3 rounded-full flex items-center gap-3 p-3 border-1 border-[var(--color-border)] w-full">
             <Icon.Search className="size-5" />
             <input
-                placeholder="Busca aquí..."
+                placeholder="search here..."
                 className="w-full h-full text-md"
                 onInput={event => onInput(event.currentTarget.value)}
                 value={value}

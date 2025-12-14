@@ -1,7 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
 import Room from './rooms.entity';
 import CreateRoomDto from './DTOs/create-room.dto';
+import { RolesGuard } from 'src/auth/guards/role-guard.guard';
+import { AuthGuard } from 'src/auth/guards/auth-guard.guard';
+import { Role } from 'src/auth/roles.enum';
+import { Roles } from 'src/decorator/role.decorator';
 
 @Controller('rooms')
 export class RoomsController {
@@ -22,6 +26,8 @@ export class RoomsController {
     return await this.roomsService.findByBranch(branchId);
   }
 
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Post()
   async createRoom(@Body() dto: CreateRoomDto): Promise<Room> {
     return await this.roomsService.createRoom(dto);

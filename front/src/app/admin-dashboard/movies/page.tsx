@@ -7,13 +7,13 @@ import Link from "next/link";
 
 export default function AdminMoviesPage() {
     return <ResourcePage<Movie>
-        title="Películas"
+        title="Movies"
         resource="movies"
-        head={["Imagen", "Título", "Género", "Calificación"]}
+        head={["Image", "Títle", "Genre", "Qualification"]}
         mapRow={movie => ({
             resourceId: movie.id,
             value: [
-                <Link href={`/admin-dashboard/movies/${movie.id}`}>
+                <Link scroll={false} href={`/admin-dashboard/movies/${movie.id}`}>
                     <Image
                         width={100}
                         height={100}
@@ -21,7 +21,7 @@ export default function AdminMoviesPage() {
                         src={movie.image}
                     />
                 </Link>,
-                <Link href={`/admin-dashboard/movies/${movie.id}`}>
+                <Link scroll={false} href={`/admin-dashboard/movies/${movie.id}`}>
                     {movie.title}
                 </Link>,
                 movie.genre,
