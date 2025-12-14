@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import ReviewsRepository from './reviews.repository';
 import { CreateReviewDto } from './DTOs/create-review.dto';
 
@@ -12,5 +12,14 @@ export class ReviewsService {
 
   async createReview(dto: CreateReviewDto) {
     return await this.reviewsRepository.createReview(dto);
+  }
+
+  async deleteReview(reviewId: string) {
+    const reviewDeleted = await this.reviewsRepository.deleteReview(reviewId);
+    if (!reviewDeleted)
+      throw new NotFoundException(
+        `No review with an id of ${reviewId} exists.`,
+      );
+    return reviewDeleted;
   }
 }
