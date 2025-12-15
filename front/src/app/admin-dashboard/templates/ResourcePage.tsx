@@ -3,7 +3,7 @@
 import { useQuery } from "@/hooks/useQuery"
 import DataTable from "@/components/DataTable"
 import { useEffect, useRef } from "react"
-import Loader from "../components/Loader"
+import Loader from "../../../components/Loader"
 
 export default function ResourcePage<T>({
     resource,

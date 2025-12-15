@@ -31,7 +31,18 @@ export default class ReservationRepository {
   }
 
   async getById(id: string): Promise<Reservation | null> {
-    return await this.reservationRepository.findOneBy({ id });
+    return await this.reservationRepository.findOne({
+      where: {id},
+      relations: {
+        showtime: {
+          movie: true,
+          room: true
+        },
+        seats: {
+          seat: true
+        }
+      }
+    });
   }
 
   async cancel(id: string): Promise<Reservation | null> {

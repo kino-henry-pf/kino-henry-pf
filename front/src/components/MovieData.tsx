@@ -8,9 +8,11 @@ import Link from 'next/link';
 export default function MovieData({
   movie,
   actions,
+  quoteAction = true
 }: {
   movie: Movie;
   actions?: React.ReactNode[];
+  quoteAction?: boolean
 }) {
   return (
     <article className="max-w-full w-full lg:w-[800px] h-full items-center lg:grid lg:grid-cols-[auto_1fr] gap-15 lg:grid-rows-1 grid-cols-1 relative lg:rounded-none rounded-2xl overflow-hidden">
@@ -30,9 +32,11 @@ export default function MovieData({
         </div>
         <p>{movie.synopsis}</p>
         <nav className="w-fit flex items-center gap-4">
-          <Link href={`/movies/${movie.id}/branches`}>
-            <Button rounded>Quote ticket</Button>
-          </Link>
+          {
+            quoteAction && <Link href={`/movies/${movie.id}/branches`}>
+              <Button rounded>Quote ticket</Button>
+            </Link>
+          }
           {actions &&
             actions.map((action, index) => (
               <Fragment key={index}>{action}</Fragment>

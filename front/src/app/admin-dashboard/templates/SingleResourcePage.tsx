@@ -9,7 +9,7 @@ import useMutation from "@/hooks/useMutation"
 import AlertModal from "@/components/AlertModal"
 import Button from "@/components/Button"
 import { useRouter } from "next/navigation"
-import Loader from "../components/Loader"
+import Loader from "../../../components/Loader"
 
 export default function SingleResourcePage<T>({
     resource,

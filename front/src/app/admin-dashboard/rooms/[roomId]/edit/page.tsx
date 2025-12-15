@@ -1,6 +1,6 @@
 "use client"
 
-import Loader from "@/app/admin-dashboard/components/Loader";
+import Loader from "@/components/Loader";
 import UpsertResourcePage from "@/app/admin-dashboard/templates/UpsertResourcePage";
 import validateRoomUpsert from "@/app/admin-dashboard/validate/validateRoomUpsert";
 import { useQuery } from "@/hooks/useQuery";

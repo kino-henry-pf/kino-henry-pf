@@ -11,7 +11,7 @@ import { useQuery } from "@/hooks/useQuery"
 import { useRouter } from "next/navigation"
 import IconButton from "@/components/IconButton"
 import * as Icon from "akar-icons"
-import Loader from "../components/Loader"
+import Loader from "../../../components/Loader"
 
 export default function UpsertResourcePage<T>({
     resource,
