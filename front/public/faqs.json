@@ -1,57 +1,57 @@
 [
   {
     "id": 1,
-    "question": "¿Cómo puedo registrarme en la aplicación?",
-    "answer": "Puedes registrarte con tu cuenta de Google o ingresando nombre, apellido, fecha de nacimiento, correo electrónico y contraseña. La contraseña debe ser fuerte y repetida en un campo adicional. Si usas correo y contraseña, deberás completar un captcha."
+    "question": "How can I register in the application?",
+    "answer": "You can register using your Google account or by entering your first name, last name, date of birth, email address, and password. The password must be strong and repeated in an additional field. If you use email and password, you must complete a captcha."
   },
   {
     "id": 2,
-    "question": "¿Cómo inicio sesión en la aplicación?",
-    "answer": "Puedes iniciar sesión con tu cuenta de Google o con tu correo electrónico y contraseña. Las credenciales deben coincidir con un usuario registrado."
+    "question": "How do I log in to the application?",
+    "answer": "You can log in using your Google account or with your email address and password. The credentials must match a registered user."
   },
   {
     "id": 3,
-    "question": "¿Necesito estar registrado para ver las películas disponibles?",
-    "answer": "No, cualquier usuario puede visualizar el listado de películas junto con su calificación, categorías y género. Además, puedes filtrarlas por género, subtitulado y dimensión (2D/3D)."
+    "question": "Do I need to be registered to see the available movies?",
+    "answer": "No, any user can view the list of movies along with their rating, categories, and genre. You can also filter them by genre, subtitles, and format (2D/3D)."
   },
   {
     "id": 4,
-    "question": "¿Qué información puedo ver de una película en particular?",
-    "answer": "Podrás ver el póster, título, calificación, reseñas y sinopsis. Si estás autenticado, también tendrás la opción de reservar entradas si hay disponibilidad."
+    "question": "What information can I see about a specific movie?",
+    "answer": "You will be able to see the poster, title, rating, reviews, and synopsis. If you are authenticated, you will also have the option to book tickets if there is availability."
   },
   {
     "id": 5,
-    "question": "¿Cómo reservo entradas para una película?",
-    "answer": "Debes estar autenticado. Podrás seleccionar múltiples entradas, elegir asientos disponibles y horarios. El sistema te mostrará la hora de finalización de la película elegida."
+    "question": "How do I book tickets for a movie?",
+    "answer": "You must be authenticated. You can select multiple tickets, choose available seats and showtimes. The system will show you the end time of the selected movie."
   },
   {
     "id": 6,
-    "question": "¿Dónde veo mi historial de reservas?",
-    "answer": "En tu perfil podrás ver todas tus reservas anteriores. Podrás cancelar una reserva con al menos un día de anticipación y recibirás una notificación por email. Cada reserva muestra películas, cantidades, monto total y productos asociados."
+    "question": "Where can I see my booking history?",
+    "answer": "In your profile, you will be able to see all your previous bookings. You can cancel a booking at least one day in advance and you will receive an email notification. Each booking shows movies, quantities, total amount, and associated products."
   },
   {
     "id": 7,
-    "question": "¿Es obligatorio pagar una reserva por adelantado?",
-    "answer": "Sí, no se pueden registrar reservas sin pago. Puedes elegir el método de pago y recibirás una notificación por email en caso de éxito o error."
+    "question": "Is it mandatory to pay for a booking in advance?",
+    "answer": "Yes, bookings cannot be registered without payment. You can choose the payment method and you will receive an email notification in case of success or error."
   },
   {
     "id": 8,
-    "question": "¿Cómo puedo dejar una opinión sobre una película?",
-    "answer": "Solo los usuarios autenticados que hayan reservado y visto la película pueden opinar. Deben haber pasado 4 horas desde la finalización. El sistema enviará un correo solicitando tu opinión."
+    "question": "How can I leave a review for a movie?",
+    "answer": "Only authenticated users who have booked and watched the movie can leave a review. At least 4 hours must have passed since the movie ended. The system will send an email requesting your review."
   },
   {
     "id": 9,
-    "question": "¿Qué puede hacer un administrador con las películas?",
-    "answer": "Un administrador puede agregar nuevas películas o modificar las existentes. Debe ingresar título, descripción e imagen. Los cambios se reflejan inmediatamente si los campos obligatorios están completos."
+    "question": "What can an administrator do with movies?",
+    "answer": "An administrator can add new movies or modify existing ones. They must enter the title, description, and image. The changes are reflected immediately if the required fields are completed."
   },
   {
     "id": 10,
-    "question": "¿Qué puede hacer un administrador con los productos de comida?",
-    "answer": "Puede agregar nuevos productos ingresando nombre, descripción, precio, categoría e imagen, o modificar los existentes. Los cambios se reflejan inmediatamente si los campos obligatorios están completos."
+    "question": "What can an administrator do with food products?",
+    "answer": "They can add new products by entering the name, description, price, category, and image, or modify existing ones. The changes are reflected immediately if the required fields are completed."
   },
   {
     "id": 11,
-    "question": "¿Qué información ve un administrador en el dashboard?",
-    "answer": "El administrador puede visualizar el número total de usuarios no administradores, el total de boletos vendidos y la cantidad de productos de comida vendidos. Los contadores se actualizan automáticamente y son visibles al ingresar al dashboard."
+    "question": "What information does an administrator see on the dashboard?",
+    "answer": "The administrator can view the total number of non-administrator users, the total number of tickets sold, and the number of food products sold. The counters are automatically updated and visible upon entering the dashboard."
   }
 ]
