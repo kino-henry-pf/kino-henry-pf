@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/authContext"
 import { useQuery } from "@/hooks/useQuery";
 import { Showtime } from "@/types/showtime";
+import Link from "next/link";
 
 export default function MyProfilePage() {
 
@@ -43,8 +44,9 @@ export default function MyProfilePage() {
       <div className="space-y-4 max-w-3xl">
 
         {historyQuery.data?.map(order => (
-          <div
+          <Link
             key={order.id}
+            href={`/myProfile/reservations/${order.id}`}
             className="bg-[#1A1A1A] border border-[#2a2a2a] rounded-xl px-6 py-4 flex justify-between items-center shadow-md"
           >
             <div>
@@ -63,7 +65,7 @@ export default function MyProfilePage() {
             >
               {order.status}
             </p>
-          </div>
+          </Link>
         )) || "Charging..."}
 
       </div>

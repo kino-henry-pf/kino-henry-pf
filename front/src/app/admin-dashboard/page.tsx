@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import DataCard from "./components/DataCard";
 import RoomCard from "./components/RoomCard";
 import { useQuery } from "@/hooks/useQuery";
-import Loader from "./components/Loader";
+import Loader from "../../components/Loader";
 
 type RoomOccupancy = {
     roomId: string,

@@ -60,7 +60,7 @@ gmp-internal-dialog {
   overflow: auto;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1300px) {
   .container-x-padding {
     padding-left: 50px;
     padding-right: 50px;

@@ -4,7 +4,7 @@ import { Room } from "@/types/room";
 import UpsertResourcePage from "../../templates/UpsertResourcePage";
 import validateRoomUpsert from "../../validate/validateRoomUpsert";
 import { useQuery } from "@/hooks/useQuery";
-import Loader from "../../components/Loader";
+import Loader from "../../../../components/Loader";
 import { Branch } from "@/types/branch";
 
 export default function CreateRoomPage() {

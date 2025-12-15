@@ -41,7 +41,7 @@ export default function LocationPicker({
                 fullscreenControl: false,
                 streetViewControl: false,
                 clickableIcons: false,
-                mapId: "1"
+                mapId: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
             })
 
             mapInstanceRef.current.addListener("idle", () => {
