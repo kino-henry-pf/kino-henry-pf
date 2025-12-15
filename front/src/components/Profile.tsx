@@ -43,30 +43,41 @@ export default function MyProfilePage() {
 
       <div className="space-y-4 max-w-3xl">
 
-        {historyQuery.data?.map(order => (
-          <Link
-            key={order.id}
-            href={`/myProfile/reservations/${order.id}`}
-            className="bg-[#1A1A1A] border border-[#2a2a2a] rounded-xl px-6 py-4 flex justify-between items-center shadow-md"
-          >
-            <div>
-              <p className="font-semibold text-lg">{(new Date(order.showtime.startTime)).toLocaleString("en-US", {timeStyle: "short", dateStyle: "short"})}</p>
-              <p className="text-yellow-500 font-bold text-md mt-1">
-                ● {order.showtime.movie.title}
-              </p>
-            </div>
-
-            <p
-              className={`text-sm px-3 py-1 rounded-full border 
-                ${order.status === "confirmed"
-                  ? "border-green-600 text-green-400"
-                  : "border-red-600 text-red-400"
-                }`}
-            >
-              {order.status}
-            </p>
-          </Link>
-        )) || "Charging..."}
+       {historyQuery.data?.map(order => {
+         const isFinished =
+         new Date(order.showtime.startTime).getTime() +
+         Number(order.showtime.movie.duration) * 60 * 1000 <
+         Date.now();
+         return (
+           <Link
+             key={order.id}
+             href={`/myProfile/reservations/${order.id}`}
+             className="bg-[#1A1A1A] border border-[#2a2a2a] rounded-xl px-6 py-4 flex justify-between items-center shadow-md"
+           >
+             <div>
+               <p className="font-semibold text-lg">
+                 {new Date(order.showtime.startTime).toLocaleString("en-US", {
+                   timeStyle: "short",
+                   dateStyle: "short"
+                 })}
+               </p>
+               <p className="text-yellow-500 font-bold text-md mt-1">
+                 ● {order.showtime.movie.title}
+               </p>
+             </div>
+       
+             <p
+               className={`text-sm px-3 py-1 rounded-full border 
+                 ${order.status === "confirmed"
+                   ? "border-green-600 text-green-400"
+                   : "border-red-600 text-red-400"
+                 }`}
+             >
+               {isFinished ? "finalized" : order.status}
+             </p>
+           </Link>
+         );
+       }) || "Charging..."}
 
       </div>
     </div>
