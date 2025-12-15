@@ -38,12 +38,6 @@ export default function UserButton({
                         >
                           Frequently Asked Questions
                         </Link>
-                        <Link
-                            href="/bookings"
-                            className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
-                        >
-                            My reservations
-                        </Link>
                         {dataUser ? (
                           <div className="flex items-center space-x-4">
                             <button
