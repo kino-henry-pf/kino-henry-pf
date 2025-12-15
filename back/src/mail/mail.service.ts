@@ -27,7 +27,7 @@ export default class MailService {
   async sendNewsLetter(to: string, content: string) {
     await this.resend.emails.send({
       from: 'Kino <onboarding@resend.dev>',
-      to,
+      to: 'kinohenrypf@gmail.com',
       subject: 'Kino Weekly Newsletter',
       html: content,
     });
