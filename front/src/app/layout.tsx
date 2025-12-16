@@ -34,7 +34,7 @@ export default function RootLayout({
             <Navbar />
             <div>{children}</div>
 
-            <Toaster position="top-center" toastOptions={{ style: { background: "#000",  color: "#fff",  borderRadius: "12px",  padding: "16px",  fontWeight: "500", }, success: {  style: { background: "#000", color: "#fff", }, }, error: { style: { background: "#000", color: "#fff", }, }, }} />
+            <Toaster position="top-center" toastOptions={{ style: { zIndex: 9999999999, background: "#000",  color: "#fff",  borderRadius: "12px",  padding: "16px",  fontWeight: "500", }, success: {  style: { background: "#000", color: "#fff", }, }, error: { style: { background: "#000", color: "#fff", }, }, }} />
           </div>
         </AuthProvider>
       </body>
