@@ -1,9 +1,15 @@
-"use client";
-
 import OAuthSuccessPage from "@/components/OauthSuccess";
 
-export default function LoginGoogle() {
+export default async function LoginGoogle({
+  searchParams
+}: {
+  searchParams: Promise<{
+    token: string
+  }>
+}) {
+  const {token} = await searchParams
+
   return (
-    <OAuthSuccessPage />
+    <OAuthSuccessPage token={token} />
   );
 }
