@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/authContext';
 import { userSessionInterface } from '@/types/userSession';
 import { jwtDecode } from 'jwt-decode';
@@ -14,9 +13,11 @@ interface TokenPayload {
   role: string;
 }
 
-export default function OAuthSuccessPage() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+export default function OAuthSuccessPage({
+  token
+}: {
+  token: string
+}) {
   const { setDataUser } = useAuth();
 
   useEffect(() => {
