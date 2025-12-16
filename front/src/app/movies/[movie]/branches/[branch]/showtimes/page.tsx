@@ -38,12 +38,18 @@ export default async function ShowtimesPage({
       .replace('.', '');
   };
 
+  const toDate = (value: string) => new Date(value.replace(' ', 'T'));
+
+  const showtimesOrdered = showtimes.sort(
+    (a, b) => toDate(a.startTime).getTime() - toDate(b.startTime).getTime()
+  );
+
   return (
     <main className="container-x-padding py-10">
       <h1 className="text-2xl font-bold mb-6">Available times</h1>
 
       <div className="grid grid-cols-1 gap-6">
-        {showtimes.map((show) => (
+        {showtimesOrdered.map((show) => (
           <div
             key={show.id}
             className="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--background)]"

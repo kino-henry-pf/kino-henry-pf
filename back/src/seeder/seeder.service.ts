@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import Movie, { Genre } from '../movies/movie.entity';
 import { User } from '../users/entity/user.entity';
 import Product, { Category } from '../products/product.entity';
 import Showtime, { Format, Language } from '../showtimes/showtimes.entity';
 import { Branch } from '../branchs/branch.entity';
 import { BranchProduct } from '../branchsproducts/branch_products.entity';
-import { RoomsService } from '../rooms/rooms.service';
 import Room from '../rooms/rooms.entity';
+import { RoomsService } from '../rooms/rooms.service';
 
 @Injectable()
 export class SeederService {
@@ -25,19 +26,39 @@ export class SeederService {
     private readonly roomsService: RoomsService,
   ) {}
 
+  /* -------------------------------- HELPERS -------------------------------- */
+
   private pickRandom<T>(array: T[], count: number): T[] {
     return [...array].sort(() => Math.random() - 0.5).slice(0, count);
   }
 
+  private randomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  private getRandomFutureDate(): Date {
+    const baseDate = new Date('2025-12-18T12:00:00.000Z');
+    const daysToAdd = this.randomInt(1, 20);
+    const hoursToAdd = this.randomInt(0, 10);
+
+    const date = new Date(baseDate);
+    date.setDate(date.getDate() + daysToAdd);
+    date.setHours(12 + hoursToAdd);
+
+    return date;
+  }
+
+  /* --------------------------------- SEED ---------------------------------- */
+
   async seed() {
-    console.log('--- STARTING DATABASE SEEDER ---');
+    console.log('\n--- STARTING DATABASE SEEDER ---');
 
-    // BRANCHES
+    /* ------------------------------- BRANCHES ------------------------------- */
+
     console.log('\n> Seeding Branches...');
-    const branchCount = await this.branchRepository.count();
-    let savedBranches: Branch[];
+    let savedBranches = await this.branchRepository.find();
 
-    if (branchCount === 0) {
+    if (savedBranches.length === 0) {
       const branchesData: Partial<Branch>[] = [
         {
           name: 'Kino Del Valle',
@@ -72,17 +93,16 @@ export class SeederService {
       savedBranches = await this.branchRepository.save(branchesData);
       console.log(`  ✓ Created ${savedBranches.length} branches`);
     } else {
-      savedBranches = await this.branchRepository.find();
       console.log('  ✓ Branches already exist, skipping');
     }
 
-    // ROOMS
-    console.log('\n> Seeding Rooms...');
-    const roomCount = await this.roomRepository.count();
-    let savedRooms: Room[];
+    /* -------------------------------- ROOMS -------------------------------- */
 
-    if (roomCount === 0) {
-      const roomsToCreate: Room[] = [];
+    console.log('\n> Seeding Rooms...');
+    let savedRooms = await this.roomRepository.find();
+
+    if (savedRooms.length === 0) {
+      const rooms: Room[] = [];
 
       for (const branch of savedBranches) {
         for (let i = 1; i <= 3; i++) {
@@ -90,84 +110,162 @@ export class SeederService {
             name: `Room ${i}`,
             branchId: branch.id,
           });
-          roomsToCreate.push(room);
+          rooms.push(room);
         }
       }
 
-      savedRooms = roomsToCreate;
+      savedRooms = rooms;
       console.log(`  ✓ Created ${savedRooms.length} rooms`);
     } else {
-      savedRooms = await this.roomRepository.find();
       console.log('  ✓ Rooms already exist, skipping');
     }
 
-    // MOVIES
+    /* -------------------------------- MOVIES ------------------------------- */
+
     console.log('\n> Seeding Movies...');
-    const movieCount = await this.movieRepository.count();
-    let savedMovies: Movie[];
 
-    if (movieCount === 0) {
-      const moviesData: Partial<Movie>[] = [
-        {
-          title: 'Inception',
-          synopsis: 'A thief uses dream-sharing technology.',
-          rating: 4.8,
-          genre: Genre.SCI_FI,
-          image: 'https://theposterdb.com/api/assets/52633',
-          duration: 148,
-        },
-        {
-          title: 'The Dark Knight',
-          synopsis: 'Batman faces the Joker.',
-          rating: 4.9,
-          genre: Genre.ACTION,
-          image: 'https://theposterdb.com/api/assets/4792',
-          duration: 152,
-        },
-        {
-          title: 'La La Land',
-          synopsis: 'A jazz musician meets an actress.',
-          rating: 4.5,
-          genre: Genre.MUSICAL,
-          image: 'https://theposterdb.com/api/assets/13422',
-          duration: 128,
-        },
-        {
-          title: 'Interstellar',
-          synopsis: 'Explorers travel through a wormhole.',
-          rating: 4.7,
-          genre: Genre.SCI_FI,
-          image: 'https://theposterdb.com/api/assets/6461',
-          duration: 169,
-        },
-      ];
+    const moviesData: Partial<Movie>[] = [
+      {
+        title: 'Inception',
+        synopsis: 'A thief uses dream-sharing technology.',
+        rating: 4.8,
+        genre: Genre.SCI_FI,
+        image: 'https://theposterdb.com/api/assets/52633',
+        duration: 148,
+      },
+      {
+        title: 'The Dark Knight',
+        synopsis: 'Batman faces the Joker.',
+        rating: 4.9,
+        genre: Genre.ACTION,
+        image: 'https://theposterdb.com/api/assets/4792',
+        duration: 152,
+      },
+      {
+        title: 'La La Land',
+        synopsis: 'A jazz musician meets an actress.',
+        rating: 4.5,
+        genre: Genre.MUSICAL,
+        image: 'https://theposterdb.com/api/assets/13422',
+        duration: 128,
+      },
+      {
+        title: 'Interstellar',
+        synopsis: 'Explorers travel through a wormhole.',
+        rating: 4.7,
+        genre: Genre.SCI_FI,
+        image: 'https://theposterdb.com/api/assets/6461',
+        duration: 169,
+      },
+      {
+        title: 'Parasite',
+        synopsis: 'A poor family infiltrates a wealthy household.',
+        rating: 4.6,
+        genre: Genre.THRILLER,
+        image: 'https://theposterdb.com/api/assets/47915',
+        duration: 132,
+      },
+      {
+        title: 'The Godfather',
+        synopsis:
+          'The aging patriarch of a crime dynasty transfers control to his son.',
+        rating: 4.9,
+        genre: Genre.CRIME,
+        image: 'https://theposterdb.com/api/assets/8935',
+        duration: 175,
+      },
+      {
+        title: 'Whiplash',
+        synopsis: 'A young drummer faces an abusive music instructor.',
+        rating: 4.7,
+        genre: Genre.DRAMA,
+        image: 'https://theposterdb.com/api/assets/54134',
+        duration: 106,
+      },
+      {
+        title: 'Spirited Away',
+        synopsis: 'A girl enters a magical world ruled by spirits.',
+        rating: 4.8,
+        genre: Genre.ANIMATION,
+        image: 'https://theposterdb.com/api/assets/405',
+        duration: 125,
+      },
+      {
+        title: 'The Shawshank Redemption',
+        synopsis: 'Two imprisoned men bond over years of incarceration.',
+        rating: 4.9,
+        genre: Genre.DRAMA,
+        image: 'https://theposterdb.com/api/assets/51857',
+        duration: 142,
+      },
+      {
+        title: 'Get Out',
+        synopsis:
+          'A young man uncovers disturbing secrets while visiting his girlfriend’s family.',
+        rating: 4.4,
+        genre: Genre.HORROR,
+        image: 'https://theposterdb.com/api/assets/260979',
+        duration: 104,
+      },
+      {
+        title: 'The Grand Budapest Hotel',
+        synopsis:
+          'A concierge and his protégé become embroiled in a murder mystery.',
+        rating: 4.3,
+        genre: Genre.COMEDY,
+        image: 'https://theposterdb.com/api/assets/54311',
+        duration: 99,
+      },
+      {
+        title: 'Titanic',
+        synopsis: 'A romance unfolds aboard the ill-fated RMS Titanic.',
+        rating: 4.4,
+        genre: Genre.ROMANCE,
+        image: 'https://theposterdb.com/api/assets/101730',
+        duration: 195,
+      },
+      {
+        title: 'The Lord of the Rings: The Fellowship of the Ring',
+        synopsis: 'A hobbit begins a quest to destroy a powerful ring.',
+        rating: 4.8,
+        genre: Genre.FANTASY,
+        image: 'https://theposterdb.com/api/assets/1719',
+        duration: 178,
+      },
+      {
+        title: 'Saving Private Ryan',
+        synopsis: 'Soldiers search for a paratrooper during WWII.',
+        rating: 4.7,
+        genre: Genre.WAR,
+        image: 'https://theposterdb.com/api/assets/34772',
+        duration: 169,
+      },
+    ];
 
-      savedMovies = [];
+    const existingMovies = await this.movieRepository.find();
+    const existingTitles = new Set(existingMovies.map((m) => m.title));
 
-      for (const m of moviesData) {
-        const exists = await this.movieRepository.findOne({
-          where: { title: m.title },
-        });
-        savedMovies.push(exists ?? (await this.movieRepository.save(m)));
-      }
+    const moviesToInsert = moviesData.filter(
+      (m) => !existingTitles.has(m.title),
+    );
 
-      console.log(`  ✓ Created ${savedMovies.length} movies`);
-
-      // Link all movies to all branches
-      for (const movie of savedMovies) {
-        movie.branches = savedBranches;
-        await this.movieRepository.save(movie);
-      }
-
-      console.log('  ✓ Linked all movies to all branches');
-    } else {
-      savedMovies = await this.movieRepository.find({
-        relations: ['branches'],
-      });
-      console.log('  ✓ Movies already exist, skipping');
+    if (moviesToInsert.length > 0) {
+      await this.movieRepository.save(moviesToInsert);
+      console.log(`  ✓ Inserted ${moviesToInsert.length} movies`);
     }
 
-    // PRODUCTS
+    const savedMovies = await this.movieRepository.find();
+    console.log(`  ✓ Total movies available: ${savedMovies.length}`);
+
+    // Link all movies to all branches
+    for (const movie of savedMovies) {
+      movie.branches = savedBranches;
+    }
+    await this.movieRepository.save(savedMovies);
+    console.log('  ✓ Linked all movies to all branches');
+
+    /* ------------------------------- PRODUCTS ------------------------------- */
+
     console.log('\n> Seeding Products...');
     const productCount = await this.productsRepository.count();
 
@@ -175,101 +273,77 @@ export class SeederService {
       const productsData: Partial<Product>[] = [
         {
           name: 'Classic Popcorn',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1765334934/image_gjv9ym.png',
-          description: 'Classic poprcorn with butter',
+          description: 'Classic popcorn with butter',
           price: 75,
           category: Category.POPCORN,
         },
         {
           name: 'Large Soda',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1765335509/image_zx39lt.png',
           description: 'Large fountain soda',
           price: 60,
           category: Category.SOFT_DRINK,
         },
         {
           name: 'Nachos with Cheese',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1765334793/image_vstph8.png',
           description: 'Nachos with melted cheddar cheese',
           price: 85,
           category: Category.NACHOS,
         },
         {
           name: 'Candy',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1765334693/gomitas_veiu68.png',
           description: 'Classic fruit-flavored candy',
           price: 45,
           category: Category.CANDY,
         },
         {
           name: 'Couple Combo',
-          image:
-            'https://res.cloudinary.com/db9panarm/image/upload/v1765334693/combo_ork5md.png',
-          description: 'Inlcudes large popcorn with two large soda´s',
+          description: 'Includes large popcorn and two large sodas',
           price: 145,
           category: Category.COMBO,
         },
       ];
 
-      for (const p of productsData) {
-        const exists = await this.productsRepository.findOne({
-          where: { name: p.name },
-        });
-        if (!exists) await this.productsRepository.save(p);
-      }
-
+      await this.productsRepository.save(productsData);
       console.log('  ✓ Products created');
     }
 
-    // SHOWTIMES (Generate for ALL movies in ALL branches)
+    /* ------------------------------- SHOWTIMES ------------------------------- */
+
     console.log('\n> Seeding Showtimes...');
     const showtimeCount = await this.showtimeRepository.count();
 
     if (showtimeCount === 0) {
-      const showtimesToCreate: Partial<Showtime>[] = [];
+      const showtimes: Partial<Showtime>[] = [];
 
       for (const movie of savedMovies) {
         for (const branch of savedBranches) {
           const roomsForBranch = savedRooms.filter(
-            (r) => r.branchId === branch.id,
+            (room) => room.branchId === branch.id,
           );
 
-          // Create 2–3 showtimes per movie per branch
-          const numShowtimes = 2 + Math.floor(Math.random() * 2);
+          const showtimesPerBranch = this.randomInt(1, 3);
 
-          for (let i = 0; i < numShowtimes; i++) {
-            const selectedRoom = this.pickRandom(roomsForBranch, 1)[0];
+          for (let i = 0; i < showtimesPerBranch; i++) {
+            const room = this.pickRandom(roomsForBranch, 1)[0];
 
-            showtimesToCreate.push({
+            showtimes.push({
               movieId: movie.id,
-              roomId: selectedRoom.id,
-              startTime: new Date(
-                `2025-12-${String(1 + Math.floor(Math.random() * 10)).padStart(
-                  2,
-                  '0',
-                )}T${String(12 + Math.floor(Math.random() * 8)).padStart(
-                  2,
-                  '0',
-                )}:00:00.000Z`,
-              ),
+              roomId: room.id,
+              startTime: this.getRandomFutureDate(),
               language:
                 Math.random() > 0.5 ? Language.DUBBED : Language.SUBTITLED,
-              format: Math.random() > 0.5 ? Format.TWO_D : Format.THREE_D,
+              format: Math.random() > 0.7 ? Format.THREE_D : Format.TWO_D,
             });
           }
         }
       }
 
-      await this.showtimeRepository.save(showtimesToCreate);
-      console.log(`  ✓ Created ${showtimesToCreate.length} showtimes`);
+      await this.showtimeRepository.save(showtimes);
+      console.log(`  ✓ Created ${showtimes.length} showtimes`);
     } else {
       console.log('  ✓ Showtimes already exist, skipping');
     }
 
-    console.log('\n--- DATABASE SEEDING COMPLETE ---');
+    console.log('\n--- DATABASE SEEDING COMPLETE ---\n');
   }
 }
