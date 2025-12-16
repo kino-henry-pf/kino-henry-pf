@@ -36,7 +36,14 @@ export default function AdminDashboardLayout({
                       <h1 className="text-3xl font-bold">Welcome, <span className="text-[var(--color-primary)]">{auth?.user.name.split(" ")[0]}</span></h1>
                       <p className="text-md opacity-50">It displays key platform metrics: users, products, movies, and reviews, all in one place.</p>
                   </div>
-                  <Button rounded>Print report</Button>
+                  <Button
+                    rounded
+                    onClick={() => {
+                      window
+                        .open(`${process.env.NEXT_PUBLIC_API_URL}/api`, "_blank")
+                        ?.focus()
+                    }}
+                  >View API documentation</Button>
               </section>
               <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 py-10 container-x-padding max-lg-no-padding">
                   <AdminMenu />
