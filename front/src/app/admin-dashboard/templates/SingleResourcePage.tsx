@@ -58,7 +58,7 @@ export default function SingleResourcePage<T>({
         const scrollTop = window.scrollY + topSectionRef.current.getBoundingClientRect().top
         if (!scrollTop) return
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
-    }, [topSectionRef, resource, data])
+    }, [topSectionRef])
 
     return (
         <section className="w-full h-fit" ref={topSectionRef}>
