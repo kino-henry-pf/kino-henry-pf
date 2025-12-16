@@ -82,8 +82,10 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
       .sort((a, b) => a.number - b.number);
   });
 
+  const toDate = (value: string) => new Date(value.replace(' ', 'T'));
+
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = toDate(dateString);
 
     return new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
