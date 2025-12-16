@@ -15,7 +15,7 @@ export default function SelectShowtimeButton({ href }: Props) {
   const handleClick = () => {
     if (!dataUser) {
         toast.error(
-        "❌ Error, el usuario no esta logueado"
+        "❌ Error, the user is not logged in"
       );
       setTimeout(() => {
         router.push(`/login?redirect=${encodeURIComponent(href)}`)
