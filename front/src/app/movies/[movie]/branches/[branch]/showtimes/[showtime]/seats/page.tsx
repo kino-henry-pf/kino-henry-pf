@@ -25,6 +25,8 @@ type LoadedData = {
   seats: Seat[];
 };
 
+const SEAT_PRICE = 85;
+
 export default function SeatsPage({ params }: { params: Promise<Params> }) {
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
   const [data, setData] = useState<LoadedData | null>(null);
@@ -113,6 +115,8 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
     }
   };
 
+  const totalPrice = selectedSeats.length * SEAT_PRICE;
+
   return (
     <main className="container-x-padding py-10">
       <div className="flex gap-12 items-start">
@@ -188,7 +192,23 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
               </div>
             ))}
           </div>
+          {selectedSeats.length > 0 && (
+            <div className="mt-6 mb-6 flex items-center justify-between bg-[#1a1a1a] p-4 rounded-lg border border-[var(--color-border)]">
+              <div className="text-gray-300">
+                <p className="text-sm">Seats selected</p>
+                <p className="font-semibold">
+                  {selectedSeats.length} × ${SEAT_PRICE}
+                </p>
+              </div>
 
+              <div className="text-right">
+                <p className="text-sm text-gray-400">Total</p>
+                <p className="text-2xl font-bold text-[var(--color-primary)]">
+                  ${totalPrice}
+                </p>
+              </div>
+            </div>
+          )}
           {selectedSeats.length > 0 && (
             <Link
               className="mt-6 px-6 py-3 bg-[var(--color-primary)] text-black font-semibold rounded hover:bg-yellow-100 cursor-pointer transition"
