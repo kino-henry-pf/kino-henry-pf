@@ -27,7 +27,7 @@ export default function Footer() {
                         <Link href="/products" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Products</Link>
                     </li>
                     <li>
-                        <Link href="/faqs" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Frequently Asked Questions</Link>
+                        <Link href="/faqs" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">FAQs</Link>
                     </li>
                     <li>
                         <Link href="/branches" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Branches</Link>
@@ -36,28 +36,33 @@ export default function Footer() {
             </nav>
             <nav className="flex flex-col gap-2 items-end text-right w-full lg:w-fit lg:items-start lg:text-left">
                 <h3 className="text-xl font-semibold">User</h3>
-                {
-                    !auth ? (
-                        <ul className="flex flex-col items-end lg:items-start">
-                            <li>
-                                <Link href="/login" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Login</Link>
-                            </li>
-                            <li>
-                                <Link href="/register" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Register user</Link>
-                            </li>
-                        </ul>
-                    ) : (
-                        <ul className="flex flex-col items-end lg:items-start">
-                            {
-                                auth.user.role === "admin" && (
-                                    <li>
-                                        <Link href="/admin-dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Administration</Link>
-                                    </li>
-                                )
-                            }
-                        </ul>
-                    )
-                }
+                <ul className="flex flex-col items-end lg:items-start">
+                    {
+                        !auth?.user ? (
+                            <>
+                                <li>
+                                    <Link href="/login" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Login</Link>
+                                </li>
+                                <li>
+                                    <Link href="/register" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Register user</Link>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                {
+                                    auth?.user.role === "admin" && (
+                                        <li>
+                                            <Link href="/admin-dashboard" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">Administration</Link>
+                                        </li>
+                                    )
+                                }
+                                <li>
+                                    <Link href="/myProfile" className="text-sm font-semibold opacity-60 hover:opacity-100 transition-opacity">My profile</Link>
+                                </li>
+                            </>
+                        )
+                    }
+                </ul>
             </nav>
         </footer>
     )
