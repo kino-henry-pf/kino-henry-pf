@@ -16,22 +16,17 @@ type RoomOccupancy = {
 
 export default function AdminDashboardPage() {
   const productsQuery = useQuery<{ totalProducts: number }>(
-    'analytics/total-products',
-    { refetchInterval: 5000 }
+    'analytics/total-products'
   );
 
   const ticketsQuery = useQuery<{ totalTickets: number }>(
-    'analytics/total-tickets',
-    { refetchInterval: 5000 }
+    'analytics/total-tickets'
   );
 
-  const revenueQuery = useQuery<{ totalRevenue: number }>('analytics/revenue', {
-    refetchInterval: 5000,
-  });
+  const revenueQuery = useQuery<{ totalRevenue: number }>('analytics/revenue');
 
   const roomsOccupancyQuery = useQuery<RoomOccupancy[]>(
-    'analytics/rooms/occupancy',
-    { refetchInterval: 5000 }
+    'analytics/rooms/occupancy'
   );
 
   useEffect(() => {
