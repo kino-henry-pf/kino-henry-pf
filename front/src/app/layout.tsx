@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { AuthProvider } from "@/context/authContext";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -35,6 +36,7 @@ export default function RootLayout({
             <div>{children}</div>
 
             <Toaster position="top-center" toastOptions={{ style: { zIndex: 9999999999, background: "#000",  color: "#fff",  borderRadius: "12px",  padding: "16px",  fontWeight: "500", }, success: {  style: { background: "#000", color: "#fff", }, }, error: { style: { background: "#000", color: "#fff", }, }, }} />
+            <Footer />
           </div>
         </AuthProvider>
       </body>
