@@ -44,6 +44,12 @@ gmp-internal-dialog {
   display: none;
 }
 
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(200deg);
+  position: relative;
+  right: -1rem;
+}
+
 .container-x-padding {
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);

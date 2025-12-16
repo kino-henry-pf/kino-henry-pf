@@ -47,7 +47,7 @@ export default class ShowtimesRepository {
   private async findOneOrNull(id: string): Promise<Showtime | null> {
     const showtime = await this.showtimesRepository.findOne({
       where: { id },
-      relations: ['movie'],
+      relations: ['movie', 'room', 'room.branch'],
     });
     return showtime || null;
   }

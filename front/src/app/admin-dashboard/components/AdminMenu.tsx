@@ -47,6 +47,10 @@ export default function AdminMenu() {
                             <AccordionMenuItem href="/admin-dashboard/rooms" label="List of rooms" icon="BookClose" onClick={() => _setOpen(false)} />
                             <AccordionMenuItem href="/admin-dashboard/rooms/create" label="Create room" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
+                        <AccordionMenuItem href="/admin-dashboard/showtimes" label="Showtimes" icon="Ticket">
+                            <AccordionMenuItem href="/admin-dashboard/showtimes" label="List of showtimes" icon="Star" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/showtimes/create" label="Create room" icon="Clipboard" onClick={() => _setOpen(false)} />
+                        </AccordionMenuItem>
                     </nav>
                 </div>
             </aside>

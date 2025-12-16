@@ -110,7 +110,7 @@ export default function SingleResourcePage<T>({
                                 <div className="w-full h-fit flex flex-col gap-5">
                                     {
                                         data.rows.map((row, index) => (
-                                            <div key={index} className="w-fit h-fit grid grid-cols-[100px_1fr] items-center gap-3">
+                                            <div key={index} className="w-fit h-fit grid grid-cols-[auto_1fr] items-center gap-5">
                                                 <div className="w-full h-fit flex justify-start text-md">
                                                     <span>{row.name}</span>
                                                 </div>
