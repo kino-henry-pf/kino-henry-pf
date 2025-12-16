@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/authContext';
 import { userSessionInterface } from '@/types/userSession';
 import { jwtDecode } from 'jwt-decode';
+import * as Icon from "akar-icons"
 
 interface TokenPayload {
   id: string;
@@ -40,5 +41,8 @@ export default function OAuthSuccessPage() {
     window.location.href = '/';
   }, [token, setDataUser]);
 
-  return <p>Processing login...</p>;
+  return <main className='flex items-center flex-col gap-5 justify-center w-full h-[calc(100dvh-6rem)] pb-[6rem]'>
+    <Icon.GoogleFill className='size-14' />
+    <p className='text-xl font-semibold'>Processing login...</p>
+  </main>;
 }
