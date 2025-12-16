@@ -164,7 +164,9 @@ export default function UpsertResourcePage<T>({
                             show={_showSuccess}
                             onClose={() => {
                                 if (successRedirect) {
-                                    router.push(successRedirect(query?.data || null))
+                                    router.push(successRedirect(query?.data || null), {
+                                        scroll: false
+                                    })
                                 } else {
                                     _setShowSuccess(false)
                                 }
