@@ -1,11 +1,12 @@
 "use client"
 
 import { ErrorMessage, Field as FormikField, useFormikContext } from "formik";
-import { FormField } from "../types";
+import { FormField } from "../app/admin-dashboard/types";
 import * as Icon from "akar-icons"
 import UploadImage from "./UploadImage";
 import LocationPicker from "./LocationPicker";
 import { ChangeEvent, useEffect } from "react";
+import StarsPicker from "./StarsPicker";
 
 export default function Field(field: FormField) {
     const FieldIcon = field.icon ? Icon[field.icon] : null
@@ -46,7 +47,7 @@ export default function Field(field: FormField) {
                         />
                     }
                     {
-                        field.as !== "file" && field.as !== "location" ? (
+                        field.as !== "file" && field.as !== "location" && field.as !== "stars" ? (
                             <FormikField
                                 key={field}
                                 type={field.type || "text"}
@@ -80,6 +81,12 @@ export default function Field(field: FormField) {
                                 label={field.label}
                                 required={field.required}
                                 disabled={field.disabled || field.isLoading}
+                            />
+                        ) : field.as === "stars" ? (
+                            <StarsPicker
+                                value={field.defaultValue}
+                                name={field.name}
+                                onChange={field.onChange}
                             />
                         ) : (
                             <LocationPicker defaultValue={field.defaultValue} onChange={field.onChange} />
