@@ -23,8 +23,9 @@ export default async function ShowtimesPage({
     );
   }
 
+  const toDate = (value: string) => new Date(value.replace(' ', 'T'));
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = toDate(dateString);
 
     return new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
@@ -37,8 +38,6 @@ export default async function ShowtimesPage({
       .format(date)
       .replace('.', '');
   };
-
-  const toDate = (value: string) => new Date(value.replace(' ', 'T'));
 
   const showtimesOrdered = showtimes.sort(
     (a, b) => toDate(a.startTime).getTime() - toDate(b.startTime).getTime()
