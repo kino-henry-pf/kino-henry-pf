@@ -41,6 +41,7 @@ export default function CreateRoomPage() {
                     icon: "Bank",
                     as: "select",
                     type: "select",
+                    required: true,
                     options: branchesQuery.data.map(branch => (
                         {
                             value: branch.id,

@@ -20,7 +20,7 @@ export default function UpdateRoomPage() {
             getterResource={`rooms/${params.roomId}`}
             title="Modify room"
             submitText="Apply changes"
-            successMessage="The film has been modified"
+            successMessage="The showtime has been modified"
             validate={validateRoomUpsert}
             successRedirect={room => `/admin-dashboard/rooms/${room?.id}`}
             backLink={`/admin-dashboard/rooms/${params.roomId}`}
@@ -42,6 +42,7 @@ export default function UpdateRoomPage() {
                     label: "Branch",
                     icon: "Bank",
                     as: "select",
+                    required: true,
                     options: branchesQuery.data.map(branch => (
                         {
                             value: branch.id,
