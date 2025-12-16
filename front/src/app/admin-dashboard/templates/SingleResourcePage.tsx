@@ -134,7 +134,7 @@ export default function SingleResourcePage<T>({
                                     onClose={() => _setDeleteDialog(false)}
                                     isLoading={deleteMutation?.isLoading || query.isLoading || deleteMutation?.data}
                                     actions={
-                                        <nav className="w-full h-fit grid grid-cols-2 gap-5">
+                                        <nav className="w-full h-fit grid grid-cols-[1fr_auto] gap-5">
                                             <Button
                                                 width="100%"
                                                 primary={false}
@@ -143,7 +143,6 @@ export default function SingleResourcePage<T>({
                                                 }}
                                             >Cancel</Button>
                                             <Button
-                                                width="100%"
                                                 onClick={async () => {
                                                     await deleteMutation?.submit({})
                                                     router.push(deleteResource.successRedirect)

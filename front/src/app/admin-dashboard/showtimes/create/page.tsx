@@ -84,6 +84,7 @@ export default function CreateShowtimePage() {
                     type: "select",
                     required: true,
                     isLoading: roomsQuery.isLoading,
+                    defaultValue: roomsQuery.data?.[0].id,
                     options: roomsQuery.data?.map(branch => (
                         {
                             value: branch.id,

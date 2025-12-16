@@ -49,7 +49,7 @@ export default function AdminMenu() {
                         </AccordionMenuItem>
                         <AccordionMenuItem href="/admin-dashboard/showtimes" label="Showtimes" icon="Ticket">
                             <AccordionMenuItem href="/admin-dashboard/showtimes" label="List of showtimes" icon="Star" onClick={() => _setOpen(false)} />
-                            <AccordionMenuItem href="/admin-dashboard/showtimes/create" label="Create room" icon="Clipboard" onClick={() => _setOpen(false)} />
+                            <AccordionMenuItem href="/admin-dashboard/showtimes/create" label="Create showtime" icon="Clipboard" onClick={() => _setOpen(false)} />
                         </AccordionMenuItem>
                     </nav>
                 </div>
