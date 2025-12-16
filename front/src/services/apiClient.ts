@@ -26,7 +26,7 @@ export const apiClient = (operationOptions?: OperationOptions) => {
   ): Promise<T> => {
     const response = await fetch(`${API_URL}/${path}`, {
       method: 'GET',
-      cache: options?.disableCache ? undefined : 'force-cache',
+      cache: options?.disableCache ? "no-store" : 'force-cache',
       headers: baseHeaders
     });
 
