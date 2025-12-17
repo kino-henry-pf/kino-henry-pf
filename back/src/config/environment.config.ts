@@ -18,7 +18,8 @@ export interface EnvironmentVariables {
   dev_front_url: string;
   prod_back_url: string;
   prod_front_url: string;
-  resend_api_key: string;
+  outlook_email: string;
+  outlook_password: string;
 }
 
 export const environmentVariables = registerAs(
@@ -41,6 +42,7 @@ export const environmentVariables = registerAs(
     dev_front_url: process.env.DEV_FRONT_URL ?? '',
     prod_back_url: process.env.PROD_BACK_URL ?? '',
     prod_front_url: process.env.PROD_FRONT_URL ?? '',
-    resend_api_key: process.env.RESEND_API_KEY ?? '',
+    outlook_email: process.env.OUTLOOK_EMAIL ?? '',
+    outlook_password: process.env.OUTLOOK_PASSWORD ?? '',
   }),
 );

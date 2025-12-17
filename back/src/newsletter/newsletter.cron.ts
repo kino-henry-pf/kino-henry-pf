@@ -1,20 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import MailService from '../mail/mail.service';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
 export default class NewsletterCron {
+  private readonly logger = new Logger(NewsletterCron.name);
+
   constructor(
     private readonly mailService: MailService,
     private readonly usersService: UsersService,
   ) {}
 
-  // @Cron('*/10 * * * *')
+  @Cron('*/10 * * * *')
   async sendWeeklyNewsletter() {
-    const users = await this.usersService.findAll();
+    try {
+      const users = await this.usersService.findAll();
+      this.logger.log(`Sending newsletter to ${users.length} users`);
 
-    const content = `
+      const content = this.generateNewsletterContent();
+
+      let successCount = 0;
+      let failCount = 0;
+
+      for (const user of users) {
+        try {
+          await this.mailService.sendNewsLetter(user.email, content);
+          successCount++;
+        } catch (err) {
+          failCount++;
+          this.logger.error(`Failed to send newsletter to ${user.email}:`, err);
+        }
+      }
+
+      this.logger.log(
+        `Newsletter batch completed: ${successCount} sent, ${failCount} failed`,
+      );
+    } catch (error) {
+      this.logger.error('Failed to send newsletter batch:', error);
+    }
+  }
+
+  private generateNewsletterContent(): string {
+    return `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f4f4f4; padding: 20px;">
     <!-- Header -->
     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center; border-radius: 10px 10px 0 0;">
@@ -94,10 +122,5 @@ export default class NewsletterCron {
     </div>
   </div>
 `;
-    for (const user of users) {
-      this.mailService
-        .sendNewsLetter(user.email, content)
-        .catch((err) => console.error('Newsletter error', err));
-    }
   }
 }

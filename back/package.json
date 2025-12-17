@@ -63,6 +63,7 @@
     "@types/jest": "^30.0.0",
     "@types/multer": "^2.0.0",
     "@types/node": "^22.10.7",
+    "@types/nodemailer": "^7.0.4",
     "@types/stripe": "^8.0.416",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",
