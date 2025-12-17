@@ -1,61 +1,70 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import type { Transporter } from 'nodemailer';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import QRCode from 'qrcode';
 
 @Injectable()
 export default class MailService {
-  private transporter: Transporter;
-  private readonly logger = new Logger(MailService.name);
+  private resend: Resend;
 
   constructor(private readonly configService: ConfigService) {
-    this.transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com',
-      port: 587,
-      secure: false,
-      requireTLS: true,
-      auth: {
-        user: this.configService.get<string>('OUTLOOK_EMAIL'),
-        pass: this.configService.get<string>('OUTLOOK_PASSWORD'),
-      },
-    });
-
-    this.transporter
-      .verify()
-      .then(() => this.logger.log('Email transporter is ready'))
-      .catch((err) =>
-        this.logger.error('Email transporter verification failed', err),
-      );
+    this.resend = new Resend(this.configService.get<string>('RESEND_API_KEY'))!;
   }
 
-  async sendOrderEmail(to: string, orderId: string, total: number) {
-    await this.transporter.sendMail({
-      from: `"Kino" <${this.configService.get<string>('OUTLOOK_EMAIL')}>`,
+  async sendOrderEmail(
+    to: string,
+    orderId: string,
+    total: number,
+  ): Promise<void> {
+    const qrData = JSON.stringify({ orderId });
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const qrCodeBuffer = (await QRCode.toBuffer(qrData, {
+      width: 300,
+      margin: 2,
+      errorCorrectionLevel: 'M',
+    })) as Buffer;
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const qrCodeDataURL = (await QRCode.toDataURL(qrData, {
+      width: 300,
+      margin: 2,
+    })) as string;
+
+    await this.resend.emails.send({
+      from: 'Kino <onboarding@resend.dev>',
       to,
-      subject: 'Order Confirmation',
+      subject: 'Order confirmation',
       html: `
-        <h2>Thank you for your purchase!</h2>
-        <p>Your order with ID <strong>${orderId}</strong> has been confirmed.</p>
-        <p>Total paid: <strong>$${total.toFixed(2)}</strong></p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #333;">Thank you for your purchase!</h1>
+            <p>Your order with ID of <strong>${orderId}</strong> has been confirmed.</p>
+            <p>Total paid: <strong>$${total}</strong></p>
+            
+            <div style="margin: 30px 0; text-align: center;">
+              <img src="${qrCodeDataURL}" alt="QR Code" style="max-width: 300px;" />
+              <p style="color: #666; font-size: 14px;">Scan this code to view your order</p>
+            </div>
+          </div>
       `,
-      text: `
-Thank you for your purchase!
-Order ID: ${orderId}
-Total paid: $${total.toFixed(2)}
-      `,
+      attachments: [
+        {
+          filename: 'order-qr-code.png',
+          content: qrCodeBuffer,
+          contentType: 'image/png',
+        },
+      ],
     });
-
-    this.logger.log(`Order confirmation email sent to ${to}`);
   }
 
-  async sendNewsLetter(to: string, content: string) {
-    await this.transporter.sendMail({
-      from: `"Kino Newsletter" <${this.configService.get<string>('OUTLOOK_EMAIL')}>`,
-      to,
+  async sendNewsLetter(to: string, content: string): Promise<void> {
+    await this.resend.emails.send({
+      from: 'Kino <onboarding@resend.dev>',
+      to: 'kinohenrypf@gmail.com',
       subject: 'Kino Weekly Newsletter',
       html: content,
     });
-
-    this.logger.log(`Newsletter sent to ${to}`);
   }
 }
