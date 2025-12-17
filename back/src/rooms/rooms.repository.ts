@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import Room from './rooms.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import CreateRoomDto from './DTOs/create-room.dto';
+import { UpdateRoomDto } from './DTOs/update-room.dto';
 
 @Injectable()
 export default class RoomsRepository {
@@ -40,9 +41,20 @@ export default class RoomsRepository {
     await this.roomsRepository.delete(id);
     return room;
   }
+
   private async findOneOrNull(id: string): Promise<Room | null> {
     const room = await this.roomsRepository.findOneBy({ id });
     if (!room) return null;
     return room;
+  }
+  async updateRoom(id: string, dto: UpdateRoomDto): Promise<Room> {
+    await this.findById(id);
+    await this.roomsRepository.update(id, dto);
+    const updatedRoom = await this.roomsRepository.findOneBy({ id });
+
+    if (!updatedRoom) {
+      throw new BadRequestException(`Error al actualizar la sala con id ${id}`);
+    }
+    return updatedRoom;
   }
 }

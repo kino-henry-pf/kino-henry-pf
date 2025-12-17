@@ -3,6 +3,7 @@ import RoomsRepository from './rooms.repository';
 import Room from './rooms.entity';
 import CreateRoomDto from './DTOs/create-room.dto';
 import { SeatsService } from '../seats/seats.service';
+import { UpdateRoomDto } from './DTOs/update-room.dto';
 
 @Injectable()
 export class RoomsService {
@@ -36,5 +37,8 @@ export class RoomsService {
       throw new NotFoundException(
         `No room with an id of ${id} has been found.`,
       );
+  }
+  updateRoom(id: string, dto: UpdateRoomDto): Promise<Room> {
+    return this.roomsRepository.updateRoom(id, dto);
   }
 }
