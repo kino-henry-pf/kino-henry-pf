@@ -7,11 +7,23 @@ import { useQuery } from "@/hooks/useQuery";
 import { Branch } from "@/types/branch";
 import { Room } from "@/types/room";
 import { useParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 export default function UpdateRoomPage() {
     const params = useParams()
 
     const branchesQuery = useQuery<Branch[]>("branches")
+
+    const loaderRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        if (!loaderRef.current) return
+        const scrollTop = window.scrollY + loaderRef.current.getBoundingClientRect().top
+        window.scrollTo({
+            top: scrollTop - 133.3,
+            behavior: "smooth"
+        })
+    }, [loaderRef])
 
     return branchesQuery.data ? (
         <UpsertResourcePage<Room>
@@ -53,7 +65,7 @@ export default function UpdateRoomPage() {
             ]}
         />
     ) : branchesQuery.isLoading ? (
-        <div className="w-full h-[400px] flex items-center justify-center">
+        <div ref={loaderRef} className="w-full h-[400px] flex items-center justify-center">
             <Loader className="size-10" />
         </div>
     ) : (
