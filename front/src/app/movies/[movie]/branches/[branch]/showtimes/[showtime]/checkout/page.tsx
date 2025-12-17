@@ -78,7 +78,9 @@ export default function CheckoutSummary({
   }, [movie, branch]);
 
   if (!movieData || !branchData) {
-    return <p className="p-10">Loading summary...</p>;
+    return <main className='w-full min-h-[calc(100dvh-6rem)]'>
+      <p className="p-10">Loading summary...</p>
+    </main>;
   }
 
   const ticketPrice = 75;
