@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import Showtime from './showtimes.entity';
 import { Repository } from 'typeorm';
 import { CreateShowtimeDto } from './DTOs/create-showtime.dto';
-import { Branch } from 'src/branchs/branch.entity';
+import { Branch } from '../branchs/branch.entity';
 
 @Injectable()
 export default class ShowtimesRepository {
@@ -55,6 +55,24 @@ export default class ShowtimesRepository {
   async deleteShowtime(id: string): Promise<Showtime | null> {
     const showtime = await this.findOneOrNull(id);
     if (!showtime) return null;
+
+    const deleteFromBranch = await this.showtimesRepository.count({
+      where: {
+        room: {
+          branchId: showtime.room.branchId
+        },
+        movieId: showtime.movieId,
+      }
+    })
+
+    if (deleteFromBranch <= 1) {
+      const updatedBranch = this.branchesRepository.create({
+        id: showtime.room.branchId,
+        movies: showtime.room.branch.movies.filter(m => m.id !== id)
+      })
+      await this.branchesRepository.save(updatedBranch)
+    }
+
     await this.showtimesRepository.delete(id);
     return showtime;
   }
@@ -62,7 +80,7 @@ export default class ShowtimesRepository {
   private async findOneOrNull(id: string): Promise<Showtime | null> {
     const showtime = await this.showtimesRepository.findOne({
       where: { id },
-      relations: ['movie', 'room', 'room.branch'],
+      relations: ['movie', 'room', 'room.branch', 'room.branch.movies'],
     });
     return showtime || null;
   }

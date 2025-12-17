@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import Showtime from './showtimes.entity';
 import { MoviesModule } from '../movies/movies.module';
 import { BranchsModule } from '../branchs/branchs.module';
-import { Branch } from 'src/branchs/branch.entity';
+import { Branch } from '../branchs/branch.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Showtime, Branch]), MoviesModule, BranchsModule],

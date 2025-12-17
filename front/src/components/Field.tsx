@@ -14,7 +14,7 @@ export default function Field(field: FormField) {
     const formikContext = useFormikContext<any>()
 
     useEffect(() => {
-        if (field.defaultValue) {
+        if (field.defaultValue !== undefined) {
             formikContext.setFieldValue(field.name, field.defaultValue)
         }
     }, [field.defaultValue])
