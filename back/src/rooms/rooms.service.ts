@@ -30,4 +30,11 @@ export class RoomsService {
     await this.seatsService.generateSeatsForRoom(room.id);
     return room;
   }
+  async deleteRoom(id: string): Promise<void> {
+    const room = await this.roomsRepository.deleteRoom(id);
+    if (!room)
+      throw new NotFoundException(
+        `No room with an id of ${id} has been found.`,
+      );
+  }
 }

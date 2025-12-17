@@ -13,15 +13,15 @@ export default class RoomsRepository {
   async findAll(): Promise<Room[]> {
     return await this.roomsRepository.find({
       relations: {
-        branch: true
-      }
+        branch: true,
+      },
     });
   }
 
   async findById(id: string): Promise<Room | null> {
     const room = await this.roomsRepository.findOne({
-      where: {id},
-      relations: {branch: true}
+      where: { id },
+      relations: { branch: true },
     });
     return room ?? null;
   }
@@ -33,5 +33,16 @@ export default class RoomsRepository {
   async createRoom(dto: CreateRoomDto): Promise<Room> {
     const room = this.roomsRepository.create(dto);
     return await this.roomsRepository.save(room);
+  }
+  async deleteRoom(id: string): Promise<Room | null> {
+    const room = await this.findOneOrNull(id);
+    if (!room) return null;
+    await this.roomsRepository.delete(id);
+    return room;
+  }
+  private async findOneOrNull(id: string): Promise<Room | null> {
+    const room = await this.roomsRepository.findOneBy({ id });
+    if (!room) return null;
+    return room;
   }
 }

@@ -75,6 +75,8 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Eliminar una pelicula a través de su UUID' })
   @Delete(':id')
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @HttpCode(204)
   async deleteMovie(@Param('id') id: string) {
     return await this.moviesService.deleteMovie(id);
