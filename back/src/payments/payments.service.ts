@@ -59,10 +59,11 @@ export class PaymentsService {
       return;
     }
 
-    order.status = 'PAID';
-    await this.orderRepo.save(order);
-
-    console.log(`✅ Order ${orderId} successfully marked as PAID`);
+    if (order.status === 'PENDING') {
+      order.status = 'PAID';
+      await this.orderRepo.save(order);
+      console.log(`✅ Order ${orderId} successfully marked as PAID`);
+    }
   }
 
   async handleWebhook(rawBody: Buffer, signature: string) {
@@ -85,6 +86,7 @@ export class PaymentsService {
           const orderId = session.metadata?.orderId;
 
           await this.markOrderPaid(orderId);
+          console.log('PAID');
           break;
         }
 
@@ -100,7 +102,7 @@ export class PaymentsService {
     } catch (err) {
       console.error('❌ Webhook signature verification failed');
       console.error(err);
-      return; // ← IMPORTANT: STOP HERE
+      return;
     }
   }
 }

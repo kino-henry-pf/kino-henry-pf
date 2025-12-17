@@ -71,6 +71,7 @@ export default class OrdersRepository {
       user: { id: dto.userId },
       branch: { id: dto.branchId },
     });
+
     const savedOrder = await this.ordersRepository.save(order);
 
     // Build order details
@@ -83,7 +84,7 @@ export default class OrdersRepository {
           orderId: savedOrder.id,
           seatReservationId: seat.id,
           quantity: 1,
-          price: 85, // Always assign, never leave undefined
+          price: 85,
         }),
       );
     }
