@@ -51,7 +51,7 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
 
   if (!movies.length) {
     return (
-      <main className="container-x-padding py-10">
+      <main className="container-x-padding py-10 min-h-[calc(100dvh-6rem)]">
         <h1 className="text-2xl font-bold mb-6">
           There are no movies available at this branch 😞
         </h1>
@@ -60,7 +60,7 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
   }
 
   return (
-    <main className="container-x-padding py-10">
+    <main className="container-x-padding py-10 min-h-[calc(100dvh-6rem)]">
       <h1 className="text-2xl font-bold mb-8">Available movies</h1>
 
       <div className="space-y-6">

@@ -66,11 +66,10 @@ export default class ShowtimesRepository {
     })
 
     if (deleteFromBranch <= 1) {
-      const updatedBranch = this.branchesRepository.create({
-        id: showtime.room.branchId,
-        movies: showtime.room.branch.movies.filter(m => m.id !== id)
-      })
-      await this.branchesRepository.save(updatedBranch)
+      await this.branchesRepository.createQueryBuilder()
+        .relation(Branch, "movies")
+        .of(showtime.room.branchId)
+        .remove(showtime.movieId)
     }
 
     await this.showtimesRepository.delete(id);
