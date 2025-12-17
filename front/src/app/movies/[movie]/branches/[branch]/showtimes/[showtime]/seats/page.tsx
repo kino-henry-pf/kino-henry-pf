@@ -63,7 +63,9 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
     loadData();
   }, [params]);
 
-  if (!data) return <p className="p-10">Loading seats...</p>;
+  if (!data) return <main className='w-full min-h-[calc(100dvh-6rem)]'>
+    <p className="p-10">Loading seats...</p>
+  </main>;
 
   const {
     movieData,
@@ -118,7 +120,7 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
   const totalPrice = selectedSeats.length * SEAT_PRICE;
 
   return (
-    <main className="container-x-padding py-10">
+    <main className="container-x-padding py-10 min-h-[calc(100dvh-6rem)]">
       <div className="flex gap-12 items-start">
         <aside className="w-72 bg-[#1a1a1a] p-5 rounded-xl border border-[var(--color-border)] mr-auto">
           <Image
