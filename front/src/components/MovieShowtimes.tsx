@@ -1,8 +1,12 @@
+'use client'
 
 import Link from 'next/link';
 import { Movie } from '@/types/movie';
 import { Showtime } from '@/types/showtime';
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/authContext';
+import toast from 'react-hot-toast';
 
 export interface MovieWithShowtimes extends Movie {
   showtimes: Showtime[];
@@ -14,7 +18,9 @@ export interface MovieShowtimesProps {
 }
 
 export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps) {
-  
+  const router = useRouter(); 
+  const { dataUser } = useAuth(); 
+
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('es-MX', {
@@ -24,9 +30,28 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
     }).format(date);
   };
 
+  const handleShowtimeClick = (
+    e: React.MouseEvent,
+    href: string
+  ) => {
+    e.preventDefault();
+
+    if (!dataUser) {
+      toast.error(
+        "❌ Error, the user is not logged in"
+      );
+      setTimeout(() => {
+        router.push(`/login?redirect=${encodeURIComponent(href)}`)
+      }, 1500);
+      return;
+    }
+
+    router.push(href);
+  };
+
   if (!movies.length) {
     return (
-      <main className="container-x-padding py-10">
+      <main className="container-x-padding py-10 min-h-[calc(100dvh-6rem)]">
         <h1 className="text-2xl font-bold mb-6">
           There are no movies available at this branch 😞
         </h1>
@@ -35,12 +60,11 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
   }
 
   return (
-    <main className="container-x-padding py-10">
+    <main className="container-x-padding py-10 min-h-[calc(100dvh-6rem)]">
       <h1 className="text-2xl font-bold mb-8">Available movies</h1>
 
       <div className="space-y-6">
         {movies.map((movie) => {
-          
           return (
             <div
               key={movie.id}
@@ -58,38 +82,45 @@ export default function MovieShowtimes({ movies, branchId }: MovieShowtimesProps
                   height={120}
                   className="w-full h-auto rounded-xl"
                 />
-  <h2 className="text-lg font-semibold mt-3">{movie.title}</h2>
-  <p className="text-sm text-gray-400 mt-1">
-    {movie.duration} min • {movie.genre}
-  </p>
-</div>
+                <h2 className="text-lg font-semibold mt-3">
+                  {movie.title}
+                </h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  {movie.duration} min • {movie.genre}
+                </p>
+              </div>
 
               {/* HORARIOS - LADO DERECHO */}
               <div className="flex-1">
                 <h3 className="text-md font-semibold mb-4 text-gray-300">
                   Available times
                 </h3>
-                
+
                 <div className="flex flex-wrap gap-3">
-                  {movie.showtimes.map((showtime) => (
-                    <Link
-                      key={showtime.id}
-                      href={`/movies/${movie.id}/branches/${branchId}/showtimes/${showtime.id}/seats`}
-                      className="
-                        px-4 py-2 rounded-lg 
-                        border border-[var(--color-primary)] 
-                        text-[var(--color-primary)]
-                        hover:bg-[var(--color-primary)] 
-                        hover:text-[var(--primary-foreground)]
-                        transition font-semibold
-                      "
-                    >
-                      {formatTime(showtime.startTime)}
-                      <span className="text-xs block text-gray-400">
-                        {showtime.format} • {showtime.language}
-                      </span>
-                    </Link>
-                  ))}
+                  {movie.showtimes.map((showtime) => {
+                    const href = `/movies/${movie.id}/branches/${branchId}/showtimes/${showtime.id}/seats`;
+
+                    return (
+                      <Link
+                        key={showtime.id}
+                        href={href}
+                        onClick={(e) => handleShowtimeClick(e, href)} 
+                        className="
+                          px-4 py-2 rounded-lg 
+                          border border-[var(--color-primary)] 
+                          text-[var(--color-primary)]
+                          hover:bg-[var(--color-primary)] 
+                          hover:text-[var(--primary-foreground)]
+                          transition font-semibold
+                        "
+                      >
+                        {formatTime(showtime.startTime)}
+                        <span className="text-xs block text-gray-400">
+                          {showtime.format} • {showtime.language}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>

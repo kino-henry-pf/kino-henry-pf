@@ -31,7 +31,7 @@ export class Branch {
   @Column({ type: 'varchar', nullable: true })
   googlePlaceId: string;
 
-  @ManyToMany(() => Movie, (movie) => movie.branches)
+  @ManyToMany(() => Movie, (movie) => movie.branches, {onDelete: "CASCADE"})
   @JoinTable({ name: 'branch_movies' })
   movies: Movie[];
 

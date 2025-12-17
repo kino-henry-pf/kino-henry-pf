@@ -1,12 +1,15 @@
-"use client";
-
-import { Suspense } from "react";
 import OAuthSuccessPage from "@/components/OauthSuccess";
 
-export default function LoginGoogle() {
+export default async function LoginGoogle({
+  searchParams
+}: {
+  searchParams: Promise<{
+    token: string
+  }>
+}) {
+  const {token} = await searchParams
+
   return (
-    <Suspense fallback={<p>Processing login...</p>}>
-      <OAuthSuccessPage />
-    </Suspense>
+    <OAuthSuccessPage token={token} />
   );
 }

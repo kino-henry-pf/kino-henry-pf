@@ -1,6 +1,7 @@
 import { apiClient } from '@/services/apiClient';
 import { Showtime } from '@/types/showtime';
 import Link from 'next/link';
+import SelectShowtimeButton from '@/components/SelectShowtimeButton'
 
 export default async function ShowtimesPage({
   params,
@@ -62,13 +63,9 @@ export default async function ShowtimesPage({
               Function: {show.room.name} • {show.language} • {show.format}
             </p>
 
-            <Link
+            <SelectShowtimeButton
               href={`/movies/${movie}/branches/${branch}/showtimes/${show.id}/seats`}
-            >
-              <button className="mt-4 px-4 py-2 rounded bg-[var(--color-primary)] text-[var(--primary-foreground)] font-bold cursor-pointer">
-                Select
-              </button>
-            </Link>
+            />
           </div>
         ))}
       </div>

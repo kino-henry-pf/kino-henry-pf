@@ -6,9 +6,21 @@ import validateRoomUpsert from "../../validate/validateRoomUpsert";
 import { useQuery } from "@/hooks/useQuery";
 import Loader from "../../../../components/Loader";
 import { Branch } from "@/types/branch";
+import { useEffect, useRef } from "react";
 
 export default function CreateRoomPage() {
     const branchesQuery = useQuery<Branch[]>("branches")
+
+    const loaderRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        if (!loaderRef.current) return
+        const scrollTop = window.scrollY + loaderRef.current.getBoundingClientRect().top
+        window.scrollTo({
+            top: scrollTop - 133.3,
+            behavior: "smooth"
+        })
+    }, [loaderRef])
 
     return branchesQuery.data ? (
         <UpsertResourcePage<Room>
@@ -41,6 +53,7 @@ export default function CreateRoomPage() {
                     icon: "Bank",
                     as: "select",
                     type: "select",
+                    required: true,
                     options: branchesQuery.data.map(branch => (
                         {
                             value: branch.id,
@@ -51,7 +64,7 @@ export default function CreateRoomPage() {
             ]}
         />
     ) : branchesQuery.isLoading ? (
-        <div className="w-full h-[400px] flex items-center justify-center">
+        <div ref={loaderRef} className="w-full h-[400px] flex items-center justify-center">
             <Loader className="size-10" />
         </div>
     ) : (

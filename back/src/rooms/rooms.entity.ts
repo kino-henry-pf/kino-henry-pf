@@ -18,7 +18,7 @@ export default class Room {
   @Column()
   name: string;
 
-  @ManyToOne(() => Branch, (branch) => branch.rooms)
+  @ManyToOne(() => Branch, (branch) => branch.rooms, {onDelete: "CASCADE"})
   @JoinColumn({ name: 'branchId' })
   branch: Branch;
 

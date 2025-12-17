@@ -3,12 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import Showtime from './showtimes.entity';
 import { Repository } from 'typeorm';
 import { CreateShowtimeDto } from './DTOs/create-showtime.dto';
+import { Branch } from '../branchs/branch.entity';
 
 @Injectable()
 export default class ShowtimesRepository {
   constructor(
     @InjectRepository(Showtime)
     private readonly showtimesRepository: Repository<Showtime>,
+    @InjectRepository(Branch)
+    private readonly branchesRepository: Repository<Branch>,
   ) {}
 
   async findAll(): Promise<Showtime[]> {
@@ -34,12 +37,41 @@ export default class ShowtimesRepository {
 
   async createMovie(dto: CreateShowtimeDto): Promise<Showtime> {
     const newShowtime = this.showtimesRepository.create(dto);
+    const branch = await this.branchesRepository.findOne({
+      where: {id: dto.branchId},
+      relations: ["movies"]
+    })
+    const updatedBranch = this.branchesRepository.create({
+      id: branch.id,
+      movies: [
+        ...branch.movies,
+        {id: dto.movieId}
+      ]
+    })
+    await this.branchesRepository.save(updatedBranch)
     return await this.showtimesRepository.save(newShowtime);
   }
 
   async deleteShowtime(id: string): Promise<Showtime | null> {
     const showtime = await this.findOneOrNull(id);
     if (!showtime) return null;
+
+    const deleteFromBranch = await this.showtimesRepository.count({
+      where: {
+        room: {
+          branchId: showtime.room.branchId
+        },
+        movieId: showtime.movieId,
+      }
+    })
+
+    if (deleteFromBranch <= 1) {
+      await this.branchesRepository.createQueryBuilder()
+        .relation(Branch, "movies")
+        .of(showtime.room.branchId)
+        .remove(showtime.movieId)
+    }
+
     await this.showtimesRepository.delete(id);
     return showtime;
   }
@@ -47,7 +79,7 @@ export default class ShowtimesRepository {
   private async findOneOrNull(id: string): Promise<Showtime | null> {
     const showtime = await this.showtimesRepository.findOne({
       where: { id },
-      relations: ['movie'],
+      relations: ['movie', 'room', 'room.branch', 'room.branch.movies'],
     });
     return showtime || null;
   }

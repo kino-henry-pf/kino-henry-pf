@@ -1,3 +1,4 @@
+import { Branch } from "./branch";
 import { Movie } from "./movie";
 
 export type Showtime = {
@@ -12,5 +13,6 @@ export type Showtime = {
     id: string;
     name: string;
     branchId: string;
+    branch: Branch;
   };
 };

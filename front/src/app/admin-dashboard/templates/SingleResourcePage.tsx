@@ -56,9 +56,8 @@ export default function SingleResourcePage<T>({
     useEffect(() => {
         if (!topSectionRef.current) return
         const scrollTop = window.scrollY + topSectionRef.current.getBoundingClientRect().top
-        if (!scrollTop) return
         window.scrollTo({top: scrollTop - 133.33, behavior: "smooth"})
-    }, [topSectionRef, resource, data])
+    }, [topSectionRef])
 
     return (
         <section className="w-full h-fit" ref={topSectionRef}>
@@ -110,7 +109,7 @@ export default function SingleResourcePage<T>({
                                 <div className="w-full h-fit flex flex-col gap-5">
                                     {
                                         data.rows.map((row, index) => (
-                                            <div key={index} className="w-fit h-fit grid grid-cols-[100px_1fr] items-center gap-3">
+                                            <div key={index} className="w-fit h-fit grid grid-cols-[auto_1fr] items-center gap-5">
                                                 <div className="w-full h-fit flex justify-start text-md">
                                                     <span>{row.name}</span>
                                                 </div>
@@ -134,7 +133,7 @@ export default function SingleResourcePage<T>({
                                     onClose={() => _setDeleteDialog(false)}
                                     isLoading={deleteMutation?.isLoading || query.isLoading || deleteMutation?.data}
                                     actions={
-                                        <nav className="w-full h-fit grid grid-cols-2 gap-5">
+                                        <nav className="w-full h-fit grid grid-cols-[1fr_auto] gap-5">
                                             <Button
                                                 width="100%"
                                                 primary={false}
@@ -143,7 +142,6 @@ export default function SingleResourcePage<T>({
                                                 }}
                                             >Cancel</Button>
                                             <Button
-                                                width="100%"
                                                 onClick={async () => {
                                                     await deleteMutation?.submit({})
                                                     router.push(deleteResource.successRedirect)

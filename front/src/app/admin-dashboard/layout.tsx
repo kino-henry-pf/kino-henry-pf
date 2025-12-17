@@ -4,7 +4,6 @@ import PageError from "../errorUserPage/page"
 import Button from "@/components/Button"
 import AdminMenu from "./components/AdminMenu"
 import { useAuth } from "@/context/authContext"
-import Footer from "@/components/Footer"
 import { useEffect, useState } from "react"
 
 export default function AdminDashboardLayout({
@@ -31,23 +30,27 @@ export default function AdminDashboardLayout({
   }
 
     return (
-        <>
-            <main className="w-full h-fit min-h-[calc(100vh-6rem)] relative grid grid-cols-1 grid-rows-[auto_1fr]">
-                <section className="w-full h-fit container-x-padding grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-5 items-center border-t-1 border-b-1 border-[var(--color-border)] py-10">
-                    <div className="h-fit w-fit flex flex-col">
-                        <h1 className="text-3xl font-bold">Welcome, <span className="text-[var(--color-primary)]">{auth?.user.name.split(" ")[0]}</span></h1>
-                        <p className="text-md opacity-50">It displays key platform metrics: users, products, movies, and reviews, all in one place.</p>
-                    </div>
-                    <Button rounded>Print report</Button>
-                </section>
-                <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 py-10 container-x-padding max-lg-no-padding">
-                    <AdminMenu />
-                    <div className="w-full h-fit flex flex-col gap-10 relative min-h-[calc(100dvh-10rem)]">
-                        {children}
-                    </div>
-                </div>
-            </main>
-            <Footer />
-        </>
+          <main className="w-full h-fit min-h-[calc(100vh-6rem)] relative grid grid-cols-1 grid-rows-[auto_1fr]">
+              <section className="w-full h-fit container-x-padding grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-5 items-center border-t-1 border-b-1 border-[var(--color-border)] py-10">
+                  <div className="h-fit w-fit flex flex-col">
+                      <h1 className="text-3xl font-bold">Welcome, <span className="text-[var(--color-primary)]">{auth?.user.name.split(" ")[0]}</span></h1>
+                      <p className="text-md opacity-50">It displays key platform metrics: users, products, movies, and reviews, all in one place.</p>
+                  </div>
+                  <Button
+                    rounded
+                    onClick={() => {
+                      window
+                        .open(`${process.env.NEXT_PUBLIC_API_URL}/api`, "_blank")
+                        ?.focus()
+                    }}
+                  >View API documentation</Button>
+              </section>
+              <div className="w-full h-full relative xl:grid xl:grid-cols-[1fr_850px] md:gap-10 py-10 container-x-padding max-lg-no-padding">
+                  <AdminMenu />
+                  <div className="w-full h-fit flex flex-col gap-10 relative min-h-[calc(100dvh-10rem)]">
+                      {children}
+                  </div>
+              </div>
+          </main>
     )
 }
