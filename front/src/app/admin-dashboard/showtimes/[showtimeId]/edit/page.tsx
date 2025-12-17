@@ -7,7 +7,7 @@ import { useQuery } from "@/hooks/useQuery";
 import { Branch } from "@/types/branch";
 import { Showtime } from "@/types/showtime";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Movie } from "@/types/movie";
 import { Room } from "@/types/room";
 
@@ -21,6 +21,17 @@ export default function UpdateShowtimePage() {
         roomsQuery = useQuery<Room[]>(`rooms/branch/${_selectedBranch}`, {
             autoFetch: !!_selectedBranch
         })
+
+    const loaderRef = useRef<HTMLDivElement | null>(null)
+    
+    useEffect(() => {
+        if (!loaderRef.current) return
+        const scrollTop = window.scrollY + loaderRef.current.getBoundingClientRect().top
+        window.scrollTo({
+            top: scrollTop - 133.3,
+            behavior: "smooth"
+        })
+    }, [loaderRef])
 
     useEffect(() => {
         if (!_selectedBranch) return
@@ -141,7 +152,7 @@ export default function UpdateShowtimePage() {
             ]}
         />
     ) : (branchesQuery.isLoading || moviesQuery.data) && !roomsQuery.error ? (
-        <div className="w-full h-[400px] flex items-center justify-center">
+        <div ref={loaderRef} className="w-full h-[400px] flex items-center justify-center">
             <Loader className="size-10" />
         </div>
     ) : (
