@@ -92,7 +92,6 @@ export default function SeatsPage({ params }: { params: Promise<Params> }) {
     const date = toDate(dateString);
 
     return new Intl.DateTimeFormat('en-US', {
-      timeZone: 'America/Mexico_City',
       weekday: 'long',
       day: 'numeric',
       month: 'short',
