@@ -45,6 +45,6 @@ export const environmentVariables = registerAs(
     prod_front_url: process.env.PROD_FRONT_URL ?? '',
     outlook_email: process.env.OUTLOOK_EMAIL ?? '',
     outlook_password: process.env.OUTLOOK_PASSWORD ?? '',
-    resend_api_key: process.env.RESEND_API_KEY ?? '';
+    resend_api_key: process.env.RESEND_API_KEY ?? '',
   }),
 );
