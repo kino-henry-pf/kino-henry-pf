@@ -67,7 +67,7 @@ export class PaymentsService {
   }
 
   async handleWebhook(rawBody: Buffer, signature: string) {
-    const endpointSecret: string = this.config.get('env.stripe_webhook_secret');
+    const endpointSecret = this.config.get<string>('STRIPE_WEBHOOK_SECRET');
 
     let event: Stripe.Event;
 
