@@ -29,7 +29,6 @@ export default async function ShowtimesPage({
     const date = toDate(dateString);
 
     return new Intl.DateTimeFormat('en-US', {
-      timeZone: 'America/Mexico_City',
       weekday: 'long',
       day: 'numeric',
       month: 'short',
