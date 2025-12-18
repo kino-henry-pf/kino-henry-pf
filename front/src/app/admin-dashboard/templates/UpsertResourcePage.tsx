@@ -110,7 +110,14 @@ export default function UpsertResourcePage<T>({
                                     Object.entries(body).filter(([key]) => key !== "location")
                                 )
 
-                                mutation.submit(filtered)
+                                mutation.submit({
+                                    ...filtered,
+                                    ...(filtered.startTime ? [
+                                        {
+                                            startTime: new Date(filtered.startTime).toISOString()
+                                        }
+                                    ] : [])
+                                })
                             }}
                             validate={validate}
                         >
