@@ -112,11 +112,9 @@ export default function UpsertResourcePage<T>({
 
                                 mutation.submit({
                                     ...filtered,
-                                    ...(filtered.startTime ? [
-                                        {
-                                            startTime: new Date(filtered.startTime).toISOString()
-                                        }
-                                    ] : [])
+                                    ...(filtered.startTime ? {
+                                        startTime: new Date(filtered.startTime).toISOString()
+                                    } : {})
                                 })
                             }}
                             validate={validate}
