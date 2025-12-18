@@ -72,6 +72,8 @@ export default class OrdersRepository {
       branch: { id: dto.branchId },
     });
 
+    order.status = 'PAID';
+
     const savedOrder = await this.ordersRepository.save(order);
 
     // Build order details
